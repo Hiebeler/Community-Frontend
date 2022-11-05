@@ -1,9 +1,36 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+  <div class="container">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h1 class="register-header">Register</h1>
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="field-box">
+              <label for="email">Email</label>
+              <input type="email" id="email" formControlName="email" placeholder="Email">
+              <span *ngIf="email.invalid && email.touched">Invalid email</span>
+            </div>
+            <div class="field-box">
+              <label for="username">Username</label>
+              <input type="text" id="username" formControlName="username" placeholder="Username">
+              <span *ngIf="username.invalid && username.touched">Username has to be at least 3 characters</span>
+            </div>
+            <div class="field-box">
+              <label for="password">Password</label>
+              <input type="password" id="password" formControlName="password" placeholder="Password">
+              <span *ngIf="password.invalid && password.touched">Too weak</span>
+            </div>
+            <div class="field-box">
+              <label for="password2">Repeat your password</label>
+              <input type="password" id="password2" formControlName="password2" placeholder="Repeat your password">
+              <span *ngIf="password2.touched && password.value !== password2.value">Passwords don't match</span>
+            </div>
+            <button [disabled]="registerForm.invalid" type="submit" class="btn-large btn-primary">Register</button>
+          </form>
+          <p class="ion-text-center txt-gotologin">Already have an account? <a routerLink="/login">Login
+            here</a></p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>

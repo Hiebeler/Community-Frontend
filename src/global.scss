@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -24,3 +24,282 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+::selection {
+  color: var(--ion-color-light);
+  background: var(--ion-color-primary);
+}
+
+// @font-face {
+//   font-family: "custom-regular";
+//   src: url("/assets/fonts/Jost-Regular.ttf") format("truetype");
+//   font-display: swap;
+// }
+
+// @font-face {
+//   font-family: "custom-medium";
+//   src: url("/assets/fonts/Jost-Medium.ttf") format("truetype");
+//   font-display: swap;
+// }
+
+// @font-face {
+//   font-family: "custom-semibold";
+//   src: url("/assets/fonts/Jost-SemiBold.ttf") format("truetype");
+//   font-display: swap;
+// }
+
+// @font-face {
+//   font-family: "custom-bold";
+//   src: url("/assets/fonts/Jost-Bold.ttf") format("truetype");
+//   font-display: swap;
+// }
+
+.regular {
+  font-family: "custom-regular";
+}
+
+.medium {
+  font-family: "custom-medium";
+}
+
+.semibold {
+  font-family: "custom-semibold";
+}
+
+.bold {
+  font-family: "custom-bold";
+}
+
+* {
+  font-family: "custom-medium", sans-serif;
+  color: var(--ion-color-light);
+}
+
+p {
+  margin-top: 0;
+}
+
+h1 {
+  font-family: "custom-bold", sans-serif;
+  font-size: 2.2rem;
+}
+
+h2 {
+  font-family: "custom-bold", sans-serif;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline-color: var(--ion-color-primary);
+  outline-style: solid;
+  outline-width: 2px;
+}
+
+button:focus,
+img:focus {
+  outline: none;
+}
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 50px var(--ion-color-medium) inset;
+  -webkit-text-fill-color: var(--ion-color-light);
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 900px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 900px;
+  }
+}
+
+.btn-small {
+  color: var(--ion-color-light);
+  padding: 12px 12px 12px 12px;
+  border-radius: var(--border-radius-small);
+  font-size: 0.8em;
+  line-height: normal;
+}
+
+.btn-large {
+  color: var(--ion-color-light);
+  padding: 15px 20px 15px 20px;
+  border-radius: var(--border-radius-small);
+  font-size: 0.9em;
+  line-height: normal;
+}
+
+.btn-primary {
+  background-color: var(--ion-color-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--ion-color-primary-shade);
+}
+
+.btn-medium {
+  background-color: var(--ion-color-medium);
+}
+
+.btn-medium:hover {
+  background-color: var(--ion-color-medium-shade);
+}
+
+.btn-dark {
+  background-color: var(--ion-color-dark);
+}
+
+.btn-dark:hover {
+  background-color: var(--ion-color-dark-shade);
+}
+
+.btn-disabled {
+  background-color: var(--ion-color-medium)
+}
+
+.array-btn {
+  border: none;
+  border-radius: var(--border-radius-small);
+  outline: none;
+  padding: 10px 10px;
+  background-color: var(--ion-color-medium);
+  cursor: pointer;
+  margin: 5px;
+}
+
+.array-btn:hover {
+  background-color: var(--ion-color-medium-shade);
+}
+
+.array-btn.active {
+  color: var(--ion-color-light);
+  font-family: "custom-bold", sans-serif !important;
+}
+
+.array-btn.active:hover {
+  background-color: var(--ion-color-primary-shade);
+}
+
+ion-alert {
+  .alert-wrapper {
+    color: var(--ion-color-light);
+    background-color: var(--ion-color-medium);
+    border-radius: var(--border-radius-big) !important;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .alert-title {
+    color: var(--ion-color-light) !important;
+  }
+
+  .alert-message {
+    text-align: center;
+    color: var(--ion-color-light) !important;
+  }
+
+  .alert-button-group {
+    justify-content: center !important;
+  }
+
+  .alert-button {
+    background-color: var(--ion-color-primary) !important;
+    color: var(--ion-color-light);
+    border-radius: var(--border-radius-small) !important;
+    text-transform: none !important;
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+  }
+
+  &.custom-alert-two {
+    .alert-button:first-of-type {
+      background-color: var(--ion-color-medium) !important;
+    }
+
+    .alert-button:nth-of-type(2) {
+      background-color: var(--ion-color-primary) !important;
+    }
+  }
+}
+
+.postcontent img {
+  max-height: 60vh !important;
+}
+
+quill-editor {
+  .ql-toolbar {
+    background-color: var(--ion-color-medium) !important;
+    border: 0 !important;
+    border-radius: var(--border-radius-small) var(--border-radius-small) 0 0;
+
+    .ql-stroke {
+      fill: none;
+      stroke: #fff;
+    }
+
+    .ql-fill {
+      fill: #fff;
+      stroke: none;
+    }
+
+    .ql-picker {
+      color: #fff;
+    }
+  }
+
+  .ql-container {
+    background-color: var(--ion-color-medium) !important;
+    border: 0 !important;
+    border-radius: 0 0 var(--border-radius-small) var(--border-radius-small);
+
+    .ql-editor.ql-blank::before {
+      color: var(--ion-color-light);
+    }
+  }
+}
+
+.swiper-slide {
+  width: fit-content !important;
+}
+
+.swipe-img {
+  border-radius: var(--border-radius-big);
+  max-height: 60vh !important;
+  max-width: 100% !important;
+}
+
+@media (min-width: 768px) {
+  .swipe-img {
+    max-height: 500px !important;
+    max-width: 500px !important;
+  }
+}

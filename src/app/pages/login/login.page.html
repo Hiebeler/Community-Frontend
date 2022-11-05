@@ -1,9 +1,26 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <div class="container">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <h1 class="register-header">Login</h1>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="field-box">
+              <label for="email">Email</label>
+              <input type="email" id="email" formControlName="email" placeholder="Email">
+              <span *ngIf="email.invalid && email.touched">Invalid email</span>
+            </div>
+            <div class="field-box">
+              <label for="password">Password</label>
+              <input type="password" id="password" formControlName="password" placeholder="Password">
+            </div>
+            <button [disabled]="loginForm.invalid" type="submit" class="btn-large btn-primary">Log
+              in</button>
+          </form>
+          <p class="ion-text-center txt-gotologin"><a routerLink="/register">Create an account</a></p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 
 </ion-content>
