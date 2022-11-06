@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Community } from 'src/app/models/community';
 import { ApiService } from 'src/app/services/api.service';
@@ -18,7 +19,8 @@ export class FindCommunityPage {
   constructor(
     private apiService: ApiService,
     private alertController: AlertController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private router: Router
   ) {
     this.searchForm = new FormGroup({
       search: new FormControl<string | null>('', [Validators.required, Validators.minLength(5), Validators.pattern('^[0-9]*$')])
@@ -68,5 +70,9 @@ export class FindCommunityPage {
         await toast.present();
       }
     });
+  }
+
+  gotoCreateCommunity() {
+    this.router.navigate(['/tabs/create-community']);
   }
 }

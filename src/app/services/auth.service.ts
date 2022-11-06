@@ -78,9 +78,9 @@ export class AuthService {
           text: 'Okay',
           role: 'ok',
           handler: async () => {
-            if (res.status === 'ok') {
+            if (res.status === 'OK') {
               await this.storageService.setToken(res.data.token);
-              this.decodedUserToken = this.helper.decodeToken(res.token);
+              this.decodedUserToken = this.helper.decodeToken(res.data.token);
               this.authenticationState.next(true);
               this.userService.fetchUserFromApi(this.getUser().id);
               this.router.navigate(['/tabs/profile']);

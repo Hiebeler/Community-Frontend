@@ -28,6 +28,10 @@ const routes: Routes = [
     path: '',
     redirectTo: '/tabs/profile',
     pathMatch: 'full'
+  },
+  {
+    path: 'create-community',
+    loadChildren: () => import('./pages/create-community/create-community.module').then( m => m.CreateCommunityPageModule)
   }
   // {
   //   path: '**',

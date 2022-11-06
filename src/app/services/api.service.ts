@@ -109,4 +109,8 @@ export class ApiService {
   joinCommunity(data: any): Observable<any> {
     return this.httpClient.post<any>(environment.api + 'user/sendrequest', data, { headers: this.getHeader() });
   }
+
+  createCommunity(data: any): Observable<any> {
+    return this.httpClient.post<any>(environment.api + 'community/create', data, { headers: this.getHeader() });
+  }
 }

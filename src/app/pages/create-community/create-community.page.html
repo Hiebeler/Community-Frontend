@@ -1,0 +1,17 @@
+<ion-content>
+  <div class="container">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <form [formGroup]="communityForm" (ngSubmit)="createCommunity()">
+            <div class="field-box">
+              <label for="name">Community Name</label>
+              <input type="text" id="name" formControlName="name" placeholder="Community name">
+            </div>
+            <button [disabled]="communityForm.invalid" type="submit" class="btn-large btn-primary">Erstellen</button>
+          </form>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
