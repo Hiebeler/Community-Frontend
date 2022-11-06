@@ -1,9 +1,23 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>profile</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <div class="container">
+    <ion-grid>
+      <ion-row>
+        <ion-col style="display: flex; justify-content: center">
+          <img src="./../../../assets/noprofile.svg" style="width: 200px; padding-bottom: 10px;" alt="" height="200"
+            width="200">
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col style="display: flex; justify-content: center">
+          <p>Daniel Hiebeler</p>
+        </ion-col>
+      </ion-row>
 
+      <ion-row>
+        <ion-col style="display: flex; justify-content: center">
+          <button type="button" class="btn-small btn-primary" style="width: 100%;" (click)="logout()">Logout</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 </ion-content>

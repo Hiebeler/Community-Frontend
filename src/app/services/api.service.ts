@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { CommunityAdapter } from '../adapter/community-adapter';
 import { UserAdapter } from '../adapter/user-adapter';
+import { Community } from '../models/community';
 import { User } from '../models/user';
 import { StorageService } from './storage.service';
 
@@ -15,7 +17,9 @@ export class ApiService {
   constructor(
     private httpClient: HttpClient,
     private storageService: StorageService,
-    private userAdapter: UserAdapter) { }
+    private userAdapter: UserAdapter,
+    private communityAdapter: CommunityAdapter
+    ) { }
 
   getHeader(): HttpHeaders {
     const headers = new HttpHeaders({
@@ -89,5 +93,11 @@ export class ApiService {
     dataFile.append('image', file);
     const headers = new HttpHeaders({ authorization: 'Client-ID c0df3b4f744766f' });
     return this.httpClient.post('https://api.imgur.com/3/image/', dataFile, { headers });
+  }
+
+  getCommunityByCode(code: string): Observable<Community> {
+    return this.httpClient.get<any>(environment.api + 'community/getbycode/' + code, { headers: this.getHeader() }).pipe(
+      map(res => this.communityAdapter.adapt(res.data))
+    );
   }
 }

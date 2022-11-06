@@ -1,0 +1,23 @@
+<ion-content>
+  <div class="container">
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+            <div class="field-box">
+              <label for="search">Community Code</label>
+              <input type="text" id="search" formControlName="search" placeholder="123456789">
+            </div>
+            <button [disabled]="searchForm.invalid" type="submit" class="btn-large btn-primary">Search</button>
+          </form>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="foundCommunity">
+        <ion-col>
+          <p>{{foundCommunity.name}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

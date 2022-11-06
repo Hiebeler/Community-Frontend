@@ -37,7 +37,6 @@ export class AuthService {
 
   checkToken() {
     const token = this.storageService.getToken();
-    console.log(token);
     if (token) {
       console.log(token);
       const decoded = this.helper.decodeToken(token);
@@ -105,8 +104,8 @@ export class AuthService {
     return this.apiService.login(email, password).subscribe(async res => {
       console.log(res);
       if (res.status === 'OK') {
-        await this.storageService.setToken(res.token);
-        this.decodedUserToken = this.helper.decodeToken(res.token);
+        await this.storageService.setToken(res.data.token);
+        this.decodedUserToken = this.helper.decodeToken(res.data.token);
         this.authenticationState.next(true);
         this.userService.fetchUserFromApi(this.getUser().id);
         this.router.navigate(['profile']);
