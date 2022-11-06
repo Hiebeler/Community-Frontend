@@ -9,14 +9,15 @@ export class User {
   public lastname: string;
   public profileimage: SafeResourceUrl;
   public creationDate: Date;
+  public communityId: number;
 
   constructor(data?: any) {
     this.id = data?.id;
     this.email = data?.email;
-    this.username = data?.username;
     this.firstname = data?.firstname;
     this.lastname = data?.lastname;
-    this.profileimage = data?.profileimage;
+    this.profileimage = data?.profile_image;
     this.creationDate = data?.creationdate;
+    this.communityId = data?.fk_community_id;
   }
 }

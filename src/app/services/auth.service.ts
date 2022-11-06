@@ -38,11 +38,8 @@ export class AuthService {
   checkToken() {
     const token = this.storageService.getToken();
     if (token) {
-      console.log(token);
       const decoded = this.helper.decodeToken(token);
       const isExpired = this.helper.isTokenExpired(token);
-
-      console.log(decoded);
 
       if (!isExpired) {
         this.decodedUserToken = decoded;
@@ -65,7 +62,6 @@ export class AuthService {
     };
 
     return this.apiService.register(obj).subscribe(async res => {
-      console.log(res);
       let head = 'Gratuliere';
       let msg = 'Registrierung erfolgreich';
       if (res.status === 'Error') {
@@ -87,7 +83,7 @@ export class AuthService {
               this.decodedUserToken = this.helper.decodeToken(res.token);
               this.authenticationState.next(true);
               this.userService.fetchUserFromApi(this.getUser().id);
-              this.router.navigate(['profile']);
+              this.router.navigate(['/tabs/profile']);
             }
           }
         }]
@@ -102,13 +98,12 @@ export class AuthService {
 
   login(email, password) {
     return this.apiService.login(email, password).subscribe(async res => {
-      console.log(res);
       if (res.status === 'OK') {
         await this.storageService.setToken(res.data.token);
         this.decodedUserToken = this.helper.decodeToken(res.data.token);
         this.authenticationState.next(true);
         this.userService.fetchUserFromApi(this.getUser().id);
-        this.router.navigate(['profile']);
+        this.router.navigate(['/tabs/profile']);
       }
       else {
         this.alertService.showOkayAlertWithoutAction('Ooops', res.errors[0]);

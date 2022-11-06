@@ -1,14 +1,14 @@
 <ion-content>
   <ion-tabs>
     <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="find-community">
-        <ion-icon name="calendar"></ion-icon>
-        <ion-label>Community</ion-label>
+      <ion-tab-button tab="find-community" *ngIf="!communityExists">
+        <ion-icon name="earth"></ion-icon>
+        <ion-label>Community finden</ion-label>
       </ion-tab-button>
 
       <ion-tab-button tab="profile">
-        <ion-icon name="calendar"></ion-icon>
-        <ion-label>Profile</ion-label>
+        <ion-icon name="person-circle-outline"></ion-icon>
+        <ion-label>Profil</ion-label>
       </ion-tab-button>
     </ion-tab-bar>
   </ion-tabs>

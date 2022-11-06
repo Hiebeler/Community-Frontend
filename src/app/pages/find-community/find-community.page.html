@@ -15,8 +15,23 @@
 
       <ion-row *ngIf="foundCommunity">
         <ion-col>
-          <p>{{foundCommunity.name}}</p>
+          <h1>Community gefunden:</h1>
+          <ion-grid class="community-wrapper">
+            <ion-row>
+              <ion-col>
+                <h1 class="ion-text-center">{{foundCommunity.name}}</h1>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <button type="button" class="btn-small btn-primary" (click)="join()">Beitrittsanfrage senden</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-col>
+
+
       </ion-row>
     </ion-grid>
   </div>

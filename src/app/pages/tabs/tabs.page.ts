@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-tabs',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabsPage implements OnInit {
 
-  constructor() { }
+  communityExists = false;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.userService.getLatestUser().subscribe((user) => {
+      if (user) {
+        if (user.communityId) {
+          this.communityExists = true;
+        } else {
+          this.communityExists = false;
+        }
+      }
+    });
   }
 
 }

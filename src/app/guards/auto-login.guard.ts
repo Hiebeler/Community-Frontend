@@ -19,7 +19,7 @@ export class AutoLoginGuard implements CanActivate {
       take(1),
       map(isAuthenticated => {
         if (isAuthenticated) {
-          this.router.navigate(['profile']);
+          this.router.navigate(['/tabs/profile']);
           return false;
         }
         else {

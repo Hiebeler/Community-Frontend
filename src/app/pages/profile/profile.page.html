@@ -1,21 +1,33 @@
 <ion-content>
   <div class="container">
-    <ion-grid>
+    <ion-grid *ngIf="user">
       <ion-row>
         <ion-col style="display: flex; justify-content: center">
-          <img src="./../../../assets/noprofile.svg" style="width: 200px; padding-bottom: 10px;" alt="" height="200"
-            width="200">
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col style="display: flex; justify-content: center">
-          <p>Daniel Hiebeler</p>
+          <img class="profileimage" [src]="user.profileimage" alt="" height="100"
+            width="100">
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col style="display: flex; justify-content: center">
-          <button type="button" class="btn-small btn-primary" style="width: 100%;" (click)="logout()">Logout</button>
+          <p>{{user.firstname + ' ' + user.lastname}}</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col style="display: flex; justify-content: center">
+          <p *ngIf="!user.communityId">Noch keiner Community beigetreten</p>
+          <p *ngIf="community">
+            <span *ngIf="user.id === community.adminId">Admin</span>
+            <span *ngIf="user.id !== community.adminId">Mitglied</span>
+            in Community "{{community.name}}"
+          </p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col style="display: flex; justify-content: center">
+          <button type="button" class="btn-small btn-primary"(click)="logout()">Ausloggen</button>
         </ion-col>
       </ion-row>
     </ion-grid>

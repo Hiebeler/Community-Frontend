@@ -13,7 +13,7 @@ export class UserAdapter implements Adapter<User> {
 
   adapt(item: any): User {
     item.creationdate = new Date(item.creationdate);
-    item.profileimage = this.domSanitizer.bypassSecurityTrustResourceUrl(item.profileimage);
+    item.profile_image = this.domSanitizer.bypassSecurityTrustResourceUrl(item.profile_image);
     return new User(item);
   }
 }

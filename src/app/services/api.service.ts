@@ -38,8 +38,8 @@ export class ApiService {
   }
 
   getUserById(id: number): Observable<User> {
-    return this.httpClient.get<any>(environment.api + 'user/databyuserid/' + id).pipe(
-      map(data => this.userAdapter.adapt(data))
+    return this.httpClient.get<any>(environment.api + 'user/databyuserid/' + id, { headers: this.getHeader() }).pipe(
+      map(data => this.userAdapter.adapt(data.data))
     );
   }
 
@@ -72,7 +72,6 @@ export class ApiService {
   }
 
   changePassword(data: any): Observable<any> {
-    console.log(data);
     return this.httpClient.post<any>(environment.api + 'user/changepw', data, { headers: this.getHeader() });
   }
 
@@ -99,5 +98,15 @@ export class ApiService {
     return this.httpClient.get<any>(environment.api + 'community/getbycode/' + code, { headers: this.getHeader() }).pipe(
       map(res => this.communityAdapter.adapt(res.data))
     );
+  }
+
+  getCommunityById(id: number): Observable<Community> {
+    return this.httpClient.get<any>(environment.api + 'community/getbyid/' + id, { headers: this.getHeader() }).pipe(
+      map(res => this.communityAdapter.adapt(res.data))
+    );
+  }
+
+  joinCommunity(data: any): Observable<any> {
+    return this.httpClient.post<any>(environment.api + 'user/sendrequest', data, { headers: this.getHeader() });
   }
 }
