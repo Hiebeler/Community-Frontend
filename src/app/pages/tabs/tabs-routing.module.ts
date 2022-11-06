@@ -17,6 +17,10 @@ const routes: Routes = [
         loadChildren: () => import('../profile/profile.module').then( m => m.ProfilePageModule)
       },
       {
+        path: 'tasks',
+        loadChildren: () => import('../tasks/tasks.module').then( m => m.TasksPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/profile',
         pathMatch: 'full'

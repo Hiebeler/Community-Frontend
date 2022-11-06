@@ -28,10 +28,6 @@ const routes: Routes = [
     path: '',
     redirectTo: '/tabs/profile',
     pathMatch: 'full'
-  },
-  {
-    path: 'find-community',
-    loadChildren: () => import('./pages/find-community/find-community.module').then( m => m.FindCommunityPageModule)
   }
   // {
   //   path: '**',
