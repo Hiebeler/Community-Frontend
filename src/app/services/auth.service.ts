@@ -37,9 +37,13 @@ export class AuthService {
 
   checkToken() {
     const token = this.storageService.getToken();
+    console.log(token);
     if (token) {
+      console.log(token);
       const decoded = this.helper.decodeToken(token);
       const isExpired = this.helper.isTokenExpired(token);
+
+      console.log(decoded);
 
       if (!isExpired) {
         this.decodedUserToken = decoded;
@@ -52,27 +56,39 @@ export class AuthService {
     }
   }
 
-  register(email, username, password1, password2) {
+  register(email, firstname, lastname, password) {
 
     const obj = {
       email,
-      username,
-      password1,
-      password2
+      firstname,
+      lastname,
+      password
     };
 
     return this.apiService.register(obj).subscribe(async res => {
+      console.log(res);
+      let head = 'Gratuliere';
+      let msg = 'Registrierung erfolgreich';
+      if (res.status === 'Error') {
+        head = 'Error!';
+        msg = res.errors[0];
+      }
+
       const alert = this.alertController.create({
         cssClass: 'custom-alert-ok',
         backdropDismiss: false,
-        header: res.header,
-        message: res.message,
+        header: head,
+        message: msg,
         buttons: [{
           text: 'Okay',
           role: 'ok',
-          handler: () => {
-            if (res.status === 1) {
-              this.router.navigate(['login']);
+          handler: async () => {
+            if (res.status === 'ok') {
+              await this.storageService.setToken(res.data.token);
+              this.decodedUserToken = this.helper.decodeToken(res.token);
+              this.authenticationState.next(true);
+              this.userService.fetchUserFromApi(this.getUser().id);
+              this.router.navigate(['profile']);
             }
           }
         }]
@@ -87,33 +103,16 @@ export class AuthService {
 
   login(email, password) {
     return this.apiService.login(email, password).subscribe(async res => {
-      if (res.token) {
+      console.log(res);
+      if (res.status === 'OK') {
         await this.storageService.setToken(res.token);
         this.decodedUserToken = this.helper.decodeToken(res.token);
         this.authenticationState.next(true);
         this.userService.fetchUserFromApi(this.getUser().id);
-        this.router.navigate(['']);
-      }
-      else if (res.notverified === true) {
-        const alert = await this.alertController.create({
-          cssClass: 'custom-alert-two',
-          backdropDismiss: false,
-          header: 'Ooops!',
-          message: 'Your email is not verified yet. Do you want to receive another verification code?',
-          buttons: [{
-            text: 'Cancel'
-          }, {
-            text: 'Send again',
-            role: 'ok',
-            handler: () => {
-              this.sendVerificationMailAgain(email);
-            }
-          }]
-        });
-        await alert.present();
+        this.router.navigate(['profile']);
       }
       else {
-        this.alertService.showOkayAlertWithoutAction('Ooops', res.message);
+        this.alertService.showOkayAlertWithoutAction('Ooops', res.errors[0]);
       }
 
     }),
