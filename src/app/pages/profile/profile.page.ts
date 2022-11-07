@@ -15,6 +15,7 @@ export class ProfilePage implements OnInit {
 
   user: User;
   community: Community;
+  requests: Request[];
 
   constructor(
     private alertController: AlertController,
@@ -35,6 +36,10 @@ export class ProfilePage implements OnInit {
           });
         }
       }
+    });
+    this.apiService.getRequests().subscribe((requests) => {
+      console.log(requests);
+      this.requests = requests;
     });
   }
 

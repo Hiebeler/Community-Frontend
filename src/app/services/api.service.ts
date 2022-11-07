@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { CommunityAdapter } from '../adapter/community-adapter';
+import { RequestAdapter } from '../adapter/request-adapter';
 import { UserAdapter } from '../adapter/user-adapter';
 import { Community } from '../models/community';
 import { User } from '../models/user';
@@ -18,7 +19,8 @@ export class ApiService {
     private httpClient: HttpClient,
     private storageService: StorageService,
     private userAdapter: UserAdapter,
-    private communityAdapter: CommunityAdapter
+    private communityAdapter: CommunityAdapter,
+    private requestAdaper: RequestAdapter
     ) { }
 
   getHeader(): HttpHeaders {
@@ -112,5 +114,11 @@ export class ApiService {
 
   createCommunity(data: any): Observable<any> {
     return this.httpClient.post<any>(environment.api + 'community/create', data, { headers: this.getHeader() });
+  }
+
+  getRequests(): Observable<any> {
+    return this.httpClient.get<any>(environment.api + 'community/requests', { headers: this.getHeader() }).pipe(
+      map(data => data.data.map((item) => this.requestAdaper.adapt(item)))
+    );
   }
 }
