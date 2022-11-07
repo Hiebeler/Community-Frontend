@@ -1,9 +1,15 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>tasks</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <div class="container">
+    <ion-grid>
+      <ion-row  class="ion-nowrap">
+        <ion-col *ngFor="let day of days">
+          <p>{{day.name}}</p>
+            <div *ngFor="let task of day.tasks">
+              {{task.name}}
+            </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 
 </ion-content>

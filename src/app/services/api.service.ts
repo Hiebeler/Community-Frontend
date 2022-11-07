@@ -123,4 +123,8 @@ export class ApiService {
   acceptRequest(data: any): Observable<any> {
     return this.httpClient.post<any>(environment.api + 'community/acceptrequest', data, { headers: this.getHeader() });
   }
+
+  getTasks(data: any): Observable<any> {
+    return this.httpClient.post<any>(environment.api + 'task/gettasksininterval', data, { headers: this.getHeader() });
+  }
 }
