@@ -43,6 +43,13 @@ export class ProfilePage implements OnInit {
     });
   }
 
+  async accept(id: number) {
+    console.log(id);
+    await this.apiService.acceptRequest({id}).subscribe((res) => {
+      console.log(res);
+    });
+  }
+
   async logout() {
     const alert = await this.alertController.create({
       cssClass: 'custom-alert-two',

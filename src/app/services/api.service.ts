@@ -121,4 +121,8 @@ export class ApiService {
       map(data => data.data.map((item) => this.requestAdaper.adapt(item)))
     );
   }
+
+  acceptRequest(data: any): Observable<any> {
+    return this.httpClient.post<any>(environment.api + 'community/acceptrequest', data, { headers: this.getHeader() });
+  }
 }

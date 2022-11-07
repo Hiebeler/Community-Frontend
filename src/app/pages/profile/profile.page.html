@@ -31,18 +31,18 @@
         </ion-col>
       </ion-row>
       <ion-row *ngIf="requests">
-        <ion-col>
+        <ion-col *ngFor="let request of requests">
           <h1>Requests:</h1>
           <ion-grid class="requests-wrapper">
             <ion-row>
               <ion-col>
-                <h1 class="ion-text-center">{{requests[0].userId}}</h1>
+                <h1 class="ion-text-center">{{request.userId}}</h1>
               </ion-col>
             </ion-row>
 
             <ion-row>
               <ion-col>
-                <button type="button" class="btn-small btn-primary" (click)="join()">Annehmen</button>
+                <button type="button" class="btn-small btn-primary" (click)="accept(request.id)">Annehmen</button>
               </ion-col>
             </ion-row>
           </ion-grid>
