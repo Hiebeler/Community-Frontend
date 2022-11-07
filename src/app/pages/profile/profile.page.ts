@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { map } from 'rxjs';
+import { RequestAdapter } from 'src/app/adapter/request-adapter';
 import { Community } from 'src/app/models/community';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
@@ -17,11 +19,13 @@ export class ProfilePage implements OnInit {
   community: Community;
   requests: Request[];
 
+
   constructor(
     private alertController: AlertController,
     private authService: AuthService,
     private userService: UserService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private requestAdapter: RequestAdapter
   ) { }
 
   ngOnInit() {
@@ -38,8 +42,11 @@ export class ProfilePage implements OnInit {
       }
     });
     this.apiService.getRequests().subscribe((requests) => {
-      console.log(requests);
-      this.requests = requests;
+      if (requests.status === 'OK') {
+        requests = requests.data.map((data: any) => this.requestAdapter.adapt(data));
+        console.log(requests);
+        this.requests = requests;
+      }
     });
   }
 
