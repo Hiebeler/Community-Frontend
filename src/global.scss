@@ -30,29 +30,29 @@
   background: var(--ion-color-primary);
 }
 
-// @font-face {
-//   font-family: "custom-regular";
-//   src: url("/assets/fonts/Jost-Regular.ttf") format("truetype");
-//   font-display: swap;
-// }
+@font-face {
+  font-family: "custom-regular";
+  src: url("/assets/fonts/Poppins-Regular.ttf") format("truetype");
+  font-display: swap;
+}
 
-// @font-face {
-//   font-family: "custom-medium";
-//   src: url("/assets/fonts/Jost-Medium.ttf") format("truetype");
-//   font-display: swap;
-// }
+@font-face {
+  font-family: "custom-medium";
+  src: url("/assets/fonts/Poppins-Medium.ttf") format("truetype");
+  font-display: swap;
+}
 
-// @font-face {
-//   font-family: "custom-semibold";
-//   src: url("/assets/fonts/Jost-SemiBold.ttf") format("truetype");
-//   font-display: swap;
-// }
+@font-face {
+  font-family: "custom-semibold";
+  src: url("/assets/fonts/Poppins-SemiBold.ttf") format("truetype");
+  font-display: swap;
+}
 
-// @font-face {
-//   font-family: "custom-bold";
-//   src: url("/assets/fonts/Jost-Bold.ttf") format("truetype");
-//   font-display: swap;
-// }
+@font-face {
+  font-family: "custom-bold";
+  src: url("/assets/fonts/Poppins-Bold.ttf") format("truetype");
+  font-display: swap;
+}
 
 .regular {
   font-family: "custom-regular";
