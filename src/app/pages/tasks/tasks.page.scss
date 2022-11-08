@@ -1,6 +1,5 @@
-ion-col {
-  border-right: 1px red solid;
-  width: 33% !important;
+.day-col {
+  // border-right: 1px red solid;
 }
 
 .container {
@@ -17,4 +16,15 @@ ion-col {
 
 .task-div:hover {
   cursor: pointer;
+}
+
+.today-col {
+  background-color: var(--ion-color-dark-shade);
+  border-radius: var(--border-radius-big);
+}
+
+.add-task-div {
+  display: flex;
+  justify-content: center;
+  font-size: 1.1rem;
 }

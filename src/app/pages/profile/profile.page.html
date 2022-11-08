@@ -9,20 +9,23 @@
 
       <ion-row *ngIf="editingImage" class="editing-image-row ion-padding">
 
-        <ion-col size="6" style="display: flex; justify-content: center">
-          <button type="button" class="btn-small btn-dark" style="width: 100%;" (click)="editImage(false)">Schließen</button>
+        <ion-col size="7" style="display: flex; justify-content: center">
+          <button type="button" class="btn-small btn-dark" style="width: 100%;"
+            (click)="editImage(false)">Schließen</button>
         </ion-col>
 
-        <ion-col size="6" style="display: flex; justify-content: center">
-          <button *ngIf="cropImgPreview" type="button" class="btn-small btn-primary" style="width: 100%;" (click)="saveImage()">Speichern</button>
-          <button *ngIf="!cropImgPreview" type="button" class="btn-small btn-disabled" style="width: 100%;">Speichern</button>
+        <ion-col size="7" style="display: flex; justify-content: center">
+          <button *ngIf="cropImgPreview" type="button" class="btn-small btn-primary" style="width: 100%;"
+            (click)="saveImage()">Speichern</button>
+          <button *ngIf="!cropImgPreview" type="button" class="btn-small btn-disabled"
+            style="width: 100%;">Speichern</button>
         </ion-col>
 
-        <ion-col size="12">
+        <ion-col size="14">
           <input type="file" (change)="onFileChange($event)" />
         </ion-col>
 
-        <ion-col size="12">
+        <ion-col size="14">
           <image-cropper [imageChangedEvent]="imgChangeEvt" [maintainAspectRatio]="true" [aspectRatio]="4 / 4"
             [resizeToWidth]="256" format="jpeg" (imageCropped)="cropImg($event)" (imageLoaded)="imgLoad()"
             (cropperReady)="initCropper()" (loadImageFailed)="imgFailed()" [roundCropper]="true">
@@ -47,13 +50,41 @@
         </ion-col>
       </ion-row>
 
-      <ion-row>
-        <ion-col style="display: flex; justify-content: center">
-          <button type="button" class="btn-small btn-primary"(click)="logout()">Ausloggen</button>
+      <ion-row *ngIf="!editingColor">
+        <ion-col class="color-col">
+          <div (click)="editColor(true)">
+            Meine Farbe
+          </div>
         </ion-col>
       </ion-row>
+
+      <div *ngIf="editingColor">
+        <ion-row>
+          <ion-col size="7" style="display: flex; justify-content: center">
+            <button type="button" class="btn-small btn-dark" style="width: 100%;"
+              (click)="editColor(false)">Schließen</button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col *ngFor="let color of colors">
+            <div>
+              {{color}}
+            </div>
+          </ion-col>
+        </ion-row>
+      </div>
+
+
+
+      <ion-row style="padding-top: 50px;">
+        <ion-col style="display: flex; justify-content: center">
+          <button type="button" class="btn-small btn-primary" (click)="logout()">Ausloggen</button>
+        </ion-col>
+      </ion-row>
+
+
       <ion-row *ngIf="requests">
-        <ion-col *ngFor="let request of requests">
+        <ion-col *ngFor="let request in requests">
           <h1>Requests:</h1>
           <ion-grid class="requests-wrapper">
             <ion-row>

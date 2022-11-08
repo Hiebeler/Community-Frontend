@@ -21,10 +21,13 @@ export class ProfilePage implements OnInit {
   requests: Request[];
 
   editingImage = false;
+  editingColor = false;
 
   imgChangeEvt: any = '';
   cropImgPreview: any = '';
   croppedImg: any = '';
+
+  colors: any = ['#ff7c2e', '#fff', '#000'];
 
 
   constructor(
@@ -84,6 +87,10 @@ export class ProfilePage implements OnInit {
 
   editImage(state: boolean) {
     this.editingImage = state;
+  }
+
+  editColor(state: boolean) {
+    this.editingColor = state;
   }
 
   saveImage() {

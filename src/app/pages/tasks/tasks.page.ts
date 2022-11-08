@@ -16,12 +16,15 @@ export class TasksPage implements OnInit {
 
   days: Day[] = [];
 
+  dayToday: Date;
+
   constructor(
     private apiService: ApiService,
     private modalController: ModalController
   ) { }
 
   ngOnInit() {
+    this.dayToday = new Date();
     const params = {
       startDate: '2022-11-07',
       endDate: '2022-11-11'
