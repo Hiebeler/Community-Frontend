@@ -1,3 +1,20 @@
 ion-col {
   border-right: 1px red solid;
+  width: 33% !important;
+}
+
+.container {
+  padding: 0;
+}
+
+.task-div {
+  background-color:  var(--ion-color-medium);
+  border-radius: var(--border-radius-small);
+  padding: 5px;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+}
+
+.task-div:hover {
+  cursor: pointer;
 }

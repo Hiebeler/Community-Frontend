@@ -1,10 +1,32 @@
 <ion-content>
-  <div class="container">
+  <div class="container" style="padding-top: 15px">
     <ion-grid *ngIf="user">
-      <ion-row>
+      <ion-row *ngIf="!editingImage">
         <ion-col style="display: flex; justify-content: center">
-          <img class="profileimage" [src]="user.profileimage" alt="" height="100"
-            width="100">
+          <img class="profileimage" [src]="user.profileimage" alt="" height="100" width="100" (click)="editImage(true)">
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="editingImage" class="editing-image-row ion-padding">
+
+        <ion-col size="6" style="display: flex; justify-content: center">
+          <button type="button" class="btn-small btn-dark" style="width: 100%;" (click)="editImage(false)">Schließen</button>
+        </ion-col>
+
+        <ion-col size="6" style="display: flex; justify-content: center">
+          <button *ngIf="cropImgPreview" type="button" class="btn-small btn-primary" style="width: 100%;" (click)="saveImage()">Speichern</button>
+          <button *ngIf="!cropImgPreview" type="button" class="btn-small btn-disabled" style="width: 100%;">Speichern</button>
+        </ion-col>
+
+        <ion-col size="12">
+          <input type="file" (change)="onFileChange($event)" />
+        </ion-col>
+
+        <ion-col size="12">
+          <image-cropper [imageChangedEvent]="imgChangeEvt" [maintainAspectRatio]="true" [aspectRatio]="4 / 4"
+            [resizeToWidth]="256" format="jpeg" (imageCropped)="cropImg($event)" (imageLoaded)="imgLoad()"
+            (cropperReady)="initCropper()" (loadImageFailed)="imgFailed()" [roundCropper]="true">
+          </image-cropper>
         </ion-col>
       </ion-row>
 

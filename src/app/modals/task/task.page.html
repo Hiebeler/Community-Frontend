@@ -1,0 +1,14 @@
+<ion-content>
+  <ion-toolbar class="ion-align-items-start ion-justify-content-start">
+    <ion-buttons slot="end">
+      <button type="button" class="btn-circle btn-black" (click)="closeModal()">
+        <ion-icon name="close" style="font-size: 15px;"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title style="margin-top: 1rem; font-size: 1rem;" class="titl p-0 mt-0">
+      <div *ngIf="task" class="ion-text-wrap semibold">
+        {{task.name}}
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-content>

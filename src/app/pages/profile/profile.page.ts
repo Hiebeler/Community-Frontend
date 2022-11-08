@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { map } from 'rxjs';
 import { RequestAdapter } from 'src/app/adapter/request-adapter';
 import { Community } from 'src/app/models/community';
@@ -18,6 +19,12 @@ export class ProfilePage implements OnInit {
   user: User;
   community: Community;
   requests: Request[];
+
+  editingImage = false;
+
+  imgChangeEvt: any = '';
+  cropImgPreview: any = '';
+  croppedImg: any = '';
 
 
   constructor(
@@ -52,7 +59,7 @@ export class ProfilePage implements OnInit {
 
   async accept(id: number) {
     console.log(id);
-    await this.apiService.acceptRequest({id}).subscribe((res) => {
+    await this.apiService.acceptRequest({ id }).subscribe((res) => {
       console.log(res);
     });
   }
@@ -73,6 +80,40 @@ export class ProfilePage implements OnInit {
       }]
     });
     await alert.present();
+  }
+
+  editImage(state: boolean) {
+    this.editingImage = state;
+  }
+
+  saveImage() {
+    this.croppedImg = this.cropImgPreview;
+    console.log(this.croppedImg);
+
+    this.apiService.uploadImage(this.croppedImg).subscribe((res: any) => {
+      if (res.data.link) {
+        console.log(res.data.link);
+        // this.user.profileimage = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
+      }
+    });
+  }
+
+
+  onFileChange(event: any): void {
+    this.imgChangeEvt = event;
+  }
+  cropImg(e: ImageCroppedEvent) {
+    this.cropImgPreview = e.base64;
+  }
+  imgLoad() {
+    // display cropper tool
+  }
+  initCropper() {
+    // init cropper
+  }
+
+  imgFailed() {
+    // error msg
   }
 
 }

@@ -1,10 +1,10 @@
 <ion-content>
   <div class="container">
-    <ion-grid>
+    <ion-grid fixed="true">
       <ion-row  class="ion-nowrap">
-        <ion-col *ngFor="let day of days">
-          <p>{{day.name}}</p>
-            <div *ngFor="let task of day.tasks">
+        <ion-col size="1" *ngFor="let day of days">
+          <p class="ion-text-center">{{day.date.toLocaleDateString('de-AT', { weekday: 'short' })}}</p>
+            <div class="task-div" *ngFor="let task of day.tasks" (click)="openModal(task)">
               {{task.name}}
             </div>
         </ion-col>

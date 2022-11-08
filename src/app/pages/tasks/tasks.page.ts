@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { TaskPage } from 'src/app/modals/task/task.page';
 import { Day } from 'src/app/models/day';
 import { Task } from 'src/app/models/task';
 import { ApiService } from 'src/app/services/api.service';
@@ -15,7 +17,8 @@ export class TasksPage implements OnInit {
   days: Day[] = [];
 
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private modalController: ModalController
   ) { }
 
   ngOnInit() {
@@ -43,7 +46,7 @@ export class TasksPage implements OnInit {
             }
           });
 
-          this.days.push(new Day({ name: i.toString(), tasks: zwischentasks}));
+          this.days.push(new Day({ name: i.toString(), tasks: zwischentasks, date: new Date(currentDate) }));
         }
 
         console.log(this.days);
@@ -71,6 +74,23 @@ export class TasksPage implements OnInit {
 
   padTo2Digits(num) {
     return num.toString().padStart(2, '0');
+  }
+
+
+  async openModal(task: Task) {
+    const modal = await this.modalController.create({
+      component: TaskPage,
+      cssClass: 'bezahlen-modal',
+      canDismiss: true,
+      componentProps: {
+        task
+      },
+      presentingElement: await this.modalController.getTop()
+    });
+    modal.onDidDismiss().then(() => {
+    });
+
+    return await modal.present();
   }
 
 }
