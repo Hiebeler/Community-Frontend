@@ -42,10 +42,8 @@ export class ProfilePage implements OnInit {
     this.userService.getLatestUser().subscribe((user) => {
       this.user = user;
       if (user) {
-        console.log(user);
         if (user.communityId) {
           this.apiService.getCommunityById(user.communityId).subscribe((community) => {
-            console.log(community);
             this.community = community;
           });
         }
@@ -54,14 +52,12 @@ export class ProfilePage implements OnInit {
     this.apiService.getRequests().subscribe((requests) => {
       if (requests.status === 'OK') {
         requests = requests.data.map((data: any) => this.requestAdapter.adapt(data));
-        console.log(requests);
         this.requests = requests;
       }
     });
   }
 
   async accept(id: number) {
-    console.log(id);
     await this.apiService.acceptRequest({ id }).subscribe((res) => {
       console.log(res);
     });
@@ -95,7 +91,6 @@ export class ProfilePage implements OnInit {
 
   saveImage() {
     this.croppedImg = this.cropImgPreview;
-    console.log(this.croppedImg);
 
     this.apiService.uploadImage(this.croppedImg).subscribe((res: any) => {
       if (res.data.link) {

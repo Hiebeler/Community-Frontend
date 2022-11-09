@@ -1,4 +1,9 @@
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="getTasks($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+
   <div class="container">
     <ion-grid fixed="true">
       <ion-row>
@@ -16,8 +21,16 @@
 
             </div>
 
-            <div class="task-div add-task-div" (click)="openModal(null)">
+            <div class="task-div add-task-div" (click)="openModal(day.date)">
               +
+            </div>
+
+            <div class="done-div">
+              Erledigt:
+            </div>
+
+            <div class="task-div">
+              Sample Task
             </div>
         </ion-col>
       </ion-row>

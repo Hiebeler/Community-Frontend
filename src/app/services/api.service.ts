@@ -127,4 +127,8 @@ export class ApiService {
   getTasks(data: any): Observable<any> {
     return this.httpClient.post<any>(environment.api + 'task/gettasksininterval', data, { headers: this.getHeader() });
   }
+
+  updateTask(data: any): Observable<any> {
+    return this.httpClient.post<any>(environment.api + 'task/create', data, { headers: this.getHeader() });
+  }
 }

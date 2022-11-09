@@ -5,10 +5,35 @@
         <ion-icon name="close" style="font-size: 15px;"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title style="margin-top: 1rem; font-size: 1rem;" class="titl p-0 mt-0">
-      <div *ngIf="task" class="ion-text-wrap semibold">
-        {{task.name}}
+    <ion-title *ngIf="task" style="margin-top: 1rem; font-size: 1rem;" class="titl p-0 mt-0">
+      <div *ngIf="task.id" class="ion-text-wrap semibold">
+        {{task.date.toLocaleDateString('de-AT', { weekday: 'long' })}} — Daniel
+      </div>
+
+      <div *ngIf="!task.id" class="ion-text-wrap semibold">
+        Neue Aufgabe
       </div>
     </ion-title>
   </ion-toolbar>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <form [formGroup]="taskForm" (ngSubmit)="updateTask()">
+          <div class="field-box">
+            <input type="text" id="name" formControlName="name" placeholder="Name">
+          </div>
+
+          <div class="field-box">
+            <h2>Notizen:</h2>
+            <input type="text" id="notes" formControlName="notes" placeholder="Notizen">
+          </div>
+          <button [disabled]="taskForm.invalid" type="submit" class="btn-large btn-primary">
+            <span *ngIf="!task.id">Aufgabe erstellen</span>
+            <span *ngIf="task.id">Aufgabe updaten</span>
+          </button>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

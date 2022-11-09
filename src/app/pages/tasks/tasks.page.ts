@@ -25,21 +25,26 @@ export class TasksPage implements OnInit {
 
   ngOnInit() {
     this.dayToday = new Date();
+
+    this.getTasks();
+  }
+
+  getTasks(event?) {
     const params = {
       startDate: '2022-11-07',
       endDate: '2022-11-11'
     };
+
     this.apiService.getTasks(params).subscribe((tasks) => {
       if (tasks.status === 'OK') {
+        this.days = [];
         this.allTasks = tasks.data;
-        console.log(this.allTasks);
         const mondayDate = this.getMondayOfCurrentWeek();
 
         for (let i = 0; i < 7; i++) {
           const currentDate = new Date();
           currentDate.setDate(mondayDate.getDate() + i);
           const currentDateString = this.formatDate(currentDate);
-          console.log(currentDateString);
 
           const zwischentasks: Task[] = [];
 
@@ -50,13 +55,13 @@ export class TasksPage implements OnInit {
           });
 
           this.days.push(new Day({ name: i.toString(), tasks: zwischentasks, date: new Date(currentDate) }));
-        }
 
-        console.log(this.days);
+          if (event) {
+            event.target.complete();
+          }
+        }
       }
     });
-
-    console.log(this.formatDate(this.getMondayOfCurrentWeek()));
   }
 
   getMondayOfCurrentWeek() {
@@ -79,8 +84,14 @@ export class TasksPage implements OnInit {
     return num.toString().padStart(2, '0');
   }
 
-
-  async openModal(task: Task) {
+  async openModal(data: Task | Date) {
+    let task: Task;
+    if (data instanceof Date) {
+      task = new Task({ date: data });
+    } else {
+      task = data;
+      task.date = new Date(data.date);
+    }
     const modal = await this.modalController.create({
       component: TaskPage,
       cssClass: 'bezahlen-modal',
