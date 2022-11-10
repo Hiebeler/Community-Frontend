@@ -47,7 +47,9 @@ export class TaskPage implements OnInit {
       id: this.task.id,
       name: this.name.value,
       notes: this.notes.value,
-      date: this.task.date
+      date: this.task.date,
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      fk_routine_id: this.task.fkRoutineId
     };
     this.apiService.updateTask(data).subscribe((result) => {
       console.log(result);
