@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
-import { map } from 'rxjs';
 import { RequestAdapter } from 'src/app/adapter/request-adapter';
 import { Community } from 'src/app/models/community';
 import { User } from 'src/app/models/user';
@@ -45,6 +44,7 @@ export class ProfilePage implements OnInit {
         if (user.communityId) {
           this.apiService.getCommunityById(user.communityId).subscribe((community) => {
             this.community = community;
+            console.log(community);
           });
         }
       }

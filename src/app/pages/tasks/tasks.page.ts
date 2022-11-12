@@ -12,11 +12,16 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class TasksPage implements OnInit {
 
+  numberOfColumns = 3;
+
   allTasks: any;
 
   days: Day[] = [];
 
   dayToday: Date;
+
+  startDate: Date;
+  endDate: Date;
 
   constructor(
     private apiService: ApiService,
@@ -26,22 +31,31 @@ export class TasksPage implements OnInit {
   ngOnInit() {
     this.dayToday = new Date();
 
+    if (this.numberOfColumns === 7) {
+      this.startDate = this.getMondayOfCurrentWeek();
+    this.endDate = this.addDate(this.startDate, this.numberOfColumns - 1);
+    }
+    else {
+      this.startDate = new Date();
+      this.endDate = this.addDate(this.startDate, this.numberOfColumns - 1);
+    }
+
     this.getTasks();
   }
 
   getTasks(event?) {
-    const params = {
-      startDate: '2022-11-07',
-      endDate: '2022-11-11'
+    const params: any = {
+      startDate: this.startDate,
+      endDate: this.endDate
     };
 
     this.apiService.getTasks(params).subscribe((tasks) => {
       if (tasks.status === 'OK') {
         this.days = [];
         this.allTasks = tasks.data;
-        const mondayDate = this.getMondayOfCurrentWeek();
+        const mondayDate = this.startDate;
 
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < this.numberOfColumns; i++) {
           const currentDate = new Date();
           currentDate.setDate(mondayDate.getDate() + i);
           const currentDateString = this.formatDate(currentDate);
@@ -55,16 +69,24 @@ export class TasksPage implements OnInit {
           });
 
           this.days.push(new Day({ name: i.toString(), tasks: zwischentasks, date: new Date(currentDate) }));
+        }
 
-          if (event) {
-            event.target.complete();
-          }
+        console.log(this.days);
+
+        if (event) {
+          event.target.complete();
         }
       }
     });
   }
 
-  getMondayOfCurrentWeek() {
+  addDate(date: Date, daysToAdd: number) {
+    const result = new Date(date);
+    result.setDate(result.getDate() + daysToAdd);
+    return result;
+  }
+
+  getMondayOfCurrentWeek(): Date {
     const today = new Date();
     const first = today.getDate() - today.getDay() + 1;
 
@@ -72,7 +94,7 @@ export class TasksPage implements OnInit {
     return monday;
   }
 
-  formatDate(date) {
+  formatDate(date: Date): string {
     return [
       date.getFullYear(),
       this.padTo2Digits(date.getMonth() + 1),
@@ -80,7 +102,7 @@ export class TasksPage implements OnInit {
     ].join('-');
   }
 
-  padTo2Digits(num) {
+  padTo2Digits(num: number): string {
     return num.toString().padStart(2, '0');
   }
 
@@ -107,4 +129,16 @@ export class TasksPage implements OnInit {
     return await modal.present();
   }
 
+  changeSelectedDays(direction: 'previous' | 'next') {
+    if (direction === 'next') {
+      this.startDate = this.addDate(this.endDate, 1);
+      this.endDate = this.addDate(this.startDate, this.numberOfColumns-1);
+      this.getTasks();
+    }
+    else if (direction === 'previous') {
+      this.startDate = this.addDate(this.startDate, - this.numberOfColumns);
+      this.endDate = this.addDate(this.startDate, this.numberOfColumns-1);
+      this.getTasks();
+    }
+  }
 }

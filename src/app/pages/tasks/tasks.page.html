@@ -6,14 +6,20 @@
 
   <div class="container">
     <ion-grid fixed="true">
-      <ion-row>
-        <ion-col>
-          <!-- <p>Nur meine Aufgaben</p> -->
+      <ion-row class="topbar">
+        <ion-col class="topbar-header-col">
+          <p *ngIf="days" class="ion-text-center">{{days[0]?.date.toLocaleDateString('de-AT')}} -
+            {{days[days.length-1]?.date.toLocaleDateString('de-AT')}}
+          </p>
+        </ion-col>
+        <ion-col size="auto" class="topbar-buttons-col">
+          <button type="button" class="btn-small" (click)="changeSelectedDays('previous')"><</button>
+            <button type="button" class="btn-small" (click)="changeSelectedDays('next')">></button>
         </ion-col>
       </ion-row>
 
       <ion-row  class="ion-nowrap">
-        <ion-col class="day-col" size="2" *ngFor="let day of days" [ngClass]="day.date.toDateString() === dayToday.toDateString() ? 'today-col' : ''">
+        <ion-col class="day-col" [size]="42 / numberOfColumns" *ngFor="let day of days" [ngClass]="day.date.toDateString() === dayToday.toDateString() ? 'today-col' : ''">
           <p class="ion-text-center">{{day.date.toLocaleDateString('de-AT', { weekday: 'short' })}}</p>
             <div class="task-div" *ngFor="let task of day.tasks" (click)="openModal(task)">
               <p style="margin: 0;">{{task.name}}</p>

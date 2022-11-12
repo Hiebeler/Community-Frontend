@@ -9,23 +9,23 @@
 
       <ion-row *ngIf="editingImage" class="editing-image-row ion-padding">
 
-        <ion-col size="7" style="display: flex; justify-content: center">
+        <ion-col size="21" style="display: flex; justify-content: center">
           <button type="button" class="btn-small btn-dark" style="width: 100%;"
             (click)="editImage(false)">Schließen</button>
         </ion-col>
 
-        <ion-col size="7" style="display: flex; justify-content: center">
+        <ion-col size="21" style="display: flex; justify-content: center">
           <button *ngIf="cropImgPreview" type="button" class="btn-small btn-primary" style="width: 100%;"
             (click)="saveImage()">Speichern</button>
           <button *ngIf="!cropImgPreview" type="button" class="btn-small btn-disabled"
             style="width: 100%;">Speichern</button>
         </ion-col>
 
-        <ion-col size="14">
+        <ion-col size="42">
           <input type="file" (change)="onFileChange($event)" />
         </ion-col>
 
-        <ion-col size="14">
+        <ion-col size="42">
           <image-cropper [imageChangedEvent]="imgChangeEvt" [maintainAspectRatio]="true" [aspectRatio]="4 / 4"
             [resizeToWidth]="256" format="jpeg" (imageCropped)="cropImg($event)" (imageLoaded)="imgLoad()"
             (cropperReady)="initCropper()" (loadImageFailed)="imgFailed()" [roundCropper]="true">
@@ -42,11 +42,15 @@
       <ion-row>
         <ion-col style="display: flex; justify-content: center">
           <p *ngIf="!user.communityId">Noch keiner Community beigetreten</p>
-          <p *ngIf="community">
-            <span *ngIf="user.id === community.adminId">Admin</span>
-            <span *ngIf="user.id !== community.adminId">Mitglied</span>
-            in Community "{{community.name}}"
-          </p>
+          <div *ngIf="community">
+            <p>
+              <span *ngIf="user.id === community.adminId">Admin</span>
+              <span *ngIf="user.id !== community.adminId">Mitglied</span>
+              in Community "{{community.name}}"
+            </p>
+            <p>Beitrittscode: {{community.code}}</p>
+          </div>
+
         </ion-col>
       </ion-row>
 
@@ -60,7 +64,7 @@
 
       <div *ngIf="editingColor">
         <ion-row>
-          <ion-col size="7" style="display: flex; justify-content: center">
+          <ion-col size="21" style="display: flex; justify-content: center">
             <button type="button" class="btn-small btn-dark" style="width: 100%;"
               (click)="editColor(false)">Schließen</button>
           </ion-col>
@@ -74,8 +78,6 @@
         </ion-row>
       </div>
 
-
-
       <ion-row style="padding-top: 50px;">
         <ion-col style="display: flex; justify-content: center">
           <button type="button" class="btn-small btn-primary" (click)="logout()">Ausloggen</button>
@@ -84,7 +86,7 @@
 
 
       <ion-row *ngIf="requests">
-        <ion-col *ngFor="let request in requests">
+        <ion-col *ngFor="let request of requests">
           <h1>Requests:</h1>
           <ion-grid class="requests-wrapper">
             <ion-row>
