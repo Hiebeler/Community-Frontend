@@ -4,6 +4,7 @@ import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { RequestAdapter } from 'src/app/adapter/request-adapter';
 import { Community } from 'src/app/models/community';
 import { User } from 'src/app/models/user';
+import { Request } from 'src/app/models/request';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
@@ -17,7 +18,7 @@ export class ProfilePage implements OnInit {
 
   user: User;
   community: Community;
-  requests: Request[];
+  requests: Request[] = [];
 
   editingImage = false;
   editingColor = false;
