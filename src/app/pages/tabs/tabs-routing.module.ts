@@ -25,6 +25,10 @@ const routes: Routes = [
         loadChildren: () => import('../tasks/tasks.module').then( m => m.TasksPageModule)
       },
       {
+        path: 'shopping-list',
+        loadChildren: () => import('../shopping-list/shopping-list.module').then( m => m.ShoppingListPageModule)
+      },
+      {
         path: '',
         redirectTo: '/tabs/profile',
         pathMatch: 'full'
