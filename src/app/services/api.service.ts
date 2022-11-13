@@ -50,6 +50,16 @@ export class ApiService {
     );
   }
 
+  getUsersOfCommunity(communityId): Observable<User[]> {
+    return this.httpClient.get<any>(environment.api + 'user/getcommunitymembers/' + communityId, { headers: this.getHeader() }).pipe(
+      map((data: any) => data.data.map((item) => this.userAdapter.adapt(item)))
+    );
+  }
+
+  updateUser(data: any): Observable<any> {
+    return this.httpClient.put<any>(environment.api + 'user/update', data, { headers: this.getHeader() });
+  }
+
   register(data: any): Observable<any> {
     return this.httpClient.post<any>(environment.api + 'registration/register', data);
   }
@@ -66,10 +76,6 @@ export class ApiService {
 
   sendVerificationMailAgain(email: string): Observable<any> {
     return this.httpClient.post<any>(environment.api + 'registration/sendverificationmailagain', { email });
-  }
-
-  updateUser(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'user/changedata', data, { headers: this.getHeader() });
   }
 
   changePassword(data: any): Observable<any> {

@@ -10,6 +10,7 @@ export class User {
   public profileimage: SafeResourceUrl;
   public creationDate: Date;
   public communityId: number;
+  public color: string;
 
   constructor(data?: any) {
     this.id = data?.id;
@@ -19,5 +20,6 @@ export class User {
     this.profileimage = data?.profile_image;
     this.creationDate = data?.creationdate;
     this.communityId = data?.fk_community_id;
+    this.color = data?.color;
   }
 }

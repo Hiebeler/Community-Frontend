@@ -18,6 +18,7 @@ export class ProfilePage implements OnInit {
 
   user: User;
   community: Community;
+  usersInCommunity: User[];
   requests: Request[] = [];
 
   editingImage = false;
@@ -27,7 +28,23 @@ export class ProfilePage implements OnInit {
   cropImgPreview: any = '';
   croppedImg: any = '';
 
-  colors: any = ['#ff7c2e', '#fff', '#000'];
+  colors: any =
+    [
+      {
+        color: '#54B435',
+        username: ''
+      },
+      {
+        color: '#FD841F',
+        username: ''
+      },
+      {
+        color: '#5837D0',
+        username: ''
+      }
+
+    ];
+
 
 
   constructor(
@@ -45,7 +62,10 @@ export class ProfilePage implements OnInit {
         if (user.communityId) {
           this.apiService.getCommunityById(user.communityId).subscribe((community) => {
             this.community = community;
-            console.log(community);
+            this.apiService.getUsersOfCommunity(community.id).subscribe((communityMembers) => {
+              this.usersInCommunity = communityMembers;
+              this.fillColorArray();
+            });
           });
         }
       }
@@ -60,7 +80,7 @@ export class ProfilePage implements OnInit {
 
   async accept(id: number) {
     await this.apiService.acceptRequest({ id }).subscribe((res) => {
-      console.log(res);
+
     });
   }
 
@@ -82,6 +102,30 @@ export class ProfilePage implements OnInit {
     await alert.present();
   }
 
+  fillColorArray() {
+    this.colors.forEach(colorElement => {
+      this.usersInCommunity.forEach(user => {
+        if (colorElement.color === user.color) {
+          colorElement.username = user.firstname;
+        } else {
+          colorElement.username = '';
+        }
+      });
+    });
+  }
+
+  changeColor(color: string) {
+    this.apiService.updateUser({color}).subscribe((res) => {
+      if (res.status === 'OK') {
+        this.user.color = color;
+        this.apiService.getUsersOfCommunity(this.community.id).subscribe((communityMembers) => {
+          this.usersInCommunity = communityMembers;
+          this.fillColorArray();
+        });
+      }
+    });
+  }
+
   editImage(state: boolean) {
     this.editingImage = state;
   }
@@ -95,7 +139,6 @@ export class ProfilePage implements OnInit {
 
     this.apiService.uploadImage(this.croppedImg).subscribe((res: any) => {
       if (res.data.link) {
-        console.log(res.data.link);
         // this.user.profileimage = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
       }
     });

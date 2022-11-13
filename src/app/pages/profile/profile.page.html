@@ -35,11 +35,11 @@
 
       <ion-row>
         <ion-col style="display: flex; justify-content: center">
-          <p>{{user.firstname + ' ' + user.lastname}}</p>
+          <h2>{{user.firstname + ' ' + user.lastname}}</h2>
         </ion-col>
       </ion-row>
 
-      <ion-row>
+      <!-- <ion-row>
         <ion-col style="display: flex; justify-content: center">
           <p *ngIf="!user.communityId">Noch keiner Community beigetreten</p>
           <div *ngIf="community">
@@ -49,38 +49,84 @@
               in Community "{{community.name}}"
             </p>
             <p>Beitrittscode: {{community.code}}</p>
+            <div *ngIf="usersInCommunity">
+              <p>Mitglieder:</p>
+              <ul>
+                <li *ngFor="let user of usersInCommunity">{{user.firstname + ' ' + user.lastname}}</li>
+              </ul>
+            </div>
+
           </div>
 
+        </ion-col>
+      </ion-row> -->
+
+      <ion-row *ngIf="community">
+        <ion-col class="card-1" size="21">
+          <div class="wrapper-row">
+            <h2>{{community.name}}</h2>
+            <p>Community</p>
+          </div>
+        </ion-col>
+
+        <ion-col class="card-1" size="21">
+          <div class="wrapper-row">
+            <h2>{{community.code}}</h2>
+            <p>Beitrittscode</p>
+          </div>
+
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="usersInCommunity">
+        <ion-col class="card">
+          <div class="wrapper-row" style="padding: 10px;">
+            <p style="text-align: start">Mitglieder:</p>
+            <ul>
+              <li *ngFor="let user of usersInCommunity">{{user.firstname + ' ' + user.lastname}}</li>
+            </ul>
+          </div>
         </ion-col>
       </ion-row>
 
       <ion-row *ngIf="!editingColor">
-        <ion-col class="color-col">
-          <div (click)="editColor(true)">
-            Meine Farbe
+        <ion-col class="card-1" size="21">
+          <div class="wrapper-row clickable" (click)="editColor(true)" [ngStyle]="{'background-color': user.color}">
+            <p>Meine Farbe</p>
+          </div>
+        </ion-col>
+
+        <ion-col class="card-1" size="21">
+          <div class="wrapper-row wrapper-logout clickable" (click)="logout()">
+            <p>Abmelden</p>
           </div>
         </ion-col>
       </ion-row>
 
-      <div *ngIf="editingColor">
-        <ion-row>
-          <ion-col size="21" style="display: flex; justify-content: center">
-            <button type="button" class="btn-small btn-dark" style="width: 100%;"
-              (click)="editColor(false)">Schließen</button>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col *ngFor="let color of colors">
-            <div>
-              {{color}}
-            </div>
-          </ion-col>
-        </ion-row>
-      </div>
+      <ion-row *ngIf="editingColor">
+        <ion-col class="card">
+          <ion-grid class="wrapper-row ion-no-margin">
+            <ion-row>
+              <ion-col style="display: flex; justify-content: center">
+                <button type="button" class="btn-small btn-dark" (click)="editColor(false)">Schließen</button>
+              </ion-col>
+            </ion-row>
 
-      <ion-row style="padding-top: 50px;">
-        <ion-col style="display: flex; justify-content: center">
-          <button type="button" class="btn-small btn-primary" (click)="logout()">Ausloggen</button>
+            <ion-row>
+              <ion-col>
+                <p>Farbe auswählen:</p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col *ngFor="let color of colors" (click)="changeColor(color.color)">
+                <div class="color-selection-field" [ngStyle]="{'background-color': color.color}"
+                  [ngClass]="{'active-color': color.username === user.firstname}">
+                  <p *ngIf="color.username">{{color.username}}</p>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-col>
       </ion-row>
 

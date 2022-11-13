@@ -71,8 +71,6 @@ export class TasksPage implements OnInit {
           this.days.push(new Day({ name: i.toString(), tasks: zwischentasks, date: new Date(currentDate) }));
         }
 
-        console.log(this.days);
-
         if (event) {
           event.target.complete();
         }
