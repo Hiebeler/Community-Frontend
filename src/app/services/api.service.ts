@@ -19,8 +19,7 @@ export class ApiService {
     private httpClient: HttpClient,
     private storageService: StorageService,
     private userAdapter: UserAdapter,
-    private communityAdapter: CommunityAdapter,
-    private requestAdaper: RequestAdapter
+    private communityAdapter: CommunityAdapter
     ) { }
 
   getHeader(): HttpHeaders {

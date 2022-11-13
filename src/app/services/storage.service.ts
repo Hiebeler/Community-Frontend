@@ -7,18 +7,10 @@ const TOKEN_KEY = 'community_token_1';
 })
 export class StorageService {
 
-  constructor() {
-    this.init();
-  }
-
-  async init() {
-    // this.token = localStorage.getItem(TOKEN_KEY);
-  }
+  constructor() { }
 
   setToken(value: any) {
     localStorage.setItem(TOKEN_KEY, value);
-
-    console.log(this.getToken());
   }
 
   getToken() {

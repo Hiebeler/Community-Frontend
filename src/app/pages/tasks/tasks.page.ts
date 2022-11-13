@@ -55,11 +55,9 @@ export class TasksPage implements OnInit {
       if (tasks.status === 'OK') {
         this.days = [];
         this.allTasks = tasks.data;
-        const mondayDate = this.startDate;
 
         for (let i = 0; i < this.numberOfColumns; i++) {
-          const currentDate = new Date();
-          currentDate.setDate(mondayDate.getDate() + i);
+          const currentDate = this.addDate(this.startDate, i);
           const currentDateString = this.formatDate(currentDate);
 
           const zwischentasks: Task[] = [];
@@ -83,8 +81,8 @@ export class TasksPage implements OnInit {
   }
 
   addDate(date: Date, daysToAdd: number) {
-    const result = new Date(date);
-    result.setDate(result.getDate() + daysToAdd);
+    const result = new Date(Number(date));
+    result.setDate(date.getDate() + daysToAdd);
     return result;
   }
 
@@ -133,13 +131,13 @@ export class TasksPage implements OnInit {
 
   changeSelectedDays(direction: 'previous' | 'next') {
     if (direction === 'next') {
-      this.startDate = this.addDate(this.endDate, 1);
-      this.endDate = this.addDate(this.startDate, this.numberOfColumns-1);
+      this.startDate = this.addDate(this.startDate, this.numberOfColumns);
+      this.endDate = this.addDate(this.endDate, this.numberOfColumns);
       this.getTasks();
     }
     else if (direction === 'previous') {
       this.startDate = this.addDate(this.startDate, - this.numberOfColumns);
-      this.endDate = this.addDate(this.startDate, this.numberOfColumns-1);
+      this.endDate = this.addDate(this.endDate, this.numberOfColumns);
       this.getTasks();
     }
   }
