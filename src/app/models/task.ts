@@ -1,3 +1,5 @@
+import { User } from './user';
+
 export class Task {
 
   public id: number;
@@ -5,6 +7,7 @@ export class Task {
   public notes: string;
   public date: Date;
   public fkRoutineId: number;
+  public assignedUsers: User[];
 
   constructor(data?: any) {
     this.id = data?.id;
@@ -12,5 +15,6 @@ export class Task {
     this.notes = data?.notes;
     this.date = data?.date;
     this.fkRoutineId = data?.fk_routine_id;
+    this.assignedUsers = data?.assigned_users ?? [];
   }
 }

@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { Community } from '../models/community';
 import { Day } from '../models/day';
 import { Task } from '../models/task';
 import { Adapter } from './adapter';

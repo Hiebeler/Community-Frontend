@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { TaskAdapter } from 'src/app/adapter/task-adapter';
 import { TaskPage } from 'src/app/modals/task/task.page';
 import { Day } from 'src/app/models/day';
 import { Task } from 'src/app/models/task';
@@ -25,7 +26,8 @@ export class TasksPage implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private taskAdapter: TaskAdapter
   ) { }
 
   ngOnInit() {
@@ -64,7 +66,7 @@ export class TasksPage implements OnInit {
 
           this.allTasks.forEach(task => {
             if (task.date.toString().substring(0, 10) === currentDateString) {
-              zwischentasks.push(new Task(task));
+              zwischentasks.push(this.taskAdapter.adapt(task));
             }
           });
 
@@ -109,7 +111,7 @@ export class TasksPage implements OnInit {
   async openModal(data: Task | Date) {
     let task: Task;
     if (data instanceof Date) {
-      task = new Task({ date: data });
+      task = this.taskAdapter.adapt({ date: data });
     } else {
       task = data;
       task.date = new Date(data.date);

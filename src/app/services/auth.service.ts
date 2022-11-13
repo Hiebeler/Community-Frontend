@@ -44,7 +44,7 @@ export class AuthService {
       if (!isExpired) {
         this.decodedUserToken = decoded;
         this.authenticationState.next(true);
-        this.userService.fetchUserFromApi(this.getUser().id);
+        this.userService.fetchUserFromApi(this.getUserFromToken().id);
       }
     }
     else {
@@ -82,7 +82,7 @@ export class AuthService {
               await this.storageService.setToken(res.data.token);
               this.decodedUserToken = this.helper.decodeToken(res.data.token);
               this.authenticationState.next(true);
-              this.userService.fetchUserFromApi(this.getUser().id);
+              this.userService.fetchUserFromApi(this.getUserFromToken().id);
               this.router.navigate(['/tabs/profile']);
             }
           }
@@ -101,8 +101,8 @@ export class AuthService {
       if (res.status === 'OK') {
         await this.storageService.setToken(res.data.token);
         this.decodedUserToken = this.helper.decodeToken(res.data.token);
+        this.userService.fetchUserFromApi(this.getUserFromToken().id);
         this.authenticationState.next(true);
-        this.userService.fetchUserFromApi(this.getUser().id);
         this.router.navigate(['/tabs/profile']);
       }
       else {
@@ -122,7 +122,7 @@ export class AuthService {
     });
   }
 
-  public getUser() {
+  public getUserFromToken() {
     return this.decodedUserToken;
   }
 
@@ -137,14 +137,14 @@ export class AuthService {
   updateUser(updatedUser: User) {
     const url: any = updatedUser.profileimage;
     const dataToUpdate = {
-      id: this.getUser().id,
+      id: this.getUserFromToken().id,
       firstname: updatedUser.firstname,
       lastname: updatedUser.lastname,
       profilepicture: url.changingThisBreaksApplicationSecurity
     };
     return this.apiService.updateUser(dataToUpdate).subscribe(async res => {
       if (res.status === 200) {
-        this.userService.fetchUserFromApi(this.getUser().id);
+        this.userService.fetchUserFromApi(this.getUserFromToken().id);
       }
       else {
         this.alertService.showOkayAlertWithoutAction(res.header, res.message);
@@ -162,7 +162,7 @@ export class AuthService {
       oldPassword,
       newPassword1,
       newPassword2,
-      id: this.getUser().id
+      id: this.getUserFromToken().id
     };
     return this.apiService.changePassword(obj).subscribe(async res => {
       this.alertService.showOkayAlertWithoutAction(res.header, res.message);
