@@ -6,6 +6,7 @@ export class Task {
   public name: string;
   public notes: string;
   public date: Date;
+  public done: boolean;
   public fkRoutineId: number;
   public assignedUsers: User[];
 
@@ -14,6 +15,7 @@ export class Task {
     this.name = data?.name;
     this.notes = data?.notes;
     this.date = data?.date;
+    this.done = data?.done ?? false;
     this.fkRoutineId = data?.fk_routine_id;
     this.assignedUsers = data?.assigned_users ?? [];
   }

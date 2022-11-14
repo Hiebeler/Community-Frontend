@@ -3,12 +3,14 @@ import { Task } from './task';
 export class Day {
 
   public name: string;
-  public tasks: Task[];
+  public openTasks: Task[];
+  public doneTasks: Task[];
   public date: Date;
 
   constructor(data?: any) {
     this.name = data?.name;
-    this.tasks = data?.tasks;
+    this.openTasks = data?.openTasks;
+    this.doneTasks = data?.doneTasks;
     this.date = data?.date;
   }
 }

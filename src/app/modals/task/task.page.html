@@ -6,11 +6,11 @@
       </button>
     </ion-buttons>
     <ion-title *ngIf="task" style="margin-top: 1rem; font-size: 1rem;" class="titl p-0 mt-0">
-      <div *ngIf="task.id" class="ion-text-wrap semibold">
+      <div *ngIf="task.id || task.fkRoutineId" class="ion-text-wrap semibold">
         {{task.date.toLocaleDateString('de-AT', { weekday: 'long' })}} - Daniel
       </div>
 
-      <div *ngIf="!task.id" class="ion-text-wrap semibold">
+      <div *ngIf="!task.id && !task.fkRoutineId" class="ion-text-wrap semibold">
         Neue Aufgabe
       </div>
     </ion-title>
@@ -28,11 +28,15 @@
             <h2>Notizen:</h2>
             <input type="text" id="notes" formControlName="notes" placeholder="Notizen">
           </div>
-          <button [disabled]="taskForm.invalid" type="submit" class="btn-large btn-primary">
-            <span *ngIf="!task.id">Aufgabe erstellen</span>
-            <span *ngIf="task.id">Aufgabe updaten</span>
-          </button>
         </form>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="auto">
+        Erledigt:
+      </ion-col>
+      <ion-col>
+        <ion-toggle color="primary" [checked]="task.done" (ionChange)="toggleChanged($event)"></ion-toggle>
       </ion-col>
     </ion-row>
   </ion-grid>

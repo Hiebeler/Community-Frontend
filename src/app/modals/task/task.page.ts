@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Task } from 'src/app/models/task';
 import { ApiService } from 'src/app/services/api.service';
@@ -14,13 +14,16 @@ export class TaskPage implements OnInit {
   taskForm: FormGroup;
 
   task: Task;
+  taskDone = false;
+
+  getTasks;
 
   constructor(
     private modalController: ModalController,
     private apiService: ApiService
   ) {
     this.taskForm = new FormGroup({
-      name: new FormControl<string | null>('', []),
+      name: new FormControl<string | null>('', [Validators.minLength(1), Validators.required]),
       notes: new FormControl<string | null>('', [])
     });
   }
@@ -38,7 +41,44 @@ export class TaskPage implements OnInit {
     this.notes.setValue(this.task.notes);
   }
 
+  toggleChanged(event: any) {
+    this.taskDone = event.target.checked;
+  }
+
   async closeModal() {
+    if (this.name.valid) {
+      const data: any = { id: this.task.id };
+      let changed = false;
+
+      if (this.name.value !== this.task.name) {
+        data.name = this.name.value;
+        changed = true;
+      }
+
+      if (this.notes.value !== this.task.notes) {
+        data.notes = this.notes.value;
+        changed = true;
+      }
+
+      if (this.taskDone !== this.task.done) {
+        data.done = this.taskDone;
+        changed = true;
+      }
+
+      if (!this.task.id) {
+        data.name = this.name.value;
+        data.fk_routine_id = this.task.fkRoutineId;
+        data.date = this.task.date;
+        changed = true;
+      }
+
+      if (changed) {
+        this.apiService.updateTask(data).subscribe(() => {
+          this.getTasks();
+        });
+      }
+    }
+
     await this.modalController.dismiss();
   }
 

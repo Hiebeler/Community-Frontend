@@ -20,10 +20,8 @@
       <ion-row  class="ion-nowrap">
         <ion-col class="day-col" [size]="42 / numberOfColumns" *ngFor="let day of days" [ngClass]="day.date.toDateString() === dayToday.toDateString() ? 'today-col' : ''">
           <p class="ion-text-center">{{day.date.toLocaleDateString('de-AT', { weekday: 'short' })}}</p>
-            <div class="task-div" *ngFor="let task of day.tasks" (click)="openModal(task)">
+            <div class="task-div" *ngFor="let task of day.openTasks" (click)="openModal(task)">
               <p style="margin: 0;">{{task.name}}</p>
-              <p style="font-size: 0.6rem; margin: 0;">Daniel</p>
-
             </div>
 
             <div class="task-div add-task-div" (click)="openModal(day.date)">
@@ -34,8 +32,8 @@
               Erledigt:
             </div>
 
-            <div class="task-div">
-              Sample Task
+            <div class="task-div" *ngFor="let task of day.doneTasks" (click)="openModal(task)">
+              <p style="margin: 0;">{{task.name}}</p>
             </div>
         </ion-col>
       </ion-row>

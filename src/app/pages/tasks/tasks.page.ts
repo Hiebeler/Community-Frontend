@@ -60,15 +60,21 @@ export class TasksPage implements OnInit {
           const currentDate = this.addDate(this.startDate, i);
           const currentDateString = this.formatDate(currentDate);
 
-          const zwischentasks: Task[] = [];
+          const openTasks: Task[] = [];
+          const doneTasks: Task[] = [];
 
           this.allTasks.forEach(task => {
             if (task.date.toString().substring(0, 10) === currentDateString) {
-              zwischentasks.push(this.taskAdapter.adapt(task));
+              if (task.done) {
+                doneTasks.push(this.taskAdapter.adapt(task));
+              } else {
+                openTasks.push(this.taskAdapter.adapt(task));
+              }
+
             }
           });
 
-          this.days.push(new Day({ name: i.toString(), tasks: zwischentasks, date: new Date(currentDate) }));
+          this.days.push(new Day({ name: i.toString(), openTasks, doneTasks, date: new Date(currentDate) }));
         }
 
         if (event) {
@@ -117,12 +123,12 @@ export class TasksPage implements OnInit {
       cssClass: 'bezahlen-modal',
       canDismiss: true,
       componentProps: {
-        task
+        task,
+        getTasks: this.getTasks.bind(this)
       },
       presentingElement: await this.modalController.getTop()
-    });
-    modal.onDidDismiss().then(() => {
-    });
+    }
+    );
 
     return await modal.present();
   }
