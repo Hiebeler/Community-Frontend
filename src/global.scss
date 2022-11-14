@@ -164,6 +164,14 @@ a:hover {
   background-color: var(--ion-color-primary-shade);
 }
 
+.btn-danger {
+  background-color: var(--ion-color-danger);
+}
+
+.btn-danger:hover {
+  background-color: var(--ion-color-danger-shade);
+}
+
 .btn-medium {
   background-color: var(--ion-color-medium);
 }

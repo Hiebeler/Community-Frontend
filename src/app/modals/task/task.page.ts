@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Task } from 'src/app/models/task';
+import { AlertService } from 'src/app/services/alert.service';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -20,7 +21,8 @@ export class TaskPage implements OnInit {
 
   constructor(
     private modalController: ModalController,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private alertService: AlertService
   ) {
     this.taskForm = new FormGroup({
       name: new FormControl<string | null>('', [Validators.minLength(1), Validators.required]),
@@ -93,6 +95,21 @@ export class TaskPage implements OnInit {
     };
     this.apiService.updateTask(data).subscribe((result) => {
       console.log(result);
+    });
+  }
+
+  askToDeleteTask() {
+    this.alertService.showTwoButtonAlert(
+      'Löschen?',
+      'Aufgabe löschen?',
+      this.deleteTask.bind(this)
+    );
+  }
+
+  deleteTask() {
+    this.apiService.deleteTask(this.task.id).subscribe(() => {
+      this.getTasks();
+      this.modalController.dismiss();
     });
   }
 }

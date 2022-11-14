@@ -18,4 +18,26 @@ export class AlertService {
     });
     alert.then(createdAlert => createdAlert.present());
   }
+
+  showTwoButtonAlert(
+    header: string,
+    message: string,
+    action: () => any,
+    abortButtonText: string = 'Abbrechen',
+    okayButtonText: string = 'Okay') {
+    const alert = this.alertController.create({
+      cssClass: 'custom-alert-two',
+      backdropDismiss: false,
+      message,
+      header,
+      buttons: [{
+        text: abortButtonText
+      },
+      {
+        text: okayButtonText,
+        handler: () => action()
+      }]
+    });
+    alert.then(createdAlert => createdAlert.present());
+  }
 }

@@ -136,4 +136,8 @@ export class ApiService {
   updateTask(data: any): Observable<any> {
     return this.httpClient.post<any>(environment.api + 'task/create', data, { headers: this.getHeader() });
   }
+
+  deleteTask(id: number): Observable<any> {
+    return this.httpClient.delete<any>(environment.api + 'task/delete/' + id, { headers: this.getHeader() });
+  }
 }
