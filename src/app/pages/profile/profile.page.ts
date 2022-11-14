@@ -41,8 +41,23 @@ export class ProfilePage implements OnInit {
       {
         color: '#5837D0',
         username: ''
+      },
+      {
+        color: '#0D4C92',
+        username: ''
+      },
+      {
+        color: '#CC3636',
+        username: ''
+      },
+      {
+        color: '#3D8361',
+        username: ''
+      },
+      {
+        color: '#FFC23C',
+        username: ''
       }
-
     ];
 
 
@@ -115,13 +130,15 @@ export class ProfilePage implements OnInit {
   }
 
   changeColor(color: string) {
-    this.apiService.updateUser({color}).subscribe((res) => {
+    this.apiService.updateUser({ color }).subscribe((res) => {
       if (res.status === 'OK') {
         this.user.color = color;
-        this.apiService.getUsersOfCommunity(this.community.id).subscribe((communityMembers) => {
-          this.usersInCommunity = communityMembers;
-          this.fillColorArray();
-        });
+        if (this.user.communityId) {
+          this.apiService.getUsersOfCommunity(this.community.id).subscribe((communityMembers) => {
+            this.usersInCommunity = communityMembers;
+            this.fillColorArray();
+          });
+        }
       }
     });
   }

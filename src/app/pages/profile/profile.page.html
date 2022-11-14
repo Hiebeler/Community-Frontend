@@ -39,27 +39,13 @@
         </ion-col>
       </ion-row>
 
-      <!-- <ion-row>
-        <ion-col style="display: flex; justify-content: center">
-          <p *ngIf="!user.communityId">Noch keiner Community beigetreten</p>
-          <div *ngIf="community">
-            <p>
-              <span *ngIf="user.id === community.adminId">Admin</span>
-              <span *ngIf="user.id !== community.adminId">Mitglied</span>
-              in Community "{{community.name}}"
-            </p>
-            <p>Beitrittscode: {{community.code}}</p>
-            <div *ngIf="usersInCommunity">
-              <p>Mitglieder:</p>
-              <ul>
-                <li *ngFor="let user of usersInCommunity">{{user.firstname + ' ' + user.lastname}}</li>
-              </ul>
-            </div>
-
+      <ion-row *ngIf="!user.communityId">
+        <ion-col class="card">
+          <div class="wrapper-row" style="padding: 10px;">
+            <p style="text-align: start">Noch keiner Community beigetreten</p>
           </div>
-
         </ion-col>
-      </ion-row> -->
+      </ion-row>
 
       <ion-row *ngIf="community">
         <ion-col class="card-1" size="21">
