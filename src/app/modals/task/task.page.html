@@ -7,7 +7,11 @@
     </ion-buttons>
     <ion-title *ngIf="task" style="margin-top: 1rem; font-size: 1rem;" class="titl p-0 mt-0">
       <div *ngIf="task.id || task.fkRoutineId" class="ion-text-wrap semibold">
-        {{task.date.toLocaleDateString('de-AT', { weekday: 'long' })}} - Daniel
+        {{task.date.toLocaleDateString('de-AT', { weekday: 'long' })}}
+        <span *ngIf="task.assignedUsers[0]"> - </span>
+        <span *ngFor="let user of task.assignedUsers">
+          {{user.firstname}}
+        </span>
       </div>
 
       <div *ngIf="!task.id && !task.fkRoutineId" class="ion-text-wrap semibold">
@@ -19,7 +23,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <form [formGroup]="taskForm" (ngSubmit)="updateTask()">
+        <form [formGroup]="taskForm">
           <div class="field-box">
             <input type="text" id="name" formControlName="name" placeholder="Name">
           </div>
@@ -37,6 +41,24 @@
       </ion-col>
       <ion-col>
         <ion-toggle color="primary" [checked]="task.done" (ionChange)="toggleChanged($event)"></ion-toggle>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <p>Zuständig:</p>
+      <ion-col size="42" *ngFor="let user of task.assignedUsers" (click)="removeUser(user)">
+        <div>
+          {{user.firstname}}
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <p>Nicht zuständig:</p>
+      <ion-col size="42" *ngFor="let user of assignableUsers" (click)="addUser(user)">
+        <div>
+          {{user.firstname}}
+        </div>
       </ion-col>
     </ion-row>
 

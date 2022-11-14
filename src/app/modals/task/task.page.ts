@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Task } from 'src/app/models/task';
+import { User } from 'src/app/models/user';
 import { AlertService } from 'src/app/services/alert.service';
 import { ApiService } from 'src/app/services/api.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-task',
@@ -17,12 +19,15 @@ export class TaskPage implements OnInit {
   task: Task;
   taskDone = false;
 
+  assignableUsers: User[] = [];
+
   getTasks;
 
   constructor(
     private modalController: ModalController,
     private apiService: ApiService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private userService: UserService
   ) {
     this.taskForm = new FormGroup({
       name: new FormControl<string | null>('', [Validators.minLength(1), Validators.required]),
@@ -41,6 +46,15 @@ export class TaskPage implements OnInit {
   ngOnInit(): void {
     this.name.setValue(this.task.name);
     this.notes.setValue(this.task.notes);
+    this.userService.getLatestUser().subscribe((user: User) => {
+      this.apiService.getUsersOfCommunity(user.communityId).subscribe((allUsersOfCommunity: User[]) => {
+        this.assignableUsers = allUsersOfCommunity;
+
+        this.task.assignedUsers.forEach(assignedUser => {
+          this.assignableUsers = this.assignableUsers.filter(el => el.id !== assignedUser.id);
+        });
+      });
+    });
   }
 
   toggleChanged(event: any) {
@@ -74,6 +88,17 @@ export class TaskPage implements OnInit {
         changed = true;
       }
 
+      const users = [];
+      this.task.assignedUsers.forEach(user => {
+        users.push(user.id);
+      });
+
+      data.assignedUser = users;
+
+      changed = true;
+
+      console.log(data);
+
       if (changed) {
         this.apiService.updateTask(data).subscribe(() => {
           this.getTasks();
@@ -82,20 +107,6 @@ export class TaskPage implements OnInit {
     }
 
     await this.modalController.dismiss();
-  }
-
-  updateTask() {
-    const data = {
-      id: this.task.id,
-      name: this.name.value,
-      notes: this.notes.value,
-      date: this.task.date,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      fk_routine_id: this.task.fkRoutineId
-    };
-    this.apiService.updateTask(data).subscribe((result) => {
-      console.log(result);
-    });
   }
 
   askToDeleteTask() {
@@ -111,5 +122,15 @@ export class TaskPage implements OnInit {
       this.getTasks();
       this.modalController.dismiss();
     });
+  }
+
+  addUser(user: User) {
+    this.task.assignedUsers.push(user);
+    this.assignableUsers = this.assignableUsers.filter(el => el.id !== user.id);
+  }
+
+  removeUser(user: User) {
+    this.assignableUsers.push(user);
+    this.task.assignedUsers = this.task.assignedUsers.filter(el => el.id !== user.id);
   }
 }

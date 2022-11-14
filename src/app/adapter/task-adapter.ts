@@ -14,6 +14,12 @@ export class TaskAdapter implements Adapter<Task> {
   adapt(item: any): Task {
     item.date = new Date(item.date);
     // item.user = new User(item.user);
+    const users = [];
+    item.task_user?.forEach(element => {
+      users.push(element.user);
+    });
+
+    item.assignedUsers = users;
     return new Task(item);
   }
 }

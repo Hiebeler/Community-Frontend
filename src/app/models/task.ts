@@ -8,6 +8,7 @@ export class Task {
   public date: Date;
   public done: boolean;
   public fkRoutineId: number;
+  public communityId: number;
   public assignedUsers: User[];
 
   constructor(data?: any) {
@@ -17,6 +18,7 @@ export class Task {
     this.date = data?.date;
     this.done = data?.done ?? false;
     this.fkRoutineId = data?.fk_routine_id;
-    this.assignedUsers = data?.assigned_users ?? [];
+    this.communityId = data?.fk_community_id;
+    this.assignedUsers = data?.assignedUsers ?? [];
   }
 }
