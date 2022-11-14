@@ -119,28 +119,40 @@ export class ProfilePage implements OnInit {
 
   fillColorArray() {
     this.colors.forEach(colorElement => {
-      this.usersInCommunity.forEach(user => {
+      colorElement.username = '';
+    });
+
+
+    this.usersInCommunity.forEach(user => {
+      this.colors.forEach(colorElement => {
         if (colorElement.color === user.color) {
           colorElement.username = user.firstname;
-        } else {
-          colorElement.username = '';
         }
       });
     });
   }
 
   changeColor(color: string) {
-    this.apiService.updateUser({ color }).subscribe((res) => {
-      if (res.status === 'OK') {
-        this.user.color = color;
-        if (this.user.communityId) {
-          this.apiService.getUsersOfCommunity(this.community.id).subscribe((communityMembers) => {
-            this.usersInCommunity = communityMembers;
-            this.fillColorArray();
-          });
-        }
+    let canChooseColor = true;
+    this.colors.forEach(colorElement => {
+      if (colorElement.color === color && colorElement.username !== '') {
+        canChooseColor = false;
       }
     });
+
+    if (canChooseColor) {
+      this.apiService.updateUser({ color }).subscribe((res) => {
+        if (res.status === 'OK') {
+          this.user.color = color;
+          if (this.user.communityId) {
+            this.apiService.getUsersOfCommunity(this.community.id).subscribe((communityMembers) => {
+              this.usersInCommunity = communityMembers;
+              this.fillColorArray();
+            });
+          }
+        }
+      });
+    }
   }
 
   editImage(state: boolean) {
