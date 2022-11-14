@@ -97,8 +97,6 @@ export class TaskPage implements OnInit {
 
       changed = true;
 
-      console.log(data);
-
       if (changed) {
         this.apiService.updateTask(data).subscribe(() => {
           this.getTasks();
