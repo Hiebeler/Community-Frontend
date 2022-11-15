@@ -95,7 +95,7 @@ export class TaskPage implements OnInit {
 
       data.assignedUser = users;
 
-      changed = true;
+      // changed = true;
 
       if (changed) {
         this.apiService.updateTask(data).subscribe(() => {

@@ -336,9 +336,3 @@ ion-modal {
     --border-radius: 15px !important;
   }
 }
-
-ion-tabs{
-  --ion-tabbar-background-color: #1c1c21;                      // already exists
-  --ion-tabbar-color: rgba(var(--ion-text-color-rgb), 0.4);    // suggested
-  --ion-tabbar-color-selected: red;          // suggested
-}
