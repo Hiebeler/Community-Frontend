@@ -7,38 +7,49 @@
     <ion-grid fixed="true">
       <ion-row class="topbar">
         <ion-col class="topbar-header-col">
-          <p *ngIf="days" class="ion-text-center">{{days[0]?.date.toLocaleDateString('de-AT', { day: 'numeric', month: 'short', year: 'numeric' })}} -
-            {{days[days.length-1]?.date.toLocaleDateString('de-AT', { day: 'numeric', month: 'short', year: 'numeric' })}}
+          <p *ngIf="days" class="ion-text-center">{{days[0]?.date.toLocaleDateString('de-AT', { day: 'numeric', month:
+            'short', year: 'numeric' })}} -
+            {{days[days.length-1]?.date.toLocaleDateString('de-AT', { day: 'numeric', month: 'short', year: 'numeric'
+            })}}
           </p>
         </ion-col>
         <ion-col size="auto" class="topbar-buttons-col">
           <button type="button" class="btn-small" (click)="changeSelectedDays('previous')">
             <ion-icon style="display: flex; font-size: 1.2rem;" name="arrow-back-outline"></ion-icon>
           </button>
-            <button type="button" class="btn-small" (click)="changeSelectedDays('next')">
-              <ion-icon style="display: flex; font-size: 1.2rem;" name="arrow-forward-outline"></ion-icon>
-            </button>
+          <button type="button" class="btn-small" (click)="changeSelectedDays('next')">
+            <ion-icon style="display: flex; font-size: 1.2rem;" name="arrow-forward-outline"></ion-icon>
+          </button>
         </ion-col>
       </ion-row>
 
-      <ion-row  class="ion-nowrap">
-        <ion-col class="day-col" [size]="42 / numberOfColumns" *ngFor="let day of days" [ngClass]="day.date.toDateString() === dayToday.toDateString() ? 'today-col' : ''">
+      <ion-row class="ion-nowrap">
+        <ion-col class="day-col" [size]="42 / numberOfColumns" *ngFor="let day of days"
+          [ngClass]="day.date.toDateString() === dayToday.toDateString() ? 'today-col' : ''">
           <p class="ion-text-center">{{day.date.toLocaleDateString('de-AT', { weekday: 'short' })}}</p>
-            <div class="task-div" *ngFor="let task of day.openTasks" [ngStyle]="{'background-color': task.assignedUsers[0]?.color}" (click)="openModal(task)">
-              <p style="margin: 0;">{{task.name}}</p>
-            </div>
+          <div class="task-div" *ngFor="let task of day.openTasks"
+            [ngStyle]="{'background-color': task.assignedUsers[0]?.color}" (click)="openModal(task)">
+            <p style="margin: 0;">{{task.name}}</p>
+            <p *ngIf="task.assignedUsers" style="margin-top: 5px; margin-bottom: 0">
+              <span *ngFor="let user of task.assignedUsers" class="name-badge">
+                <span>
+                  {{user.firstname}}
+                </span>
+              </span>
+          </div>
 
-            <div class="task-div add-task-div" (click)="openModal(day.date)">
-              +
-            </div>
+          <div class="task-div add-task-div" (click)="openModal(day.date)">
+            +
+          </div>
 
-            <div *ngIf="day.doneTasks[0]" class="done-div">
-              Erledigt:
-            </div>
+          <div *ngIf="day.doneTasks[0]" class="done-div">
+            Erledigt:
+          </div>
 
-            <div class="task-div" *ngFor="let task of day.doneTasks" [ngStyle]="{'background-color': task.assignedUsers[0]?.color}" (click)="openModal(task)">
-              <p style="margin: 0;">{{task.name}}</p>
-            </div>
+          <div class="task-div" *ngFor="let task of day.doneTasks"
+            [ngStyle]="{'background-color': task.assignedUsers[0]?.color}" (click)="openModal(task)">
+            <p style="margin: 0;">{{task.name}}</p>
+          </div>
         </ion-col>
       </ion-row>
     </ion-grid>
