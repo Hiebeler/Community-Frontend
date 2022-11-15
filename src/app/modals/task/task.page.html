@@ -9,9 +9,13 @@
       <div *ngIf="task.id || task.fkRoutineId" class="ion-text-wrap semibold">
         {{task.date.toLocaleDateString('de-AT', { weekday: 'long' })}}
         <span *ngIf="task.assignedUsers[0]"> - </span>
-        <span *ngFor="let user of task.assignedUsers">
-          {{user.firstname}}
+        <span *ngFor="let user of task.assignedUsers" [ngStyle]="{'background-color': user?.color}"
+          style="border-radius: 5px; margin-right: 5px;">
+          <span style="padding: 5px;">
+            {{user.firstname}}
+          </span>
         </span>
+
       </div>
 
       <div *ngIf="!task.id && !task.fkRoutineId" class="ion-text-wrap semibold">
