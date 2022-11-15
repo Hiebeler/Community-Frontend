@@ -145,4 +145,8 @@ export class TasksPage implements OnInit {
       this.getTasks();
     }
   }
+
+  isTodayDate(date: Date, offset: number): boolean {
+    return date.toDateString() === this.addDate(new Date(), offset).toDateString();
+  }
 }
