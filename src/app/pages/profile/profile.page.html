@@ -105,7 +105,7 @@
             </ion-row>
 
             <ion-row>
-              <ion-col *ngFor="let color of colors" (click)="changeColor(color.color)">
+              <ion-col size="14" *ngFor="let color of colors" (click)="changeColor(color.color)">
                 <div class="color-selection-field" [ngStyle]="{'background-color': color.color}"
                   [ngClass]="{'active-color': color.username === user.firstname, 'clickable': color.username === ''}">
                   <p *ngIf="color.username">{{color.username}}</p>

@@ -51,18 +51,24 @@
     <ion-row>
       <p>Zuständig:</p>
       <ion-col size="42" *ngFor="let user of task.assignedUsers" (click)="removeUser(user)">
-        <div>
-          {{user.firstname}}
-        </div>
+        <ion-chip>
+          <ion-avatar>
+            <img alt="" [src]="user.profileimage" />
+          </ion-avatar>
+          <ion-label>{{user.firstname}}</ion-label>
+        </ion-chip>
       </ion-col>
     </ion-row>
 
     <ion-row>
       <p>Nicht zuständig:</p>
       <ion-col size="42" *ngFor="let user of assignableUsers" (click)="addUser(user)">
-        <div>
-          {{user.firstname}}
-        </div>
+        <ion-chip>
+          <ion-avatar>
+            <img alt="" [src]="user.profileimage" />
+          </ion-avatar>
+          <ion-label>{{user.firstname}}</ion-label>
+        </ion-chip>
       </ion-col>
     </ion-row>
 

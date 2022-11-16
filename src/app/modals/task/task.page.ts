@@ -48,6 +48,7 @@ export class TaskPage implements OnInit {
     this.notes.setValue(this.task.notes);
     this.userService.getLatestUser().subscribe((user: User) => {
       this.apiService.getUsersOfCommunity(user.communityId).subscribe((allUsersOfCommunity: User[]) => {
+        console.log(allUsersOfCommunity);
         this.assignableUsers = allUsersOfCommunity;
 
         this.task.assignedUsers.forEach(assignedUser => {
@@ -55,6 +56,10 @@ export class TaskPage implements OnInit {
         });
       });
     });
+
+    console.log(this.task);
+
+    console.log(this.assignableUsers);
   }
 
   toggleChanged(event: any) {
