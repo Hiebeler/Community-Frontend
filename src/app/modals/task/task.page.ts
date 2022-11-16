@@ -19,6 +19,8 @@ export class TaskPage implements OnInit {
   task: Task;
   taskDone = false;
 
+  updatingResponsibleUsers = false;
+
   assignableUsers: User[] = [];
 
   getTasks;
@@ -64,6 +66,10 @@ export class TaskPage implements OnInit {
 
   toggleChanged(event: any) {
     this.taskDone = event.target.checked;
+  }
+
+  setUpdatingResponsibleUsers(newValue: boolean) {
+    this.updatingResponsibleUsers = newValue;
   }
 
   async closeModal() {
