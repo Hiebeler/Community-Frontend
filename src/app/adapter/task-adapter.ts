@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Task } from '../models/task';
 import { User } from '../models/user';
 import { Adapter } from './adapter';
+import { UserAdapter } from './user-adapter';
 
 @Injectable({
   providedIn: 'root',
@@ -9,14 +10,13 @@ import { Adapter } from './adapter';
 
 export class TaskAdapter implements Adapter<Task> {
 
-  constructor() { }
+  constructor(private userAdapter: UserAdapter) { }
 
   adapt(item: any): Task {
     item.date = new Date(item.date);
-    // item.user = new User(item.user);
     const users = [];
     item.task_user?.forEach(element => {
-      users.push(element.user);
+      users.push(this.userAdapter.adapt(element.user));
     });
 
     item.assignedUsers = users;

@@ -15,8 +15,6 @@ export class TasksPage implements OnInit {
 
   numberOfColumns = 3;
 
-  allTasks: any;
-
   days: Day[] = [];
 
   dayToday: Date;
@@ -52,9 +50,7 @@ export class TasksPage implements OnInit {
     };
 
     this.apiService.getTasks(params).subscribe((tasks) => {
-      if (tasks.status === 'OK') {
         this.days = [];
-        this.allTasks = tasks.data;
 
         for (let i = 0; i < this.numberOfColumns; i++) {
           const currentDate = this.addDate(this.startDate, i);
@@ -63,12 +59,12 @@ export class TasksPage implements OnInit {
           const openTasks: Task[] = [];
           const doneTasks: Task[] = [];
 
-          this.allTasks.forEach(task => {
-            if (task.date.toString().substring(0, 10) === currentDateString) {
+          tasks.forEach(task => {
+            if (this.formatDate(task.date) === currentDateString) {
               if (task.done) {
-                doneTasks.push(this.taskAdapter.adapt(task));
+                doneTasks.push(task);
               } else {
-                openTasks.push(this.taskAdapter.adapt(task));
+                openTasks.push(task);
               }
 
             }
@@ -80,7 +76,6 @@ export class TasksPage implements OnInit {
         if (event) {
           event.target.complete();
         }
-      }
     });
   }
 

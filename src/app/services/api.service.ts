@@ -1,12 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { concatMap, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { CommunityAdapter } from '../adapter/community-adapter';
 import { RequestAdapter } from '../adapter/request-adapter';
+import { TaskAdapter } from '../adapter/task-adapter';
 import { UserAdapter } from '../adapter/user-adapter';
 import { Community } from '../models/community';
+import { Task } from '../models/task';
 import { User } from '../models/user';
 import { StorageService } from './storage.service';
 
@@ -19,7 +21,8 @@ export class ApiService {
     private httpClient: HttpClient,
     private storageService: StorageService,
     private userAdapter: UserAdapter,
-    private communityAdapter: CommunityAdapter
+    private communityAdapter: CommunityAdapter,
+    private taskAdapter: TaskAdapter
     ) { }
 
   getHeader(): HttpHeaders {
@@ -129,8 +132,18 @@ export class ApiService {
     return this.httpClient.post<any>(environment.api + 'community/acceptrequest', data, { headers: this.getHeader() });
   }
 
-  getTasks(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'task/gettasksininterval', data, { headers: this.getHeader() });
+  getTasks(data: any): Observable<Task[]> {
+    return this.httpClient.post<any>(environment.api + 'task/gettasksininterval', data, { headers: this.getHeader() }).pipe(
+      concatMap(res => {
+        if (res.status !== 'OK') {
+          // this line is the one I have a problem with
+          return [];
+        } else {
+          // this line returns fine
+          return of(res);
+        }
+      }),map((res: any) => res.data.map((item) => this.taskAdapter.adapt(item)))
+    );
   }
 
   updateTask(data: any): Observable<any> {
