@@ -165,7 +165,23 @@ export class ApiService {
     );
   }
 
+  getDoneShoppingItems(): Observable<ShoppingItem[]> {
+    return this.httpClient.get<any>(environment.api + 'shoppinglist/items/getdone', { headers: this.getHeader() }).pipe(
+      concatMap(res => {
+        if (res.status !== 'OK') {
+          return [];
+        } else {
+          return of(res);
+        }
+      }),map((res: any) => res.data.map((item) => new ShoppingItem(item)))
+    );
+  }
+
   addShoppingItem(data: any): Observable<any> {
     return this.httpClient.post<any>(environment.api + 'shoppinglist/items/add', data, { headers: this.getHeader() });
+  }
+
+  updateShoppingItem(data: any): Observable<any> {
+    return this.httpClient.put<any>(environment.api + 'shoppinglist/items/update', data, { headers: this.getHeader() });
   }
 }

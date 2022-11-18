@@ -11,8 +11,10 @@ import { ApiService } from 'src/app/services/api.service';
 export class ShoppingListPage implements OnInit {
 
   editorIsOpen = false;
+  editorIsOpenId = -1;
 
   itemEditorForm: FormGroup;
+  itemUpdateEditorForm: FormGroup;
 
   openItems: ShoppingItem[] = [];
   doneItems: ShoppingItem[] = [];
@@ -21,47 +23,103 @@ export class ShoppingListPage implements OnInit {
     private apiService: ApiService
   ) {
     this.itemEditorForm = new FormGroup({
-      name: new FormControl<string | null>('', [Validators.minLength(1), Validators.required])
+      createname: new FormControl<string | null>('', [Validators.minLength(1), Validators.required])
+    });
+
+    this.itemUpdateEditorForm = new FormGroup({
+      updatename: new FormControl<string | null>('', [Validators.minLength(1), Validators.required])
     });
   }
 
-  get name() {
-    return this.itemEditorForm.get('name');
+  get createNameField() {
+    return this.itemEditorForm.get('createname');
+  }
+
+  get updateNameField() {
+    return this.itemUpdateEditorForm.get('updatename');
   }
 
   ngOnInit() {
-    this.apiService.getOpenShoppingItems().subscribe((items) => {
-      this.openItems = items;
-      console.log(items);
-      this.openItems = items;
-    });
+    this.getItems();
   }
 
   openEditor(state: boolean) {
-    this.itemEditorForm.controls.name.setValue('');
+    this.itemEditorForm.controls.createname.setValue('');
     this.editorIsOpen = state;
   }
 
-  getOpenItems(event?) {
+  openUpdateEditor(item?: ShoppingItem) {
+    if (item) {
+      this.itemUpdateEditorForm.controls.updatename.setValue(item.name);
+    this.editorIsOpenId = item.id;
+    } else {
+      this.editorIsOpenId = -1;
+    }
+  }
+
+  getItems(event?) {
+    let otherFinished = false;
+
     this.apiService.getOpenShoppingItems().subscribe((items) => {
       this.openItems = items;
-      console.log(items);
-      this.openItems = items;
 
-      if (event) {
+      if (event && otherFinished) {
         event.target.complete();
+      } else {
+        otherFinished = true;
+      }
+    });
+
+    this.apiService.getDoneShoppingItems().subscribe((items) => {
+      this.doneItems = items;
+
+      if (event && otherFinished) {
+        event.target.complete();
+      } else {
+        otherFinished = true;
       }
     });
   }
 
   saveItem() {
-    if (this.name.value) {
+    if (this.createNameField.value) {
       this.editorIsOpen = false;
-      this.apiService.addShoppingItem({ name: this.name.value }).subscribe((res) => {
-        this.getOpenItems();
+      this.apiService.addShoppingItem({ name: this.createNameField.value }).subscribe((res) => {
+        this.getItems();
       });
-      this.itemEditorForm.controls.name.setValue('');
+      this.itemEditorForm.controls.createname.setValue('');
     }
   }
 
+  updateDone(id: number, e: any) {
+    console.log(e.target.checked);
+
+    const data = {
+      id,
+      done: e.target.checked
+    };
+
+    this.apiService.updateShoppingItem(data).subscribe((res) => {
+      if (res.status === 'OK') {
+        this.getItems();
+      }
+    });
+  }
+
+  updateName(id: number) {
+    if (this.updateNameField.value) {
+      this.editorIsOpenId = -1;
+      const data = {
+        id,
+        name: this.updateNameField.value
+      };
+
+      this.apiService.updateShoppingItem(data).subscribe((res) => {
+        if (res.status === 'OK') {
+          this.getItems();
+        }
+      });
+      this.itemUpdateEditorForm.controls.updatename.setValue('');
+    }
+  }
 }

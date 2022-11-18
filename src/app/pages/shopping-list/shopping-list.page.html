@@ -1,5 +1,5 @@
 <ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="getOpenItems($event)">
+  <ion-refresher slot="fixed" (ionRefresh)="getItems($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
@@ -22,7 +22,8 @@
           <ion-grid class="ion-no-margin">
             <ion-row>
               <ion-col style="display: flex; justify-content: center">
-                <button type="button" class="btn-small btn-dark" style="width: 100%;" (click)="openEditor(false)">Schließen</button>
+                <button type="button" class="btn-small btn-dark" style="width: 100%;"
+                  (click)="openEditor(false)">Schließen</button>
               </ion-col>
               <ion-col>
                 <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveItem()"
@@ -34,7 +35,7 @@
               <ion-col>
                 <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()">
                   <div class="field-box">
-                    <input type="name" id="name" formControlName="name" placeholder="Name">
+                    <input type="name" id="name" formControlName="createname" placeholder="Name">
                   </div>
                 </form>
               </ion-col>
@@ -43,9 +44,64 @@
         </ion-col>
       </ion-row>
 
-      <ion-row *ngFor="let item of openItems">
+      <ion-row>
+        <ion-col>
+          <h2>Offen:</h2>
+        </ion-col>
+      </ion-row>
+
+      <div *ngFor="let item of openItems">
+        <ion-row *ngIf="editorIsOpenId !== item.id">
+          <ion-col size="auto">
+            <ion-checkbox style="display: flex;" color="primary" [checked]="item.done"
+              (ionChange)="updateDone(item.id, $event)"></ion-checkbox>
+          </ion-col>
+          <ion-col>
+            <span (click)="openUpdateEditor(item)">
+              {{item.name}}
+            </span>
+          </ion-col>
+        </ion-row>
+
+        <ion-row class="card" style="display: flex" *ngIf="editorIsOpenId === item.id">
+          <ion-col>
+            <ion-grid class="ion-no-margin">
+              <ion-row>
+                <ion-col style="display: flex; justify-content: center">
+                  <button type="button" class="btn-small btn-dark" style="width: 100%;"
+                    (click)="openUpdateEditor()">Schließen</button>
+                </ion-col>
+                <ion-col>
+                  <button [disabled]="itemUpdateEditorForm.invalid" type="button" (click)="updateName(item.id)"
+                    class="btn-large btn-primary" style="width: 100%;">Updaten</button>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <form [formGroup]="itemUpdateEditorForm" (ngSubmit)="updateName(item.id)">
+                    <div class="field-box">
+                      <input type="name" id="name" formControlName="updatename" placeholder="Name">
+                    </div>
+                  </form>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <ion-row>
+        <ion-col>
+          <h2>Erledigt:</h2>
+        </ion-col>
+      </ion-row>
+
+
+      <ion-row *ngFor="let item of doneItems">
         <ion-col size="auto">
-          <ion-checkbox style="display: flex;" color="primary" [checked]="item.done"></ion-checkbox>
+          <ion-checkbox style="display: flex;" color="primary" [checked]="item.done"
+            (ionChange)="updateDone(item.id, $event)"></ion-checkbox>
         </ion-col>
         <ion-col>
           {{item.name}}
