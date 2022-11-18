@@ -101,6 +101,18 @@ img:focus {
   outline: none;
 }
 
+input {
+  background-color: var(--ion-color-medium);
+  width: 100%;
+  display: block;
+  border: none;
+  border-radius: var(--border-radius-small);
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 0.8em;
+  margin: 5px 0 5px 0;
+}
+
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 50px var(--ion-color-medium) inset;
   -webkit-text-fill-color: var(--ion-color-light);
@@ -218,6 +230,12 @@ a:hover {
 
 .array-btn.active:hover {
   background-color: var(--ion-color-primary-shade);
+}
+
+.card {
+  background-color:  var(--ion-color-medium);
+  border-radius: var(--border-radius-small);
+  padding: 10px 10px;
 }
 
 ion-alert {

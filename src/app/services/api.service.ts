@@ -8,6 +8,7 @@ import { RequestAdapter } from '../adapter/request-adapter';
 import { TaskAdapter } from '../adapter/task-adapter';
 import { UserAdapter } from '../adapter/user-adapter';
 import { Community } from '../models/community';
+import { ShoppingItem } from '../models/shopping-item';
 import { Task } from '../models/task';
 import { User } from '../models/user';
 import { StorageService } from './storage.service';
@@ -136,10 +137,8 @@ export class ApiService {
     return this.httpClient.post<any>(environment.api + 'task/gettasksininterval', data, { headers: this.getHeader() }).pipe(
       concatMap(res => {
         if (res.status !== 'OK') {
-          // this line is the one I have a problem with
           return [];
         } else {
-          // this line returns fine
           return of(res);
         }
       }),map((res: any) => res.data.map((item) => this.taskAdapter.adapt(item)))
@@ -152,5 +151,21 @@ export class ApiService {
 
   deleteTask(id: number): Observable<any> {
     return this.httpClient.delete<any>(environment.api + 'task/delete/' + id, { headers: this.getHeader() });
+  }
+
+  getOpenShoppingItems(): Observable<ShoppingItem[]> {
+    return this.httpClient.get<any>(environment.api + 'shoppinglist/items/getopen', { headers: this.getHeader() }).pipe(
+      concatMap(res => {
+        if (res.status !== 'OK') {
+          return [];
+        } else {
+          return of(res);
+        }
+      }),map((res: any) => res.data.map((item) => new ShoppingItem(item)))
+    );
+  }
+
+  addShoppingItem(data: any): Observable<any> {
+    return this.httpClient.post<any>(environment.api + 'shoppinglist/items/add', data, { headers: this.getHeader() });
   }
 }
