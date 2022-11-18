@@ -22,6 +22,7 @@ export class TaskPage implements OnInit {
   updatingResponsibleUsers = false;
 
   assignableUsers: User[] = [];
+  assignedUsers: User[] = [];
 
   getTasks;
 
@@ -51,7 +52,7 @@ export class TaskPage implements OnInit {
     this.userService.getLatestUser().subscribe((user: User) => {
       this.apiService.getUsersOfCommunity(user.communityId).subscribe((allUsersOfCommunity: User[]) => {
         this.assignableUsers = allUsersOfCommunity;
-
+        this.assignedUsers = this.assignedUsers;
         this.task.assignedUsers.forEach(assignedUser => {
           this.assignableUsers = this.assignableUsers.filter(el => el.id !== assignedUser.id);
         });
@@ -88,6 +89,11 @@ export class TaskPage implements OnInit {
         data.done = this.taskDone;
         changed = true;
         console.log('done');
+      }
+
+      if (this.assignedUsers !== this.task.assignedUsers) {
+        changed = true;
+        console.log('assigned user');
       }
 
       if (!this.task.id) {
