@@ -6,7 +6,7 @@
           <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
             <div class="field-box">
               <label for="search">Community Code</label>
-              <input type="text" id="search" formControlName="search" placeholder="123456789">
+              <input type="text" id="search" autocomplete="off" formControlName="search" placeholder="123456789">
             </div>
             <button [disabled]="searchForm.invalid" type="submit" class="btn-large btn-primary">Search</button>
           </form>

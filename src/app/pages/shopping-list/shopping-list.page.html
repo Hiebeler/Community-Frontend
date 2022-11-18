@@ -32,7 +32,7 @@
               <ion-col>
                 <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()">
                   <div class="field-box">
-                    <input type="name" id="name" formControlName="createname" placeholder="Name">
+                    <input type="name" id="name" autocomplete="off" formControlName="createname" placeholder="Name">
                   </div>
                 </form>
               </ion-col>
@@ -78,7 +78,7 @@
                 <ion-col>
                   <form [formGroup]="itemUpdateEditorForm" (ngSubmit)="updateName(item.id)">
                     <div class="field-box">
-                      <input type="name" id="name" formControlName="updatename" placeholder="Name">
+                      <input type="name" id="name" autocomplete="off" formControlName="updatename" placeholder="Name">
                     </div>
                   </form>
                 </ion-col>

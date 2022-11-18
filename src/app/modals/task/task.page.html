@@ -16,15 +16,6 @@
           </ion-avatar>
           <ion-label>{{user.firstname}}</ion-label>
         </ion-chip>
-
-
-        <!-- <span
-          style="border-radius: 5px; margin-right: 5px;">
-          <span style="padding: 5px;">
-            {{user.firstname}}
-          </span>
-        </span> -->
-
       </div>
 
       <div *ngIf="!task.id && !task.fkRoutineId" class="ion-text-wrap semibold">
@@ -38,12 +29,12 @@
       <ion-col>
         <form [formGroup]="taskForm">
           <div class="field-box">
-            <input type="text" id="name" formControlName="name" placeholder="Name">
+            <input type="text" id="name" autocomplete="off" formControlName="name" placeholder="Name">
           </div>
 
           <div class="field-box">
             <h2>Notizen:</h2>
-            <input type="text" id="notes" formControlName="notes" placeholder="Notizen">
+            <input type="text" id="notes" autocomplete="off" formControlName="notes" placeholder="Notizen">
           </div>
         </form>
       </ion-col>
@@ -53,7 +44,8 @@
         Erledigt:
       </ion-col>
       <ion-col>
-        <ion-checkbox style="display: flex;" color="primary" [checked]="task.done" (ionChange)="toggleChanged($event)"></ion-checkbox>
+        <ion-checkbox style="display: flex;" color="primary" [checked]="task.done" (ionChange)="toggleChanged($event)">
+        </ion-checkbox>
       </ion-col>
     </ion-row>
 
