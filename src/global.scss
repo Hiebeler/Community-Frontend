@@ -238,6 +238,10 @@ a:hover {
   padding: 10px 10px;
 }
 
+.clickable:hover {
+  cursor: pointer;
+}
+
 ion-alert {
   .alert-wrapper {
     color: var(--ion-color-light);

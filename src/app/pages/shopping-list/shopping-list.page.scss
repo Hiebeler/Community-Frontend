@@ -14,3 +14,17 @@
 input {
   background-color: var(--ion-color-dark);
 }
+
+.topbar {
+  margin-bottom: 20px;
+}
+
+.topbar-header-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  p {
+    margin: 0;
+  }
+}

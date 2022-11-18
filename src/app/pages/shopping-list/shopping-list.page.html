@@ -5,14 +5,11 @@
 
   <div class="container">
     <ion-grid fixed="true">
-      <ion-row>
-        <ion-col>
-          <p>Einkaufsliste</p>
+      <ion-row class="topbar">
+        <ion-col class="topbar-header-col">
+          <p class="ion-text-center">Einkaufsliste</p>
         </ion-col>
-      </ion-row>
-
-      <ion-row *ngIf="!editorIsOpen">
-        <ion-col>
+        <ion-col size="auto" class="topbar-buttons-col">
           <button type="button" class="btn-small btn-primary" (click)="openEditor(true)">Neu</button>
         </ion-col>
       </ion-row>
@@ -57,7 +54,7 @@
               (ionChange)="updateDone(item.id, $event)"></ion-checkbox>
           </ion-col>
           <ion-col>
-            <span (click)="openUpdateEditor(item)">
+            <span class="clickable" (click)="openUpdateEditor(item)">
               {{item.name}}
             </span>
           </ion-col>
