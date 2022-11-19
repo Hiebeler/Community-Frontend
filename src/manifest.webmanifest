@@ -1,8 +1,8 @@
 {
-  "name": "app",
-  "short_name": "app",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "name": "Kommiuniti",
+  "short_name": "Kommiuniti",
+  "theme_color": "#1bab49",
+  "background_color": "#1f2028",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
