@@ -32,15 +32,8 @@
           <p class="ion-text-center" *ngIf="isTodayDate(day.date, -1)">Gestern</p>
           <p class="ion-text-center" *ngIf="isTodayDate(day.date, 0)">Heute</p>
           <p class="ion-text-center" *ngIf="isTodayDate(day.date, 1)">Morgen</p>
-          <div class="task-div" *ngFor="let task of day.openTasks"
-            [ngStyle]="{'background-color': task.assignedUsers[0]?.color}" (click)="openModal(task)">
-            <p style="margin: 0;">{{task.name}}</p>
-            <p *ngIf="task.assignedUsers" style="margin-top: 5px; margin-bottom: 0">
-              <span *ngFor="let user of task.assignedUsers" class="name-badge">
-                <span>
-                  {{user.firstname}}
-                </span>
-              </span>
+          <div *ngFor="let task of day.openTasks">
+            <app-task-card [task]="task" (openModal)="openModal(task)"></app-task-card>
           </div>
 
           <div class="task-div add-task-div" (click)="openModal(day.date)">
@@ -51,9 +44,8 @@
             Erledigt:
           </div>
 
-          <div class="task-div" *ngFor="let task of day.doneTasks"
-            [ngStyle]="{'background-color': task.assignedUsers[0]?.color}" (click)="openModal(task)">
-            <p style="margin: 0;">{{task.name}}</p>
+          <div *ngFor="let task of day.doneTasks">
+            <app-task-card [task]="task" (openModal)="openModal(task)"></app-task-card>
           </div>
         </ion-col>
       </ion-row>
