@@ -26,7 +26,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/tabs/profile',
+    redirectTo: '/tabs/tasks',
     pathMatch: 'full'
   },
   {
