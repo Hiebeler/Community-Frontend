@@ -1,7 +1,7 @@
 {
   "name": "Kommiuniti",
   "short_name": "Kommiuniti",
-  "theme_color": "#1bab49",
+  "theme_color": "#1f2028",
   "background_color": "#1f2028",
   "display": "standalone",
   "scope": "./",
