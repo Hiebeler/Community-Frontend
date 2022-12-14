@@ -16,8 +16,23 @@ export class AlertService {
     cancleButtonText?: string
   ) {
     let cssClass = 'custom-alert-ok';
+    let buttons;
     if (cancleButtonText) {
-        cssClass = 'custom-alert-two';
+      cssClass = 'custom-alert-two';
+      buttons = [
+        {
+          text: cancleButtonText
+        },
+        {
+          text: submitButtonText,
+          handler: () => submitButtonCallback()
+        }
+      ];
+    } else {
+      buttons = [{
+        text: submitButtonText,
+        handler: () => submitButtonCallback()
+      }];
     }
 
     const alert = this.alertController.create({
@@ -25,10 +40,7 @@ export class AlertService {
       backdropDismiss: false,
       message,
       header,
-      buttons: [{
-        text: submitButtonText,
-        handler: () => submitButtonCallback()
-      }],
+      buttons,
     });
     alert.then(createdAlert => createdAlert.present());
   }
