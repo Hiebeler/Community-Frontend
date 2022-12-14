@@ -124,10 +124,12 @@ export class TaskPage implements OnInit {
   }
 
   askToDeleteTask() {
-    this.alertService.showTwoButtonAlert(
+    this.alertService.showAlert(
       'Löschen?',
       'Aufgabe löschen?',
-      this.deleteTask.bind(this)
+      'Okay',
+      this.deleteTask.bind(this),
+      'Cancel'
     );
   }
 

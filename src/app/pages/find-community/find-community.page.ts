@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AlertController, ToastController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 import { Community } from 'src/app/models/community';
+import { AlertService } from 'src/app/services/alert.service';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -18,7 +19,7 @@ export class FindCommunityPage {
 
   constructor(
     private apiService: ApiService,
-    private alertController: AlertController,
+    private alertService: AlertService,
     private toastController: ToastController,
     private router: Router
   ) {
@@ -50,16 +51,10 @@ export class FindCommunityPage {
     };
     this.apiService.joinCommunity(data).subscribe(async (res) => {
       if (res.status === 'Error') {
-        const alert = await this.alertController.create({
-          cssClass: 'custom-alert-two',
-          backdropDismiss: false,
-          header: 'Fehler',
-          message: res.errors[0],
-          buttons: [{
-            text: 'Ok'
-          }]
-        });
-        await alert.present();
+        this.alertService.showAlert(
+          'Fehler',
+          res.errors[0]
+        );
       }
       else {
         const toast = await this.toastController.create({

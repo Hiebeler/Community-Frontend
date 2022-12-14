@@ -8,35 +8,27 @@ export class AlertService {
 
   constructor(private alertController: AlertController) { }
 
-  showOkayAlertWithoutAction(header: string, message: string) {
-    const alert = this.alertController.create({
-      cssClass: 'custom-alert-ok',
-      backdropDismiss: false,
-      message,
-      header,
-      buttons: ['Okay']
-    });
-    alert.then(createdAlert => createdAlert.present());
-  }
-
-  showTwoButtonAlert(
+  showAlert(
     header: string,
     message: string,
-    action: () => any,
-    abortButtonText: string = 'Abbrechen',
-    okayButtonText: string = 'Okay') {
+    submitButtonText: string = 'Okay',
+    submitButtonCallback: () => void = Function,
+    cancleButtonText?: string
+  ) {
+    let cssClass = 'custom-alert-ok';
+    if (cancleButtonText) {
+        cssClass = 'custom-alert-two';
+    }
+
     const alert = this.alertController.create({
-      cssClass: 'custom-alert-two',
+      cssClass,
       backdropDismiss: false,
       message,
       header,
       buttons: [{
-        text: abortButtonText
-      },
-      {
-        text: okayButtonText,
-        handler: () => action()
-      }]
+        text: submitButtonText,
+        handler: () => submitButtonCallback()
+      }],
     });
     alert.then(createdAlert => createdAlert.present());
   }

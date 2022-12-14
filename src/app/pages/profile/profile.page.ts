@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { RequestAdapter } from 'src/app/adapter/request-adapter';
 import { Community } from 'src/app/models/community';
@@ -8,6 +7,7 @@ import { Request } from 'src/app/models/request';
 import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-profile',
@@ -63,11 +63,11 @@ export class ProfilePage implements OnInit {
 
 
   constructor(
-    private alertController: AlertController,
     private authService: AuthService,
     private userService: UserService,
     private apiService: ApiService,
-    private requestAdapter: RequestAdapter
+    private requestAdapter: RequestAdapter,
+    private alertService: AlertService
   ) { }
 
   ngOnInit() {
@@ -100,21 +100,13 @@ export class ProfilePage implements OnInit {
   }
 
   async logout() {
-    const alert = await this.alertController.create({
-      cssClass: 'custom-alert-two',
-      backdropDismiss: false,
-      header: 'Bist du dir sicher?',
-      buttons: [{
-        text: 'Cancel'
-      }, {
-        text: 'Logout',
-        role: 'ok',
-        handler: () => {
-          this.authService.logout();
-        }
-      }]
-    });
-    await alert.present();
+    this.alertService.showAlert(
+      'Bist du dir sicher?',
+      '',
+      'Logout',
+      this.authService.logout.bind(this.authService),
+      'Cancel'
+    );
   }
 
   fillColorArray() {

@@ -41,7 +41,7 @@
 
       <ion-row *ngIf="!user.communityId">
         <ion-col class="card-flex">
-          <div class="card" style="padding: 10px;">
+          <div class="card card-center-text" style="padding: 10px;">
             <p style="text-align: start">Noch keiner Community beigetreten</p>
           </div>
         </ion-col>
@@ -49,14 +49,14 @@
 
       <ion-row *ngIf="community">
         <ion-col class="card-1-flex" size="21">
-          <div class="card">
+          <div class="card card-center-text">
             <h2>{{community.name}}</h2>
             <p>Community</p>
           </div>
         </ion-col>
 
         <ion-col class="card-1-flex" size="21">
-          <div class="card">
+          <div class="card card-center-text">
             <h2>{{community.code}}</h2>
             <p>Beitrittscode</p>
           </div>
@@ -65,25 +65,35 @@
       </ion-row>
 
       <ion-row *ngIf="usersInCommunity">
-        <ion-col class="card-flex">
-          <div class="card" style="padding: 10px;">
-            <p style="text-align: start">Mitglieder:</p>
-            <ul>
-              <li *ngFor="let user of usersInCommunity">{{user.firstname + ' ' + user.lastname}}</li>
-            </ul>
-          </div>
+        <ion-col>
+          <ion-grid class="card card-no-center ion-no-margin">
+            <ion-row>
+              <ion-col style="display: flex;">
+                <p style="text-align: start">Mitglieder:</p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row *ngFor="let user of usersInCommunity">
+              <ion-col size="auto">
+                <img class="rounded-image" [src]="user.profileimage" alt="" height="20" width="20" (click)="editImage(true)">
+              </ion-col>
+              <ion-col>
+                <p>{{user.firstname + ' ' + user.lastname}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-col>
       </ion-row>
 
       <ion-row *ngIf="!editingColor">
         <ion-col class="card-1-flex" size="21">
-          <div class="card clickable" (click)="editColor(true)" [ngStyle]="{'background-color': user.color}">
+          <div class="card card-center-text clickable" (click)="editColor(true)" [ngStyle]="{'background-color': user.color}">
             <p>Meine Farbe</p>
           </div>
         </ion-col>
 
         <ion-col class="card-1-flex" size="21">
-          <div class="card wrapper-logout clickable" (click)="logout()">
+          <div class="card card-center-text wrapper-logout clickable" (click)="logout()">
             <p>Abmelden</p>
           </div>
         </ion-col>
@@ -91,7 +101,7 @@
 
       <ion-row *ngIf="editingColor">
         <ion-col class="card-flex">
-          <ion-grid class="card ion-no-margin">
+          <ion-grid class="card card-center-text ion-no-margin">
             <ion-row>
               <ion-col style="display: flex; justify-content: center">
                 <button type="button" class="btn-small btn-dark" (click)="editColor(false)">Schließen</button>

@@ -29,9 +29,9 @@ export class CreateCommunityPage {
     if (this.communityForm.valid) {
       this.apiService.createCommunity({ name: this.name.value }).subscribe(async (res) => {
         if (res.status === 'Error') {
-          this.alertService.showOkayAlertWithoutAction('Error', res.errors[0]);
+          this.alertService.showAlert('Error', res.errors[0]);
         } else {
-          this.alertService.showOkayAlertWithoutAction('Community erstellt', 'Code: ' + res.data.code);
+          this.alertService.showAlert('Community erstellt', 'Code: ' + res.data.code);
         }
       });
     }
