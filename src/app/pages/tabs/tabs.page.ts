@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from 'src/app/services/api.service';
+import { ShoppingService } from 'src/app/services/shopping.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -9,8 +11,13 @@ import { UserService } from 'src/app/services/user.service';
 export class TabsPage implements OnInit {
 
   communityExists = false;
+  numberOfOpenShoppingItems = 0;
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private apiService: ApiService,
+    private shoppingService: ShoppingService
+  ) { }
 
   ngOnInit() {
     this.userService.getLatestUser().subscribe((user) => {
@@ -22,6 +29,9 @@ export class TabsPage implements OnInit {
         }
       }
     });
-  }
 
+    this.shoppingService.getOpenShoppingItems().subscribe((openItems) => {
+      this.numberOfOpenShoppingItems = openItems.length;
+    });
+  }
 }

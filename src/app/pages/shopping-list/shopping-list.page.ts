@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ShoppingItem } from 'src/app/models/shopping-item';
-import { ApiService } from 'src/app/services/api.service';
+import { ShoppingService } from 'src/app/services/shopping.service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -19,8 +19,10 @@ export class ShoppingListPage implements OnInit {
   openItems: ShoppingItem[] = [];
   doneItems: ShoppingItem[] = [];
 
+  loadingEvent: any;
+
   constructor(
-    private apiService: ApiService
+    private shoppingService: ShoppingService
   ) {
     this.itemEditorForm = new FormGroup({
       createname: new FormControl<string | null>('', [Validators.minLength(1), Validators.required])
@@ -41,6 +43,22 @@ export class ShoppingListPage implements OnInit {
 
   ngOnInit() {
     this.getItems();
+
+    this.shoppingService.getOpenShoppingItems().subscribe((items) => {
+      this.openItems = items;
+
+      if (this.loadingEvent) {
+        this.loadingEvent.target.complete();
+      }
+    });
+
+    this.shoppingService.getDoneShoppingItems().subscribe((items) => {
+      this.doneItems = items;
+
+      if (this.loadingEvent) {
+        this.loadingEvent.target.complete();
+      }
+    });
   }
 
   openEditor(state: boolean) {
@@ -58,33 +76,16 @@ export class ShoppingListPage implements OnInit {
   }
 
   getItems(event?) {
-    let otherFinished = false;
-
-    this.apiService.getOpenShoppingItems().subscribe((items) => {
-      this.openItems = items;
-
-      if (event && otherFinished) {
-        event.target.complete();
-      } else {
-        otherFinished = true;
-      }
-    });
-
-    this.apiService.getDoneShoppingItems().subscribe((items) => {
-      this.doneItems = items;
-
-      if (event && otherFinished) {
-        event.target.complete();
-      } else {
-        otherFinished = true;
-      }
-    });
+    if (event) {
+      this.loadingEvent = event;
+    }
+    this.shoppingService.fetchShoppingItemsFromApi();
   }
 
   saveItem() {
     if (this.createNameField.value) {
       this.editorIsOpen = false;
-      this.apiService.addShoppingItem({ name: this.createNameField.value }).subscribe((res) => {
+      this.shoppingService.addShoppingItem(this.createNameField.value).subscribe((res) => {
         this.getItems();
       });
       this.itemEditorForm.controls.createname.setValue('');
@@ -92,14 +93,7 @@ export class ShoppingListPage implements OnInit {
   }
 
   updateDone(id: number, e: any) {
-    console.log(e.target.checked);
-
-    const data = {
-      id,
-      done: e.target.checked
-    };
-
-    this.apiService.updateShoppingItem(data).subscribe((res) => {
+    this.shoppingService.updateShoppingItem(id, e.target.checked).subscribe((res) => {
       if (res.status === 'OK') {
         this.getItems();
       }
@@ -114,7 +108,7 @@ export class ShoppingListPage implements OnInit {
         name: this.updateNameField.value
       };
 
-      this.apiService.updateShoppingItem(data).subscribe((res) => {
+      this.shoppingService.updateShoppingItem(id, undefined, this.updateNameField.value).subscribe((res) => {
         if (res.status === 'OK') {
           this.getItems();
         }

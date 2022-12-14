@@ -9,6 +9,7 @@
       <ion-tab-button tab="shopping-list" *ngIf="communityExists">
         <ion-icon name="cart-outline"></ion-icon>
         <ion-label>Einkaufsliste</ion-label>
+        <ion-badge *ngIf="numberOfOpenShoppingItems !== 0">{{numberOfOpenShoppingItems}}</ion-badge>
       </ion-tab-button>
 
       <ion-tab-button tab="tasks" *ngIf="communityExists">

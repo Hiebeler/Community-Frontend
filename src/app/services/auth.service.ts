@@ -9,6 +9,7 @@ import { AlertController, Platform } from '@ionic/angular';
 import { StorageService } from './storage.service';
 import { UserService } from './user.service';
 import { User } from '../models/user';
+import { ShoppingService } from './shopping.service';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,8 @@ export class AuthService {
     private alertService: AlertService,
     private alertController: AlertController,
     private storageService: StorageService,
-    private userService: UserService
+    private userService: UserService,
+    private shoppingService: ShoppingService
   ) {
     this.helper = new JwtHelperService();
     this.platform.ready().then(() => {
@@ -45,6 +47,7 @@ export class AuthService {
         this.decodedUserToken = decoded;
         this.authenticationState.next(true);
         this.userService.fetchUserFromApi(this.getUserFromToken().id);
+        this.shoppingService.fetchShoppingItemsFromApi();
       }
     }
     else {
