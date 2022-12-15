@@ -13,6 +13,8 @@ export class ShoppingListPage implements OnInit {
   editorIsOpen = false;
   editorIsOpenId = -1;
 
+  completedFirstLoad = false;
+
   itemEditorForm: FormGroup;
   itemUpdateEditorForm: FormGroup;
 
@@ -46,6 +48,8 @@ export class ShoppingListPage implements OnInit {
 
     this.shoppingService.getOpenShoppingItems().subscribe((items) => {
       this.openItems = items;
+
+      this.completedFirstLoad = true;
 
       if (this.loadingEvent) {
         this.loadingEvent.target.complete();

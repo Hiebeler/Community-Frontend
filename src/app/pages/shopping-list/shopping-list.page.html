@@ -41,9 +41,16 @@
         </ion-col>
       </ion-row>
 
-      <ion-row>
+      <ion-row *ngIf="openItems.length">
         <ion-col>
           <h2>Offen:</h2>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="!openItems.length && completedFirstLoad">
+        <ion-col class="no-items-col">
+          <h2>Alles Erledigt👍</h2>
+          <img class="no-items-img" src="./../../../../assets/images/no-items.svg" alt="">
         </ion-col>
       </ion-row>
 
@@ -88,9 +95,9 @@
         </ion-row>
       </div>
 
-      <ion-row>
+      <ion-row *ngIf="doneItems.length">
         <ion-col>
-          <h2>Erledigt:</h2>
+          <h2>Heute erledigt:</h2>
         </ion-col>
       </ion-row>
 
