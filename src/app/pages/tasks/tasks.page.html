@@ -24,7 +24,7 @@
       </ion-row>
 
       <ion-row class="ion-nowrap">
-        <ion-col class="day-col" [size]="42 / numberOfColumns" *ngFor="let day of days"
+        <ion-col class="day-col" [size]="84 / numberOfColumns" *ngFor="let day of days"
           [ngClass]="day.date.toDateString() === dayToday.toDateString() ? 'today-col' : ''">
           <p class="ion-text-center"
             *ngIf="!isTodayDate(day.date, -1) && !isTodayDate(day.date, 0) && !isTodayDate(day.date, 1)">

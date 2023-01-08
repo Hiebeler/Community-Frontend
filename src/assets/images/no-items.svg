@@ -3,7 +3,7 @@
    viewBox="0 0 1000 1000"
    version="1.1"
    id="svg376"
-   sodipodi:docname="106-italy.svg"
+   sodipodi:docname="no-items.svg"
    inkscape:version="1.1.2 (0a00cf5339, 2022-02-04)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
@@ -37,7 +37,7 @@
     <rect
        width="1000"
        height="1000"
-       style="fill:#63ceb2"
+       style="fill:#9dd84e;fill-opacity:1"
        id="rect4" />
     <ellipse
        cx="500"

@@ -1,0 +1,80 @@
+.header-wrapper {
+  padding: 0 30px;
+}
+
+.wrapper {
+  padding: 0 30px;
+}
+
+.fief {
+  height: 80vh;
+}
+
+.logo-img {
+  height: 50px;
+  border-radius: 8px;
+}
+
+.inner-wrap {
+  background-color: #9dd84e;
+  border-radius: 15px;
+  height: 100%;
+
+  * :not(button) {
+    color: var(--ion-color-dark);
+  }
+
+  button {
+    color: var(--ion-color-light);
+  }
+
+  ion-grid {
+    height: 100%;
+
+    ion-row {
+      height: 100%;
+      ion-col {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 40px;
+
+        p {
+          margin: 0;
+        }
+
+        h1 {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
+
+.mockup-image {
+  max-height: 80%;
+}
+
+.features-section {
+  padding-top: 50px;
+  padding-bottom: 100px;
+}
+
+.card-wrapper {
+  background-color: #9dd84e;
+  border-radius: 10px;
+  padding: 15px;
+
+  * {
+    color: var(--ion-color-dark);
+  }
+
+  h2 {
+    margin: 0;
+  }
+
+  img {
+    border-radius: var(--border-radius-small);
+  }
+}

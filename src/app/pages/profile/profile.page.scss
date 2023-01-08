@@ -4,11 +4,6 @@
   margin-bottom: 10px;
 }
 
-.rounded-image {
-  border-radius: 50%;
-  margin-left: 20px;
-}
-
 .profileimage:hover {
   cursor: pointer;
 }
@@ -94,4 +89,21 @@
 .card-flex {
   display: flex;
   flex-direction: column;
+}
+
+.user-wrapper {
+  background-color: var(--ion-color-dark);
+  border-radius: var(--border-radius-small);
+
+  .rounded-image {
+    border-radius: 50%;
+  }
+
+  p {
+    text-align: center;
+  }
+
+  .lastname {
+    font-size: 0.8rem;
+  }
 }

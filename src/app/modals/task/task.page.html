@@ -57,7 +57,7 @@
       </ion-row>
       <ion-row>
 
-        <ion-col size="42" *ngFor="let user of task.assignedUsers">
+        <ion-col size="84" *ngFor="let user of task.assignedUsers">
           <ion-chip>
             <ion-avatar>
               <img alt="" [src]="user.profileimage" />
@@ -94,7 +94,7 @@
             </ion-row>
 
             <ion-row>
-              <ion-col size="42" *ngFor="let user of task.assignedUsers" (click)="removeUser(user)">
+              <ion-col size="84" *ngFor="let user of task.assignedUsers" (click)="removeUser(user)">
                 <ion-chip>
                   <ion-avatar>
                     <img alt="" [src]="user.profileimage" />
@@ -112,7 +112,7 @@
             </ion-row>
 
             <ion-row>
-              <ion-col size="42" *ngFor="let user of assignableUsers" (click)="addUser(user)">
+              <ion-col size="84" *ngFor="let user of assignableUsers" (click)="addUser(user)">
                 <ion-chip>
                   <ion-avatar>
                     <img alt="" [src]="user.profileimage" />
