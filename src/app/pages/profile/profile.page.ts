@@ -119,20 +119,18 @@ export class ProfilePage implements OnInit {
   }
 
   updateName() {
-    // if (this.updateNameField.value) {
-    //   this.editingName = false;
-    //   const data = {
-    //     id,
-    //     name: this.updateNameField.value
-    //   };
-
-    //   this.userService.updateShoppingItem(id, undefined, this.updateNameField.value).subscribe((res) => {
-    //     if (res.status === 'OK') {
-    //       this.getItems();
-    //     }
-    //   });
-    //   this.itemUpdateEditorForm.controls.updatename.setValue('');
-    // }
+    this.apiService.updateUser({ firstname: this.firstname.value, lastname: this.lastname.value }).subscribe((res) => {
+      if (res.status === 'OK') {
+        this.user.firstname = this.firstname.value;
+        this.user.lastname = this.lastname.value;
+        if (this.user.communityId) {
+          this.apiService.getUsersOfCommunity(this.community.id).subscribe((communityMembers) => {
+            this.usersInCommunity = communityMembers;
+            this.fillColorArray();
+          });
+        }
+      }
+    });
   }
 
   async accept(id: number) {
