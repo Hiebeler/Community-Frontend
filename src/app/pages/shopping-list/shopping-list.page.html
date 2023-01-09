@@ -15,8 +15,8 @@
       </ion-row>
 
       <ion-row *ngIf="editorIsOpen">
-        <ion-col class="card">
-          <ion-grid class="ion-no-margin">
+        <ion-col>
+          <ion-grid class="card">
             <ion-row>
               <ion-col style="display: flex; justify-content: center">
                 <button type="button" class="btn-small btn-dark" style="width: 100%;"
@@ -67,9 +67,9 @@
           </ion-col>
         </ion-row>
 
-        <ion-row class="card" style="display: flex" *ngIf="editorIsOpenId === item.id">
+        <ion-row style="display: flex" *ngIf="editorIsOpenId === item.id">
           <ion-col>
-            <ion-grid class="ion-no-margin">
+            <ion-grid class="card">
               <ion-row>
                 <ion-col style="display: flex; justify-content: center">
                   <button type="button" class="btn-small btn-dark" style="width: 100%;"

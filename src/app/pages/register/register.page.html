@@ -32,8 +32,12 @@
             </div>
             <button [disabled]="registerForm.invalid" type="submit" class="btn-large btn-primary">Register</button>
           </form>
-          <p class="ion-text-center txt-gotologin">Already have an account? <a routerLink="/login">Login
-            here</a></p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="loginbutton-wrapper">
+          <button type="button" (click)="gotoLogin()" class="btn-large btn-link">Already have an account? Login here</button>
         </ion-col>
       </ion-row>
     </ion-grid>

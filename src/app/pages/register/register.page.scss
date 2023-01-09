@@ -16,25 +16,9 @@
   margin-bottom: 25px;
 }
 
-.field-box {
-  margin: 5px 0 15px 0;
-
-  span {
-    color: red;
-  }
-}
-
-.txt-gotologin {
-  font-size: 0.9em;
-
-  a {
-    text-decoration: underline;
-    color: white;
-  }
-
-  a:hover {
-    cursor: pointer;
-  }
+.loginbutton-wrapper {
+  display: flex;
+  justify-content: center;
 }
 
 .txt-resetpw {
@@ -47,8 +31,4 @@
   a:hover {
     cursor: pointer;
   }
-}
-
-button:disabled {
-  background-color: #9b9b9b;
 }

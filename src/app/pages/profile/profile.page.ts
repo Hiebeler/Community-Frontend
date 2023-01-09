@@ -8,6 +8,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { AlertService } from 'src/app/services/alert.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
@@ -23,6 +24,9 @@ export class ProfilePage implements OnInit {
 
   editingImage = false;
   editingColor = false;
+  editingName = false;
+
+  nameUpdateEditorForm: FormGroup;
 
   imgChangeEvt: any = '';
   cropImgPreview: any = '';
@@ -68,7 +72,20 @@ export class ProfilePage implements OnInit {
     private apiService: ApiService,
     private requestAdapter: RequestAdapter,
     private alertService: AlertService
-  ) { }
+  ) {
+    this.nameUpdateEditorForm = new FormGroup({
+      firstname: new FormControl<string | null>('', [Validators.minLength(1), Validators.required]),
+      lastname: new FormControl<string | null>('', [Validators.minLength(1), Validators.required])
+    });
+   }
+
+   get firstname() {
+    return this.nameUpdateEditorForm.get('firstname');
+  }
+
+  get lastname() {
+    return this.nameUpdateEditorForm.get('lastname');
+  }
 
   ngOnInit() {
     this.userService.getLatestUser().subscribe((user) => {
@@ -91,6 +108,31 @@ export class ProfilePage implements OnInit {
         this.requests = requests;
       }
     });
+  }
+
+  toggleNameEditor() {
+    if (!this.editingName) {
+      this.nameUpdateEditorForm.controls.firstname.setValue(this.user.firstname);
+      this.nameUpdateEditorForm.controls.lastname.setValue(this.user.lastname);
+    }
+    this.editingName = !this.editingName;
+  }
+
+  updateName() {
+    // if (this.updateNameField.value) {
+    //   this.editingName = false;
+    //   const data = {
+    //     id,
+    //     name: this.updateNameField.value
+    //   };
+
+    //   this.userService.updateShoppingItem(id, undefined, this.updateNameField.value).subscribe((res) => {
+    //     if (res.status === 'OK') {
+    //       this.getItems();
+    //     }
+    //   });
+    //   this.itemUpdateEditorForm.controls.updatename.setValue('');
+    // }
   }
 
   async accept(id: number) {

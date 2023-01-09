@@ -17,7 +17,12 @@
             <button [disabled]="loginForm.invalid" type="submit" class="btn-large btn-primary">Log
               in</button>
           </form>
-          <p class="ion-text-center txt-gotologin"><a routerLink="/register">Create an account</a></p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="registerbutton-wrapper">
+          <button type="button" (click)="gotoRegister()" class="btn-large btn-link">Create an account</button>
         </ion-col>
       </ion-row>
     </ion-grid>
