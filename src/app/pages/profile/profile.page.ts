@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-profile',
@@ -71,15 +72,16 @@ export class ProfilePage implements OnInit {
     private userService: UserService,
     private apiService: ApiService,
     private requestAdapter: RequestAdapter,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private domSanitizer: DomSanitizer
   ) {
     this.nameUpdateEditorForm = new FormGroup({
       firstname: new FormControl<string | null>('', [Validators.minLength(1), Validators.required]),
       lastname: new FormControl<string | null>('', [Validators.minLength(1), Validators.required])
     });
-   }
+  }
 
-   get firstname() {
+  get firstname() {
     return this.nameUpdateEditorForm.get('firstname');
   }
 
@@ -196,20 +198,23 @@ export class ProfilePage implements OnInit {
   }
 
   saveImage() {
-    // this.croppedImg = this.cropImgPreview;
-
-    this.croppedImg = this.dataURLtoFile(this.cropImgPreview,'hello.png');
+    this.croppedImg = this.dataURLtoFile(this.cropImgPreview, 'hello.png');
     console.log(this.cropImg);
 
     this.apiService.uploadImage(this.croppedImg).subscribe((res: any) => {
       console.log(res);
       if (res.data.link) {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        this.apiService.updateUser({ profile_image: res.data.link }).subscribe((updateRes) => {
+          if (updateRes.status === 'OK') {
+            this.user.profileimage = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
+          }
+        });
         console.log(res);
-        // this.user.profileimage = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
+        this.user.profileimage = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
       }
     });
   }
-
 
   onFileChange(event: any): void {
     this.imgChangeEvt = event;
@@ -234,16 +239,16 @@ export class ProfilePage implements OnInit {
   dataURLtoFile(dataurl, filename) {
 
     const arr = dataurl.split(',');
-        const mime = arr[0].match(/:(.*?);/)[1];
-        const bstr = atob(arr[1]);
-        let n = bstr.length;
-        const u8arr = new Uint8Array(n);
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
 
-    while(n--){
-        u8arr[n] = bstr.charCodeAt(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
     }
 
-    return new File([u8arr], filename, {type:mime});
-}
+    return new File([u8arr], filename, { type: mime });
+  }
 
 }
