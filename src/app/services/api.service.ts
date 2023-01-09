@@ -98,7 +98,8 @@ export class ApiService {
     return this.httpClient.get<any>(environment.api + 'registration/checkresetcode/' + code);
   }
 
-  uploadImage(file: any): Observable<any> {
+  uploadImage(file: File): Observable<any> {
+    console.log(file);
     const dataFile = new FormData();
     dataFile.append('image', file);
     const headers = new HttpHeaders({ authorization: 'Client-ID c0df3b4f744766f' });
