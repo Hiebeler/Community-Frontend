@@ -120,13 +120,13 @@
                 *ngFor="let user of usersInCommunity">
                 <ion-grid class="user-wrapper">
                   <ion-row>
-                    <ion-col class="ion-padding">
+                    <ion-col class="img-col">
                       <img class="rounded-image" [src]="user.profileimage" alt="">
                     </ion-col>
                   </ion-row>
 
                   <ion-row>
-                    <ion-col>
+                    <ion-col class="name-col">
                       <p class="firstname">{{user.firstname}}</p>
                       <p class="lastname">{{user.lastname}}</p>
                     </ion-col>
