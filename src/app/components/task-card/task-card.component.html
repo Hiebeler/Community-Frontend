@@ -2,9 +2,11 @@
   (click)="cardClicked()">
   <p style="margin: 0;">{{task.name}}</p>
   <p *ngIf="task.assignedUsers" style="margin-top: 5px; margin-bottom: 0">
-    <span *ngFor="let user of task.assignedUsers" class="name-badge">
-      <span>
-        {{user.firstname}}
-      </span>
-    </span>
+
+    <ion-chip *ngFor="let user of task.assignedUsers">
+      <ion-avatar>
+        <img alt="" [src]="user.profileimage" />
+      </ion-avatar>
+      <ion-label>{{user.firstname}}</ion-label>
+    </ion-chip>
 </div>
