@@ -199,19 +199,15 @@ export class ProfilePage implements OnInit {
 
   saveImage() {
     this.croppedImg = this.dataURLtoFile(this.cropImgPreview, 'hello.png');
-    console.log(this.cropImg);
-
     this.apiService.uploadImage(this.croppedImg).subscribe((res: any) => {
-      console.log(res);
       if (res.data.link) {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         this.apiService.updateUser({ profile_image: res.data.link }).subscribe((updateRes) => {
           if (updateRes.status === 'OK') {
             this.user.profileimage = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
+            this.editingImage = false;
           }
         });
-        console.log(res);
-        this.user.profileimage = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
       }
     });
   }
@@ -220,8 +216,6 @@ export class ProfilePage implements OnInit {
     this.imgChangeEvt = event;
   }
   cropImg(e: ImageCroppedEvent) {
-    console.log('cropImg');
-    console.log(e);
     this.cropImgPreview = e.base64;
   }
   imgLoad() {

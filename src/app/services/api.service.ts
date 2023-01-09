@@ -99,7 +99,6 @@ export class ApiService {
   }
 
   uploadImage(file: File): Observable<any> {
-    console.log(file);
     const dataFile = new FormData();
     dataFile.append('image', file);
     const headers = new HttpHeaders({ authorization: 'Client-ID c0df3b4f744766f' });

@@ -76,24 +76,20 @@ export class TaskPage implements OnInit {
       if (this.name.value !== this.task.name) {
         data.name = this.name.value;
         changed = true;
-        console.log('name');
       }
 
       if (this.notes.value !== this.task.notes) {
         data.notes = this.notes.value;
         changed = true;
-        console.log('notes');
       }
 
       if (this.taskDone !== this.task.done) {
         data.done = this.taskDone;
         changed = true;
-        console.log('done');
       }
 
       if (this.assignedUsers !== this.task.assignedUsers) {
         changed = true;
-        console.log('assigned user');
       }
 
       if (!this.task.id) {
@@ -108,10 +104,6 @@ export class TaskPage implements OnInit {
       });
 
       data.assignedUser = users;
-
-      // changed = true;
-      console.log(changed);
-      console.log(data);
 
       if (changed) {
         this.apiService.updateTask(data).subscribe(() => {
