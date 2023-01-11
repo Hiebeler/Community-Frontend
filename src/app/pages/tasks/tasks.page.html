@@ -7,7 +7,7 @@
     <ion-grid fixed="true">
       <ion-row class="topbar">
         <ion-col class="topbar-header-col">
-          <p *ngIf="days" class="ion-text-center">{{days[0]?.date.toLocaleDateString('de-AT', { day: 'numeric', month:
+          <p *ngIf="days">{{days[0]?.date.toLocaleDateString('de-AT', { day: 'numeric', month:
             'short', year: 'numeric' })}} -
             {{days[days.length-1]?.date.toLocaleDateString('de-AT', { day: 'numeric', month: 'short', year: 'numeric'
             })}}

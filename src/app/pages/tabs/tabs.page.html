@@ -6,15 +6,20 @@
         <ion-label>Community finden</ion-label>
       </ion-tab-button>
 
+      <ion-tab-button tab="tasks" *ngIf="communityExists">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <ion-label>Aufgaben</ion-label>
+      </ion-tab-button>
+
       <ion-tab-button tab="shopping-list" *ngIf="communityExists">
         <ion-icon name="cart-outline"></ion-icon>
         <ion-label>Einkaufsliste</ion-label>
         <ion-badge *ngIf="numberOfOpenShoppingItems !== 0">{{numberOfOpenShoppingItems}}</ion-badge>
       </ion-tab-button>
 
-      <ion-tab-button tab="tasks" *ngIf="communityExists">
-        <ion-icon name="calendar-outline"></ion-icon>
-        <ion-label>Aufgaben</ion-label>
+      <ion-tab-button tab="debts" *ngIf="communityExists">
+        <ion-icon name="wallet-outline"></ion-icon>
+        <ion-label>Schulden</ion-label>
       </ion-tab-button>
 
       <ion-tab-button tab="profile">

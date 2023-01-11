@@ -22,24 +22,7 @@ const routes: Routes = [
     path: 'tabs',
     loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule),
     canActivate: [AuthGuard]
-  },
-  {
-    path: '',
-    redirectTo: '/tabs/tasks',
-    pathMatch: 'full'
-  },
-  {
-    path: 'create-community',
-    loadChildren: () => import('./pages/create-community/create-community.module').then( m => m.CreateCommunityPageModule)
-  },
-  {
-    path: 'task',
-    loadChildren: () => import('./modals/task/task.module').then( m => m.TaskPageModule)
   }
-  // {
-  //   path: '**',
-  //   redirectTo: 'login'
-  // }
 ];
 @NgModule({
   imports: [

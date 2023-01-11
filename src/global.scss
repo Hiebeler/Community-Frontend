@@ -401,3 +401,19 @@ ion-modal {
     --border-radius: 15px !important;
   }
 }
+
+
+.topbar {
+  margin-bottom: 20px;
+}
+
+.topbar-header-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  p {
+    margin: 0;
+    text-align: center;
+  }
+}
