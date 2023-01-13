@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user';
 import { ApiService } from './api.service';
+import { CommunityService } from './community.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class UserService {
   constructor(
     private apiService: ApiService
   ) {
-    this.getLatestUser().subscribe(user => {
+    this.getCurrentUser().subscribe(user => {
       if (user) {
         // if (user.color) {
         //   document.documentElement.style.setProperty('--ion-color-primary', user.color);
@@ -25,7 +26,7 @@ export class UserService {
     });
   }
 
-  getLatestUser(): Observable<User> {
+  getCurrentUser(): Observable<User> {
     return this.user;
   }
 

@@ -10,6 +10,7 @@ import { UserService } from 'src/app/services/user.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CommunityService } from 'src/app/services/community.service';
 
 @Component({
   selector: 'app-profile',
@@ -68,6 +69,7 @@ export class ProfilePage implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService,
+    private communityService: CommunityService,
     private apiService: ApiService,
     private requestAdapter: RequestAdapter,
     private alertService: AlertService,
@@ -88,15 +90,12 @@ export class ProfilePage implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getLatestUser().subscribe((user) => {
+    this.userService.getCurrentUser().subscribe(user => {
       this.user = user;
-      if (user) {
-        if (user.communityId) {
-          this.apiService.getCommunityById(user.communityId).subscribe((community) => {
-            this.community = community;
-          });
-        }
-      }
+    });
+
+    this.communityService.getCurrentCommunity().subscribe(community => {
+      this.community = community;
     });
 
     this.userService.getUsersInCurrentCommunity().subscribe(users => {

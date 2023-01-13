@@ -20,7 +20,7 @@ export class TabsPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.getLatestUser().subscribe((user) => {
+    this.userService.getCurrentUser().subscribe((user) => {
       if (user) {
         if (user.communityId) {
           this.communityExists = true;
