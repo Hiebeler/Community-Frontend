@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Debt } from 'src/app/models/debt';
+import { User } from 'src/app/models/user';
+import { DebtService } from 'src/app/services/debt.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-debts',
@@ -14,7 +18,34 @@ export class DebtsPage implements OnInit {
 
   loadingEvent: any;
 
-  constructor() { }
+  usersInCommunity: User[] = [];
+
+  constructor(
+    private debtService: DebtService,
+    private userService: UserService
+  ) {
+    this.itemEditorForm = new FormGroup({
+      debitor: new FormControl<string | null>('', [Validators.minLength(1), Validators.required]),
+      amount: new FormControl<string | null>('', [Validators.pattern(/^[0-9]{0,2}(\.\d{1,2})?/), Validators.required]),
+      name: new FormControl<string | null>('', [Validators.minLength(1), Validators.required])
+    });
+
+    this.userService.getUsersInCurrentCommunity().subscribe(users => {
+      this.usersInCommunity = users;
+    });
+  }
+
+  get debitorControl() {
+    return this.itemEditorForm.get('debitor');
+  }
+
+  get amountControl() {
+    return this.itemEditorForm.get('amount');
+  }
+
+  get nameControl() {
+    return this.itemEditorForm.get('name');
+  }
 
   ngOnInit() {
   }
@@ -31,7 +62,9 @@ export class DebtsPage implements OnInit {
     // this.shoppingService.fetchShoppingItemsFromApi();
   }
 
-  saveItem() {
+  saveDebt() {
+    const debt: Debt = new Debt(-1, this.nameControl.value, this.amountControl.value, this.debitorControl.value, 0);
+    this.debtService.addDebt(debt);
     // if (this.createNameField.value) {
     //   this.editorIsOpen = false;
     //   this.shoppingService.addShoppingItem(this.createNameField.value).subscribe((res) => {

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user';
 import { ApiService } from './api.service';
-import { tint, shade } from 'tint-shade-color';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +9,7 @@ import { tint, shade } from 'tint-shade-color';
 export class UserService {
 
   private user = new BehaviorSubject<User>(null);
+  private usersInCommunity = new BehaviorSubject<User[]>([]);
 
   constructor(
     private apiService: ApiService
@@ -29,9 +29,20 @@ export class UserService {
     return this.user;
   }
 
-  fetchUserFromApi(id: number): void {
-    this.apiService.getUserById(id).subscribe(user => {
+  fetchUserFromApi(id?: number): void {
+    this.apiService.getUserById(id ?? this.user.value.id ?? -1).subscribe(user => {
       this.user.next(user);
+      this.fetchUsersInCommunityFromApi(user.communityId);
+    });
+  }
+
+  getUsersInCurrentCommunity(): Observable<User[]> {
+    return this.usersInCommunity;
+  }
+
+  fetchUsersInCommunityFromApi(id: number): void {
+    this.apiService.getUsersInCommunity(id).subscribe(users => {
+      this.usersInCommunity.next(users);
     });
   }
 

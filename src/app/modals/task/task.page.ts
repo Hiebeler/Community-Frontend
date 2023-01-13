@@ -49,13 +49,12 @@ export class TaskPage implements OnInit {
   ngOnInit(): void {
     this.name.setValue(this.task.name);
     this.notes.setValue(this.task.notes);
-    this.userService.getLatestUser().subscribe((user: User) => {
-      this.apiService.getUsersOfCommunity(user.communityId).subscribe((allUsersOfCommunity: User[]) => {
-        this.assignableUsers = allUsersOfCommunity;
-        this.assignedUsers = this.assignedUsers;
-        this.task.assignedUsers.forEach(assignedUser => {
-          this.assignableUsers = this.assignableUsers.filter(el => el.id !== assignedUser.id);
-        });
+
+    this.userService.getUsersInCurrentCommunity().subscribe((allUsersOfCommunity: User[]) => {
+      this.assignableUsers = allUsersOfCommunity;
+      this.assignedUsers = this.assignedUsers;
+      this.task.assignedUsers.forEach(assignedUser => {
+        this.assignableUsers = this.assignableUsers.filter(el => el.id !== assignedUser.id);
       });
     });
   }

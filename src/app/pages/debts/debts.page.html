@@ -16,28 +16,50 @@
 
       <ion-row *ngIf="editorIsOpen">
         <ion-col>
-          <ion-grid class="card">
-            <ion-row>
-              <ion-col style="display: flex; justify-content: center">
-                <button type="button" class="btn-small btn-dark" style="width: 100%;"
-                  (click)="openEditor(false)">Schließen</button>
-              </ion-col>
-              <ion-col>
-                <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveItem()"
-                  class="btn-large btn-primary" style="width: 100%;">Speichern</button>
-              </ion-col>
-            </ion-row>
+          <form [formGroup]="itemEditorForm" (ngSubmit)="saveDebt()">
+            <ion-grid class="card">
+              <ion-row>
+                <ion-col style="display: flex; justify-content: center">
+                  <button type="button" class="btn-small btn-dark" style="width: 100%;"
+                    (click)="openEditor(false)">Schließen</button>
+                </ion-col>
+                <ion-col>
+                  <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveDebt()"
+                    class="btn-large btn-primary" style="width: 100%;">Speichern</button>
+                </ion-col>
+              </ion-row>
 
-            <ion-row>
-              <ion-col>
-                <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()">
+              <ion-row>
+                <ion-col>
+                  <p>Schuldner:</p>
                   <div class="field-box">
-                    <input type="name" id="name" autocomplete="off" formControlName="createname" placeholder="Name">
+                    <select name="cars" id="cars" formControlName="debitor">
+                      <option *ngFor="let user of usersInCommunity" value="volvo">{{user.firstname + ' ' +
+                        user.lastname}}</option>
+                    </select>
                   </div>
-                </form>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <p>Euro:</p>
+                  <div class="field-box">
+                    <input type="number" id="name" autocomplete="off" formControlName="amount" placeholder="Name">
+                  </div>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
+                <ion-col>
+                  <p>Grund:</p>
+                  <div class="field-box">
+                    <input type="text" id="name" autocomplete="off" formControlName="name" placeholder="Name">
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </form>
         </ion-col>
       </ion-row>
 

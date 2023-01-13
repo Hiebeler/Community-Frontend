@@ -54,7 +54,7 @@ export class ApiService {
     );
   }
 
-  getUsersOfCommunity(communityId): Observable<User[]> {
+  getUsersInCommunity(communityId): Observable<User[]> {
     return this.httpClient.get<any>(environment.api + 'user/getcommunitymembers/' + communityId, { headers: this.getHeader() }).pipe(
       map((data: any) => data.data.map((item) => this.userAdapter.adapt(item)))
     );

@@ -65,8 +65,6 @@ export class ProfilePage implements OnInit {
       }
     ];
 
-
-
   constructor(
     private authService: AuthService,
     private userService: UserService,
@@ -96,14 +94,17 @@ export class ProfilePage implements OnInit {
         if (user.communityId) {
           this.apiService.getCommunityById(user.communityId).subscribe((community) => {
             this.community = community;
-            this.apiService.getUsersOfCommunity(community.id).subscribe((communityMembers) => {
-              this.usersInCommunity = communityMembers;
-              this.fillColorArray();
-            });
           });
         }
       }
     });
+
+    this.userService.getUsersInCurrentCommunity().subscribe(users => {
+      this.usersInCommunity = users;
+      this.fillColorArray();
+    });
+
+
     this.apiService.getRequests().subscribe((requests) => {
       if (requests.status === 'OK') {
         requests = requests.data.map((data: any) => this.requestAdapter.adapt(data));
@@ -121,16 +122,13 @@ export class ProfilePage implements OnInit {
   }
 
   updateName() {
-    this.apiService.updateUser({ firstname: this.firstname.value, lastname: this.lastname.value }).subscribe((res) => {
+    this.updateUser({ firstname: this.firstname.value, lastname: this.lastname.value });
+  }
+
+  updateUser(data: any) {
+    this.apiService.updateUser(data).subscribe((res) => {
       if (res.status === 'OK') {
-        this.user.firstname = this.firstname.value;
-        this.user.lastname = this.lastname.value;
-        if (this.user.communityId) {
-          this.apiService.getUsersOfCommunity(this.community.id).subscribe((communityMembers) => {
-            this.usersInCommunity = communityMembers;
-            this.fillColorArray();
-          });
-        }
+        this.userService.fetchUserFromApi();
       }
     });
   }
@@ -175,17 +173,7 @@ export class ProfilePage implements OnInit {
     });
 
     if (canChooseColor) {
-      this.apiService.updateUser({ color }).subscribe((res) => {
-        if (res.status === 'OK') {
-          this.user.color = color;
-          if (this.user.communityId) {
-            this.apiService.getUsersOfCommunity(this.community.id).subscribe((communityMembers) => {
-              this.usersInCommunity = communityMembers;
-              this.fillColorArray();
-            });
-          }
-        }
-      });
+      this.updateUser({ color });
     }
   }
 

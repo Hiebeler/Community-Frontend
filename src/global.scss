@@ -105,7 +105,7 @@ img:focus {
   outline: none;
 }
 
-input {
+input, select {
   background-color: var(--ion-color-medium);
   width: 100%;
   display: block;
