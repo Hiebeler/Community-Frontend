@@ -23,6 +23,10 @@ export class DebtsPage implements OnInit {
 
   balances: Balance[] = [];
 
+  iOwe = false;
+
+  currentUser: User;
+
   constructor(
     private debtService: DebtService,
     private userService: UserService
@@ -51,9 +55,13 @@ export class DebtsPage implements OnInit {
   }
 
   ngOnInit() {
+    this.getItems();
+
     this.debtService.getBalance().subscribe((balances) => {
-      console.log(balances);
       this.balances = balances;
+    });
+    this.userService.getCurrentUser().subscribe((user) => {
+      this.currentUser = user;
     });
   }
 
@@ -66,19 +74,36 @@ export class DebtsPage implements OnInit {
     if (event) {
       this.loadingEvent = event;
     }
-    // this.shoppingService.fetchShoppingItemsFromApi();
+    this.debtService.fetchDebtsAndBalanceFromApi();
+  }
+
+  clearOffBalance(balance: Balance) {
+    let debt: Debt;
+    if (balance.amount < 0) {
+      debt = new Debt(-1, 'debt ausgeglichen', balance.amount, balance.debitor, this.currentUser);
+    } else {
+      debt = new Debt(-1, 'debt ausgeglichen', balance.amount, this.currentUser, balance.debitor);
+    }
+    this.debtService.addDebt(debt).subscribe((res) => {
+      this.getItems();
+    });
   }
 
   saveDebt() {
-    const debt: Debt = new Debt(-1, this.nameControl.value, this.amountControl.value, this.debitorControl.value);
-    this.debtService.addDebt(debt);
-    // if (this.createNameField.value) {
-    //   this.editorIsOpen = false;
-    //   this.shoppingService.addShoppingItem(this.createNameField.value).subscribe((res) => {
-    //     this.getItems();
-    //   });
-    //   this.itemEditorForm.controls.createname.setValue('');
-    // }
+    this.editorIsOpen = false;
+    let debt: Debt;
+    if (this.iOwe) {
+      debt = new Debt(-1, this.nameControl.value, this.amountControl.value, this.debitorControl.value, this.currentUser);
+    } else {
+      debt = new Debt(-1, this.nameControl.value, this.amountControl.value, this.currentUser, this.debitorControl.value);
+    }
+    this.debtService.addDebt(debt).subscribe((res) => {
+      this.getItems();
+    });
+  }
+
+  changeIOwe(iOwe: boolean) {
+    this.iOwe = iOwe;
   }
 
 }

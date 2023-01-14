@@ -30,11 +30,20 @@
               </ion-row>
 
               <ion-row>
+                <ion-col style="display: flex; justify-content: center">
+                  <button type="button" class="btn-small" style="width: 100%;" [ngClass]="iOwe ? 'btn-primary': 'btn-dark'" (click)="changeIOwe(true)">Ich Schulde</button>
+                </ion-col>
+                <ion-col>
+                  <button type="button" class="btn-large" style="width: 100%;" [ngClass]="!iOwe ? 'btn-primary': 'btn-dark'" (click)="changeIOwe(false)">Ich Zahle</button>
+                </ion-col>
+              </ion-row>
+
+              <ion-row>
                 <ion-col>
                   <p>Schuldner:</p>
                   <div class="field-box">
                     <select name="cars" id="cars" formControlName="debitor">
-                      <option *ngFor="let user of usersInCommunity" value="volvo">{{user.firstname + ' ' +
+                      <option *ngFor="let user of usersInCommunity" [ngValue]="user">{{user.firstname + ' ' +
                         user.lastname}}</option>
                     </select>
                   </div>
@@ -71,9 +80,12 @@
               <ion-col size="auto">
               </ion-col>
               <ion-col>
-                <span>
-                  {{balance.debitor.firstname + ' ' + balance.debitor.lastname + ' ' + balance.amount + '€'}}
-                </span>
+                <ion-row>
+                  <span>
+                    {{balance.debitor.firstname + ' ' + balance.debitor.lastname + ' ' + balance.amount + '€'}}
+                  </span>
+                  <button (click)="clearOffBalance(balance)">begleichen</button>
+                </ion-row>
               </ion-col>
             </ion-row>
           </div>

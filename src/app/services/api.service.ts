@@ -195,4 +195,9 @@ export class ApiService {
       map((data: any) => data.data.map((item) => this.balanceAdapter.adapt(item)))
     );
   }
+
+  addDebt(data: any): Observable<any> {
+    console.log('create debt');
+    return this.httpClient.post<any>(environment.api + 'debt/create', data, { headers: this.getHeader() });
+  }
 }

@@ -13,8 +13,6 @@ export class BalanceAdapter implements Adapter<Balance> {
   constructor(private userAdapter: UserAdapter){}
 
   adapt(item: any): Balance {
-    console.log(item);
-
     return new Balance(item.amount, this.userAdapter.adapt(item.debtor));
   }
 }
