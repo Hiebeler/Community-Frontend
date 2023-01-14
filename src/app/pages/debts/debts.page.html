@@ -65,7 +65,30 @@
 
       <ion-row>
         <ion-col>
-          <p class="ion-text-center">Noch in Arbeit...</p>
+          <h2>Noch zu Zahlen:</h2>
+          <div *ngFor="let balance of balances">
+            <ion-row *ngIf="balance.amount > 0">
+              <ion-col size="auto">
+              </ion-col>
+              <ion-col>
+                <span>
+                  {{balance.debitor.firstname + ' ' + balance.debitor.lastname + ' ' + balance.amount + '€'}}
+                </span>
+              </ion-col>
+            </ion-row>
+          </div>
+          <h2>Geld kriegen:</h2>
+          <div *ngFor="let balance of balances">
+            <ion-row *ngIf="balance.amount < 0">
+              <ion-col size="auto">
+              </ion-col>
+              <ion-col>
+                <span>
+                  {{balance.debitor.firstname + ' ' + balance.debitor.lastname + ' ' + balance.amount * -1 + '€'}}
+                </span>
+              </ion-col>
+            </ion-row>
+          </div>
         </ion-col>
       </ion-row>
 

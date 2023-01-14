@@ -1,16 +1,16 @@
+import { User } from './user';
+
 export class Debt {
 
   public id: number;
   public name: string;
   public amount: number;
-  public debitorId: number;
-  public creditorId: number;
+  public debitor: User;
 
-  constructor(id: number, name: string, amount: number, debitorId: number, creditorId: number) {
+  constructor(id: number, name: string, amount: number, debitor: User) {
     this.id = id;
     this.name = name;
     this.amount = amount;
-    this.debitorId = debitorId;
-    this.creditorId = creditorId;
+    this.debitor = debitor;
   }
 }

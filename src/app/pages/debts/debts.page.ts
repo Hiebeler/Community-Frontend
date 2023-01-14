@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Balance } from 'src/app/models/balance';
 import { Debt } from 'src/app/models/debt';
 import { User } from 'src/app/models/user';
 import { DebtService } from 'src/app/services/debt.service';
@@ -19,6 +20,8 @@ export class DebtsPage implements OnInit {
   loadingEvent: any;
 
   usersInCommunity: User[] = [];
+
+  balances: Balance[] = [];
 
   constructor(
     private debtService: DebtService,
@@ -48,6 +51,10 @@ export class DebtsPage implements OnInit {
   }
 
   ngOnInit() {
+    this.debtService.getBalance().subscribe((balances) => {
+      console.log(balances);
+      this.balances = balances;
+    });
   }
 
   openEditor(state: boolean) {
@@ -63,7 +70,7 @@ export class DebtsPage implements OnInit {
   }
 
   saveDebt() {
-    const debt: Debt = new Debt(-1, this.nameControl.value, this.amountControl.value, this.debitorControl.value, 0);
+    const debt: Debt = new Debt(-1, this.nameControl.value, this.amountControl.value, this.debitorControl.value);
     this.debtService.addDebt(debt);
     // if (this.createNameField.value) {
     //   this.editorIsOpen = false;

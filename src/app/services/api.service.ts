@@ -12,6 +12,8 @@ import { ShoppingItem } from '../models/shopping-item';
 import { Task } from '../models/task';
 import { User } from '../models/user';
 import { StorageService } from './storage.service';
+import { Balance } from '../models/balance';
+import { BalanceAdapter } from '../adapter/balance-adapter';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +25,8 @@ export class ApiService {
     private storageService: StorageService,
     private userAdapter: UserAdapter,
     private communityAdapter: CommunityAdapter,
-    private taskAdapter: TaskAdapter
+    private taskAdapter: TaskAdapter,
+    private balanceAdapter: BalanceAdapter
     ) { }
 
   getHeader(): HttpHeaders {
@@ -183,5 +186,11 @@ export class ApiService {
 
   updateShoppingItem(data: any): Observable<any> {
     return this.httpClient.put<any>(environment.api + 'shoppinglist/items/update', data, { headers: this.getHeader() });
+  }
+
+  getDebtBalance(): Observable<Balance[]> {
+    return this.httpClient.get<any>(environment.api + 'debt/balance', { headers: this.getHeader() }).pipe(
+      map((data: any) => data.data.map((item) => this.balanceAdapter.adapt(item)))
+    );
   }
 }
