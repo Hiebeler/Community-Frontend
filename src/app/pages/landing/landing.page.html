@@ -7,11 +7,7 @@
         </ion-col>
 
         <ion-col size="auto">
-          <p>Features</p>
-        </ion-col>
-
-        <ion-col size="auto">
-          <button type="button" class="btn-small btn-primary" (click)="gotoLogin()">Login</button>
+          <button type="button" class="btn-small btn-outline-primary" (click)="gotoLogin()">Login</button>
         </ion-col>
 
         <ion-col size="auto">
@@ -23,23 +19,26 @@
 </ion-header>
 
 <ion-content>
-  <div class="container-fluid wrapper">
-    <section class="fief">
+  <div class="container-fluid wrappe">
+    <section>
       <div class="inner-wrap">
-        <ion-grid>
+        <ion-grid class="ion-no-padding">
           <ion-row>
-            <ion-col>
-              <p>
+            <ion-col size-xs="84" size-sm="84" size-md="42" size-lg="42" size-xl="42" class="ion-col-left">
+              <div>
+                <p>
                 Kommiuniti
               </p>
               <h1>
                 Easily organize your Community
               </h1>
               <button type="button" class="btn-small btn-dark" (click)="gotoApp()">Zur App</button>
+              </div>
+
             </ion-col>
 
-            <ion-col>
-              <img class="mockup-image" src="../../../assets/images/dine.webp" alt="">
+            <ion-col size-xs="84" size-sm="84" size-md="42" size-lg="42" size-xl="42" class="ion-col-right">
+              <img class="mockup-image" src="../../../assets/images/mockup-cropped-1.png" alt="">
             </ion-col>
           </ion-row>
         </ion-grid>
