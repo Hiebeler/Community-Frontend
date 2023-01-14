@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user';
 import { ApiService } from './api.service';
-import { CommunityService } from './community.service';
 
 @Injectable({
   providedIn: 'root'

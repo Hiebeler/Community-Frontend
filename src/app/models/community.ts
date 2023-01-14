@@ -5,10 +5,10 @@ export class Community {
   public code: string;
   public adminId: number;
 
-  constructor(data?: any) {
-    this.id = data?.id;
-    this.name = data?.name;
-    this.code = data?.code;
-    this.adminId = data?.fk_admin_id;
+  constructor(id: number, name: string, code: string, adminId: number) {
+    this.id = id;
+    this.name = name;
+    this.code = code;
+    this.adminId = adminId;
   }
 }

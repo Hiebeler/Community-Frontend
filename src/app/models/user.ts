@@ -12,14 +12,23 @@ export class User {
   public communityId: number;
   public color: string;
 
-  constructor(data?: any) {
-    this.id = data?.id;
-    this.email = data?.email;
-    this.firstname = data?.firstname;
-    this.lastname = data?.lastname;
-    this.profileimage = data?.profile_image;
-    this.creationDate = data?.creationdate;
-    this.communityId = data?.fk_community_id;
-    this.color = data?.color;
+  constructor(
+    id: number,
+    email: string,
+    firstname: string,
+    lastname: string,
+    profileImage: SafeResourceUrl,
+    creationDate: Date,
+    communityId: number,
+    color: string
+  ) {
+    this.id = id;
+    this.email = email;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.profileimage = profileImage;
+    this.creationDate = creationDate;
+    this.communityId = communityId;
+    this.color = color;
   }
 }

@@ -33,7 +33,7 @@ export class TasksPage implements OnInit {
 
     if (this.numberOfColumns === 7) {
       this.startDate = this.getMondayOfCurrentWeek();
-    this.endDate = this.addDate(this.startDate, this.numberOfColumns - 1);
+      this.endDate = this.addDate(this.startDate, this.numberOfColumns - 1);
     }
     else {
       this.startDate = new Date();
@@ -50,32 +50,32 @@ export class TasksPage implements OnInit {
     };
 
     this.apiService.getTasks(params).subscribe((tasks) => {
-        this.days = [];
+      this.days = [];
 
-        for (let i = 0; i < this.numberOfColumns; i++) {
-          const currentDate = this.addDate(this.startDate, i);
-          const currentDateString = this.formatDate(currentDate);
+      for (let i = 0; i < this.numberOfColumns; i++) {
+        const currentDate = this.addDate(this.startDate, i);
+        const currentDateString = this.formatDate(currentDate);
 
-          const openTasks: Task[] = [];
-          const doneTasks: Task[] = [];
+        const openTasks: Task[] = [];
+        const doneTasks: Task[] = [];
 
-          tasks.forEach(task => {
-            if (this.formatDate(task.date) === currentDateString) {
-              if (task.done) {
-                doneTasks.push(task);
-              } else {
-                openTasks.push(task);
-              }
-
+        tasks.forEach(task => {
+          if (this.formatDate(task.date) === currentDateString) {
+            if (task.done) {
+              doneTasks.push(task);
+            } else {
+              openTasks.push(task);
             }
-          });
 
-          this.days.push(new Day({ name: i.toString(), openTasks, doneTasks, date: new Date(currentDate) }));
-        }
+          }
+        });
 
-        if (event) {
-          event.target.complete();
-        }
+        this.days.push(new Day(i.toString(), openTasks, doneTasks, new Date(currentDate)));
+      }
+
+      if (event) {
+        event.target.complete();
+      }
     });
   }
 

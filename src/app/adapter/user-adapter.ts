@@ -14,6 +14,8 @@ export class UserAdapter implements Adapter<User> {
   adapt(item: any): User {
     item.creationdate = new Date(item.creationdate);
     item.profile_image = this.domSanitizer.bypassSecurityTrustResourceUrl(item.profile_image);
-    return new User(item);
+    return new User(
+      item.id, item.email, item.firstname, item.lastname, item.profile_image,
+      item.creationdate, item.fk_community_id, item.color);
   }
 }

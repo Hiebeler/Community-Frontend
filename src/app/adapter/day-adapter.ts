@@ -9,13 +9,6 @@ import { Adapter } from './adapter';
 
 export class DayAdapter implements Adapter<Day> {
   adapt(item: any): Day {
-    let fief: Task[];
-    item.tasks.forEach(task => {
-      const tsk = new Task(task.name);
-    });
-
-    // item.newtasks Task[];
-
-    return new Day(item);
+    return new Day(item.name, item.openTasks, item.doneTasks, item.date);
   }
 }

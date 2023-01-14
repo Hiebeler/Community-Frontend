@@ -2,17 +2,17 @@ import { User } from './user';
 
 export class Request {
 
-    public id: number;
-    public date: Date;
-    public userId: number;
-    public communityId: number;
-    public user: User;
+  public id: number;
+  public date: Date;
+  public userId: number;
+  public communityId: number;
+  public user: User;
 
-    constructor(data?: any) {
-      this.id = data?.id;
-      this.date = data?.date;
-      this.userId = data?.fk_user_id;
-      this.communityId = data?.fk_community_id;
-      this.user = data?.user;
-    }
+  constructor(id: number, date: Date, userId: number, communityId: number, user: User) {
+    this.id = id;
+    this.date = date;
+    this.userId = userId;
+    this.communityId = communityId;
+    this.user = user;
   }
+}

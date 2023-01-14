@@ -89,7 +89,7 @@ export class ShoppingListPage implements OnInit {
   saveItem() {
     if (this.createNameField.value) {
       this.editorIsOpen = false;
-      this.shoppingService.addShoppingItem(this.createNameField.value).subscribe((res) => {
+      this.shoppingService.addShoppingItem(new ShoppingItem(null, this.createNameField.value, null)).subscribe((res) => {
         this.getItems();
       });
       this.itemEditorForm.controls.createname.setValue('');
@@ -97,7 +97,7 @@ export class ShoppingListPage implements OnInit {
   }
 
   updateDone(id: number, e: any) {
-    this.shoppingService.updateShoppingItem(id, e.target.checked).subscribe((res) => {
+    this.shoppingService.updateShoppingItem(new ShoppingItem(id, null, e.target.checked)).subscribe((res) => {
       if (res.status === 'OK') {
         this.getItems();
       }
@@ -112,7 +112,8 @@ export class ShoppingListPage implements OnInit {
         name: this.updateNameField.value
       };
 
-      this.shoppingService.updateShoppingItem(id, undefined, this.updateNameField.value).subscribe((res) => {
+
+      this.shoppingService.updateShoppingItem(new ShoppingItem(id, this.updateNameField.value, undefined)).subscribe((res) => {
         if (res.status === 'OK') {
           this.getItems();
         }

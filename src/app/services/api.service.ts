@@ -14,6 +14,7 @@ import { User } from '../models/user';
 import { StorageService } from './storage.service';
 import { Balance } from '../models/balance';
 import { BalanceAdapter } from '../adapter/balance-adapter';
+import { ShoppingItemAdapter } from '../adapter/shopping-item-adapter';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,9 @@ export class ApiService {
     private userAdapter: UserAdapter,
     private communityAdapter: CommunityAdapter,
     private taskAdapter: TaskAdapter,
-    private balanceAdapter: BalanceAdapter
-    ) { }
+    private balanceAdapter: BalanceAdapter,
+    private shoppingItemAdapter: ShoppingItemAdapter
+  ) { }
 
   getHeader(): HttpHeaders {
     const headers = new HttpHeaders({
@@ -144,7 +146,7 @@ export class ApiService {
         } else {
           return of(res);
         }
-      }),map((res: any) => res.data.map((item) => this.taskAdapter.adapt(item)))
+      }), map((res: any) => res.data.map((item) => this.taskAdapter.adapt(item)))
     );
   }
 
@@ -164,7 +166,7 @@ export class ApiService {
         } else {
           return of(res);
         }
-      }),map((res: any) => res.data.map((item) => new ShoppingItem(item)))
+      }), map((res: any) => res.data.map((item) => this.shoppingItemAdapter.adapt(item)))
     );
   }
 
@@ -176,12 +178,12 @@ export class ApiService {
         } else {
           return of(res);
         }
-      }),map((res: any) => res.data.map((item) => new ShoppingItem(item)))
+      }), map((res: any) => res.data.map((item) => this.shoppingItemAdapter.adapt(item)))
     );
   }
 
-  addShoppingItem(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'shoppinglist/items/add', data, { headers: this.getHeader() });
+  addShoppingItem(itemName: string): Observable<any> {
+    return this.httpClient.post<any>(environment.api + 'shoppinglist/items/add', { name: itemName }, { headers: this.getHeader() });
   }
 
   updateShoppingItem(data: any): Observable<any> {

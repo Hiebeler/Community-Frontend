@@ -11,14 +11,23 @@ export class Task {
   public communityId: number;
   public assignedUsers: User[];
 
-  constructor(data?: any) {
-    this.id = data?.id;
-    this.name = data?.name;
-    this.notes = data?.notes;
-    this.date = data?.date;
-    this.done = data?.done ?? false;
-    this.fkRoutineId = data?.fk_routine_id;
-    this.communityId = data?.fk_community_id;
-    this.assignedUsers = data?.assignedUsers ?? [];
+  constructor(
+    id: number,
+    name: string,
+    notes: string,
+    date: Date,
+    done: boolean,
+    routineId: number,
+    communityId: number,
+    assignedUsers: User[]
+  ) {
+    this.id = id;
+    this.name = name;
+    this.notes = notes;
+    this.date = date;
+    this.done = done ?? false;
+    this.fkRoutineId = routineId;
+    this.communityId = communityId;
+    this.assignedUsers = assignedUsers ?? [];
   }
 }

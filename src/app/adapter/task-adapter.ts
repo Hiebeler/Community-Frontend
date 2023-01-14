@@ -20,6 +20,7 @@ export class TaskAdapter implements Adapter<Task> {
     });
 
     item.assignedUsers = users;
-    return new Task(item);
+    return new Task(item.id, item.name, item.notes, item.date,
+      item.done, item.fk_routine_id, item.fk_community_id, item.assignedUsers);
   }
 }

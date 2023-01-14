@@ -7,10 +7,10 @@ export class Day {
   public doneTasks: Task[];
   public date: Date;
 
-  constructor(data?: any) {
-    this.name = data?.name;
-    this.openTasks = data?.openTasks;
-    this.doneTasks = data?.doneTasks;
-    this.date = data?.date;
+  constructor(name: string, openTasks: Task[], doneTasks: Task[], date: Date) {
+    this.name = name;
+    this.openTasks = openTasks;
+    this.doneTasks = doneTasks;
+    this.date = date;
   }
 }

@@ -31,11 +31,11 @@ export class ShoppingService {
     });
   }
 
-  addShoppingItem(name: string): Observable<any> {
-    return this.apiService.addShoppingItem({ name });
+  addShoppingItem(shoppingItem: ShoppingItem): Observable<any> {
+    return this.apiService.addShoppingItem(shoppingItem.name);
   }
 
-  updateShoppingItem(id: number, done?: boolean, name?: string): Observable<any> {
-    return this.apiService.updateShoppingItem({ id, done, name });
+  updateShoppingItem(shoppingItem: ShoppingItem): Observable<any> {
+    return this.apiService.updateShoppingItem({ id: shoppingItem.id, done: shoppingItem.done, name: shoppingItem.name });
   }
 }

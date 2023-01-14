@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Community } from '../models/community';
 import { Adapter } from './adapter';
 
@@ -9,6 +8,6 @@ import { Adapter } from './adapter';
 
 export class CommunityAdapter implements Adapter<Community> {
   adapt(item: any): Community {
-    return new Community(item);
+    return new Community(item.id, item.name, item.code, item.fk_admin_id);
   }
 }
