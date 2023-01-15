@@ -18,6 +18,7 @@ export class TaskService {
 
   addRoutine(routine: Routine): Observable<any> {
     const data = {
+      id: routine.id,
       name: routine.name,
       startDate: routine.startDate,
       interval: routine.interval

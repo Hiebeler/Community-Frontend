@@ -209,7 +209,6 @@ export class ApiService {
   }
 
   addDebt(data: any): Observable<any> {
-    console.log('create debt');
     return this.httpClient.post<any>(environment.api + 'debt/create', data, { headers: this.getHeader() });
   }
 

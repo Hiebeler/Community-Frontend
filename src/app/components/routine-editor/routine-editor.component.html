@@ -1,0 +1,51 @@
+<form [formGroup]="routineForm" (ngSubmit)="saveRoutine()">
+  <ion-grid class="card">
+    <ion-row>
+      <ion-col style="display: flex; justify-content: center">
+        <button type="button" class="btn-small btn-dark" style="width: 100%;"
+          (click)="parentCloseEditor()">Schließen</button>
+      </ion-col>
+      <ion-col>
+        <button [disabled]="routineForm.invalid" type="button" (click)="saveRoutine()"
+          class="btn-large btn-primary" style="width: 100%;">Speichern</button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <p>Name:</p>
+        <div class="field-box">
+          <input type="text" id="name" autocomplete="off" formControlName="name" placeholder="Name">
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <p>Notizen:</p>
+        <div class="field-box">
+          <input type="text" id="name" autocomplete="off" formControlName="notes" placeholder="Name">
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <p>Startdatum:</p>
+        <div class="field-box">
+          <input type="date" id="name" autocomplete="off" formControlName="startdate" placeholder="Name">
+        </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <p>Intervall:</p>
+        <div class="field-box">
+          <input type="number" min="1" step="1" id="name" autocomplete="off" formControlName="interval"
+            placeholder="Name">
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</form>

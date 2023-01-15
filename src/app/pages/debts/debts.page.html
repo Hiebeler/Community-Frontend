@@ -7,9 +7,10 @@
     <ion-grid fixed="true">
       <ion-row class="topbar">
         <ion-col class="topbar-header-col">
-          <p>Schulden</p>
+          <p *ngIf="!editorIsOpen">Schulden</p>
+          <p *ngIf="editorIsOpen">Neue Schuld</p>
         </ion-col>
-        <ion-col size="auto" class="topbar-buttons-col">
+        <ion-col *ngIf="!editorIsOpen" size="auto" class="topbar-buttons-col">
           <button type="button" class="btn-small btn-primary" (click)="openEditor(true)">Neu</button>
         </ion-col>
       </ion-row>
@@ -31,10 +32,14 @@
 
               <ion-row>
                 <ion-col style="display: flex; justify-content: center">
-                  <button type="button" class="btn-small" style="width: 100%;" [ngClass]="iOwe ? 'btn-primary': 'btn-dark'" (click)="changeIOwe(true)">Ich Schulde</button>
+                  <button type="button" class="btn-small" style="width: 100%;"
+                    [ngClass]="iOwe ? 'btn-primary': 'btn-dark'" (click)="changeIOwe(true)">
+                    Ich Schulde
+                  </button>
                 </ion-col>
                 <ion-col>
-                  <button type="button" class="btn-large" style="width: 100%;" [ngClass]="!iOwe ? 'btn-primary': 'btn-dark'" (click)="changeIOwe(false)">Ich Zahle</button>
+                  <button type="button" class="btn-large" style="width: 100%;"
+                    [ngClass]="!iOwe ? 'btn-primary': 'btn-dark'" (click)="changeIOwe(false)">Ich Bekomme</button>
                 </ion-col>
               </ion-row>
 
@@ -97,7 +102,8 @@
                       </ion-col>
                       <ion-col>
                         <button [disabled]="clearOffBalanceEditorForm.invalid" type="button"
-                          class="btn-large btn-primary" style="width: 100%;" (click)="clearOffBalance(balance)">Updaten</button>
+                          class="btn-large btn-primary" style="width: 100%;"
+                          (click)="clearOffBalance(balance)">Updaten</button>
                       </ion-col>
                     </ion-row>
 
@@ -105,7 +111,8 @@
                       <ion-col>
                         <form [formGroup]="clearOffBalanceEditorForm" (ngSubmit)="clearOffBalance(balance)">
                           <div class="field-box">
-                            <input type="number" id="name" autocomplete="off" formControlName="amount" placeholder="Amount">
+                            <input type="number" id="name" autocomplete="off" formControlName="amount"
+                              placeholder="Amount">
                           </div>
                         </form>
                       </ion-col>
@@ -138,7 +145,8 @@
                       </ion-col>
                       <ion-col>
                         <button [disabled]="clearOffBalanceEditorForm.invalid" type="button"
-                          class="btn-large btn-primary" style="width: 100%;" (click)="clearOffBalance(balance)">Updaten</button>
+                          class="btn-large btn-primary" style="width: 100%;"
+                          (click)="clearOffBalance(balance)">Updaten</button>
                       </ion-col>
                     </ion-row>
 
@@ -146,7 +154,8 @@
                       <ion-col>
                         <form [formGroup]="clearOffBalanceEditorForm" (ngSubmit)="clearOffBalance(balance)">
                           <div class="field-box">
-                            <input type="number" id="name" autocomplete="off" formControlName="amount" placeholder="Amount">
+                            <input type="number" id="name" autocomplete="off" formControlName="amount"
+                              placeholder="Amount">
                           </div>
                         </form>
                       </ion-col>

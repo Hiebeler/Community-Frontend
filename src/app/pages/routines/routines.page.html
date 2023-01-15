@@ -16,57 +16,7 @@
 
       <ion-row *ngIf="newRoutineEditorIsOpen">
         <ion-col>
-
-          <form [formGroup]="newRoutineForm" (ngSubmit)="saveNewRoutine()">
-            <ion-grid class="card">
-              <ion-row>
-                <ion-col style="display: flex; justify-content: center">
-                  <button type="button" class="btn-small btn-dark" style="width: 100%;"
-                    (click)="openNewRoutineEditor(false)">Schließen</button>
-                </ion-col>
-                <ion-col>
-                  <button [disabled]="newRoutineForm.invalid" type="button" (click)="saveNewRoutine()"
-                    class="btn-large btn-primary" style="width: 100%;">Speichern</button>
-                </ion-col>
-              </ion-row>
-
-              <ion-row>
-                <ion-col>
-                  <p>Name:</p>
-                  <div class="field-box">
-                    <input type="text" id="name" autocomplete="off" formControlName="name" placeholder="Name">
-                  </div>
-                </ion-col>
-              </ion-row>
-
-              <ion-row>
-                <ion-col>
-                  <p>Notizen:</p>
-                  <div class="field-box">
-                    <input type="text" id="name" autocomplete="off" formControlName="notes" placeholder="Name">
-                  </div>
-                </ion-col>
-              </ion-row>
-
-              <ion-row>
-                <ion-col>
-                  <p>Startdatum:</p>
-                  <div class="field-box">
-                    <input type="date" id="name" autocomplete="off" formControlName="startdate" placeholder="Name">
-                  </div>
-                </ion-col>
-              </ion-row>
-
-              <ion-row>
-                <ion-col>
-                  <p>Intervall:</p>
-                  <div class="field-box">
-                    <input type="number" min="1" step="1" id="name" autocomplete="off" formControlName="interval" placeholder="Name">
-                  </div>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </form>
+          <app-routine-editor (closeEditor)="openNewRoutineEditor(false)"></app-routine-editor>
         </ion-col>
       </ion-row>
 
@@ -76,30 +26,38 @@
         </ion-col>
       </ion-row>
 
-      <ion-row *ngFor="let routine of routines">
-        <ion-col>
-          <ion-grid class="card" [ngStyle]="{'background-color': routine.assignedUsers[0]?.color}">
-            <ion-row>
-              <ion-col>
-                <p>{{routine.name}}</p>
-                <ion-chip *ngFor="let user of routine.assignedUsers">
-                  <ion-avatar>
-                    <img alt="" [src]="user.profileimage" />
-                  </ion-avatar>
-                  <ion-label>{{user.firstname}}</ion-label>
-                </ion-chip>
-              </ion-col>
+      <div *ngFor="let routine of routines">
+        <ion-row>
+          <ion-col>
+            <ion-grid class="card clickable" [ngStyle]="{'background-color': routine.assignedUsers[0]?.color}"
+              (click)="openUpdateEditor(routine.id)">
+              <ion-row>
+                <ion-col>
+                  <p>{{routine.name}}</p>
+                  <ion-chip *ngFor="let user of routine.assignedUsers">
+                    <ion-avatar>
+                      <img alt="" [src]="user.profileimage" />
+                    </ion-avatar>
+                    <ion-label>{{user.firstname}}</ion-label>
+                  </ion-chip>
+                </ion-col>
 
-              <ion-col>
-                <p>Startdatum: {{routine.startDate.toLocaleDateString('de-AT', { year: 'numeric', month: 'short', day:
-                  'numeric' })}}</p>
-                <p class="ion-no-margin">Intervall: {{routine.interval}}</p>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-col>
-      </ion-row>
+                <ion-col>
+                  <p>Startdatum: {{routine.startDate.toLocaleDateString('de-AT', { year: 'numeric', month: 'short', day:
+                    'numeric' })}}</p>
+                  <p class="ion-no-margin">Intervall: {{routine.interval}}</p>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
 
+        <ion-row *ngIf="updateRoutineEditorOpenId === routine.id">
+          <ion-col>
+            <app-routine-editor [routine]="routine" (closeEditor)="openUpdateEditor(-1)"></app-routine-editor>
+          </ion-col>
+        </ion-row>
+      </div>
     </ion-grid>
   </div>
 </ion-content>

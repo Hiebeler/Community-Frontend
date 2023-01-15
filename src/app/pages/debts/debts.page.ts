@@ -96,7 +96,6 @@ export class DebtsPage implements OnInit {
 
   openClearOffEditor(item?: Balance) {
     if (item) {
-      console.log(item.amount);
       this.clearOffBalanceEditorForm.controls.amount.setValue(item.amount < 0 ?item.amount * -1 : item.amount);
       this.clearOffEditorIsOpenId = item.debitor.id;
     } else {

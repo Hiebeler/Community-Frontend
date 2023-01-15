@@ -12,7 +12,6 @@ export class RoutineAdapter implements Adapter<Routine> {
   constructor(private userAdapter: UserAdapter) { }
 
   adapt(item: any): Routine {
-    console.log(item);
     item.startDate = new Date(item.startDate);
     item.routine_user = item.routine_user ?? [];
 

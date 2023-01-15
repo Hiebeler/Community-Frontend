@@ -7,7 +7,7 @@ export class Routine {
   public notes: string;
   public startDate: Date;
   public interval: number;
-  public communityId: number;
+  public active: boolean;
   public assignedUsers: User[];
 
   constructor(
@@ -16,7 +16,7 @@ export class Routine {
     notes: string,
     startDate: Date,
     interval: number,
-    communityId: number,
+    active: boolean,
     assignedUsers: User[]
   ) {
     this.id = id;
@@ -24,7 +24,7 @@ export class Routine {
     this.notes = notes;
     this.startDate = startDate;
     this.interval = interval;
-    this.communityId = communityId;
+    this.active = active;
     this.assignedUsers = assignedUsers ?? [];
   }
 }

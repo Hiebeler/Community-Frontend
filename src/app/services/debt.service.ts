@@ -15,7 +15,6 @@ export class DebtService {
   ) { }
 
   addDebt(debt: Debt): Observable<any> {
-    console.log(debt);
     return this.apiService.addDebt({ debitorId: debt.debitor.id, creditorId: debt.creditor.id, amount: debt.amount, name: debt.name });
   }
 
