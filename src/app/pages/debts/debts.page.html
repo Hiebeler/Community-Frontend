@@ -77,16 +77,42 @@
           <h2>Noch zu Zahlen:</h2>
           <div *ngFor="let balance of balances">
             <ion-row *ngIf="balance.amount > 0">
-              <ion-col size="auto">
-              </ion-col>
-              <ion-col>
-                <ion-row>
-                  <span>
-                    {{balance.debitor.firstname + ' ' + balance.debitor.lastname + ' ' + balance.amount + '€'}}
-                  </span>
-                  <button (click)="clearOffBalance(balance)">begleichen</button>
-                </ion-row>
-              </ion-col>
+              <div *ngIf="updateEditorIsOpenId !== balance.debitor.id">
+                <ion-col>
+                  <ion-row>
+                    <span>
+                      {{balance.debitor.firstname + ' ' + balance.debitor.lastname + ' ' + balance.amount + '€'}}
+                    </span>
+                    <button (click)="openUpdateEditor(balance)">begleichen</button>
+                  </ion-row>
+                </ion-col>
+              </div>
+              <ion-row style="display: flex" *ngIf="updateEditorIsOpenId === balance.debitor.id">
+                <ion-col>
+                  <ion-grid class="card">
+                    <ion-row>
+                      <ion-col style="display: flex; justify-content: center">
+                        <button type="button" class="btn-small btn-dark" style="width: 100%;"
+                          (click)="openUpdateEditor()">Schließen</button>
+                      </ion-col>
+                      <ion-col>
+                        <button [disabled]="itemUpdateEditorForm.invalid" type="button"
+                          class="btn-large btn-primary" style="width: 100%;">Updaten</button>
+                      </ion-col>
+                    </ion-row>
+      
+                    <ion-row>
+                      <ion-col>
+                        <form [formGroup]="itemUpdateEditorForm">
+                          <div class="field-box">
+                            <input type="text" id="name" autocomplete="off" formControlName="updatename" placeholder="Name">
+                          </div>
+                        </form>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-col>
+              </ion-row>
             </ion-row>
           </div>
           <h2>Geld kriegen:</h2>

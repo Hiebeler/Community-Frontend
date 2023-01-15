@@ -15,7 +15,10 @@ export class DebtsPage implements OnInit {
 
   editorIsOpen = false;
 
+  updateEditorIsOpenId = -1;
+
   itemEditorForm: FormGroup;
+  itemUpdateEditorForm: FormGroup;
 
   loadingEvent: any;
 
@@ -68,6 +71,10 @@ export class DebtsPage implements OnInit {
   openEditor(state: boolean) {
     // this.itemEditorForm.controls.createname.setValue('');
     this.editorIsOpen = state;
+  }
+
+  openUpdateEditor(item?: Balance) {
+    this.updateEditorIsOpenId = item.debitor.id;
   }
 
   getItems(event?) {

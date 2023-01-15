@@ -205,7 +205,7 @@ export class ApiService {
   }
 
   getRoutines(): Observable<Routine[]> {
-    return this.httpClient.get<any>(environment.api + 'task/routines', { headers: this.getHeader() }).pipe(
+    return this.httpClient.get<any>(environment.api + 'task/routine/all', { headers: this.getHeader() }).pipe(
       map((data: any) => data.data.map((item) => this.routineAdapter.adapt(item)))
     );
   }
