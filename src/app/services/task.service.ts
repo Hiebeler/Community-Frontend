@@ -16,17 +16,14 @@ export class TaskService {
     return this.apiService.getRoutines();
   }
 
-  addRoutine(routine: Routine): Observable<any> {
+  modifyRoutine(routine: Routine): Observable<any> {
     const data = {
       id: routine.id,
       name: routine.name,
       startDate: routine.startDate,
-      interval: routine.interval
+      interval: routine.interval,
+      active: routine.active
     };
     return this.apiService.modifyRoutine(data);
-  }
-
-  updateRoutine(routine: Routine): Observable<any> {
-    return null;
   }
 }

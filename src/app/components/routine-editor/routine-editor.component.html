@@ -24,7 +24,7 @@
       <ion-col>
         <p>Notizen:</p>
         <div class="field-box">
-          <input type="text" id="name" autocomplete="off" formControlName="notes" placeholder="Name">
+          <input type="text" id="name" autocomplete="off" formControlName="notes" placeholder="Notizen">
         </div>
       </ion-col>
     </ion-row>
@@ -33,7 +33,7 @@
       <ion-col>
         <p>Startdatum:</p>
         <div class="field-box">
-          <input type="date" id="name" autocomplete="off" formControlName="startdate" placeholder="Name">
+          <input type="date" id="name" autocomplete="off" formControlName="startdate" placeholder="StartDatum">
         </div>
       </ion-col>
     </ion-row>
@@ -43,8 +43,15 @@
         <p>Intervall:</p>
         <div class="field-box">
           <input type="number" min="1" step="1" id="name" autocomplete="off" formControlName="interval"
-            placeholder="Name">
+            placeholder="Intervall in Tagen">
         </div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row *ngIf="routine">
+      <ion-col>
+        <ion-checkbox style="display: flex;" color="primary" formControlName="done">
+        </ion-checkbox>
       </ion-col>
     </ion-row>
   </ion-grid>

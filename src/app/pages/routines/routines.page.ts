@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Routine } from 'src/app/models/routine';
 import { TaskService } from 'src/app/services/task.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-routines',
@@ -14,17 +13,25 @@ export class RoutinesPage implements OnInit {
   enabledRoutines: Routine[] = [];
   disabledRoutines: Routine[] = [];
 
+  loadingEvent: any;
+
   newRoutineEditorIsOpen = false;
 
   updateRoutineEditorOpenId = -1;
 
   constructor(
     private router: Router,
-    private taskService: TaskService,
-    private userService: UserService
+    private taskService: TaskService
   ) { }
 
   ngOnInit() {
+    this.getRoutines();
+  }
+
+  getRoutines(event?) {
+    if (event) {
+      this.loadingEvent = event;
+    }
     this.taskService.getRoutines().subscribe(routines => {
       this.enabledRoutines = [];
       this.disabledRoutines = [];
@@ -36,6 +43,10 @@ export class RoutinesPage implements OnInit {
           this.disabledRoutines.push(routine);
         }
       });
+
+      if (this.loadingEvent) {
+        this.loadingEvent.target.complete();
+      }
     });
   }
 

@@ -26,11 +26,12 @@ export class RoutineEditorComponent implements OnInit {
       name: new FormControl<string | null>('', [Validators.minLength(1), Validators.required]),
       notes: new FormControl<string | null>(''),
       startdate: new FormControl<string | null>('', [Validators.minLength(1), Validators.required]),
-      interval: new FormControl<string | null>('', [Validators.pattern(/^[1-9][0-9]*$/), Validators.required])
+      interval: new FormControl<string | null>('', [Validators.pattern(/^[1-9][0-9]*$/), Validators.required]),
+      done: new FormControl<string | null>('', [])
     });
-   }
+  }
 
-   get nameControl() {
+  get nameControl() {
     return this.routineForm.get('name');
   }
 
@@ -46,20 +47,33 @@ export class RoutineEditorComponent implements OnInit {
     return this.routineForm.get('interval');
   }
 
+  get doneControl() {
+    return this.routineForm.get('done');
+  }
+
   ngOnInit() {
     if (this.routine) {
       this.nameControl.setValue(this.routine.name);
       this.notesControl.setValue(this.routine.notes);
       this.startdateControl.setValue(this.routine.startDate.toISOString().split('T')[0]);
       this.intervalControl.setValue(this.routine.interval);
+      this.doneControl.setValue(this.routine.active);
     }
   }
 
   saveRoutine() {
     const id = this.routine?.id ?? null;
     const startDate = new Date(this.startdateControl.value);
-    const routine = new Routine(id, this.nameControl.value, this.notesControl.value, startDate, this.intervalControl.value, null, null);
-    this.taskService.addRoutine(routine).subscribe(res => {
+    const routine = new Routine(
+      id,
+      this.nameControl.value,
+      this.notesControl.value,
+      startDate,
+      this.intervalControl.value,
+      this.doneControl.value,
+      null
+    );
+    this.taskService.modifyRoutine(routine).subscribe(res => {
       if (res.status === 'OK') {
         this.parentCloseEditor();
         this.routineForm.reset();
