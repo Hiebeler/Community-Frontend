@@ -218,4 +218,8 @@ export class ApiService {
       map((data: any) => data.data.map((item) => this.routineAdapter.adapt(item)))
     );
   }
+
+  modifyRoutine(data: any): Observable<any> {
+    return this.httpClient.post<any>(environment.api + 'task/routine/modify', data, { headers: this.getHeader() });
+  }
 }

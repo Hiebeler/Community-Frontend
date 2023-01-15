@@ -17,7 +17,12 @@ export class TaskService {
   }
 
   addRoutine(routine: Routine): Observable<any> {
-    return null;
+    const data = {
+      name: routine.name,
+      startDate: routine.startDate,
+      interval: routine.interval
+    };
+    return this.apiService.modifyRoutine(data);
   }
 
   updateRoutine(routine: Routine): Observable<any> {

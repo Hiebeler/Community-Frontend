@@ -7,9 +7,10 @@
     <ion-grid fixed="true">
       <ion-row class="topbar">
         <ion-col class="topbar-header-col">
-          <p>Einkaufsliste</p>
+          <p *ngIf="!editorIsOpen">Einkaufsliste</p>
+          <p *ngIf="editorIsOpen">Neues Element</p>
         </ion-col>
-        <ion-col size="auto" class="topbar-buttons-col">
+        <ion-col *ngIf="!editorIsOpen" size="auto" class="topbar-buttons-col">
           <button type="button" class="btn-small btn-primary" (click)="openEditor(true)">Neu</button>
         </ion-col>
       </ion-row>
