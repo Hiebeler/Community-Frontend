@@ -9,6 +9,7 @@
       <ion-tab-button tab="tasks" *ngIf="communityExists">
         <ion-icon name="calendar-outline"></ion-icon>
         <ion-label>Aufgaben</ion-label>
+        <ion-badge *ngIf="tasksForTodayExists">!</ion-badge>
       </ion-tab-button>
 
       <ion-tab-button tab="shopping-list" *ngIf="communityExists">

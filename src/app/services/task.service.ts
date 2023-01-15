@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Routine } from '../models/routine';
+import { Task } from '../models/task';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -11,6 +12,10 @@ export class TaskService {
   constructor(
     private apiService: ApiService
   ) { }
+
+  getTasks(startDate: Date, endDate: Date): Observable<Task[]> {
+    return this.apiService.getTasks({ startDate, endDate });
+  }
 
   getRoutines(): Observable<Routine[]> {
     return this.apiService.getRoutines();

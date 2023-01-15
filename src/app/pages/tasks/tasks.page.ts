@@ -5,7 +5,7 @@ import { TaskAdapter } from 'src/app/adapter/task-adapter';
 import { TaskPage } from 'src/app/modals/task/task.page';
 import { Day } from 'src/app/models/day';
 import { Task } from 'src/app/models/task';
-import { ApiService } from 'src/app/services/api.service';
+import { TaskService } from 'src/app/services/task.service';
 
 @Component({
   selector: 'app-tasks',
@@ -24,7 +24,7 @@ export class TasksPage implements OnInit {
   endDate: Date;
 
   constructor(
-    private apiService: ApiService,
+    private taskService: TaskService,
     private modalController: ModalController,
     private taskAdapter: TaskAdapter,
     private router: Router
@@ -46,12 +46,7 @@ export class TasksPage implements OnInit {
   }
 
   getTasks(event?) {
-    const params: any = {
-      startDate: this.startDate,
-      endDate: this.endDate
-    };
-
-    this.apiService.getTasks(params).subscribe((tasks) => {
+    this.taskService.getTasks(this.startDate, this.endDate).subscribe((tasks) => {
       this.days = [];
 
       for (let i = 0; i < this.numberOfColumns; i++) {
