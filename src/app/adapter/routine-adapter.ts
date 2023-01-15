@@ -9,11 +9,19 @@ import { Routine } from '../models/routine';
 
 export class RoutineAdapter implements Adapter<Routine> {
 
-  constructor(private userAdapter: UserAdapter){}
+  constructor(private userAdapter: UserAdapter) { }
 
   adapt(item: any): Routine {
-    item.start_date = new Date(item.start_date);
-    item.assigned_users = [];
-    return new Routine(item.name, item.notes, item.start_date, item.community_id, item.assigned_users);
+    console.log(item);
+    item.startDate = new Date(item.startDate);
+    item.routine_user = item.routine_user ?? [];
+
+    const arr = [];
+
+    item.routine_user.map(e => {
+      arr.push(this.userAdapter.adapt(e.user));
+    });
+
+    return new Routine(item.id, item.name, item.notes ?? '', item.startDate, item.interval, item.community_id, arr);
   }
 }
