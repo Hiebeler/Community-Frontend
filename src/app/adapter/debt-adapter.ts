@@ -12,8 +12,8 @@ export class DebtAdapter implements Adapter<Debt> {
       item.id,
       item.name,
       item.amount,
-      item.fk_user_debitor_id,
-      item.fk_user_creditor_id
+      item.user,
+      item.user_debt_fk_user_creditor_idTouser
     );
   }
 }

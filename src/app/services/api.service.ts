@@ -17,6 +17,8 @@ import { BalanceAdapter } from '../adapter/balance-adapter';
 import { ShoppingItemAdapter } from '../adapter/shopping-item-adapter';
 import { Routine } from '../models/routine';
 import { RoutineAdapter } from '../adapter/routine-adapter';
+import { Debt } from '../models/debt';
+import { DebtAdapter } from '../adapter/debt-adapter';
 
 @Injectable({
   providedIn: 'root'
@@ -31,7 +33,8 @@ export class ApiService {
     private taskAdapter: TaskAdapter,
     private balanceAdapter: BalanceAdapter,
     private shoppingItemAdapter: ShoppingItemAdapter,
-    private routineAdapter: RoutineAdapter
+    private routineAdapter: RoutineAdapter,
+    private debtAdapter: DebtAdapter,
   ) { }
 
   getHeader(): HttpHeaders {
@@ -196,6 +199,12 @@ export class ApiService {
   getDebtBalance(): Observable<Balance[]> {
     return this.httpClient.get<any>(environment.api + 'debt/balance', { headers: this.getHeader() }).pipe(
       map((data: any) => data.data.map((item) => this.balanceAdapter.adapt(item)))
+    );
+  }
+
+  getMyDebts(): Observable<Debt[]> {
+    return this.httpClient.get<any>(environment.api + 'debt/mine', { headers: this.getHeader() }).pipe(
+      map((data: any) => data.data.map((item) => this.debtAdapter.adapt(item)))
     );
   }
 

@@ -77,35 +77,35 @@
           <h2>Noch zu Zahlen:</h2>
           <div *ngFor="let balance of balances">
             <ion-row *ngIf="balance.amount > 0">
-              <div *ngIf="updateEditorIsOpenId !== balance.debitor.id">
+              <div *ngIf="clearOffEditorIsOpenId !== balance.debitor.id">
                 <ion-col>
                   <ion-row>
                     <span>
                       {{balance.debitor.firstname + ' ' + balance.debitor.lastname + ' ' + balance.amount + '€'}}
                     </span>
-                    <button (click)="openUpdateEditor(balance)">begleichen</button>
+                    <button (click)="openClearOffEditor(balance)">begleichen</button>
                   </ion-row>
                 </ion-col>
               </div>
-              <ion-row style="display: flex" *ngIf="updateEditorIsOpenId === balance.debitor.id">
+              <ion-row style="display: flex" *ngIf="clearOffEditorIsOpenId === balance.debitor.id">
                 <ion-col>
                   <ion-grid class="card">
                     <ion-row>
                       <ion-col style="display: flex; justify-content: center">
                         <button type="button" class="btn-small btn-dark" style="width: 100%;"
-                          (click)="openUpdateEditor()">Schließen</button>
+                          (click)="openClearOffEditor()">Schließen</button>
                       </ion-col>
                       <ion-col>
-                        <button [disabled]="itemUpdateEditorForm.invalid" type="button"
-                          class="btn-large btn-primary" style="width: 100%;">Updaten</button>
+                        <button [disabled]="clearOffBalanceEditorForm.invalid" type="button"
+                          class="btn-large btn-primary" style="width: 100%;" (click)="clearOffBalance(balance)">Updaten</button>
                       </ion-col>
                     </ion-row>
-      
+
                     <ion-row>
                       <ion-col>
-                        <form [formGroup]="itemUpdateEditorForm">
+                        <form [formGroup]="clearOffBalanceEditorForm" (ngSubmit)="clearOffBalance(balance)">
                           <div class="field-box">
-                            <input type="text" id="name" autocomplete="off" formControlName="updatename" placeholder="Name">
+                            <input type="number" id="name" autocomplete="off" formControlName="amount" placeholder="Amount">
                           </div>
                         </form>
                       </ion-col>
@@ -115,22 +115,63 @@
               </ion-row>
             </ion-row>
           </div>
-          <h2>Geld kriegen:</h2>
+          <h2>Geld bekommen:</h2>
           <div *ngFor="let balance of balances">
             <ion-row *ngIf="balance.amount < 0">
-              <ion-col size="auto">
-              </ion-col>
+              <div *ngIf="clearOffEditorIsOpenId !== balance.debitor.id">
+                <ion-col>
+                  <ion-row>
+                    <span>
+                      {{balance.debitor.firstname + ' ' + balance.debitor.lastname + ' ' + balance.amount * -1 + '€'}}
+                    </span>
+                    <button (click)="openClearOffEditor(balance)">begleichen</button>
+                  </ion-row>
+                </ion-col>
+              </div>
+              <ion-row style="display: flex" *ngIf="clearOffEditorIsOpenId === balance.debitor.id">
+                <ion-col>
+                  <ion-grid class="card">
+                    <ion-row>
+                      <ion-col style="display: flex; justify-content: center">
+                        <button type="button" class="btn-small btn-dark" style="width: 100%;"
+                          (click)="openClearOffEditor()">Schließen</button>
+                      </ion-col>
+                      <ion-col>
+                        <button [disabled]="clearOffBalanceEditorForm.invalid" type="button"
+                          class="btn-large btn-primary" style="width: 100%;" (click)="clearOffBalance(balance)">Updaten</button>
+                      </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                      <ion-col>
+                        <form [formGroup]="clearOffBalanceEditorForm" (ngSubmit)="clearOffBalance(balance)">
+                          <div class="field-box">
+                            <input type="number" id="name" autocomplete="off" formControlName="amount" placeholder="Amount">
+                          </div>
+                        </form>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-col>
+              </ion-row>
+            </ion-row>
+          </div>
+          <h2>
+            Verlauf:
+          </h2>
+          <div *ngFor="let debt of debts">
+            <ion-row>
               <ion-col>
-                <span>
-                  {{balance.debitor.firstname + ' ' + balance.debitor.lastname + ' ' + balance.amount * -1 + '€'}}
-                </span>
+                <ion-row>
+                  <span>
+                    {{debt.debitor.firstname + ' ' + debt.debitor.lastname + ' ' + debt.amount + '€'}}
+                  </span>
+                </ion-row>
               </ion-col>
             </ion-row>
           </div>
         </ion-col>
       </ion-row>
-
-
     </ion-grid>
   </div>
 </ion-content>

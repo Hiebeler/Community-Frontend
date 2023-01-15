@@ -9,6 +9,7 @@ import { Balance } from '../models/balance';
 })
 export class DebtService {
   private balances = new BehaviorSubject<Balance[]>([]);
+  private debts = new BehaviorSubject<Debt[]>([]);
   constructor(
     private apiService: ApiService
   ) { }
@@ -22,9 +23,16 @@ export class DebtService {
     this.apiService.getDebtBalance().subscribe(balances => {
       this.balances.next(balances);
     });
+    this.apiService.getMyDebts().subscribe(debts => {
+      this.debts.next(debts);
+    });
   }
 
   getBalance(): Observable<Balance[]> {
     return this.balances;
+  }
+
+  getMyDebts(): Observable<Debt[]> {
+    return this.debts;
   }
 }
