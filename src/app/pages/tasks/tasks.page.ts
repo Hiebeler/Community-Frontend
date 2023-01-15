@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { TaskAdapter } from 'src/app/adapter/task-adapter';
 import { TaskPage } from 'src/app/modals/task/task.page';
@@ -25,7 +26,8 @@ export class TasksPage implements OnInit {
   constructor(
     private apiService: ApiService,
     private modalController: ModalController,
-    private taskAdapter: TaskAdapter
+    private taskAdapter: TaskAdapter,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -143,5 +145,9 @@ export class TasksPage implements OnInit {
 
   isTodayDate(date: Date, offset: number): boolean {
     return date.toDateString() === this.addDate(new Date(), offset).toDateString();
+  }
+
+  gotoRoutines() {
+    this.router.navigate(['/routines']);
   }
 }

@@ -1,0 +1,33 @@
+<ion-content>
+  <div class="container">
+    <ion-grid fixed="true">
+      <ion-row class="topbar">
+        <ion-col size="auto" class="topbar-buttons-col">
+          <button type="button" class="btn-small btn-primary" (click)="gotoTasks()">Zurück</button>
+        </ion-col>
+        <ion-col class="topbar-header-col">
+          <p>Routinen</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="routines.length">
+        <ion-col>
+          <h2>Routinen</h2>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngFor="let routine of routines">
+        <ion-col>
+          <ion-grid class="card">
+            <ion-row>
+              <ion-col>
+                <p>{{routine.name}}</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </div>
+</ion-content>

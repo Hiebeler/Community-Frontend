@@ -14,7 +14,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({mode: 'md'}),
     AppRoutingModule,
     HttpClientModule,
     ImageCropperModule,
