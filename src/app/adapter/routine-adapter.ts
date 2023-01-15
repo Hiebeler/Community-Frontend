@@ -21,6 +21,6 @@ export class RoutineAdapter implements Adapter<Routine> {
       arr.push(this.userAdapter.adapt(e.user));
     });
 
-    return new Routine(item.id, item.name, item.notes ?? '', item.startDate, item.interval, item.community_id, arr);
+    return new Routine(item.id, item.name, item.notes ?? '', item.startDate, item.interval, item.active, arr);
   }
 }

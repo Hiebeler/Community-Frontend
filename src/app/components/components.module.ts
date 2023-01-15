@@ -5,15 +5,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TaskCardComponent } from './task-card/task-card.component';
 import { RoutineEditorComponent } from './routine-editor/routine-editor.component';
+import { RoutineCardComponent } from './routine-card/routine-card.component';
 
 @NgModule({
   declarations: [
     TaskCardComponent,
-    RoutineEditorComponent
+    RoutineEditorComponent,
+    RoutineCardComponent
   ],
   exports: [
     TaskCardComponent,
-    RoutineEditorComponent
+    RoutineEditorComponent,
+    RoutineCardComponent
   ],
   imports: [
     IonicModule,

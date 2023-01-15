@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Routine } from 'src/app/models/routine';
-import { User } from 'src/app/models/user';
 import { TaskService } from 'src/app/services/task.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -13,15 +11,12 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class RoutinesPage implements OnInit {
 
-  routines: Routine[] = [];
-
-  newRoutineForm: FormGroup;
+  enabledRoutines: Routine[] = [];
+  disabledRoutines: Routine[] = [];
 
   newRoutineEditorIsOpen = false;
 
   updateRoutineEditorOpenId = -1;
-
-  usersInCommunity: User[] = [];
 
   constructor(
     private router: Router,
@@ -31,11 +26,16 @@ export class RoutinesPage implements OnInit {
 
   ngOnInit() {
     this.taskService.getRoutines().subscribe(routines => {
-      this.routines = routines;
-    });
+      this.enabledRoutines = [];
+      this.disabledRoutines = [];
 
-    this.userService.getUsersInCurrentCommunity().subscribe(users => {
-      this.usersInCommunity = users;
+      routines.map(routine => {
+        if (routine.active) {
+          this.enabledRoutines.push(routine);
+        } else {
+          this.disabledRoutines.push(routine);
+        }
+      });
     });
   }
 

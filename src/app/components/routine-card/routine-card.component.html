@@ -1,0 +1,19 @@
+<ion-grid class="card clickable" [ngStyle]="{'background-color': routine.assignedUsers[0]?.color}">
+  <ion-row>
+    <ion-col>
+      <p>{{routine.name}}</p>
+      <ion-chip *ngFor="let user of routine.assignedUsers">
+        <ion-avatar>
+          <img alt="" [src]="user.profileimage" />
+        </ion-avatar>
+        <ion-label>{{user.firstname}}</ion-label>
+      </ion-chip>
+    </ion-col>
+
+    <ion-col>
+      <p>Startdatum: {{routine.startDate.toLocaleDateString('de-AT', { year: 'numeric', month: 'short', day:
+        'numeric' })}}</p>
+      <p class="ion-no-margin">Intervall: {{routine.interval}}</p>
+    </ion-col>
+  </ion-row>
+</ion-grid>

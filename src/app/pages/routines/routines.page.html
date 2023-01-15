@@ -20,35 +20,36 @@
         </ion-col>
       </ion-row>
 
-      <ion-row *ngIf="routines.length">
+      <ion-row *ngIf="enabledRoutines.length">
         <ion-col>
-          <h2>Routinen</h2>
+          <h2>Aktive Routinen</h2>
         </ion-col>
       </ion-row>
 
-      <div *ngFor="let routine of routines">
+      <div *ngFor="let routine of enabledRoutines">
         <ion-row>
           <ion-col>
-            <ion-grid class="card clickable" [ngStyle]="{'background-color': routine.assignedUsers[0]?.color}"
-              (click)="openUpdateEditor(routine.id)">
-              <ion-row>
-                <ion-col>
-                  <p>{{routine.name}}</p>
-                  <ion-chip *ngFor="let user of routine.assignedUsers">
-                    <ion-avatar>
-                      <img alt="" [src]="user.profileimage" />
-                    </ion-avatar>
-                    <ion-label>{{user.firstname}}</ion-label>
-                  </ion-chip>
-                </ion-col>
+            <app-routine-card (click)="openUpdateEditor(routine.id)" [routine]="routine"></app-routine-card>
+          </ion-col>
+        </ion-row>
 
-                <ion-col>
-                  <p>Startdatum: {{routine.startDate.toLocaleDateString('de-AT', { year: 'numeric', month: 'short', day:
-                    'numeric' })}}</p>
-                  <p class="ion-no-margin">Intervall: {{routine.interval}}</p>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
+        <ion-row *ngIf="updateRoutineEditorOpenId === routine.id">
+          <ion-col>
+            <app-routine-editor [routine]="routine" (closeEditor)="openUpdateEditor(-1)"></app-routine-editor>
+          </ion-col>
+        </ion-row>
+      </div>
+
+      <ion-row *ngIf="disabledRoutines.length">
+        <ion-col>
+          <h2>Deaktivierte Routinen</h2>
+        </ion-col>
+      </ion-row>
+
+      <div *ngFor="let routine of disabledRoutines">
+        <ion-row>
+          <ion-col>
+            <app-routine-card (click)="openUpdateEditor(routine.id)" [routine]="routine"></app-routine-card>
           </ion-col>
         </ion-row>
 
