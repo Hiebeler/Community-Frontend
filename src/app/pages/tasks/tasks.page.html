@@ -7,10 +7,7 @@
     <ion-grid fixed="true">
       <ion-row class="topbar">
         <ion-col class="topbar-header-col">
-          <p *ngIf="days">{{days[0]?.date.toLocaleDateString('de-AT', { day: 'numeric', month:
-            'short', year: 'numeric' })}} -
-            {{days[days.length-1]?.date.toLocaleDateString('de-AT', { day: 'numeric', month: 'short', year: 'numeric'
-            })}}
+          <p>Aufgaben
           </p>
         </ion-col>
         <ion-col size="auto" class="topbar-buttons-col">
@@ -26,12 +23,14 @@
       <ion-row class="ion-nowrap">
         <ion-col class="day-col" [size]="84 / numberOfColumns" *ngFor="let day of days"
           [ngClass]="day.date.toDateString() === dayToday.toDateString() ? 'today-col' : ''">
-          <p class="ion-text-center"
+          <p class="ion-text-center p-weekday"
             *ngIf="!isTodayDate(day.date, -1) && !isTodayDate(day.date, 0) && !isTodayDate(day.date, 1)">
             {{day.date.toLocaleDateString('de-AT', { weekday: 'short' })}}</p>
-          <p class="ion-text-center" *ngIf="isTodayDate(day.date, -1)">Gestern</p>
-          <p class="ion-text-center" *ngIf="isTodayDate(day.date, 0)">Heute</p>
-          <p class="ion-text-center" *ngIf="isTodayDate(day.date, 1)">Morgen</p>
+          <p class="ion-text-center p-weekday" *ngIf="isTodayDate(day.date, -1)">Gestern</p>
+          <p class="ion-text-center p-weekday" *ngIf="isTodayDate(day.date, 0)">Heute</p>
+          <p class="ion-text-center p-weekday" *ngIf="isTodayDate(day.date, 1)">Morgen</p>
+          <p class="ion-text-center p-date">{{day.date.toLocaleDateString('de-AT', { year: 'numeric', month: 'short', day:
+            'numeric' })}}</p>
           <div *ngFor="let task of day.openTasks">
             <app-task-card [task]="task" (openModal)="openModal(task)"></app-task-card>
           </div>
