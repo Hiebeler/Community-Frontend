@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Routine } from 'src/app/models/routine';
 import { TaskService } from 'src/app/services/task.service';
@@ -12,6 +13,10 @@ export class RoutinesPage implements OnInit {
 
   routines: Routine[] = [];
 
+  newRoutineForm: FormGroup;
+
+  newRoutineEditorIsOpen = false;
+
   constructor(
     private router: Router,
     private taskService: TaskService
@@ -22,6 +27,18 @@ export class RoutinesPage implements OnInit {
       this.routines = routines;
       console.log(this.routines);
     });
+  }
+
+  openNewRoutineEditor(state: boolean) {
+    this.newRoutineEditorIsOpen = state;
+  }
+
+  saveNewRoutine() {
+
+  }
+
+  updateRoutine() {
+
   }
 
   gotoTasks() {

@@ -25,6 +25,10 @@ const routes: Routes = [
         loadChildren: () => import('../tasks/tasks.module').then( m => m.TasksPageModule)
       },
       {
+        path: 'tasks/routines',
+        loadChildren: () => import('../routines/routines.module').then( m => m.RoutinesPageModule)
+      },
+      {
         path: 'shopping-list',
         loadChildren: () => import('../shopping-list/shopping-list.module').then( m => m.ShoppingListPageModule)
       },

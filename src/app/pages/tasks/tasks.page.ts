@@ -148,6 +148,6 @@ export class TasksPage implements OnInit {
   }
 
   gotoRoutines() {
-    this.router.navigate(['/routines']);
+    this.router.navigate(['/tabs/tasks/routines']);
   }
 }
