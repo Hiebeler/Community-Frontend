@@ -9,7 +9,7 @@ export class Debt {
   public debitor: User;
   public creditor: User;
 
-  constructor(id: number, name: string, amount: number, timestamp: Date, debitor: User, creditor: User) {
+  constructor(id: number, name: string, amount: number, debitor: User, creditor: User, timestamp?: Date, ) {
     this.id = id;
     this.name = name;
     this.amount = amount;

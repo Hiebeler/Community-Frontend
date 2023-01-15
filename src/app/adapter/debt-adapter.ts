@@ -13,7 +13,8 @@ export class DebtAdapter implements Adapter<Debt> {
       item.name,
       item.amount,
       item.user,
-      item.user_debt_fk_user_creditor_idTouser
+      item.user_debt_fk_user_creditor_idTouser,
+      new Date(item.timestamp)
     );
   }
 }
