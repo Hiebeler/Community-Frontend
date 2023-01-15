@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Routine } from 'src/app/models/routine';
+import { User } from 'src/app/models/user';
 import { TaskService } from 'src/app/services/task.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-routine-editor',
@@ -17,10 +19,16 @@ export class RoutineEditorComponent implements OnInit {
 
   newRoutineEditorIsOpen = false;
 
+  updatingResponsibleUsers = false;
+
+  assignableUsers: User[] = [];
+  assignedUsers: User[] = [];
+
   updateRoutineEditorOpenId = -1;
 
   constructor(
-    private taskService: TaskService
+    private taskService: TaskService,
+    private userService: UserService
   ) {
     this.routineForm = new FormGroup({
       name: new FormControl<string | null>('', [Validators.minLength(1), Validators.required]),
@@ -59,6 +67,21 @@ export class RoutineEditorComponent implements OnInit {
       this.intervalControl.setValue(this.routine.interval);
       this.doneControl.setValue(this.routine.active);
     }
+
+    this.userService.getUsersInCurrentCommunity().subscribe((allUsersOfCommunity: User[]) => {
+      this.assignableUsers = allUsersOfCommunity;
+      if (this.routine) {
+        this.assignedUsers = this.routine.assignedUsers;
+      }
+
+      this.assignedUsers.forEach(assignedUser => {
+        this.assignableUsers = this.assignableUsers.filter(el => el.id !== assignedUser.id);
+      });
+    });
+  }
+
+  setUpdatingResponsibleUsers(newValue: boolean) {
+    this.updatingResponsibleUsers = newValue;
   }
 
   saveRoutine() {
@@ -71,7 +94,7 @@ export class RoutineEditorComponent implements OnInit {
       startDate,
       this.intervalControl.value,
       this.doneControl.value,
-      null
+      this.assignedUsers
     );
     this.taskService.modifyRoutine(routine).subscribe(res => {
       if (res.status === 'OK') {
@@ -79,6 +102,16 @@ export class RoutineEditorComponent implements OnInit {
         this.routineForm.reset();
       }
     });
+  }
+
+  addUser(user: User) {
+    this.assignedUsers.push(user);
+    this.assignableUsers = this.assignableUsers.filter(el => el.id !== user.id);
+  }
+
+  removeUser(user: User) {
+    this.assignableUsers.push(user);
+    this.assignedUsers = this.assignedUsers.filter(el => el.id !== user.id);
   }
 
   parentCloseEditor() {

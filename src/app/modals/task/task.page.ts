@@ -52,7 +52,6 @@ export class TaskPage implements OnInit {
 
     this.userService.getUsersInCurrentCommunity().subscribe((allUsersOfCommunity: User[]) => {
       this.assignableUsers = allUsersOfCommunity;
-      this.assignedUsers = this.assignedUsers;
       this.task.assignedUsers.forEach(assignedUser => {
         this.assignableUsers = this.assignableUsers.filter(el => el.id !== assignedUser.id);
       });

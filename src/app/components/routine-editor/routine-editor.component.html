@@ -6,8 +6,8 @@
           (click)="parentCloseEditor()">Schließen</button>
       </ion-col>
       <ion-col>
-        <button [disabled]="routineForm.invalid" type="button" (click)="saveRoutine()"
-          class="btn-large btn-primary" style="width: 100%;">Speichern</button>
+        <button [disabled]="routineForm.invalid" type="button" (click)="saveRoutine()" class="btn-large btn-primary"
+          style="width: 100%;">Speichern</button>
       </ion-col>
     </ion-row>
 
@@ -48,7 +48,87 @@
       </ion-col>
     </ion-row>
 
-    <ion-row *ngIf="routine">
+    <div *ngIf="!updatingResponsibleUsers">
+      <ion-row>
+        <ion-col>
+          <p style="margin: 0">Zuständig:</p>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+
+        <ion-col size="84" *ngFor="let user of assignedUsers">
+          <ion-chip>
+            <ion-avatar>
+              <img alt="" [src]="user.profileimage" />
+            </ion-avatar>
+            <ion-label>{{user.firstname}}</ion-label>
+          </ion-chip>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="margin-top: 10px;">
+        <ion-col>
+          <button type="button" class="btn-small btn-primary" (click)="setUpdatingResponsibleUsers(true)">Zuständige
+            ändern</button>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div *ngIf="updatingResponsibleUsers">
+      <ion-row>
+        <ion-col>
+          <ion-grid class="card ion-no-margin">
+            <ion-row>
+              <ion-col style="display: flex; justify-content: center">
+                <button type="button" class="btn-small btn-dark"
+                  (click)="setUpdatingResponsibleUsers(false)">Schließen</button>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <p>Zuständig:</p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="84" *ngFor="let user of assignedUsers" (click)="removeUser(user)">
+                <ion-chip>
+                  <ion-avatar>
+                    <img alt="" [src]="user.profileimage" />
+                  </ion-avatar>
+                  <ion-label>{{user.firstname}}</ion-label>
+                  <ion-icon name="close-circle"></ion-icon>
+                </ion-chip>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col>
+                <p>Nicht zuständig:</p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="84" *ngFor="let user of assignableUsers" (click)="addUser(user)">
+                <ion-chip>
+                  <ion-avatar>
+                    <img alt="" [src]="user.profileimage" />
+                  </ion-avatar>
+                  <ion-label>{{user.firstname}}</ion-label>
+                  <ion-icon name="add-circle"></ion-icon>
+                </ion-chip>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <ion-row *ngIf="routine" style="padding-top: 30px;">
+      <ion-col style="display: flex; align-items: center;" size="auto">
+        Aktiviert:
+      </ion-col>
       <ion-col>
         <ion-checkbox style="display: flex;" color="primary" formControlName="done">
         </ion-checkbox>

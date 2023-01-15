@@ -17,12 +17,15 @@ export class TaskService {
   }
 
   modifyRoutine(routine: Routine): Observable<any> {
+    const idArray = routine.assignedUsers.map((item) => item.id);
+
     const data = {
       id: routine.id,
       name: routine.name,
       startDate: routine.startDate,
       interval: routine.interval,
-      active: routine.active
+      active: routine.active,
+      assignedUser: idArray
     };
     return this.apiService.modifyRoutine(data);
   }
