@@ -3,6 +3,18 @@ select {
   background-color: var(--ion-color-dark);
 }
 
+.no-items-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.no-items-img {
+  border-radius: var(--border-radius-small);
+  width: 80%;
+  max-width: 300px;
+}
+
 .heading-row {
   ion-col {
     display: flex;

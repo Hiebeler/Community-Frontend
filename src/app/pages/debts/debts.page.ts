@@ -25,7 +25,9 @@ export class DebtsPage implements OnInit {
 
   usersInCommunity: User[] = [];
 
-  balances: Balance[] = [];
+  allBalances: Balance[] = [];
+  positiveBalances: Balance[] = [];
+  negativeBalances: Balance[] = [];
 
   debts: Debt[] = [];
 
@@ -68,7 +70,9 @@ export class DebtsPage implements OnInit {
     this.getItems();
 
     this.debtService.getBalance().subscribe((balances) => {
-      this.balances = balances;
+      this.allBalances = balances;
+      this.positiveBalances = balances.filter(balance => balance.amount > 0);
+      this.negativeBalances = balances.filter(balance => balance.amount < 0);
 
       if (this.loadingEvent) {
         this.loadingEvent.target.complete();
