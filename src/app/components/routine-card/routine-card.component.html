@@ -13,7 +13,7 @@
     <ion-col>
       <p>Startdatum: {{routine.startDate.toLocaleDateString('de-AT', { year: 'numeric', month: 'short', day:
         'numeric' })}}</p>
-      <p class="ion-no-margin">Intervall: {{routine.interval}}</p>
+      <p class="ion-no-margin">Intervall: {{routine.interval + (routine.interval === 1 ? ' Tag' : ' Tage')}}</p>
     </ion-col>
   </ion-row>
 </ion-grid>
