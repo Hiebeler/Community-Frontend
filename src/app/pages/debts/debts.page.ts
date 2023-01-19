@@ -41,7 +41,7 @@ export class DebtsPage implements OnInit {
   ) {
     this.itemEditorForm = new FormGroup({
       debitor: new FormControl<string | null>('', [Validators.minLength(1), Validators.required]),
-      amount: new FormControl<string | null>('', [Validators.pattern(/^[0-9]{0,2}(\.\d{1,2})?/), Validators.required]),
+      amount: new FormControl<string | null>('', [Validators.pattern(/^[0-9]*((\.|,)[0-9]{0,2})?$/), Validators.required]),
       name: new FormControl<string | null>('', [Validators.minLength(1), Validators.required])
     });
 
