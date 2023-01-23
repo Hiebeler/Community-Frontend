@@ -16,7 +16,7 @@ import { ShoppingService } from './shopping.service';
 })
 export class AuthService {
 
-  authenticationState = new BehaviorSubject<boolean>(null);
+  authenticationState = new BehaviorSubject<string>(null);
   private decodedUserToken = null;
 
   private helper: JwtHelperService;
@@ -34,6 +34,10 @@ export class AuthService {
     this.platform.ready().then(() => {
       this.checkToken();
     });
+
+    this.authenticationState.subscribe(state => {
+      console.log(state);
+    });
   }
 
   checkToken() {
@@ -44,14 +48,44 @@ export class AuthService {
 
       if (!isExpired) {
         this.decodedUserToken = decoded;
-        this.authenticationState.next(true);
+        this.updateAuthenticationState(decoded);
         this.userService.fetchUserFromApi(this.getUserFromToken().id);
         this.shoppingService.fetchShoppingItemsFromApi();
       }
     }
     else {
-      this.authenticationState.next(false);
+      this.authenticationState.next('none');
     }
+  }
+
+  async storeToken(token) {
+    await this.storageService.setToken(token);
+  }
+
+  updateAuthenticationState(token) {
+    console.log('updateAuthenticationState');
+    console.log(token);
+    if (!token.version) {
+      console.log(token.version);
+      this.requestNewToken();
+    } else {
+      if (token.communityId) {
+        this.authenticationState.next('community');
+      } else {
+        this.authenticationState.next('user');
+      }
+    }
+  }
+
+  requestNewToken() {
+    this.apiService.getNewJWT().subscribe(res => {
+      if (res.status === 'OK') {
+        this.storeToken(res.data.token);
+        this.decodedUserToken = this.helper.decodeToken(res.data.token);
+        this.updateAuthenticationState(this.decodedUserToken);
+        console.log(this.decodedUserToken);
+      }
+    });
   }
 
   register(email, firstname, lastname, password) {
@@ -77,9 +111,9 @@ export class AuthService {
         'Okay',
         async () => {
           if (res.status === 'OK') {
-            await this.storageService.setToken(res.data.token);
+            this.storeToken(res.data.token);
             this.decodedUserToken = this.helper.decodeToken(res.data.token);
-            this.authenticationState.next(true);
+            this.updateAuthenticationState(this.decodedUserToken);
             this.userService.fetchUserFromApi(this.getUserFromToken().id);
             this.router.navigate(['/tabs/profile']);
           }
@@ -95,10 +129,10 @@ export class AuthService {
   login(email, password) {
     return this.apiService.login(email, password).subscribe(async res => {
       if (res.status === 'OK') {
-        await this.storageService.setToken(res.data.token);
+        this.storeToken(res.data.token);
         this.decodedUserToken = this.helper.decodeToken(res.data.token);
+        this.updateAuthenticationState(this.decodedUserToken);
         this.userService.fetchUserFromApi(this.getUserFromToken().id);
-        this.authenticationState.next(true);
         this.router.navigate(['/tabs/profile']);
       }
       else {
@@ -126,7 +160,7 @@ export class AuthService {
     this.storageService.removeToken();
     this.userService.clearData();
     this.decodedUserToken = null;
-    this.authenticationState.next(false);
+    this.authenticationState.next('none');
     this.router.navigate(['login']);
   }
 

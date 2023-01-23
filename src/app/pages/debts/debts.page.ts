@@ -80,7 +80,6 @@ export class DebtsPage implements OnInit {
     });
     this.debtService.getMyDebts().subscribe((debts) => {
       this.debts = debts;
-      console.log(debts);
 
       if (this.loadingEvent) {
         this.loadingEvent.target.complete();
@@ -88,7 +87,6 @@ export class DebtsPage implements OnInit {
     });
     this.userService.getCurrentUser().subscribe((user) => {
       this.currentUser = user;
-      console.log(this.currentUser);
 
       if (this.loadingEvent) {
         this.loadingEvent.target.complete();

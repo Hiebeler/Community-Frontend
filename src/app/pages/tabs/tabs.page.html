@@ -1,24 +1,20 @@
 <ion-content>
   <ion-tabs>
     <ion-tab-bar slot="bottom">
-      <ion-tab-button tab="find-community" *ngIf="!communityExists">
-        <ion-icon name="earth"></ion-icon>
-        <ion-label>Community finden</ion-label>
-      </ion-tab-button>
 
-      <ion-tab-button tab="tasks" *ngIf="communityExists">
+      <ion-tab-button tab="tasks">
         <ion-icon name="calendar-outline"></ion-icon>
         <ion-label>Aufgaben</ion-label>
         <ion-badge *ngIf="tasksForTodayExists">!</ion-badge>
       </ion-tab-button>
 
-      <ion-tab-button tab="shopping-list" *ngIf="communityExists">
+      <ion-tab-button tab="shopping-list">
         <ion-icon name="cart-outline"></ion-icon>
         <ion-label>Einkaufsliste</ion-label>
         <ion-badge *ngIf="numberOfOpenShoppingItems !== 0">{{numberOfOpenShoppingItems}}</ion-badge>
       </ion-tab-button>
 
-      <ion-tab-button tab="debts" *ngIf="communityExists">
+      <ion-tab-button tab="debts">
         <ion-icon name="wallet-outline"></ion-icon>
         <ion-label>Schulden</ion-label>
       </ion-tab-button>

@@ -89,6 +89,10 @@ export class ApiService {
     );
   }
 
+  getNewJWT(): Observable<any> {
+    return this.httpClient.get<any>(environment.api + 'registration/getnewtoken', { headers: this.getHeader() });
+  }
+
   sendVerificationMailAgain(email: string): Observable<any> {
     return this.httpClient.post<any>(environment.api + 'registration/sendverificationmailagain', { email });
   }

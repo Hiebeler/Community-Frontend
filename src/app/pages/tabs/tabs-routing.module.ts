@@ -11,38 +11,31 @@ const routes: Routes = [
     children: [
       {
         path: 'find-community',
-        loadChildren: () => import('../find-community/find-community.module').then( m => m.FindCommunityPageModule),
-        canActivate: [AuthGuard]
+        loadChildren: () => import('../find-community/find-community.module').then( m => m.FindCommunityPageModule)
       },
       {
         path: 'create-community',
         loadChildren: () => import('../create-community/create-community.module').then( m => m.CreateCommunityPageModule),
-        canActivate: [AuthGuard]
       },
       {
         path: 'profile',
-        loadChildren: () => import('../profile/profile.module').then( m => m.ProfilePageModule),
-        canActivate: [AuthGuard]
+        loadChildren: () => import('../profile/profile.module').then( m => m.ProfilePageModule)
       },
       {
         path: 'tasks',
-        loadChildren: () => import('../tasks/tasks.module').then( m => m.TasksPageModule),
-        canActivate: [AuthGuard]
+        loadChildren: () => import('../tasks/tasks.module').then( m => m.TasksPageModule)
       },
       {
         path: 'tasks/routines',
-        loadChildren: () => import('../routines/routines.module').then( m => m.RoutinesPageModule),
-        canActivate: [AuthGuard]
+        loadChildren: () => import('../routines/routines.module').then( m => m.RoutinesPageModule)
       },
       {
         path: 'shopping-list',
-        loadChildren: () => import('../shopping-list/shopping-list.module').then( m => m.ShoppingListPageModule),
-        canActivate: [AuthGuard]
+        loadChildren: () => import('../shopping-list/shopping-list.module').then( m => m.ShoppingListPageModule)
       },
       {
         path: 'debts',
-        loadChildren: () => import('../debts/debts.module').then( m => m.DebtsPageModule),
-        canActivate: [AuthGuard]
+        loadChildren: () => import('../debts/debts.module').then( m => m.DebtsPageModule)
       },
       {
         path: '',
