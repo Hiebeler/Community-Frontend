@@ -21,6 +21,10 @@ export class LandingPage implements OnInit {
     this.router.navigate(['/register']);
   }
 
+  openExternalLink(url: string) {
+    window.open(url, '_blank');
+  }
+
   gotoApp() {
     this.router.navigate(['/tabs/tasks']);
   }

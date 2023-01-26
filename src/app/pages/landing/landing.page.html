@@ -26,13 +26,10 @@
           <ion-row>
             <ion-col size-xs="84" size-sm="84" size-md="42" size-lg="42" size-xl="42" class="ion-col-left">
               <div>
-                <p>
-                Kommiuniti
-              </p>
-              <h1>
-                Easily organize your Community
-              </h1>
-              <button type="button" class="btn-small btn-dark" (click)="gotoApp()">Zur App</button>
+                <h1>
+                  Behalte die Kontrolle mit <span>Kommiuniti</span>
+                </h1>
+                <button type="button" class="btn-small btn-primary" (click)="gotoApp()">Zur App</button>
               </div>
 
             </ion-col>
@@ -46,7 +43,7 @@
 
     </section>
 
-    <section class="features-section">
+    <!-- <section class="features-section">
       <ion-grid>
         <ion-row>
           <ion-col>
@@ -55,31 +52,37 @@
         </ion-row>
 
         <ion-row>
-          <ion-col size="28">
-            <div class="card-wrapper">
+          <ion-col size="42">
+            <div>
               <h2>Aufgabenverwaltung</h2>
               <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit accusantium assumenda harum, quae
                 quaerat eos non nemo</p>
-                <img src="../../../assets/images/tasks.png" alt="">
             </div>
           </ion-col>
 
-          <ion-col size="28">
-            <div class="card-wrapper">
-              <h2>Einkaufsliste</h2>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit accusantium assumenda harum, quae
-                quaerat eos non nemo</p>
-                <img src="../../../assets/images/tasks.png" alt="">
+          <ion-col size="42">
+            <div>
+              <img src="../../../assets/images/tasks.png" alt="">
             </div>
           </ion-col>
+        </ion-row>
+      </ion-grid>
+    </section> -->
 
-          <ion-col size="28">
-            <div class="card-wrapper">
-              <h2>Schuldenmanagement</h2>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit accusantium assumenda harum, quae
-                quaerat eos non nemo</p>
-                <img src="../../../assets/images/tasks.png" alt="">
-            </div>
+    <section class="credits-section">
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <h2>Entwickelt von</h2>
+            <p><span (click)="openExternalLink('https://daniebeler.com')">Daniel Hiebeler</span> und <span
+                (click)="openExternalLink('https://emanuelhiebeler.me/')">Emanuel Hiebeler</span></p>
+          </ion-col>
+        </ion-row>
+
+        <ion-row style="margin: 30px 0;">
+          <ion-col>
+            <button type="button" class="btn-large btn-outline-primary"
+              (click)="openExternalLink('https://github.com/Hiebeler/Community-Frontend')">Auf Github ansehen</button>
           </ion-col>
         </ion-row>
       </ion-grid>
