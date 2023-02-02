@@ -7,7 +7,10 @@
     <ion-grid fixed="true">
       <ion-row class="topbar">
         <ion-col *ngIf="!newRoutineEditorIsOpen" size="auto" class="topbar-buttons-col">
-          <button type="button" class="btn-small btn-medium" (click)="gotoTasks()">Schließen</button>
+          <!-- <button type="button" class="btn-small btn-medium" (click)="gotoTasks()">Schließen</button> -->
+          <button type="button" class="btn-small btn-medium" (click)="gotoTasks()">
+            <ion-icon style="display: flex; font-size: 1.2rem;" name="close-outline"></ion-icon>
+          </button>
         </ion-col>
         <ion-col class="topbar-header-col">
           <p *ngIf="!newRoutineEditorIsOpen">Routinen</p>
