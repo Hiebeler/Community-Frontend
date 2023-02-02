@@ -1,9 +1,11 @@
 <form [formGroup]="routineForm" (ngSubmit)="saveRoutine()">
   <ion-grid class="card">
     <ion-row>
-      <ion-col style="display: flex; justify-content: center">
-        <button type="button" class="btn-small btn-dark" style="width: 100%;"
-          (click)="parentCloseEditor()">Schließen</button>
+      <ion-col size="auto" style="display: flex; justify-content: center">
+        <button type="button" class="btn-small btn-outline-danger btn-center" style="width: 100%;"
+          (click)="parentCloseEditor()">
+          <ion-icon color="danger" style="display: flex; font-size: 1.6rem;" name="close-outline"></ion-icon>
+        </button>
       </ion-col>
       <ion-col>
         <button [disabled]="routineForm.invalid" type="button" (click)="saveRoutine()" class="btn-large btn-primary"
@@ -79,9 +81,11 @@
         <ion-col>
           <ion-grid class="card ion-no-margin">
             <ion-row>
-              <ion-col style="display: flex; justify-content: center">
-                <button type="button" class="btn-small btn-dark"
-                  (click)="setUpdatingResponsibleUsers(false)">Schließen</button>
+              <ion-col size="auto" style="display: flex; justify-content: center">
+                <button type="button" class="btn-small btn-outline-danger btn-center"
+                  (click)="setUpdatingResponsibleUsers(false)">
+                  <ion-icon color="danger" style="display: flex; font-size: 1.6rem;" name="close-outline"></ion-icon>
+                </button>
               </ion-col>
             </ion-row>
 

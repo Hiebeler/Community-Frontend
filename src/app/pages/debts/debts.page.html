@@ -11,7 +11,9 @@
           <p *ngIf="editorIsOpen">Neue Schuld</p>
         </ion-col>
         <ion-col *ngIf="!editorIsOpen" size="auto" class="topbar-buttons-col">
-          <button type="button" class="btn-small btn-primary" (click)="openEditor(true)">Neu</button>
+          <button type="button" class="btn-small btn-primary" (click)="openEditor(true)">
+            <ion-icon color="dark" style="display: flex; font-size: 1.2rem;" name="add-outline"></ion-icon>
+          </button>
         </ion-col>
       </ion-row>
 
@@ -20,9 +22,11 @@
           <form [formGroup]="itemEditorForm" (ngSubmit)="saveDebt()">
             <ion-grid class="card">
               <ion-row>
-                <ion-col style="display: flex; justify-content: center">
-                  <button type="button" class="btn-small btn-dark" style="width: 100%;"
-                    (click)="openEditor(false)">Schließen</button>
+                <ion-col size="auto" style="display: flex; justify-content: center">
+                  <button type="button" class="btn-small btn-outline-danger btn-center" style="width: 100%;"
+                    (click)="openEditor(false)">
+                    <ion-icon color="danger" style="display: flex; font-size: 1.6rem;" name="close-outline"></ion-icon>
+                  </button>
                 </ion-col>
                 <ion-col>
                   <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveDebt()"
@@ -120,9 +124,12 @@
                     <ion-col>
                       <ion-grid class="card">
                         <ion-row>
-                          <ion-col style="display: flex; justify-content: center">
-                            <button type="button" class="btn-small btn-dark" style="width: 100%;"
-                              (click)="openClearOffEditor()">Schließen</button>
+                          <ion-col size="auto" style="display: flex; justify-content: center">
+                            <button type="button" class="btn-small btn-outline-danger btn-center" style="width: 100%;"
+                              (click)="openClearOffEditor()">
+                              <ion-icon color="danger" style="display: flex; font-size: 1.6rem;"
+                                name="close-outline"></ion-icon>
+                            </button>
                           </ion-col>
                           <ion-col>
                             <button [disabled]="clearOffBalanceEditorForm.invalid" type="button"
@@ -185,9 +192,12 @@
                   <ion-col>
                     <ion-grid class="card">
                       <ion-row>
-                        <ion-col style="display: flex; justify-content: center">
-                          <button type="button" class="btn-small btn-dark" style="width: 100%;"
-                            (click)="openClearOffEditor()">Schließen</button>
+                        <ion-col size="auto" style="display: flex; justify-content: center">
+                          <button type="button" class="btn-small btn-outline-danger btn-center" style="width: 100%;"
+                            (click)="openClearOffEditor()">
+                            <ion-icon color="danger" style="display: flex; font-size: 1.6rem;"
+                              name="close-outline"></ion-icon>
+                          </button>
                         </ion-col>
                         <ion-col>
                           <button [disabled]="clearOffBalanceEditorForm.invalid" type="button"

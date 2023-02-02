@@ -239,6 +239,17 @@ button:disabled:hover {
   box-shadow: inset 0px 0px 0px 2px var(--ion-color-primary-shade);
 }
 
+.btn-outline-danger {
+  color: var(--ion-color-danger);
+  background-color: transparent;
+  box-shadow: inset 0px 0px 0px 2px var(--ion-color-danger);
+}
+
+.btn-outline-danger:hover {
+  color: var(--ion-color-danger-shade);
+  box-shadow: inset 0px 0px 0px 2px var(--ion-color-danger-shade);
+}
+
 .btn-circle {
   color: white;
   padding: 10px;
@@ -256,6 +267,12 @@ button:disabled:hover {
 
 .btn-link:hover {
   background-color: var(--ion-color-primary-shade);
+}
+
+.btn-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ------------------------------------------------------- */

@@ -7,9 +7,8 @@
     <ion-grid fixed="true">
       <ion-row class="topbar">
         <ion-col *ngIf="!newRoutineEditorIsOpen" size="auto" class="topbar-buttons-col">
-          <!-- <button type="button" class="btn-small btn-medium" (click)="gotoTasks()">Schließen</button> -->
           <button type="button" class="btn-small btn-medium" (click)="gotoTasks()">
-            <ion-icon style="display: flex; font-size: 1.2rem;" name="close-outline"></ion-icon>
+            <ion-icon style="display: flex; font-size: 1.2rem;" name="return-up-back-outline"></ion-icon>
           </button>
         </ion-col>
         <ion-col class="topbar-header-col">
@@ -17,7 +16,9 @@
           <p *ngIf="newRoutineEditorIsOpen">Neue Routine</p>
         </ion-col>
         <ion-col *ngIf="!newRoutineEditorIsOpen" size="auto" class="topbar-buttons-col">
-          <button type="button" class="btn-small btn-primary" (click)="openNewRoutineEditor(true)">Neu</button>
+          <button type="button" class="btn-small btn-primary" (click)="openNewRoutineEditor(true)">
+            <ion-icon color="dark" style="display: flex; font-size: 1.2rem;" name="add-outline"></ion-icon>
+          </button>
         </ion-col>
       </ion-row>
 
