@@ -23,7 +23,7 @@
     color: var(--ion-color-light);
   }
 
-  ion-grid {
+  .first-grid {
     height: 100%;
 
     ion-row {
@@ -53,6 +53,12 @@
             font-family: inherit;
           }
         }
+
+        @media (max-width: 991px) {
+          h1 {
+            font-size: 2.5rem;
+          }
+        }
       }
 
       .ion-col-right {
@@ -72,11 +78,34 @@
 }
 
 .features-section {
-  padding-top: 50px;
+  margin-top: 200px;
   padding-bottom: 100px;
+  border-top: 1px var(--ion-color-medium) solid;
+
+  .features-header-col {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 30px;
+  }
+
+  .feature-image {
+    max-height: 700px;
+  }
+
+  ion-col {
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+  }
+
+  .small-header {
+    color: var(--ion-color-primary);
+  }
 }
 
 .credits-section {
+  border-top: 1px var(--ion-color-medium) solid;
+
   ion-col {
     display: flex;
     flex-direction: column;
@@ -86,23 +115,5 @@
       cursor: pointer;
       color: var(--ion-color-primary);
     }
-  }
-}
-
-.card-wrapper {
-  background-color: var(--ion-color-primary);
-  border-radius: 10px;
-  padding: 15px;
-
-  * {
-    color: var(--ion-color-dark);
-  }
-
-  h2 {
-    margin: 0;
-  }
-
-  img {
-    border-radius: var(--border-radius-small);
   }
 }

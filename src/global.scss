@@ -139,7 +139,7 @@ a:hover {
 /* Container */
 /* ------------------------------------------------------- */
 
-.container {
+.container, .container-wide {
   padding-right: 5px;
   padding-left: 5px;
   margin-right: auto;
@@ -151,17 +151,29 @@ a:hover {
   .container {
     width: 750px;
   }
+
+  .container-wide {
+    width: 750px;
+  }
 }
 
 @media (min-width: 992px) {
   .container {
     width: 900px;
   }
+
+  .container-wide {
+    width: 950px;
+  }
 }
 
 @media (min-width: 1200px) {
   .container {
     width: 900px;
+  }
+
+  .container-wide {
+    width: 1200px;
   }
 }
 
