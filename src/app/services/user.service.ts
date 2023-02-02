@@ -14,15 +14,7 @@ export class UserService {
   constructor(
     private apiService: ApiService
   ) {
-    this.getCurrentUser().subscribe(user => {
-      if (user) {
-        // if (user.color) {
-        //   document.documentElement.style.setProperty('--ion-color-primary', user.color);
-        //   document.documentElement.style.setProperty('--ion-color-primary-shade', shade(user.color, 0.15));
-        //   document.documentElement.style.setProperty('--ion-color-primary-tint', tint(user.color, 0.15));
-        // }
-      }
-    });
+    this.getCurrentUser().subscribe();
   }
 
   getCurrentUser(): Observable<User> {
@@ -41,12 +33,15 @@ export class UserService {
   }
 
   fetchUsersInCommunityFromApi(id: number): void {
-    this.apiService.getUsersInCommunity(id).subscribe(users => {
-      this.usersInCommunity.next(users);
-    });
+    if (id) {
+      this.apiService.getUsersInCommunity(id).subscribe(users => {
+        this.usersInCommunity.next(users);
+      });
+    }
   }
 
   clearData(): void {
     this.user.next(null);
+    this.usersInCommunity.next([]);
   }
 }

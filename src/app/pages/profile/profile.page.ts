@@ -11,6 +11,7 @@ import { AlertService } from 'src/app/services/alert.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CommunityService } from 'src/app/services/community.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -73,7 +74,8 @@ export class ProfilePage implements OnInit {
     private apiService: ApiService,
     private requestAdapter: RequestAdapter,
     private alertService: AlertService,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    private router: Router
   ) {
     this.nameUpdateEditorForm = new FormGroup({
       firstname: new FormControl<string | null>('', [Validators.minLength(1), Validators.required]),
@@ -96,19 +98,22 @@ export class ProfilePage implements OnInit {
 
     this.communityService.getCurrentCommunity().subscribe(community => {
       this.community = community;
+      console.log(this.community);
+
+      if (community) {
+        this.apiService.getRequests().subscribe((requests) => {
+          if (requests.status === 'OK') {
+            requests = requests.data.map((data: any) => this.requestAdapter.adapt(data));
+            this.requests = requests;
+          }
+        });
+      }
     });
 
     this.userService.getUsersInCurrentCommunity().subscribe(users => {
       this.usersInCommunity = users;
+      console.log(this.usersInCommunity);
       this.fillColorArray();
-    });
-
-
-    this.apiService.getRequests().subscribe((requests) => {
-      if (requests.status === 'OK') {
-        requests = requests.data.map((data: any) => this.requestAdapter.adapt(data));
-        this.requests = requests;
-      }
     });
   }
 
@@ -230,6 +235,14 @@ export class ProfilePage implements OnInit {
     }
 
     return new File([u8arr], filename, { type: mime });
+  }
+
+  gotoCreateCommunity() {
+    this.router.navigate(['create-community']);
+  }
+
+  gotoFindCommunity() {
+    this.router.navigate(['find-community']);
   }
 
 }

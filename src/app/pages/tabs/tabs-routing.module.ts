@@ -10,14 +10,6 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'find-community',
-        loadChildren: () => import('../find-community/find-community.module').then( m => m.FindCommunityPageModule)
-      },
-      {
-        path: 'create-community',
-        loadChildren: () => import('../create-community/create-community.module').then( m => m.CreateCommunityPageModule),
-      },
-      {
         path: 'profile',
         loadChildren: () => import('../profile/profile.module').then( m => m.ProfilePageModule)
       },

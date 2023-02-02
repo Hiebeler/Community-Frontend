@@ -34,8 +34,8 @@ export class FindCommunityPage {
 
   onSubmit() {
     if (this.searchForm.valid) {
-      this.apiService.getCommunityByCode(this.search.value).subscribe((community) => {
-        if (community.id) {
+      this.apiService.getCommunityByCode(this.search.value).subscribe(community => {
+        if (community?.id) {
           this.foundCommunity = community;
         }
         else {
@@ -68,6 +68,10 @@ export class FindCommunityPage {
   }
 
   gotoCreateCommunity() {
-    this.router.navigate(['/tabs/create-community']);
+    this.router.navigate(['create-community']);
+  }
+
+  gotoProfile() {
+    this.router.navigate(['profile']);
   }
 }

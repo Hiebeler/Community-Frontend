@@ -6,8 +6,13 @@ import { Adapter } from './adapter';
   providedIn: 'root',
 })
 
-export class CommunityAdapter implements Adapter<Community> {
-  adapt(item: any): Community {
-    return new Community(item.id, item.name, item.code, item.fk_admin_id);
+export class CommunityAdapter implements Adapter<Community | null> {
+  adapt(item: any): Community | null {
+    if (item.id) {
+      return new Community(item.id, item.name, item.code, item.fk_admin_id);
+    }
+    else {
+      return null;
+    }
   }
 }

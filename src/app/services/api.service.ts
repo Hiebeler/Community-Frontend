@@ -126,7 +126,7 @@ export class ApiService {
     );
   }
 
-  getCommunityById(id: number): Observable<Community> {
+  getCommunityById(id: number): Observable<Community | null> {
     return this.httpClient.get<any>(environment.api + 'community/getbyid/' + id, { headers: this.getHeader() }).pipe(
       map(res => this.communityAdapter.adapt(res.data))
     );

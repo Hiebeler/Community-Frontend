@@ -16,19 +16,23 @@ export class CommunityService {
     private userService: UserService
   ) {
     this.userService.getCurrentUser().subscribe(user => {
-      if (user?.communityId !== this.community.value?.id) {
+      if (user && (user?.communityId !== this.community.value?.id)) {
         this.fetchCurrentCommunityFromApi(user.communityId);
       }
     });
    }
 
-  getCurrentCommunity(): Observable<Community> {
+  getCurrentCommunity(): Observable<Community | null> {
     return this.community;
   }
 
   fetchCurrentCommunityFromApi(id?: number): void {
-    this.apiService.getCommunityById(id ?? this.community.value.id ?? -1).subscribe(community => {
+    this.apiService.getCommunityById(id ?? this.community?.value?.id ?? -1).subscribe(community => {
       this.community.next(community);
     });
+  }
+
+  clearData(): void {
+    this.community.next(null);
   }
 }

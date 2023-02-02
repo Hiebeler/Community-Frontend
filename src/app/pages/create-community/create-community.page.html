@@ -1,6 +1,15 @@
 <ion-content>
   <div class="container">
     <ion-grid>
+      <ion-row class="topbar">
+        <ion-col size="auto" class="topbar-buttons-col">
+          <button type="button" class="btn-small btn-medium" (click)="gotoProfile()">Schließen</button>
+        </ion-col>
+        <ion-col class="topbar-header-col">
+          <p>Community erstellen</p>
+        </ion-col>
+      </ion-row>
+
       <ion-row>
         <ion-col>
           <form [formGroup]="communityForm" (ngSubmit)="createCommunity()">

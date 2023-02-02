@@ -3,7 +3,8 @@
     <ion-grid *ngIf="user">
       <ion-row *ngIf="!editingImage">
         <ion-col style="display: flex; justify-content: center">
-          <img class="profileimage clickable" [src]="user.profileimage" alt="" height="100" width="100" (click)="editImage(true)">
+          <img class="profileimage clickable" [src]="user.profileimage" alt="" height="100" width="100"
+            (click)="editImage(true)">
         </ion-col>
       </ion-row>
 
@@ -17,8 +18,8 @@
               </ion-col>
 
               <ion-col size="42" style="display: flex; justify-content: center">
-                <button type="button" class="btn-small btn-primary" style="width: 100%;"
-                  (click)="saveImage()" [disabled]="!cropImgPreview">Speichern</button>
+                <button type="button" class="btn-small btn-primary" style="width: 100%;" (click)="saveImage()"
+                  [disabled]="!cropImgPreview">Speichern</button>
               </ion-col>
             </ion-row>
 
@@ -82,10 +83,25 @@
       </ion-row>
 
       <ion-row *ngIf="!user.communityId">
-        <ion-col class="card-flex">
-          <div class="card card-center-text" style="padding: 10px;">
-            <p style="text-align: start">Noch keiner Community beigetreten</p>
-          </div>
+        <ion-col>
+          <ion-grid class="card card-center-text" style="padding: 10px;">
+            <ion-row>
+              <ion-col>
+                <p>Noch keiner Community beigetreten</p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col style="display: flex; justify-content: center">
+                <button type="button" class="btn-large btn-primary" style="width: 100%;"
+                  (click)="gotoFindCommunity()">Beitreten</button>
+              </ion-col>
+              <ion-col>
+                <button type="button" (click)="gotoCreateCommunity()" class="btn-large btn-outline-primary"
+                  style="width: 100%;">Erstellen</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-col>
       </ion-row>
 
@@ -106,7 +122,7 @@
         </ion-col>
       </ion-row>
 
-      <ion-row *ngIf="usersInCommunity">
+      <ion-row *ngIf="usersInCommunity.length">
         <ion-col>
           <ion-grid class="card card-no-center ion-no-margin">
             <ion-row>

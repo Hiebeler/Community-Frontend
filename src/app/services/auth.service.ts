@@ -10,6 +10,7 @@ import { StorageService } from './storage.service';
 import { UserService } from './user.service';
 import { User } from '../models/user';
 import { ShoppingService } from './shopping.service';
+import { CommunityService } from './community.service';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,8 @@ export class AuthService {
     private alertService: AlertService,
     private storageService: StorageService,
     private userService: UserService,
-    private shoppingService: ShoppingService
+    private shoppingService: ShoppingService,
+    private communityService: CommunityService
   ) {
     this.helper = new JwtHelperService();
     this.platform.ready().then(() => {
@@ -159,6 +161,7 @@ export class AuthService {
   logout() {
     this.storageService.removeToken();
     this.userService.clearData();
+    this.communityService.clearData();
     this.decodedUserToken = null;
     this.authenticationState.next('none');
     this.router.navigate(['login']);

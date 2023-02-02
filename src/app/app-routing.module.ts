@@ -32,6 +32,14 @@ const routes: Routes = [
     }
   },
   {
+    path: 'find-community',
+    loadChildren: () => import('./pages/find-community/find-community.module').then( m => m.FindCommunityPageModule)
+  },
+  {
+    path: 'create-community',
+    loadChildren: () => import('./pages/create-community/create-community.module').then( m => m.CreateCommunityPageModule),
+  },
+  {
     path: 'task',
     loadChildren: () => import('./modals/task/task.module').then( m => m.TaskPageModule)
   },
