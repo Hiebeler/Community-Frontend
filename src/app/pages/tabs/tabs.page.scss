@@ -5,3 +5,11 @@ ion-tab-button.tab-selected * {
 ion-badge {
   color: var(--ion-color-dark) !important;
 }
+
+
+
+@media (max-width: 768px) {
+  ion-label {
+    font-size: 0.6rem;
+  }
+}
