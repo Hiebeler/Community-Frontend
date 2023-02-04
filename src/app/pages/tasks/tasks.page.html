@@ -6,6 +6,11 @@
   <div class="container">
     <ion-grid fixed="true">
       <ion-row class="topbar">
+        <ion-col size="auto">
+          <button type="button" class="btn-small btn-primary" (click)="gotoRoutines()">
+            <ion-icon style="display: flex; font-size: 1.2rem;" color="dark" name="infinite-outline"></ion-icon>
+          </button>
+        </ion-col>
         <ion-col class="topbar-header-col">
           <p>Aufgaben
           </p>
@@ -46,12 +51,6 @@
           <div *ngFor="let task of day.doneTasks">
             <app-task-card [task]="task" (openModal)="openModal(task)"></app-task-card>
           </div>
-        </ion-col>
-      </ion-row>
-
-      <ion-row style="padding-top: 30px;">
-        <ion-col>
-          <button type="button" class="btn-small btn-outline-primary mt-5" (click)="gotoRoutines()">Routinen verwalten</button>
         </ion-col>
       </ion-row>
     </ion-grid>
