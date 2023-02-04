@@ -22,8 +22,7 @@
           <ion-grid class="card">
             <ion-row>
               <ion-col size="auto" style="display: flex; justify-content: center">
-                <button type="button" class="btn-small btn-outline-danger btn-center"
-                  (click)="openEditor(false)">
+                <button type="button" class="btn-small btn-outline-danger btn-center" (click)="openEditor(false)">
                   <ion-icon color="danger" style="display: flex; font-size: 1.6rem;" name="close-outline"></ion-icon>
                 </button>
               </ion-col>
@@ -83,8 +82,8 @@
                   </button>
                 </ion-col>
                 <ion-col>
-                  <button [disabled]="itemUpdateEditorForm.invalid" type="button" (click)="updateName(item.id)"
-                    class="btn-large btn-primary" style="width: 100%;">Updaten</button>
+                  <button [disabled]="itemUpdateEditorForm.invalid || updateNameField.value === item.name" type="button"
+                    (click)="updateName(item.id)" class="btn-large btn-primary" style="width: 100%;">Updaten</button>
                 </ion-col>
               </ion-row>
 

@@ -3,14 +3,6 @@
   margin-bottom: 30px;
 }
 
-.register-grid {
-  border-radius: 20px;
-  background-color: var(--ion-color-dark);
-  padding-top: 75px;
-  padding-bottom: 75px;
-  max-width: 900px;
-}
-
 .form-group {
   position: relative;
   margin-bottom: 25px;
@@ -19,16 +11,4 @@
 .registerbutton-wrapper {
   display: flex;
   justify-content: center;
-}
-
-.txt-resetpw {
-  font-size: 0.9em;
-
-  a {
-    color: white;
-  }
-
-  a:hover {
-    cursor: pointer;
-  }
 }

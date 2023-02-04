@@ -32,25 +32,3 @@
     cursor: pointer;
   }
 }
-
-.empty-input:focus {
-  outline-color: var(--ion-color-primary);
-}
-
-.invalid-input:not(:focus) {
-  color: var(--ion-color-danger);
-}
-
-.invalid-input:focus {
-  outline-color: var(--ion-color-danger);
-}
-
-.valid-input:not(:focus) {
-  color: var(--ion-color-primary);
-}
-
-.valid-input:focus {
-  outline-color: var(--ion-color-primary);
-  outline-style: solid;
-  outline-width: 2px;
-}

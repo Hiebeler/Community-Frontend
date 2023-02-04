@@ -96,18 +96,22 @@ h2 {
   font-family: "custom-bold", sans-serif;
 }
 
-input:focus,
-textarea:focus,
-select:focus {
-  outline-color: var(--ion-color-primary);
-  outline-style: solid;
-  outline-width: 2px;
-}
-
 button:focus,
 img:focus {
   outline: none;
 }
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+/* ------------------------------------------------------- */
+/* Inputs */
+/* ------------------------------------------------------- */
 
 input,
 select {
@@ -122,24 +126,47 @@ select {
   margin: 5px 0 5px 0;
 }
 
+input:focus,
+textarea:focus,
+select:focus {
+  outline-color: var(--ion-color-primary);
+  outline-style: solid;
+  outline-width: 2px;
+}
+
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0 50px var(--ion-color-medium) inset;
   -webkit-text-fill-color: var(--ion-color-light);
 }
 
-a {
-  text-decoration: none;
+.empty-input:focus {
+  outline-color: var(--ion-color-primary);
 }
 
-a:hover {
-  cursor: pointer;
+.invalid-input:not(:focus) {
+  color: var(--ion-color-danger);
+}
+
+.invalid-input:focus {
+  outline-color: var(--ion-color-danger);
+}
+
+.valid-input:not(:focus) {
+  color: var(--ion-color-primary);
+}
+
+.valid-input:focus {
+  outline-color: var(--ion-color-primary);
+  outline-style: solid;
+  outline-width: 2px;
 }
 
 /* ------------------------------------------------------- */
 /* Container */
 /* ------------------------------------------------------- */
 
-.container, .container-wide {
+.container,
+.container-wide {
   padding-right: 5px;
   padding-left: 5px;
   margin-right: auto;
@@ -181,12 +208,9 @@ a:hover {
 /* Buttons */
 /* ------------------------------------------------------- */
 
-button:disabled {
+button:disabled, button:disabled:hover {
   background-color: #9b9b9b;
-}
-
-button:disabled:hover {
-  background-color: #9b9b9b;
+  color: #454545;
 }
 
 .btn-small {
