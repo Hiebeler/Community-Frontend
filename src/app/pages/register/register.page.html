@@ -7,28 +7,34 @@
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <div class="field-box">
               <label for="email">Email</label>
-              <input type="email" id="email" formControlName="email" placeholder="Email">
-              <span *ngIf="email.invalid && email.touched">Ungültige Email</span>
+              <input type="email" id="email" formControlName="email" placeholder="Email"
+                [ngClass]="email.value ? email.valid ? 'valid-input' : 'invalid-input' : 'empty-input'">
+              <!-- <span *ngIf="email.invalid && email.touched">Ungültige Email</span> -->
             </div>
             <div class="field-box">
               <label for="name">Vorname</label>
-              <input type="text" id="name" formControlName="firstname" placeholder="Vorname">
-              <span *ngIf="firstname.invalid && firstname.touched">Kein Vorname eingegeben</span>
+              <input type="text" id="name" formControlName="firstname" placeholder="Vorname"
+              [ngClass]="firstname.value ? firstname.valid ? 'valid-input' : 'invalid-input' : 'empty-input'">
+              <!-- <span *ngIf="firstname.invalid && firstname.touched">Kein Vorname eingegeben</span> -->
             </div>
             <div class="field-box">
               <label for="lastname">Nachname</label>
-              <input type="text" id="lastname" formControlName="lastname" placeholder="Nachname">
-              <span *ngIf="lastname.invalid && lastname.touched">Kein Nachname eingegeben</span>
+              <input type="text" id="lastname" formControlName="lastname" placeholder="Nachname"
+              [ngClass]="lastname.value ? lastname.valid ? 'valid-input' : 'invalid-input' : 'empty-input'">
+              <!-- <span *ngIf="lastname.invalid && lastname.touched">Kein Nachname eingegeben</span> -->
             </div>
             <div class="field-box">
               <label for="password">Password</label>
-              <input type="password" id="password" formControlName="password" placeholder="Password">
-              <span *ngIf="password.invalid && password.touched">Zu schwaches Passwort</span>
+              <input type="password" id="password" formControlName="password" placeholder="Password"
+              [ngClass]="password.value ? password.valid ? 'valid-input' : 'invalid-input' : 'empty-input'">
+              <!-- <span *ngIf="password.invalid && password.touched">Zu schwaches Passwort</span> -->
             </div>
             <div class="field-box">
               <label for="password2">Passwort wiederholen</label>
-              <input type="password" id="password2" formControlName="password2" placeholder="Repeat your password">
-              <span *ngIf="password2.touched && password.value !== password2.value">Passwörter stimmen nicht überein</span>
+              <input type="password" id="password2" formControlName="password2" placeholder="Repeat your password"
+              [ngClass]="password.value ? password.value === password2.value ? 'valid-input' : 'invalid-input' : 'empty-input'">
+              <!-- <span *ngIf="password2.touched && password.value !== password2.value">Passwörter stimmen nicht
+                überein</span> -->
             </div>
             <button [disabled]="registerForm.invalid" type="submit" class="btn-large btn-primary">Register</button>
           </form>
@@ -37,7 +43,8 @@
 
       <ion-row>
         <ion-col class="loginbutton-wrapper">
-          <button type="button" (click)="gotoLogin()" class="btn-large btn-link">Already have an account? Login here</button>
+          <button type="button" (click)="gotoLogin()" class="btn-large btn-link">Already have an account? Login
+            here</button>
         </ion-col>
       </ion-row>
     </ion-grid>
