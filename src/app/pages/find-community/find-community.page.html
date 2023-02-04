@@ -4,7 +4,7 @@
       <ion-row class="topbar">
         <ion-col size="auto" class="topbar-buttons-col">
           <button type="button" class="btn-small btn-medium" (click)="gotoProfile()">
-            <ion-icon style="display: flex; font-size: 1.2rem;" name="close-outline"></ion-icon>
+            <ion-icon style="display: flex; font-size: 1.2rem;" name="return-up-back-outline"></ion-icon>
           </button>
         </ion-col>
         <ion-col class="topbar-header-col">
@@ -17,16 +17,35 @@
           <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
             <div class="field-box">
               <label for="search">Community Code</label>
-              <input type="text" id="search" autocomplete="off" formControlName="search" placeholder="123456789">
+              <input type="text" id="search" autocomplete="off" formControlName="search" placeholder="123456">
             </div>
-            <button [disabled]="searchForm.invalid" type="submit" class="btn-large btn-primary">Search</button>
+            <button [disabled]="searchForm.invalid || loading" type="submit" class="btn-large btn-primary">Search</button>
           </form>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="loading">
+        <ion-col>
+          <ion-spinner name="crescent"></ion-spinner>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="didntFoundCommunity">
+        <ion-col>
+          <ion-grid>
+            <ion-row>
+              <ion-col class="no-community-col">
+                <ion-icon name="warning-outline" color="danger"></ion-icon>
+                <p>Es existiert keine Community mit diesem Code</p>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-col>
       </ion-row>
 
       <ion-row *ngIf="foundCommunity">
         <ion-col>
-          <h1>Community gefunden:</h1>
+          <p>Community gefunden:</p>
           <ion-grid class="community-wrapper">
             <ion-row>
               <ion-col>

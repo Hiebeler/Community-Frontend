@@ -159,14 +159,14 @@
       </ion-row>
 
       <ion-row *ngIf="!editingColor">
-        <ion-col class="card-1-flex" size="42">
+        <ion-col *ngIf="community" class="card-1-flex" size="42">
           <div class="card card-center-text clickable" (click)="editColor(true)"
             [ngStyle]="{'background-color': user.color}">
             <p>Meine Farbe</p>
           </div>
         </ion-col>
 
-        <ion-col class="card-1-flex" size="42">
+        <ion-col class="card-1-flex">
           <div class="card card-center-text wrapper-logout clickable" (click)="logout()">
             <p>Abmelden</p>
           </div>

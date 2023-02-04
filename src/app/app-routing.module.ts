@@ -33,15 +33,27 @@ const routes: Routes = [
   },
   {
     path: 'find-community',
-    loadChildren: () => import('./pages/find-community/find-community.module').then( m => m.FindCommunityPageModule)
+    loadChildren: () => import('./pages/find-community/find-community.module').then( m => m.FindCommunityPageModule),
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['user']
+    }
   },
   {
     path: 'create-community',
     loadChildren: () => import('./pages/create-community/create-community.module').then( m => m.CreateCommunityPageModule),
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['user']
+    }
   },
   {
     path: 'task',
-    loadChildren: () => import('./modals/task/task.module').then( m => m.TaskPageModule)
+    loadChildren: () => import('./modals/task/task.module').then( m => m.TaskPageModule),
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['community']
+    }
   },
   {
     path: 'profile',

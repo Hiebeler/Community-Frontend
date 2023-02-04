@@ -15,6 +15,9 @@ export class FindCommunityPage {
 
   searchForm: FormGroup;
 
+  loading = false;
+  didntFoundCommunity = false;
+
   foundCommunity: Community = null;
 
   constructor(
@@ -24,7 +27,9 @@ export class FindCommunityPage {
     private router: Router
   ) {
     this.searchForm = new FormGroup({
-      search: new FormControl<string | null>('', [Validators.required, Validators.minLength(5), Validators.pattern('^[0-9]*$')])
+      search: new FormControl<string | null>('',
+        [Validators.required, Validators.minLength(6), Validators.maxLength(6), Validators.pattern('^[0-9]*$')]
+      )
     });
   }
 
@@ -34,11 +39,16 @@ export class FindCommunityPage {
 
   onSubmit() {
     if (this.searchForm.valid) {
+      this.loading = true;
+      this.didntFoundCommunity = false;
+      this.foundCommunity = null;
       this.apiService.getCommunityByCode(this.search.value).subscribe(community => {
+        this.loading = false;
         if (community?.id) {
           this.foundCommunity = community;
         }
         else {
+          this.didntFoundCommunity = true;
           this.foundCommunity = null;
         }
       });

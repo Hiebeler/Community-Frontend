@@ -38,7 +38,16 @@ export class AuthService {
     });
 
     this.authenticationState.subscribe(state => {
-      console.log(state);
+      console.log('meem:', state);
+    });
+
+    this.userService.getCurrentUser().subscribe(user => {
+      if (this.storageService.getToken()) {
+        const tokenCommunityId = this.helper.decodeToken(this.storageService.getToken()).communityId;
+        if (user && user?.communityId !== tokenCommunityId) {
+          this.requestNewToken();
+        }
+      }
     });
   }
 
@@ -83,9 +92,7 @@ export class AuthService {
     this.apiService.getNewJWT().subscribe(res => {
       if (res.status === 'OK') {
         this.storeToken(res.data.token);
-        this.decodedUserToken = this.helper.decodeToken(res.data.token);
-        this.updateAuthenticationState(this.decodedUserToken);
-        console.log(this.decodedUserToken);
+        this.checkToken();
       }
     });
   }

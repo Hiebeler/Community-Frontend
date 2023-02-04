@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { ApiService } from 'src/app/services/api.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-create-community',
@@ -16,6 +17,7 @@ export class CreateCommunityPage {
   constructor(
     private apiService: ApiService,
     private alertService: AlertService,
+    private userService: UserService,
     private router: Router
   ) {
     this.communityForm = new FormGroup({
@@ -33,7 +35,10 @@ export class CreateCommunityPage {
         if (res.status === 'Error') {
           this.alertService.showAlert('Error', res.errors[0]);
         } else {
-          this.alertService.showAlert('Community erstellt', 'Code: ' + res.data.code);
+          this.alertService.showAlert('Community erstellt', 'Code: ' + res.data.code, 'Okay', () => {
+            this.userService.fetchUserFromApi();
+            this.router.navigate(['tabs/profile']);
+          });
         }
       });
     }
