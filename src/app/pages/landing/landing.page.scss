@@ -90,6 +90,10 @@
 
   .feature-row {
     padding-bottom: 50px;
+
+    ion-col {
+      justify-content: center;
+    }
   }
 
   .reverse-wrap {
