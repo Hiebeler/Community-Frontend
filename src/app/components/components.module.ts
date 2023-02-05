@@ -1,22 +1,24 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TaskCardComponent } from './task-card/task-card.component';
 import { RoutineEditorComponent } from './routine-editor/routine-editor.component';
 import { RoutineCardComponent } from './routine-card/routine-card.component';
+import { ColorEditorComponent } from './color-editor/color-editor.component';
 
 @NgModule({
   declarations: [
     TaskCardComponent,
     RoutineEditorComponent,
-    RoutineCardComponent
+    RoutineCardComponent,
+    ColorEditorComponent
   ],
   exports: [
     TaskCardComponent,
     RoutineEditorComponent,
-    RoutineCardComponent
+    RoutineCardComponent,
+    ColorEditorComponent
   ],
   imports: [
     IonicModule,

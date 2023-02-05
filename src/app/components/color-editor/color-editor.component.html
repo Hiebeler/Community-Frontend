@@ -1,0 +1,29 @@
+<ion-row>
+  <ion-col class="card-flex">
+    <ion-grid class="card card-center-text ion-no-margin">
+      <ion-row>
+        <ion-col style="display: flex; justify-content: center">
+          <button type="button" class="btn-small btn-outline-danger btn-center" (click)="parentCloseEditor()">
+            <ion-icon color="danger" style="display: flex; font-size: 1.6rem;" name="close-outline"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <p>Farbe auswählen:</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size-xs="42" size-sm="28" size-md="21" size-lg="14" size-xl="14" *ngFor="let color of colors"
+          (click)="changeColor(color.color)">
+          <div class="color-selection-field" [ngStyle]="{'background-color': color.color}"
+            [ngClass]="{'active-color': color.username === user.firstname, 'clickable': color.username === ''}">
+            <p *ngIf="color.username">{{color.username}}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-col>
+</ion-row>

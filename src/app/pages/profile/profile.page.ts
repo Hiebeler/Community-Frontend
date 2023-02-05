@@ -35,37 +35,7 @@ export class ProfilePage implements OnInit {
   cropImgPreview: any = '';
   croppedImg: any = '';
 
-  colors: any =
-    [
-      {
-        color: '#54B435',
-        username: ''
-      },
-      {
-        color: '#FD841F',
-        username: ''
-      },
-      {
-        color: '#5837D0',
-        username: ''
-      },
-      {
-        color: '#0D4C92',
-        username: ''
-      },
-      {
-        color: '#CC3636',
-        username: ''
-      },
-      {
-        color: '#3D8361',
-        username: ''
-      },
-      {
-        color: '#FFC23C',
-        username: ''
-      }
-    ];
+
 
   constructor(
     private authService: AuthService,
@@ -112,8 +82,6 @@ export class ProfilePage implements OnInit {
 
     this.userService.getUsersInCurrentCommunity().subscribe(users => {
       this.usersInCommunity = users;
-      console.log(this.usersInCommunity);
-      this.fillColorArray();
     });
   }
 
@@ -153,33 +121,7 @@ export class ProfilePage implements OnInit {
     );
   }
 
-  fillColorArray() {
-    this.colors.forEach(colorElement => {
-      colorElement.username = '';
-    });
 
-
-    this.usersInCommunity.forEach(user => {
-      this.colors.forEach(colorElement => {
-        if (colorElement.color === user.color) {
-          colorElement.username = user.firstname;
-        }
-      });
-    });
-  }
-
-  changeColor(color: string) {
-    let canChooseColor = true;
-    this.colors.forEach(colorElement => {
-      if (colorElement.color === color && colorElement.username !== '') {
-        canChooseColor = false;
-      }
-    });
-
-    if (canChooseColor) {
-      this.updateUser({ color });
-    }
-  }
 
   editImage(state: boolean) {
     this.editingImage = state;
