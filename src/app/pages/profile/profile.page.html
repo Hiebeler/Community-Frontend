@@ -8,39 +8,9 @@
         </ion-col>
       </ion-row>
 
-      <ion-row *ngIf="editingImage">
-        <ion-col>
-          <ion-grid class="card">
-            <ion-row>
-              <ion-col size="auto" style="display: flex; justify-content: center">
-                <button type="button" class="btn-small btn-outline-danger btn-center" style="width: 100%;"
-                  (click)="editImage(false)">
-                  <ion-icon color="danger" style="display: flex; font-size: 1.6rem;" name="close-outline"></ion-icon>
-                </button>
-              </ion-col>
-
-              <ion-col style="display: flex; justify-content: center">
-                <button type="button" class="btn-small btn-primary" style="width: 100%;" (click)="saveImage()"
-                  [disabled]="!cropImgPreview">Speichern</button>
-              </ion-col>
-            </ion-row>
-
-            <ion-row>
-              <ion-col size="84">
-                <input type="file" (change)="onFileChange($event)" />
-              </ion-col>
-
-              <ion-col size="84">
-                <image-cropper [imageChangedEvent]="imgChangeEvt" [maintainAspectRatio]="true" [aspectRatio]="4 / 4"
-                  [resizeToWidth]="256" format="jpeg" (imageCropped)="cropImg($event)" (imageLoaded)="imgLoad()"
-                  (cropperReady)="initCropper()" (loadImageFailed)="imgFailed()" [roundCropper]="true">
-                </image-cropper>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-col>
-
-      </ion-row>
+      <div *ngIf="editingImage">
+        <app-profile-image-editor (closeEditor)="editImage(false)" />
+      </div>
 
       <ion-row *ngIf="!editingName">
         <ion-col style="display: flex; justify-content: center">
