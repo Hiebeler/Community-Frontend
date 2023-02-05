@@ -25,6 +25,9 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+@import '~swiper/swiper.min.css';
+@import '~@ionic/angular/css/ionic-swiper.css';
+
 ::selection {
   color: var(--ion-color-light);
   background: var(--ion-color-primary-tint);

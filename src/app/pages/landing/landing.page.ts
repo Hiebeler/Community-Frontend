@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import SwiperCore, { EffectCards } from 'swiper';
+
+SwiperCore.use([EffectCards]);
 
 @Component({
   selector: 'app-landing',
