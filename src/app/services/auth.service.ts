@@ -74,10 +74,7 @@ export class AuthService {
   }
 
   updateAuthenticationState(token) {
-    console.log('updateAuthenticationState');
-    console.log(token);
     if (!token.version) {
-      console.log(token.version);
       this.requestNewToken();
     } else {
       if (token.communityId) {

@@ -15,37 +15,24 @@ export class ColorEditorComponent implements OnInit {
   user: User;
   usersInCommunity: User[];
 
-  colors: any =
-    [
-      {
-        color: '#54B435',
-        username: ''
-      },
-      {
-        color: '#FD841F',
-        username: ''
-      },
-      {
-        color: '#5837D0',
-        username: ''
-      },
-      {
-        color: '#0D4C92',
-        username: ''
-      },
-      {
-        color: '#CC3636',
-        username: ''
-      },
-      {
-        color: '#3D8361',
-        username: ''
-      },
-      {
-        color: '#FFC23C',
-        username: ''
-      }
-    ];
+  colors: string[] = [
+    '#54B435',
+    '#FD841F',
+    '#5837D0',
+    '#0D4C92',
+    '#CC3636',
+    '#3D8361',
+    '#FFC23C',
+    '#7358ff',
+    '#e8115b',
+    '#0d73ec',
+    '#1e3264',
+    '#f59b23',
+    '#8c1932',
+    '#ff4632'
+  ];
+
+  colorUsernames: string[] = [];
 
   constructor(
     private userService: UserService,
@@ -54,13 +41,14 @@ export class ColorEditorComponent implements OnInit {
 
   ngOnInit() {
 
+    this.colorUsernames = Array(this.colors.length).fill('');
+
     this.userService.getCurrentUser().subscribe(user => {
       this.user = user;
     });
 
     this.userService.getUsersInCurrentCommunity().subscribe(users => {
       this.usersInCommunity = users;
-      console.log(this.usersInCommunity);
       this.fillColorArray();
     });
   }
@@ -70,15 +58,11 @@ export class ColorEditorComponent implements OnInit {
   }
 
   fillColorArray() {
-    this.colors.forEach(colorElement => {
-      colorElement.username = '';
-    });
-
-
+    this.colorUsernames = Array(this.colors.length).fill('');
     this.usersInCommunity.forEach(user => {
-      this.colors.forEach(colorElement => {
-        if (colorElement.color === user.color) {
-          colorElement.username = user.firstname;
+      this.colors.forEach((colorElement, index) => {
+        if (colorElement === user.color) {
+          this.colorUsernames[index] = user.firstname;
         }
       });
     });
@@ -86,8 +70,8 @@ export class ColorEditorComponent implements OnInit {
 
   changeColor(color: string) {
     let canChooseColor = true;
-    this.colors.forEach(colorElement => {
-      if (colorElement.color === color && colorElement.username !== '') {
+    this.colors.forEach((colorElement, index) => {
+      if (colorElement === color && this.colorUsernames[index] !== '') {
         canChooseColor = false;
       }
     });

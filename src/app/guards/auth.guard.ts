@@ -22,7 +22,6 @@ export class AuthGuard implements CanActivate {
       filter(val => val !== null),
       take(1),
       map(role => {
-        console.log('role in guard:', role);
         if (allowedRoles.indexOf(role) !== -1) {
           return true;
         }

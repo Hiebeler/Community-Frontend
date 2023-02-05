@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
 import { RequestAdapter } from 'src/app/adapter/request-adapter';
 import { Community } from 'src/app/models/community';
 import { User } from 'src/app/models/user';
@@ -9,7 +8,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DomSanitizer } from '@angular/platform-browser';
 import { CommunityService } from 'src/app/services/community.service';
 import { Router } from '@angular/router';
 
@@ -31,10 +29,6 @@ export class ProfilePage implements OnInit {
 
   nameUpdateEditorForm: FormGroup;
 
-
-
-
-
   constructor(
     private authService: AuthService,
     private userService: UserService,
@@ -42,7 +36,6 @@ export class ProfilePage implements OnInit {
     private apiService: ApiService,
     private requestAdapter: RequestAdapter,
     private alertService: AlertService,
-    private domSanitizer: DomSanitizer,
     private router: Router
   ) {
     this.nameUpdateEditorForm = new FormGroup({
@@ -66,7 +59,6 @@ export class ProfilePage implements OnInit {
 
     this.communityService.getCurrentCommunity().subscribe(community => {
       this.community = community;
-      console.log(this.community);
 
       if (community) {
         this.apiService.getRequests().subscribe((requests) => {
@@ -119,8 +111,6 @@ export class ProfilePage implements OnInit {
     );
   }
 
-
-
   editImage(state: boolean) {
     this.editingImage = state;
   }
@@ -128,8 +118,6 @@ export class ProfilePage implements OnInit {
   editColor(state: boolean) {
     this.editingColor = state;
   }
-
-
 
   gotoCreateCommunity() {
     this.router.navigate(['create-community']);
