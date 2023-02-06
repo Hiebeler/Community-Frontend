@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
@@ -10,9 +11,11 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './profile-image-editor.component.html',
   styleUrls: ['./profile-image-editor.component.scss'],
 })
-export class ProfileImageEditorComponent implements OnInit {
+export class ProfileImageEditorComponent implements OnInit, OnDestroy {
 
   @Output() closeEditor: EventEmitter<any> = new EventEmitter();
+
+  subscriptions: Subscription[] = [];
 
   user: User;
 
@@ -27,24 +30,28 @@ export class ProfileImageEditorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.getCurrentUser().subscribe(user => {
+    this.subscriptions.push(this.userService.getCurrentUser().subscribe(user => {
       this.user = user;
-    });
+    }));
   }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    }
 
   saveImage() {
     this.croppedImg = this.dataURLtoFile(this.cropImgPreview, 'hello.png');
-    this.apiService.uploadImage(this.croppedImg).subscribe((res: any) => {
+    this.subscriptions.push(this.apiService.uploadImage(this.croppedImg).subscribe((res: any) => {
       if (res.data.link) {
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        this.apiService.updateUser({ profile_image: res.data.link }).subscribe((updateRes) => {
+        this.subscriptions.push(this.apiService.updateUser({ profile_image: res.data.link }).subscribe((updateRes) => {
           if (updateRes.status === 'OK') {
             this.user.profileimage = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
             this.parentCloseEditor();
           }
-        });
+        }));
       }
-    });
+    }));
   }
 
   onFileChange(event: any): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RequestAdapter } from 'src/app/adapter/request-adapter';
 import { Community } from 'src/app/models/community';
 import { User } from 'src/app/models/user';
@@ -10,13 +10,16 @@ import { AlertService } from 'src/app/services/alert.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CommunityService } from 'src/app/services/community.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })
-export class ProfilePage implements OnInit {
+export class ProfilePage implements OnInit, OnDestroy {
+
+  subscriptions: Subscription[] = [];
 
   user: User;
   community: Community;
@@ -52,17 +55,21 @@ export class ProfilePage implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getCurrentUser().subscribe(user => {
+    this.subscriptions.push(this.userService.getCurrentUser().subscribe(user => {
       this.user = user;
-    });
+    }));
 
-    this.communityService.getCurrentCommunity().subscribe(community => {
+    this.subscriptions.push(this.communityService.getCurrentCommunity().subscribe(community => {
       this.community = community;
-    });
+    }));
 
-    this.userService.getUsersInCurrentCommunity().subscribe(users => {
+    this.subscriptions.push(this.userService.getUsersInCurrentCommunity().subscribe(users => {
       this.usersInCommunity = users;
-    });
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   toggleNameEditor() {
@@ -78,11 +85,11 @@ export class ProfilePage implements OnInit {
   }
 
   updateUser(data: any) {
-    this.apiService.updateUser(data).subscribe((res) => {
+    this.subscriptions.push(this.apiService.updateUser(data).subscribe((res) => {
       if (res.status === 'OK') {
         this.userService.fetchUserFromApi();
       }
-    });
+    }));
   }
 
   async logout() {

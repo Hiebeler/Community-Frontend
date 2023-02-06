@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { TaskAdapter } from 'src/app/adapter/task-adapter';
 import { TaskPage } from 'src/app/modals/task/task.page';
 import { Day } from 'src/app/models/day';
@@ -12,7 +13,9 @@ import { TaskService } from 'src/app/services/task.service';
   templateUrl: './tasks.page.html',
   styleUrls: ['./tasks.page.scss'],
 })
-export class TasksPage implements OnInit {
+export class TasksPage implements OnInit, OnDestroy {
+
+  subscriptions: Subscription[] = [];
 
   numberOfColumns = 3;
 
@@ -45,8 +48,12 @@ export class TasksPage implements OnInit {
     this.getTasks();
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
   getTasks(event?) {
-    this.taskService.getTasks(this.startDate, this.endDate).subscribe((tasks) => {
+    this.subscriptions.push(this.taskService.getTasks(this.startDate, this.endDate).subscribe((tasks) => {
       this.days = [];
 
       for (let i = 0; i < this.numberOfColumns; i++) {
@@ -73,7 +80,7 @@ export class TasksPage implements OnInit {
       if (event) {
         event.target.complete();
       }
-    });
+    }));
   }
 
   addDate(date: Date, daysToAdd: number) {
