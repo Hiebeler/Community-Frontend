@@ -20,7 +20,7 @@ export class CommunityAdapter implements Adapter<Community | null> {
         item.admin = this.userAdapter.adapt(item.admin);
       }
 
-      return new Community(item.id, item.name, item.code, item.fk_admin_id, item.admin);
+      return new Community(item.id, item.name, item.code, item.fk_admin_id, item.admin, item.userCount);
     }
     else {
       return null;

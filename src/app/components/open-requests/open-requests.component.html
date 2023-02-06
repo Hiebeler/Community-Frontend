@@ -26,13 +26,13 @@
 
             <ion-row class="button-row">
               <ion-col size="42">
-                <button type="button" class="btn-small btn-danger">
+                <button type="button" class="btn-small btn-danger" (click)="accept(request.id, false)">
                   <ion-icon color="light" style="display: flex; font-size: 1.2rem;" name="close-outline"></ion-icon>
                 </button>
               </ion-col>
 
               <ion-col size="42">
-                <button type="button" class="btn-small btn-primary" (click)="accept(request.id)">
+                <button type="button" class="btn-small btn-primary" (click)="accept(request.id, true)">
                   <ion-icon color="dark" style="display: flex; font-size: 1.2rem;" name="checkmark-outline"></ion-icon>
                 </button>
               </ion-col>

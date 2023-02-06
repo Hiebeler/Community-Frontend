@@ -144,8 +144,9 @@ export class ApiService {
     return this.httpClient.get<any>(environment.api + 'community/requests', { headers: this.getHeader() });
   }
 
-  acceptRequest(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'community/acceptrequest', data, { headers: this.getHeader() });
+  acceptRequest(data: any, status: boolean): Observable<any> {
+    const url: string = status ? 'community/acceptrequest' : 'community/denyrequest';
+    return this.httpClient.post<any>(environment.api + url, data, { headers: this.getHeader() });
   }
 
   getTasks(data: any): Observable<Task[]> {

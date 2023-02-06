@@ -46,7 +46,7 @@ export class RegisterPage {
   }
 
   onSubmit() {
-    if (this.registerForm.valid) {
+    if (this.registerForm.valid && this.password.value === this.password2.value) {
       this.authService.register(this.email.value, this.firstname.value, this.lastname.value, this.password.value);
     }
   }
