@@ -1,0 +1,37 @@
+.requests-wrapper {
+  background-color: var(--ion-color-dark);
+  border-radius: var(--border-radius-small);
+
+  p {
+    margin: 0;
+  }
+
+  .button-row {
+    button {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .img-col {
+    padding: 15px 15px 0 15px;
+    display: flex;
+  }
+
+  .name-col {
+    padding: 15px;
+  }
+
+  .rounded-image {
+    border-radius: 50%;
+  }
+
+  p {
+    text-align: center;
+  }
+
+  .lastname {
+    font-size: 0.8rem;
+  }
+}

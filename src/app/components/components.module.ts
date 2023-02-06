@@ -8,6 +8,7 @@ import { RoutineCardComponent } from './routine-card/routine-card.component';
 import { ColorEditorComponent } from './color-editor/color-editor.component';
 import { ProfileImageEditorComponent } from './profile-image-editor/profile-image-editor.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { OpenRequestsComponent } from './open-requests/open-requests.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     RoutineEditorComponent,
     RoutineCardComponent,
     ColorEditorComponent,
+    OpenRequestsComponent,
     ProfileImageEditorComponent
   ],
   exports: [
@@ -22,6 +24,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     RoutineEditorComponent,
     RoutineCardComponent,
     ColorEditorComponent,
+    OpenRequestsComponent,
     ProfileImageEditorComponent
   ],
   imports: [

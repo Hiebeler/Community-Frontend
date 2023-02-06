@@ -21,7 +21,6 @@ export class ProfilePage implements OnInit {
   user: User;
   community: Community;
   usersInCommunity: User[];
-  requests: Request[] = [];
 
   editingImage = false;
   editingColor = false;
@@ -59,15 +58,6 @@ export class ProfilePage implements OnInit {
 
     this.communityService.getCurrentCommunity().subscribe(community => {
       this.community = community;
-
-      if (community) {
-        this.apiService.getRequests().subscribe((requests) => {
-          if (requests.status === 'OK') {
-            requests = requests.data.map((data: any) => this.requestAdapter.adapt(data));
-            this.requests = requests;
-          }
-        });
-      }
     });
 
     this.userService.getUsersInCurrentCommunity().subscribe(users => {
@@ -92,12 +82,6 @@ export class ProfilePage implements OnInit {
       if (res.status === 'OK') {
         this.userService.fetchUserFromApi();
       }
-    });
-  }
-
-  async accept(id: number) {
-    await this.apiService.acceptRequest({ id }).subscribe((res) => {
-
     });
   }
 

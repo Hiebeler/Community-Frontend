@@ -1,0 +1,45 @@
+<ion-row *ngIf="requests.length">
+  <ion-col>
+    <ion-grid class="card">
+      <ion-row>
+        <ion-col>
+          <p class="ion-text-center">Beitrittsanfragen</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size-xs="42" size-sm="28" size-md="21" size-lg="14" size-xl="14"
+          *ngFor="let request of requests">
+          <ion-grid class="requests-wrapper">
+            <ion-row>
+              <ion-col class="img-col">
+                <img class="rounded-image" [src]="request.user.profileimage" alt="">
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col class="name-col">
+                <p class="firstname">{{request.user.firstname}}</p>
+                <p class="lastname">{{request.user.lastname}}</p>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="button-row">
+              <ion-col size="42">
+                <button type="button" class="btn-small btn-danger">
+                  <ion-icon color="light" style="display: flex; font-size: 1.2rem;" name="close-outline"></ion-icon>
+                </button>
+              </ion-col>
+
+              <ion-col size="42">
+                <button type="button" class="btn-small btn-primary" (click)="accept(request.id)">
+                  <ion-icon color="dark" style="display: flex; font-size: 1.2rem;" name="checkmark-outline"></ion-icon>
+                </button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-col>
+</ion-row>

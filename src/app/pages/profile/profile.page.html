@@ -148,25 +148,8 @@
         <app-color-editor (closeEditor)="editColor(false)" />
       </div>
 
+      <app-open-requests />
 
-      <ion-row *ngIf="requests">
-        <ion-col *ngFor="let request of requests">
-          <h1>Requests:</h1>
-          <ion-grid class="requests-wrapper">
-            <ion-row>
-              <ion-col>
-                <h1 class="ion-text-center">{{request.user.firstname}}</h1>
-              </ion-col>
-            </ion-row>
-
-            <ion-row>
-              <ion-col>
-                <button type="button" class="btn-small btn-primary" (click)="accept(request.id)">Annehmen</button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-col>
-      </ion-row>
     </ion-grid>
   </div>
 </ion-content>
