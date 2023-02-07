@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/services/alert.service';
 import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
@@ -10,7 +11,9 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './create-community.page.html',
   styleUrls: ['./create-community.page.scss'],
 })
-export class CreateCommunityPage {
+export class CreateCommunityPage implements OnDestroy {
+
+  subscriptions: Subscription[] = [];
 
   communityForm: FormGroup;
 
@@ -29,9 +32,13 @@ export class CreateCommunityPage {
     return this.communityForm.get('name');
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    }
+
   createCommunity() {
     if (this.communityForm.valid) {
-      this.apiService.createCommunity({ name: this.name.value }).subscribe(async (res) => {
+      this.subscriptions.push(this.apiService.createCommunity({ name: this.name.value }).subscribe(async (res) => {
         if (res.status === 'Error') {
           this.alertService.showAlert('Error', res.errors[0]);
         } else {
@@ -40,7 +47,7 @@ export class CreateCommunityPage {
             this.router.navigate(['tabs/profile']);
           });
         }
-      });
+      }));
     }
   }
 

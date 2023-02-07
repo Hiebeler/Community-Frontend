@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { ShoppingItem } from 'src/app/models/shopping-item';
 import { ShoppingService } from 'src/app/services/shopping.service';
 
@@ -8,7 +9,9 @@ import { ShoppingService } from 'src/app/services/shopping.service';
   templateUrl: './shopping-list.page.html',
   styleUrls: ['./shopping-list.page.scss'],
 })
-export class ShoppingListPage implements OnInit {
+export class ShoppingListPage implements OnInit, OnDestroy {
+
+  subscriptions: Subscription[] = [];
 
   editorIsOpen = false;
   editorIsOpenId = -1;
@@ -46,7 +49,7 @@ export class ShoppingListPage implements OnInit {
   ngOnInit() {
     this.getItems();
 
-    this.shoppingService.getOpenShoppingItems().subscribe((items) => {
+    this.subscriptions.push(this.shoppingService.getOpenShoppingItems().subscribe((items) => {
       this.openItems = items;
 
       this.completedFirstLoad = true;
@@ -54,15 +57,19 @@ export class ShoppingListPage implements OnInit {
       if (this.loadingEvent) {
         this.loadingEvent.target.complete();
       }
-    });
+    }));
 
-    this.shoppingService.getDoneShoppingItems().subscribe((items) => {
+    this.subscriptions.push(this.shoppingService.getDoneShoppingItems().subscribe((items) => {
       this.doneItems = items;
 
       if (this.loadingEvent) {
         this.loadingEvent.target.complete();
       }
-    });
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   openEditor(state: boolean) {
@@ -73,7 +80,7 @@ export class ShoppingListPage implements OnInit {
   openUpdateEditor(item?: ShoppingItem) {
     if (item) {
       this.itemUpdateEditorForm.controls.updatename.setValue(item.name);
-    this.editorIsOpenId = item.id;
+      this.editorIsOpenId = item.id;
     } else {
       this.editorIsOpenId = -1;
     }
@@ -89,19 +96,21 @@ export class ShoppingListPage implements OnInit {
   saveItem() {
     if (this.createNameField.value) {
       this.editorIsOpen = false;
-      this.shoppingService.addShoppingItem(new ShoppingItem(null, this.createNameField.value, null)).subscribe((res) => {
-        this.getItems();
-      });
+      this.subscriptions.push(
+        this.shoppingService.addShoppingItem(new ShoppingItem(null, this.createNameField.value, null)).subscribe((res) => {
+          this.getItems();
+        })
+      );
       this.itemEditorForm.controls.createname.setValue('');
     }
   }
 
   updateDone(id: number, e: any) {
-    this.shoppingService.updateShoppingItem(new ShoppingItem(id, null, e.target.checked)).subscribe((res) => {
+    this.subscriptions.push(this.shoppingService.updateShoppingItem(new ShoppingItem(id, null, e.target.checked)).subscribe((res) => {
       if (res.status === 'OK') {
         this.getItems();
       }
-    });
+    }));
   }
 
   updateName(id: number) {
@@ -113,11 +122,13 @@ export class ShoppingListPage implements OnInit {
       };
 
 
-      this.shoppingService.updateShoppingItem(new ShoppingItem(id, this.updateNameField.value, undefined)).subscribe((res) => {
-        if (res.status === 'OK') {
-          this.getItems();
-        }
-      });
+      this.subscriptions.push(
+        this.shoppingService.updateShoppingItem(new ShoppingItem(id, this.updateNameField.value, undefined)).subscribe((res) => {
+          if (res.status === 'OK') {
+            this.getItems();
+          }
+        })
+      );
       this.itemUpdateEditorForm.controls.updatename.setValue('');
     }
   }

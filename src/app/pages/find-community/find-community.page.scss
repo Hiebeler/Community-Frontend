@@ -1,18 +1,3 @@
-.community-wrapper {
-  margin-top: 20px;
-  background-color:  var(--ion-color-medium);
-  border-radius: var(--border-radius-small);
-
-  h1 {
-    margin: 0;
-  }
-
-  p {
-    margin-top: 5px;
-    margin-bottom: 0px;
-  }
-}
-
 .no-community-col {
   display: flex;
   flex-direction: column;
@@ -24,5 +9,40 @@
 
   p {
     text-align: center;
+  }
+}
+
+
+.community-wrapper {
+  background-color: var(--ion-color-dark);
+  border-radius: var(--border-radius-small);
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .name-col {
+    padding: 15px;
+  }
+}
+
+.info-row {
+  ion-col div {
+    background-color: var(--ion-color-dark);
+    border-radius: var(--border-radius-small);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+
+    p, h2 {
+      margin: 0;
+    }
   }
 }

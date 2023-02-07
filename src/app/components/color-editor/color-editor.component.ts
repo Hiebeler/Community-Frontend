@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
@@ -8,9 +9,11 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './color-editor.component.html',
   styleUrls: ['./color-editor.component.scss'],
 })
-export class ColorEditorComponent implements OnInit {
+export class ColorEditorComponent implements OnInit, OnDestroy {
 
   @Output() closeEditor: EventEmitter<any> = new EventEmitter();
+
+  subscriptions: Subscription[] = [];
 
   user: User;
   usersInCommunity: User[];
@@ -43,14 +46,18 @@ export class ColorEditorComponent implements OnInit {
 
     this.colorUsernames = Array(this.colors.length).fill('');
 
-    this.userService.getCurrentUser().subscribe(user => {
+    this.subscriptions.push(this.userService.getCurrentUser().subscribe(user => {
       this.user = user;
-    });
+    }));
 
-    this.userService.getUsersInCurrentCommunity().subscribe(users => {
+    this.subscriptions.push(this.userService.getUsersInCurrentCommunity().subscribe(users => {
       this.usersInCommunity = users;
       this.fillColorArray();
-    });
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   parentCloseEditor() {
@@ -82,10 +89,10 @@ export class ColorEditorComponent implements OnInit {
   }
 
   updateUser(data: any) {
-    this.apiService.updateUser(data).subscribe((res) => {
+    this.subscriptions.push(this.apiService.updateUser(data).subscribe((res) => {
       if (res.status === 'OK') {
         this.userService.fetchUserFromApi();
       }
-    });
+    }));
   }
 }

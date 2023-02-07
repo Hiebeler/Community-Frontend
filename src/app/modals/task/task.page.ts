@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { Task } from 'src/app/models/task';
 import { User } from 'src/app/models/user';
 import { AlertService } from 'src/app/services/alert.service';
@@ -12,7 +13,9 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './task.page.html',
   styleUrls: ['./task.page.scss'],
 })
-export class TaskPage implements OnInit {
+export class TaskPage implements OnInit, OnDestroy {
+
+  subscriptions: Subscription[] = [];
 
   taskForm: FormGroup;
 
@@ -50,13 +53,17 @@ export class TaskPage implements OnInit {
     this.name.setValue(this.task.name);
     this.notes.setValue(this.task.notes);
 
-    this.userService.getUsersInCurrentCommunity().subscribe((allUsersOfCommunity: User[]) => {
+    this.subscriptions.push(this.userService.getUsersInCurrentCommunity().subscribe((allUsersOfCommunity: User[]) => {
       this.assignableUsers = allUsersOfCommunity;
       this.task.assignedUsers.forEach(assignedUser => {
         this.assignableUsers = this.assignableUsers.filter(el => el.id !== assignedUser.id);
       });
-    });
+    }));
   }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    }
 
   toggleChanged(event: any) {
     this.taskDone = event.target.checked;
@@ -104,9 +111,9 @@ export class TaskPage implements OnInit {
       data.assignedUser = users;
 
       if (changed) {
-        this.apiService.updateTask(data).subscribe(() => {
+        this.subscriptions.push(this.apiService.updateTask(data).subscribe(() => {
           this.getTasks();
-        });
+        }));
       }
     }
 
@@ -124,10 +131,10 @@ export class TaskPage implements OnInit {
   }
 
   deleteTask() {
-    this.apiService.deleteTask(this.task.id).subscribe(() => {
+    this.subscriptions.push(this.apiService.deleteTask(this.task.id).subscribe(() => {
       this.getTasks();
       this.modalController.dismiss();
-    });
+    }));
   }
 
   addUser(user: User) {

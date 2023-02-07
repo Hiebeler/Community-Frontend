@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 import { Community } from 'src/app/models/community';
 import { AlertService } from 'src/app/services/alert.service';
 import { ApiService } from 'src/app/services/api.service';
@@ -11,7 +12,9 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './find-community.page.html',
   styleUrls: ['./find-community.page.scss'],
 })
-export class FindCommunityPage {
+export class FindCommunityPage implements OnDestroy {
+
+  subscriptions: Subscription[] = [];
 
   searchForm: FormGroup;
 
@@ -37,12 +40,16 @@ export class FindCommunityPage {
     return this.searchForm.get('search');
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
   onSubmit() {
     if (this.searchForm.valid) {
       this.loading = true;
       this.didntFoundCommunity = false;
       this.foundCommunity = null;
-      this.apiService.getCommunityByCode(this.search.value).subscribe(community => {
+      this.subscriptions.push(this.apiService.getCommunityByCode(this.search.value).subscribe(community => {
         this.loading = false;
         if (community?.id) {
           this.foundCommunity = community;
@@ -52,7 +59,7 @@ export class FindCommunityPage {
           this.didntFoundCommunity = true;
           this.foundCommunity = null;
         }
-      });
+      }));
     }
   }
 
@@ -60,7 +67,7 @@ export class FindCommunityPage {
     const data = {
       code: this.foundCommunity.code
     };
-    this.apiService.joinCommunity(data).subscribe(async (res) => {
+    this.subscriptions.push(this.apiService.joinCommunity(data).subscribe(async (res) => {
       if (res.status === 'Error') {
         this.alertService.showAlert(
           'Fehler',
@@ -75,7 +82,7 @@ export class FindCommunityPage {
         });
         await toast.present();
       }
-    });
+    }));
   }
 
   gotoCreateCommunity() {

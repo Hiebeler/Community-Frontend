@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { Routine } from 'src/app/models/routine';
 import { User } from 'src/app/models/user';
 import { TaskService } from 'src/app/services/task.service';
@@ -10,10 +11,12 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './routine-editor.component.html',
   styleUrls: ['./routine-editor.component.scss'],
 })
-export class RoutineEditorComponent implements OnInit {
+export class RoutineEditorComponent implements OnInit, OnDestroy {
 
   @Input() routine: Routine;
   @Output() closeEditor: EventEmitter<any> = new EventEmitter();
+
+  subscriptions: Subscription[] = [];
 
   routineForm: FormGroup;
 
@@ -68,7 +71,7 @@ export class RoutineEditorComponent implements OnInit {
       this.doneControl.setValue(this.routine.active);
     }
 
-    this.userService.getUsersInCurrentCommunity().subscribe((allUsersOfCommunity: User[]) => {
+    this.subscriptions.push(this.userService.getUsersInCurrentCommunity().subscribe((allUsersOfCommunity: User[]) => {
       this.assignableUsers = allUsersOfCommunity;
       if (this.routine) {
         this.assignedUsers = this.routine.assignedUsers;
@@ -77,8 +80,12 @@ export class RoutineEditorComponent implements OnInit {
       this.assignedUsers.forEach(assignedUser => {
         this.assignableUsers = this.assignableUsers.filter(el => el.id !== assignedUser.id);
       });
-    });
+    }));
   }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    }
 
   setUpdatingResponsibleUsers(newValue: boolean) {
     this.updatingResponsibleUsers = newValue;
@@ -96,12 +103,12 @@ export class RoutineEditorComponent implements OnInit {
       this.doneControl.value,
       this.assignedUsers
     );
-    this.taskService.modifyRoutine(routine).subscribe(res => {
+    this.subscriptions.push(this.taskService.modifyRoutine(routine).subscribe(res => {
       if (res.status === 'OK') {
         this.parentCloseEditor();
         this.routineForm.reset();
       }
-    });
+    }));
   }
 
   addUser(user: User) {
