@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { catchError } from 'rxjs/operators';
 import { ApiService } from './api.service';
@@ -15,7 +15,9 @@ import { CommunityService } from './community.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
+
+  subscriptions: Subscription[] = [];
 
   authenticationState = new BehaviorSubject<string>(null);
   private decodedUserToken = null;
@@ -37,18 +39,22 @@ export class AuthService {
       this.checkToken();
     });
 
-    this.authenticationState.subscribe(state => {
+    this.subscriptions.push(this.authenticationState.subscribe(state => {
       console.log('meem:', state);
-    });
+    }));
 
-    this.userService.getCurrentUser().subscribe(user => {
+    this.subscriptions.push(this.userService.getCurrentUser().subscribe(user => {
       if (this.storageService.getToken()) {
         const tokenCommunityId = this.helper.decodeToken(this.storageService.getToken()).communityId;
         if (user && user?.communityId !== tokenCommunityId) {
           this.requestNewToken();
         }
       }
-    });
+    }));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   checkToken() {
@@ -86,12 +92,12 @@ export class AuthService {
   }
 
   requestNewToken() {
-    this.apiService.getNewJWT().subscribe(res => {
+    this.subscriptions.push(this.apiService.getNewJWT().subscribe(res => {
       if (res.status === 'OK') {
         this.storeToken(res.data.token);
         this.checkToken();
       }
-    });
+    }));
   }
 
   register(email, firstname, lastname, password) {
@@ -103,7 +109,7 @@ export class AuthService {
       password
     };
 
-    return this.apiService.register(obj).subscribe(async res => {
+    return this.subscriptions.push(this.apiService.register(obj).subscribe(async res => {
       let head = 'Gratuliere';
       let msg = 'Registrierung erfolgreich';
       if (res.status === 'Error') {
@@ -125,7 +131,7 @@ export class AuthService {
           }
         }
       );
-    }),
+    })),
       catchError(e => {
         this.alertService.showAlert('Error', e.error.message);
         throw new Error(e);
@@ -133,7 +139,7 @@ export class AuthService {
   }
 
   login(email, password) {
-    return this.apiService.login(email, password).subscribe(async res => {
+    return this.subscriptions.push(this.apiService.login(email, password).subscribe(async res => {
       if (res.status === 'OK') {
         this.storeToken(res.data.token);
         this.decodedUserToken = this.helper.decodeToken(res.data.token);
@@ -145,7 +151,7 @@ export class AuthService {
         this.alertService.showAlert('Ooops', res.errors[0]);
       }
 
-    }),
+    })),
       catchError(e => {
         this.alertService.showAlert('Error', e.error.message);
         throw new Error(e);
@@ -153,9 +159,9 @@ export class AuthService {
   }
 
   sendVerificationMailAgain(email) {
-    this.apiService.sendVerificationMailAgain(email).subscribe(async res => {
+    this.subscriptions.push(this.apiService.sendVerificationMailAgain(email).subscribe(async res => {
       this.alertService.showAlert(res.header, res.message);
-    });
+    }));
   }
 
   public getUserFromToken() {
@@ -179,7 +185,7 @@ export class AuthService {
       lastname: updatedUser.lastname,
       profilepicture: url.changingThisBreaksApplicationSecurity
     };
-    return this.apiService.updateUser(dataToUpdate).subscribe(async res => {
+    return this.subscriptions.push(this.apiService.updateUser(dataToUpdate).subscribe(async res => {
       if (res.status === 200) {
         this.userService.fetchUserFromApi(this.getUserFromToken().id);
       }
@@ -187,7 +193,7 @@ export class AuthService {
         this.alertService.showAlert(res.header, res.message);
       }
 
-    }),
+    })),
       catchError(e => {
         this.alertService.showAlert('Error', e.error.message);
         throw new Error(e);
@@ -201,10 +207,10 @@ export class AuthService {
       newPassword2,
       id: this.getUserFromToken().id
     };
-    return this.apiService.changePassword(obj).subscribe(async res => {
+    return this.subscriptions.push(this.apiService.changePassword(obj).subscribe(async res => {
       this.alertService.showAlert(res.header, res.message);
 
-    }),
+    })),
       catchError(e => {
         this.alertService.showAlert('Error', e.error.message);
         throw new Error(e);
@@ -212,10 +218,10 @@ export class AuthService {
   }
 
   resetPassword(email) {
-    return this.apiService.resetPassword(email).subscribe(async res => {
+    return this.subscriptions.push(this.apiService.resetPassword(email).subscribe(async res => {
       this.alertService.showAlert(res.header, res.message);
 
-    }),
+    })),
       catchError(e => {
         this.alertService.showAlert('Error', e.error.message);
         throw new Error(e);
@@ -228,7 +234,7 @@ export class AuthService {
       pw1,
       pw2
     };
-    this.apiService.setPassword(obj).subscribe(async res => {
+    this.subscriptions.push(this.apiService.setPassword(obj).subscribe(async res => {
       if (res.stay) {
         this.alertService.showAlert(res.header, res.message);
       }
@@ -240,6 +246,6 @@ export class AuthService {
           this.router.navigate.bind(this, ['login'])
         );
       }
-    });
+    }));
   }
 }

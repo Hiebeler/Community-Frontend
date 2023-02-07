@@ -1,20 +1,25 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { User } from '../models/user';
 import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService implements OnDestroy {
 
+  subscriptions: Subscription[] = [];
   private user = new BehaviorSubject<User>(null);
   private usersInCommunity = new BehaviorSubject<User[]>([]);
 
   constructor(
     private apiService: ApiService
   ) {
-    this.getCurrentUser().subscribe();
+    this.subscriptions.push(this.getCurrentUser().subscribe());
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
   getCurrentUser(): Observable<User> {
@@ -22,10 +27,10 @@ export class UserService {
   }
 
   fetchUserFromApi(id?: number): void {
-    this.apiService.getUserById(id ?? this.user.value.id ?? -1).subscribe(user => {
+    this.subscriptions.push(this.apiService.getUserById(id ?? this.user.value.id ?? -1).subscribe(user => {
       this.user.next(user);
       this.fetchUsersInCommunityFromApi(user.communityId);
-    });
+    }));
   }
 
   getUsersInCurrentCommunity(): Observable<User[]> {
@@ -34,9 +39,9 @@ export class UserService {
 
   fetchUsersInCommunityFromApi(id: number): void {
     if (id) {
-      this.apiService.getUsersInCommunity(id).subscribe(users => {
+      this.subscriptions.push(this.apiService.getUsersInCommunity(id).subscribe(users => {
         this.usersInCommunity.next(users);
-      });
+      }));
     }
   }
 
