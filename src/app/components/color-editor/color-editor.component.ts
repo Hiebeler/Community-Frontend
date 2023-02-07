@@ -1,7 +1,6 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
-import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -38,8 +37,7 @@ export class ColorEditorComponent implements OnInit, OnDestroy {
   colorUsernames: string[] = [];
 
   constructor(
-    private userService: UserService,
-    private apiService: ApiService
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -89,8 +87,8 @@ export class ColorEditorComponent implements OnInit, OnDestroy {
   }
 
   updateUser(data: any) {
-    this.subscriptions.push(this.apiService.updateUser(data).subscribe((res) => {
-      if (res.status === 'OK') {
+    this.subscriptions.push(this.userService.updateUser(data).subscribe(wasSuccessful => {
+      if (wasSuccessful) {
         this.userService.fetchUserFromApi();
       }
     }));

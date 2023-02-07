@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
 import { Community } from '../models/community';
 import { ApiService } from './api.service';
 import { UserService } from './user.service';
@@ -22,9 +22,9 @@ export class CommunityService implements OnDestroy {
         this.fetchCurrentCommunityFromApi(user.communityId);
       }
     }));
-   }
+  }
 
-   ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
@@ -36,6 +36,32 @@ export class CommunityService implements OnDestroy {
     this.subscriptions.push(this.apiService.getCommunityById(id ?? this.community?.value?.id ?? -1).subscribe(community => {
       this.community.next(community);
     }));
+  }
+
+  getCommunity(code: string): Observable<Community> {
+    return this.apiService.getCommunityByCode(code);
+  }
+
+  createCommunity(name: string): Observable<boolean> {
+    return this.apiService.createCommunity({ name }).pipe(
+      map(res => {
+        if (res.status === 'OK') {
+          return true;
+        } else {
+          return false;
+        }
+      }));
+  }
+
+  joinCommunity(code: string): Observable<boolean> {
+    return this.apiService.joinCommunity({ code }).pipe(
+      map(res => {
+        if (res.status === 'OK') {
+          return true;
+        } else {
+          return false;
+        }
+      }));
   }
 
   clearData(): void {

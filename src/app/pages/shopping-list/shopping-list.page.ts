@@ -106,11 +106,13 @@ export class ShoppingListPage implements OnInit, OnDestroy {
   }
 
   updateDone(id: number, e: any) {
-    this.subscriptions.push(this.shoppingService.updateShoppingItem(new ShoppingItem(id, null, e.target.checked)).subscribe((res) => {
-      if (res.status === 'OK') {
-        this.getItems();
-      }
-    }));
+    this.subscriptions.push(
+      this.shoppingService.updateShoppingItem(new ShoppingItem(id, null, e.target.checked)).subscribe((res) => {
+        if (res.status === 'OK') {
+          this.getItems();
+        }
+      })
+    );
   }
 
   updateName(id: number) {

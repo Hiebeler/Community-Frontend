@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { skip, Subscription } from 'rxjs';
 import { Routine } from 'src/app/models/routine';
 import { TaskService } from 'src/app/services/task.service';
 
@@ -28,17 +28,6 @@ export class RoutinesPage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.getRoutines();
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
-
-  getRoutines(event?) {
-    if (event) {
-      this.loadingEvent = event;
-    }
     this.subscriptions.push(this.taskService.getRoutines().subscribe(routines => {
       this.enabledRoutines = [];
       this.disabledRoutines = [];
@@ -55,6 +44,20 @@ export class RoutinesPage implements OnInit, OnDestroy {
         this.loadingEvent.target.complete();
       }
     }));
+
+    this.getRoutines();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  getRoutines(event?) {
+    if (event) {
+      this.loadingEvent = event;
+    }
+
+    this.taskService.fetchRoutinesFromApi();
   }
 
   openNewRoutineEditor(state: boolean) {

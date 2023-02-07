@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
 import { User } from '../models/user';
 import { ApiService } from './api.service';
 
@@ -43,6 +43,17 @@ export class UserService implements OnDestroy {
         this.usersInCommunity.next(users);
       }));
     }
+  }
+
+  updateUser(data: any): Observable<boolean> {
+    return this.apiService.updateUser(data).pipe(
+      map(res => {
+        if (res.status === 'OK') {
+          return true;
+        } else {
+          return false;
+        }
+      }));
   }
 
   clearData(): void {

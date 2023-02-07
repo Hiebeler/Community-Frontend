@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/services/alert.service';
-import { ApiService } from 'src/app/services/api.service';
+import { CommunityService } from 'src/app/services/community.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -18,9 +18,9 @@ export class CreateCommunityPage implements OnDestroy {
   communityForm: FormGroup;
 
   constructor(
-    private apiService: ApiService,
     private alertService: AlertService,
     private userService: UserService,
+    private communityService: CommunityService,
     private router: Router
   ) {
     this.communityForm = new FormGroup({
@@ -38,11 +38,11 @@ export class CreateCommunityPage implements OnDestroy {
 
   createCommunity() {
     if (this.communityForm.valid) {
-      this.subscriptions.push(this.apiService.createCommunity({ name: this.name.value }).subscribe(async (res) => {
-        if (res.status === 'Error') {
-          this.alertService.showAlert('Error', res.errors[0]);
+      this.subscriptions.push(this.communityService.createCommunity(this.name.value).subscribe(wasSuccessful => {
+        if (wasSuccessful) {
+          this.alertService.showAlert('Error', 'Beim Erstellen der Community ist ein Fehler aufgetreten.');
         } else {
-          this.alertService.showAlert('Community erstellt', 'Code: ' + res.data.code, 'Okay', () => {
+          this.alertService.showAlert('Community erstellt', '', 'Okay', () => {
             this.userService.fetchUserFromApi();
             this.router.navigate(['tabs/profile']);
           });

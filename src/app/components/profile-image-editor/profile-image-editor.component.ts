@@ -44,8 +44,8 @@ export class ProfileImageEditorComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.apiService.uploadImage(this.croppedImg).subscribe((res: any) => {
       if (res.data.link) {
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        this.subscriptions.push(this.apiService.updateUser({ profile_image: res.data.link }).subscribe((updateRes) => {
-          if (updateRes.status === 'OK') {
+        this.subscriptions.push(this.userService.updateUser({ profile_image: res.data.link }).subscribe(wasSuccessful => {
+          if (wasSuccessful) {
             this.user.profileimage = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
             this.parentCloseEditor();
           }

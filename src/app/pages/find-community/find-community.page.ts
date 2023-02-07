@@ -5,7 +5,7 @@ import { ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Community } from 'src/app/models/community';
 import { AlertService } from 'src/app/services/alert.service';
-import { ApiService } from 'src/app/services/api.service';
+import { CommunityService } from 'src/app/services/community.service';
 
 @Component({
   selector: 'app-find-community',
@@ -24,7 +24,7 @@ export class FindCommunityPage implements OnDestroy {
   foundCommunity: Community = null;
 
   constructor(
-    private apiService: ApiService,
+    private communityService: CommunityService,
     private alertService: AlertService,
     private toastController: ToastController,
     private router: Router
@@ -49,7 +49,7 @@ export class FindCommunityPage implements OnDestroy {
       this.loading = true;
       this.didntFoundCommunity = false;
       this.foundCommunity = null;
-      this.subscriptions.push(this.apiService.getCommunityByCode(this.search.value).subscribe(community => {
+      this.subscriptions.push(this.communityService.getCommunity(this.search.value).subscribe(community => {
         this.loading = false;
         if (community?.id) {
           this.foundCommunity = community;
@@ -64,23 +64,20 @@ export class FindCommunityPage implements OnDestroy {
   }
 
   join() {
-    const data = {
-      code: this.foundCommunity.code
-    };
-    this.subscriptions.push(this.apiService.joinCommunity(data).subscribe(async (res) => {
-      if (res.status === 'Error') {
-        this.alertService.showAlert(
-          'Fehler',
-          res.errors[0]
-        );
-      }
-      else {
+    this.subscriptions.push(this.communityService.joinCommunity(this.foundCommunity.code).subscribe(async wasSuccessful => {
+      if (wasSuccessful) {
         const toast = await this.toastController.create({
           message: 'Anfrage gesendet',
           duration: 1500,
           position: 'bottom'
         });
         await toast.present();
+      }
+      else {
+        this.alertService.showAlert(
+          'Fehler',
+          'Beim Beitreten der Community ist ein Fehler aufgetreten.'
+        );
       }
     }));
   }

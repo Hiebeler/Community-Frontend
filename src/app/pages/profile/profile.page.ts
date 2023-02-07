@@ -1,9 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RequestAdapter } from 'src/app/adapter/request-adapter';
 import { Community } from 'src/app/models/community';
 import { User } from 'src/app/models/user';
-import { Request } from 'src/app/models/request';
-import { ApiService } from 'src/app/services/api.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { AlertService } from 'src/app/services/alert.service';
@@ -35,8 +32,6 @@ export class ProfilePage implements OnInit, OnDestroy {
     private authService: AuthService,
     private userService: UserService,
     private communityService: CommunityService,
-    private apiService: ApiService,
-    private requestAdapter: RequestAdapter,
     private alertService: AlertService,
     private router: Router
   ) {
@@ -85,8 +80,8 @@ export class ProfilePage implements OnInit, OnDestroy {
   }
 
   updateUser(data: any) {
-    this.subscriptions.push(this.apiService.updateUser(data).subscribe((res) => {
-      if (res.status === 'OK') {
+    this.subscriptions.push(this.userService.updateUser(data).subscribe(wasSuccessful => {
+      if (wasSuccessful) {
         this.userService.fetchUserFromApi();
       }
     }));
