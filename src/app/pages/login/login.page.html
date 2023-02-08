@@ -1,35 +1,38 @@
 <ion-content>
-  <div class="container wrapper">
-    <ion-grid>
-      <ion-row style="display: flex; justify-content: center;">
-        <ion-col class="registerbutton-wrapper" size-xs="84" size-sm="63" size-md="42">
-          <ion-grid class="card">
-            <ion-row>
-              <ion-col>
-                <h1 class="register-header">Anmelden</h1>
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                  <div class="field-box">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" formControlName="email" placeholder="Email">
-                  </div>
-                  <div class="field-box">
-                    <label for="password">Passwort</label>
-                    <input type="password" id="password" formControlName="password" placeholder="Passwort">
-                  </div>
-                  <button [disabled]="loginForm.invalid" type="submit" class="btn-large btn-primary">Anmelden</button>
-                </form>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-col>
-      </ion-row>
+  <div class="outer-wrapper">
+    <div class="container wrapper">
+      <ion-grid>
+        <ion-row style="display: flex; justify-content: center;">
+          <ion-col class="registerbutton-wrapper" size-xs="84" size-sm="63" size-md="42">
+            <ion-grid class="card">
+              <ion-row>
+                <ion-col>
+                  <h1 class="register-header">Anmelden</h1>
+                  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                    <div class="field-box">
+                      <label for="email">Email</label>
+                      <input type="email" id="email" formControlName="email" placeholder="Email">
+                    </div>
+                    <div class="field-box">
+                      <label for="password">Passwort</label>
+                      <input type="password" id="password" formControlName="password" placeholder="Passwort">
+                    </div>
+                    <button [disabled]="loginForm.invalid" type="submit" class="btn-large btn-primary">Anmelden</button>
+                  </form>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
 
-      <ion-row>
-        <ion-col class="registerbutton-wrapper">
-          <button type="button" (click)="gotoRegister()" class="btn-large btn-link">Neuen Account erstellen</button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+        <ion-row>
+          <ion-col class="registerbutton-wrapper">
+            <button type="button" (click)="gotoRegister()" class="btn-large btn-link">Neuen Account erstellen</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
   </div>
+
 
 </ion-content>

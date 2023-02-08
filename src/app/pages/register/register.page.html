@@ -1,52 +1,56 @@
 <ion-content>
-  <div class="container wrapper">
-    <ion-grid>
-      <ion-row style="display: flex; justify-content: center;">
-        <ion-col class="registerbutton-wrapper" size-xs="84" size-sm="63" size-md="42">
-          <ion-grid class="card">
-            <ion-row>
-              <ion-col>
-                <h1 class="register-header">Registrieren</h1>
-                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                  <div class="field-box">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" formControlName="email" placeholder="Email"
-                      [ngClass]="email.value ? email.valid ? 'valid-input' : 'invalid-input' : 'empty-input'">
-                  </div>
-                  <div class="field-box">
-                    <label for="name">Vorname</label>
-                    <input type="text" id="name" formControlName="firstname" placeholder="Vorname"
-                      [ngClass]="firstname.value ? firstname.valid ? 'valid-input' : 'invalid-input' : 'empty-input'">
-                  </div>
-                  <div class="field-box">
-                    <label for="lastname">Nachname</label>
-                    <input type="text" id="lastname" formControlName="lastname" placeholder="Nachname"
-                      [ngClass]="lastname.value ? lastname.valid ? 'valid-input' : 'invalid-input' : 'empty-input'">
-                  </div>
-                  <div class="field-box">
-                    <label for="password">Passwort</label>
-                    <input type="password" id="password" formControlName="password" placeholder="Passwort"
-                      [ngClass]="password.value ? password.valid ? 'valid-input' : 'invalid-input' : 'empty-input'">
-                  </div>
-                  <div class="field-box">
-                    <label for="password2">Passwort wiederholen</label>
-                    <input type="password" id="password2" formControlName="password2" placeholder="Passwort wiederholen"
-                      [ngClass]="password.value ? password.value === password2.value ? 'valid-input' : 'invalid-input' : 'empty-input'">
-                  </div>
-                  <button [disabled]="registerForm.invalid" type="submit"
-                    class="btn-large btn-primary">Registrieren</button>
-                </form>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-col>
-      </ion-row>
+  <div class="outer-wrapper">
+    <div class="container wrapper">
+      <ion-grid>
+        <ion-row style="display: flex; justify-content: center;">
+          <ion-col class="registerbutton-wrapper" size-xs="84" size-sm="63" size-md="42">
+            <ion-grid class="card">
+              <ion-row>
+                <ion-col>
+                  <h1 class="register-header">Registrieren</h1>
+                  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                    <div class="field-box">
+                      <label for="email">Email</label>
+                      <input type="email" id="email" formControlName="email" placeholder="Email"
+                        [ngClass]="email.value ? email.valid ? 'valid-input' : 'invalid-input' : 'empty-input'">
+                    </div>
+                    <div class="field-box">
+                      <label for="name">Vorname</label>
+                      <input type="text" id="name" formControlName="firstname" placeholder="Vorname"
+                        [ngClass]="firstname.value ? firstname.valid ? 'valid-input' : 'invalid-input' : 'empty-input'">
+                    </div>
+                    <div class="field-box">
+                      <label for="lastname">Nachname</label>
+                      <input type="text" id="lastname" formControlName="lastname" placeholder="Nachname"
+                        [ngClass]="lastname.value ? lastname.valid ? 'valid-input' : 'invalid-input' : 'empty-input'">
+                    </div>
+                    <div class="field-box">
+                      <label for="password">Passwort</label>
+                      <input type="password" id="password" formControlName="password" placeholder="Passwort"
+                        [ngClass]="password.value ? password.valid ? 'valid-input' : 'invalid-input' : 'empty-input'">
+                    </div>
+                    <div class="field-box">
+                      <label for="password2">Passwort wiederholen</label>
+                      <input type="password" id="password2" formControlName="password2"
+                        placeholder="Passwort wiederholen"
+                        [ngClass]="password.value ? password.value === password2.value ? 'valid-input' : 'invalid-input' : 'empty-input'">
+                    </div>
+                    <button [disabled]="registerForm.invalid" type="submit"
+                      class="btn-large btn-primary">Registrieren</button>
+                  </form>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
 
-      <ion-row>
-        <ion-col class="loginbutton-wrapper">
-          <button type="button" (click)="gotoLogin()" class="btn-large btn-link">Ich habe schon einen Account</button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+        <ion-row>
+          <ion-col class="loginbutton-wrapper">
+            <button type="button" (click)="gotoLogin()" class="btn-large btn-link">Ich habe schon einen Account</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
   </div>
+
 </ion-content>
