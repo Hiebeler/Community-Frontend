@@ -107,6 +107,7 @@ export class RoutineEditorComponent implements OnInit, OnDestroy {
       if (res.status === 'OK') {
         this.parentCloseEditor();
         this.routineForm.reset();
+        this.taskService.fetchRoutinesFromApi();
       }
     }));
   }
