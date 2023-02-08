@@ -47,8 +47,8 @@ export class OpenRequestsComponent implements OnInit, OnDestroy {
   }
 
   accept(id: number, status: boolean) {
-    this.subscriptions.push(this.apiService.acceptRequest({ id }, status).subscribe((res) => {
-      if (res.status === 'OK') {
+    this.subscriptions.push(this.communityService.acceptRequest(id, status).subscribe(wasSuccessful => {
+      if (wasSuccessful) {
         this.getAllRequests();
         if (status) {
           this.userService.fetchUserFromApi();

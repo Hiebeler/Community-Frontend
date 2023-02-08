@@ -64,6 +64,17 @@ export class CommunityService implements OnDestroy {
       }));
   }
 
+  acceptRequest(requestId: number, acceptionStatus: boolean): Observable<boolean> {
+    return this.apiService.acceptRequest({ id: requestId }, acceptionStatus).pipe(
+      map(res => {
+        if (res.status === 'OK') {
+          return true;
+        } else {
+          return false;
+        }
+      }));
+  }
+
   clearData(): void {
     this.community.next(null);
   }
