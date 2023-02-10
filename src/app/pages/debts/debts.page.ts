@@ -1,13 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { ComponentsModule } from 'src/app/components/components.module';
 import { Balance } from 'src/app/models/balance';
 import { Debt } from 'src/app/models/debt';
 import { User } from 'src/app/models/user';
 import { DebtService } from 'src/app/services/debt.service';
 import { UserService } from 'src/app/services/user.service';
-
 @Component({
   selector: 'app-debts',
   templateUrl: './debts.page.html',
@@ -53,6 +51,7 @@ export class DebtsPage implements OnInit, OnDestroy {
     });
 
     this.subscriptions.push(this.userService.getUsersInCurrentCommunity().subscribe(users => {
+      users = users.filter(user => user.id !== this.currentUser.id);
       this.usersInCommunity = users;
     }));
   }
