@@ -27,13 +27,13 @@ export class AuthGuard implements CanActivate {
         }
         else {
           if (role === 'community') {
-            this.router.navigate(['/tabs/tasks']);
+            this.router.navigate(['tabs/tasks']);
           }
           else if (role === 'user') {
-            this.router.navigate(['/profile']);
+            this.router.navigate(['profile']);
           }
           else {
-            this.router.navigate(['/login']);
+            this.router.navigate(['login']);
           }
           return false;
         }

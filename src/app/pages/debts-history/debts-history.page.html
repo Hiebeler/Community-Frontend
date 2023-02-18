@@ -1,0 +1,68 @@
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="getItems($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="container">
+    <ion-grid fixed="true">
+      <ion-row class="topbar">
+        <ion-col size="auto" class="topbar-buttons-col">
+          <button type="button" class="btn-small btn-medium" (click)="gotoDebts()">
+            <ion-icon style="display: flex; font-size: 1.2rem;" name="return-up-back-outline"></ion-icon>
+          </button>
+        </ion-col>
+        <ion-col class="topbar-header-col">
+          <p>Verlauf</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="heading-row">
+        <ion-col size="auto">
+          <h2>Verlauf</h2>
+        </ion-col>
+        <ion-col>
+          <ion-icon class="history-icon" name="timer-outline"></ion-icon>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngFor="let debt of debts">
+        <ion-col>
+          <ion-grid class="card history-grid">
+            <ion-row class="date-row">
+              <ion-col size="auto" class="time-col">
+                <p>{{debt.timestamp.toLocaleDateString('de-AT', { year: 'numeric', month: 'short', day:
+                  'numeric' })}}</p>
+              </ion-col>
+
+              <ion-col>
+                <ion-icon *ngIf="debt.creditor.id === currentUser?.id" class="icon-down"
+                  name="trending-down-outline"></ion-icon>
+                <ion-icon *ngIf="debt.creditor.id !== currentUser?.id" class="icon-up"
+                  name="trending-up-outline"></ion-icon>
+              </ion-col>
+            </ion-row>
+
+            <ion-row class="body-row">
+              <ion-col size="42" class="left-col">
+                <p>{{debt.name}}</p>
+                <p class="amount-p">{{debt.amount}} €</p>
+              </ion-col>
+              <ion-col size="42">
+                <p style="margin: 0;">{{debt.creditor.firstname}}</p>
+                <ion-icon name="arrow-down-outline"></ion-icon>
+                <p style="margin: 0;">{{debt.debitor.firstname}}</p>
+              </ion-col>
+
+
+            </ion-row>
+
+
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+
+
+    </ion-grid>
+  </div>
+
+</ion-content>

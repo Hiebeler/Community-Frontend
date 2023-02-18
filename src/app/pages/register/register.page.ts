@@ -52,6 +52,6 @@ export class RegisterPage {
   }
 
   gotoLogin() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['login']);
   }
 }

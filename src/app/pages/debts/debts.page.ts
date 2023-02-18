@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Balance } from 'src/app/models/balance';
 import { Debt } from 'src/app/models/debt';
@@ -30,15 +31,14 @@ export class DebtsPage implements OnInit, OnDestroy {
   positiveBalances: Balance[] = [];
   negativeBalances: Balance[] = [];
 
-  debts: Debt[] = [];
-
   iOwe = false;
 
   currentUser: User;
 
   constructor(
     private debtService: DebtService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {
     this.itemEditorForm = new FormGroup({
       debitor: new FormControl<string | null>('', [Validators.minLength(1), Validators.required]),
@@ -75,14 +75,6 @@ export class DebtsPage implements OnInit, OnDestroy {
       this.allBalances = balances;
       this.positiveBalances = balances.filter(balance => balance.amount > 0);
       this.negativeBalances = balances.filter(balance => balance.amount < 0);
-
-      if (this.loadingEvent) {
-        this.loadingEvent.target.complete();
-      }
-    }));
-
-    this.subscriptions.push(this.debtService.getMyDebts().subscribe((debts) => {
-      this.debts = debts;
 
       if (this.loadingEvent) {
         this.loadingEvent.target.complete();
@@ -152,6 +144,10 @@ export class DebtsPage implements OnInit, OnDestroy {
 
   changeIOwe(iOwe: boolean) {
     this.iOwe = iOwe;
+  }
+
+  gotoHistory() {
+    this.router.navigate(['tabs/debts-history']);
   }
 
 }

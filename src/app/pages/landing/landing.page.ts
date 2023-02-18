@@ -17,11 +17,11 @@ export class LandingPage implements OnInit {
   }
 
   gotoLogin() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['login']);
   }
 
   gotoRegister() {
-    this.router.navigate(['/register']);
+    this.router.navigate(['register']);
   }
 
   openExternalLink(url: string) {
@@ -29,7 +29,7 @@ export class LandingPage implements OnInit {
   }
 
   gotoApp() {
-    this.router.navigate(['/tabs/tasks']);
+    this.router.navigate(['tabs/tasks']);
   }
 
 }

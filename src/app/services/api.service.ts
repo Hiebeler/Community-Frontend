@@ -54,7 +54,7 @@ export class ApiService {
 
   login(email: string, password: string): Observable<ApiResponse> {
     return this.httpClient.post<any>(environment.api + 'registration/login', { email, password }).pipe(
-      map(data => this.apiResponseAdapter.adapt(data))
+      map(res => this.apiResponseAdapter.adapt(res))
     );
   }
 

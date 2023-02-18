@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AuthGuard } from 'src/app/guards/auth.guard';
 
 import { TabsPage } from './tabs.page';
 
@@ -30,15 +29,19 @@ const routes: Routes = [
         loadChildren: () => import('../debts/debts.module').then( m => m.DebtsPageModule)
       },
       {
-        path: '',
-        redirectTo: '/tabs/profile',
+        path: 'debts-history',
+        loadChildren: () => import('../debts-history/debts-history.module').then( m => m.DebtsHistoryPageModule)
+      },
+      {
+        path: '**',
+        redirectTo: 'tabs/profile',
         pathMatch: 'full'
       }
     ]
   },
   {
-    path: '',
-    redirectTo: '/tabs/profile',
+    path: '**',
+    redirectTo: 'tabs/profile',
     pathMatch: 'full'
   }
 ];

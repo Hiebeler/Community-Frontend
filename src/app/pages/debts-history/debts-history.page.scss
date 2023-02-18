@@ -1,0 +1,45 @@
+.history-grid {
+  p {
+    text-align: center;
+  }
+
+  .date-row {
+    ion-col {
+      display: flex;
+      align-items: center;
+
+      p {
+        font-size: 0.8rem;
+        margin: 0;
+      }
+
+      ion-icon {
+        font-size: 1.8rem;
+      }
+
+      .icon-up {
+        color: var(--ion-color-success);
+      }
+
+      .icon-down {
+        color: var(--ion-color-danger);
+      }
+    }
+  }
+
+  .body-row {
+    ion-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .left-col {
+      .amount-p {
+        font-size: 2rem;
+        margin: 0;
+      }
+    }
+  }
+
+}

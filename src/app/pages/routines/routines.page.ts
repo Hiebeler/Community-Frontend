@@ -69,7 +69,7 @@ export class RoutinesPage implements OnInit, OnDestroy {
   }
 
   gotoTasks() {
-    this.router.navigate(['/tabs/tasks']);
+    this.router.navigate(['tabs/tasks']);
   }
 
 }
