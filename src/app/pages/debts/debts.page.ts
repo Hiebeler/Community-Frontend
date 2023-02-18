@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { filter, Subscription } from 'rxjs';
 import { Balance } from 'src/app/models/balance';
 import { Debt } from 'src/app/models/debt';
 import { User } from 'src/app/models/user';
@@ -49,11 +49,6 @@ export class DebtsPage implements OnInit, OnDestroy {
     this.clearOffBalanceEditorForm = new FormGroup({
       amount: new FormControl<string | null>('', [Validators.pattern(/^[0-9]{0,2}(\.\d{1,2})?/), Validators.required]),
     });
-
-    this.subscriptions.push(this.userService.getUsersInCurrentCommunity().subscribe(users => {
-      users = users.filter(user => user.id !== this.currentUser.id);
-      this.usersInCommunity = users;
-    }));
   }
 
   get debitorControl() {
@@ -85,14 +80,27 @@ export class DebtsPage implements OnInit, OnDestroy {
     this.subscriptions.push(this.userService.getCurrentUser().subscribe((user) => {
       this.currentUser = user;
 
+      this.filterCurrentUser();
+
       if (this.loadingEvent) {
         this.loadingEvent.target.complete();
       }
+    }));
+
+    this.subscriptions.push(this.userService.getUsersInCurrentCommunity().subscribe(users => {
+      this.usersInCommunity = users;
+      this.filterCurrentUser();
     }));
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+
+  filterCurrentUser() {
+    if (this.currentUser && this.usersInCommunity.length) {
+      this.usersInCommunity = this.usersInCommunity.filter(user => user.id !== this.currentUser.id);
+    }
   }
 
   openEditor(state: boolean) {
