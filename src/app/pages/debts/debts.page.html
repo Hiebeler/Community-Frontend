@@ -102,7 +102,7 @@
             <ion-col>
               <ion-grid class="card">
                 <div *ngIf="clearOffEditorIsOpenId !== balance.debitor.id">
-                  <ion-row>
+                  <ion-row class="card-top-row">
                     <ion-col size="auto">
                       <img class="rounded-image" [src]="balance.debitor.profileimage" alt="">
 
@@ -112,13 +112,17 @@
                     </ion-col>
 
                     <ion-col size="auto">
-                      <button (click)="openClearOffEditor(balance)">begleichen</button>
+                      <button type="button" class="btn-small btn-primary" (click)="openClearOffEditor(balance)">
+                        <ion-icon color="dark" style="display: flex; font-size: 1.2rem;" name="card-outline"></ion-icon>
+                      </button>
                     </ion-col>
                   </ion-row>
                   <ion-row>
                     <ion-col class="amount-col">
-                      <h2>{{balance.amount}} €</h2>
-                      <p>Differenz</p>
+                      <p *ngIf="balance.amount < 0">{{balance.debitor.firstname}} schuldet mir</p>
+                      <p *ngIf="balance.amount > 0">Ich schulde {{balance.debitor.firstname}}</p>
+                      <h2 *ngIf="balance.amount < 0" class="negative-amount">{{balance.amount * -1}} €</h2>
+                      <h2 *ngIf="balance.amount > 0" class="positive-amount">{{balance.amount}} €</h2>
                     </ion-col>
                   </ion-row>
                 </div>
@@ -136,7 +140,7 @@
                         <ion-col>
                           <button [disabled]="clearOffBalanceEditorForm.invalid" type="button"
                             class="btn-large btn-primary" style="width: 100%;"
-                            (click)="clearOffBalance(balance)">Updaten</button>
+                            (click)="clearOffBalance(balance)">Begleichen</button>
                         </ion-col>
                       </ion-row>
 
