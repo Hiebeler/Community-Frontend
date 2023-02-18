@@ -73,6 +73,7 @@ export class DebtsPage implements OnInit, OnDestroy {
 
     this.subscriptions.push(this.debtService.getBalance().subscribe((balances) => {
       this.allBalances = balances;
+      console.log(this.allBalances);
       this.positiveBalances = balances.filter(balance => balance.amount > 0);
       this.negativeBalances = balances.filter(balance => balance.amount < 0);
 
