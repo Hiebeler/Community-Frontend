@@ -1,24 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { concatMap, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { CommunityAdapter } from '../adapter/community-adapter';
-import { RequestAdapter } from '../adapter/request-adapter';
-import { TaskAdapter } from '../adapter/task-adapter';
-import { UserAdapter } from '../adapter/user-adapter';
-import { Community } from '../models/community';
-import { ShoppingItem } from '../models/shopping-item';
-import { Task } from '../models/task';
-import { User } from '../models/user';
 import { StorageService } from './storage.service';
-import { Balance } from '../models/balance';
-import { BalanceAdapter } from '../adapter/balance-adapter';
-import { ShoppingItemAdapter } from '../adapter/shopping-item-adapter';
-import { Routine } from '../models/routine';
-import { RoutineAdapter } from '../adapter/routine-adapter';
-import { Debt } from '../models/debt';
-import { DebtAdapter } from '../adapter/debt-adapter';
+import { ApiResponseAdapter } from '../adapter/api-response-adapter';
+import { ApiResponse } from '../models/api-response';
 
 @Injectable({
   providedIn: 'root'
@@ -28,13 +15,7 @@ export class ApiService {
   constructor(
     private httpClient: HttpClient,
     private storageService: StorageService,
-    private userAdapter: UserAdapter,
-    private communityAdapter: CommunityAdapter,
-    private taskAdapter: TaskAdapter,
-    private balanceAdapter: BalanceAdapter,
-    private shoppingItemAdapter: ShoppingItemAdapter,
-    private routineAdapter: RoutineAdapter,
-    private debtAdapter: DebtAdapter,
+    private apiResponseAdapter: ApiResponseAdapter,
   ) { }
 
   getHeader(): HttpHeaders {
@@ -47,70 +28,46 @@ export class ApiService {
     return headers;
   }
 
-  getUser(username: string): Observable<User> {
-    return this.httpClient.get<any>(environment.api + 'user/databyusername/' + username).pipe(
-      map(data => this.userAdapter.adapt(data))
-    );
-  }
-
-  getUserById(id: number): Observable<User> {
+  getUserById(id: number): Observable<ApiResponse> {
     return this.httpClient.get<any>(environment.api + 'user/databyuserid/' + id, { headers: this.getHeader() }).pipe(
-      map(data => this.userAdapter.adapt(data.data))
+      map(res => this.apiResponseAdapter.adapt(res))
     );
   }
 
-  getUsers(): Observable<User[]> {
-    return this.httpClient.get<any>(environment.api + 'user/users/').pipe(
-      map((data: any[]) => data.map((item) => this.userAdapter.adapt(item)))
-    );
-  }
-
-  getUsersInCommunity(communityId): Observable<User[]> {
+  getUsersInCommunity(communityId): Observable<ApiResponse> {
     return this.httpClient.get<any>(environment.api + 'user/getcommunitymembers/' + communityId, { headers: this.getHeader() }).pipe(
-      map((data: any) => data.data.map((item) => this.userAdapter.adapt(item)))
+      map(res => this.apiResponseAdapter.adapt(res))
     );
   }
 
-  updateUser(data: any): Observable<any> {
-    return this.httpClient.put<any>(environment.api + 'user/update', data, { headers: this.getHeader() });
-  }
-
-  register(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'registration/register', data);
-  }
-
-  login(email: string, password: string): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'registration/login', { email, password });
-  }
-
-  verify(code: string): Observable<boolean> {
-    return this.httpClient.get<any>(environment.api + 'registration/verify/' + code).pipe(
-      map(data => data.verified)
+  updateUser(data: any): Observable<ApiResponse> {
+    return this.httpClient.put<any>(environment.api + 'user/update', data, { headers: this.getHeader() }).pipe(
+      map(res => this.apiResponseAdapter.adapt(res))
     );
   }
 
-  getNewJWT(): Observable<any> {
-    return this.httpClient.get<any>(environment.api + 'registration/getnewtoken', { headers: this.getHeader() });
+  register(data: any): Observable<ApiResponse> {
+    return this.httpClient.post<any>(environment.api + 'registration/register', data).pipe(
+      map(res => this.apiResponseAdapter.adapt(res))
+    );
   }
 
-  sendVerificationMailAgain(email: string): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'registration/sendverificationmailagain', { email });
+  login(email: string, password: string): Observable<ApiResponse> {
+    return this.httpClient.post<any>(environment.api + 'registration/login', { email, password }).pipe(
+      map(data => this.apiResponseAdapter.adapt(data))
+    );
   }
 
-  changePassword(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'user/changepw', data, { headers: this.getHeader() });
+  getNewJWT(): Observable<ApiResponse> {
+    return this.httpClient.get<any>(environment.api + 'registration/getnewtoken', { headers: this.getHeader() }).pipe(
+      map(res => this.apiResponseAdapter.adapt(res))
+    );
   }
 
-  resetPassword(email): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'registration/resetpassword/', { email });
-  }
-
-  setPassword(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'registration/setpassword', data);
-  }
-
-  checkCode(code: string): Observable<any> {
-    return this.httpClient.get<any>(environment.api + 'registration/checkresetcode/' + code);
+  checkCode(code: string): Observable<ApiResponse> {
+    return this.httpClient.get<any>(environment.api + 'registration/checkresetcode/' + code).pipe(
+      map(res => this.apiResponseAdapter.adapt(res))
+    );
   }
 
   uploadImage(file: File): Observable<any> {
@@ -120,110 +77,112 @@ export class ApiService {
     return this.httpClient.post('https://api.imgur.com/3/image/', dataFile, { headers });
   }
 
-  getCommunityByCode(code: string): Observable<Community> {
+  getCommunityByCode(code: string): Observable<ApiResponse> {
     return this.httpClient.get<any>(environment.api + 'community/getbycode/' + code, { headers: this.getHeader() }).pipe(
-      map(res => this.communityAdapter.adapt(res.data))
+      map(res => this.apiResponseAdapter.adapt(res))
     );
   }
 
-  getCommunityById(id: number): Observable<Community | null> {
+  getCommunityById(id: number): Observable<ApiResponse> {
     return this.httpClient.get<any>(environment.api + 'community/getbyid/' + id, { headers: this.getHeader() }).pipe(
-      map(res => this.communityAdapter.adapt(res.data))
+      map(res => this.apiResponseAdapter.adapt(res))
     );
   }
 
-  joinCommunity(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'user/sendrequest', data, { headers: this.getHeader() });
+  joinCommunity(data: any): Observable<ApiResponse> {
+    return this.httpClient.post<any>(environment.api + 'user/sendrequest', data, { headers: this.getHeader() }).pipe(
+      map(res => this.apiResponseAdapter.adapt(res))
+    );
   }
 
-  createCommunity(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'community/create', data, { headers: this.getHeader() });
+  createCommunity(data: any): Observable<ApiResponse> {
+    return this.httpClient.post<any>(environment.api + 'community/create', data, { headers: this.getHeader() }).pipe(
+      map(res => this.apiResponseAdapter.adapt(res))
+    );
   }
 
-  getRequests(): Observable<any> {
-    return this.httpClient.get<any>(environment.api + 'community/requests', { headers: this.getHeader() });
+  getRequests(): Observable<ApiResponse> {
+    return this.httpClient.get<any>(environment.api + 'community/requests', { headers: this.getHeader() }).pipe(
+      map(res => this.apiResponseAdapter.adapt(res))
+    );
   }
 
-  acceptRequest(data: any, status: boolean): Observable<any> {
+  acceptRequest(data: any, status: boolean): Observable<ApiResponse> {
     const url: string = status ? 'community/acceptrequest' : 'community/denyrequest';
-    return this.httpClient.post<any>(environment.api + url, data, { headers: this.getHeader() });
+    return this.httpClient.post<any>(environment.api + url, data, { headers: this.getHeader() }).pipe(
+      map(res => this.apiResponseAdapter.adapt(res))
+    );
   }
 
-  getTasks(data: any): Observable<Task[]> {
+  getTasks(data: any): Observable<ApiResponse> {
     return this.httpClient.post<any>(environment.api + 'task/gettasksininterval', data, { headers: this.getHeader() }).pipe(
-      concatMap(res => {
-        if (res.status !== 'OK') {
-          return [];
-        } else {
-          return of(res);
-        }
-      }), map((res: any) => res.data.map((item) => this.taskAdapter.adapt(item)))
+      map(res => this.apiResponseAdapter.adapt(res))
     );
   }
 
-  updateTask(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'task/create', data, { headers: this.getHeader() });
+  updateTask(data: any): Observable<ApiResponse> {
+    return this.httpClient.post<any>(environment.api + 'task/create', data, { headers: this.getHeader() }).pipe(
+      map(res => this.apiResponseAdapter.adapt(res))
+    );
   }
 
-  deleteTask(id: number): Observable<any> {
-    return this.httpClient.delete<any>(environment.api + 'task/delete/' + id, { headers: this.getHeader() });
+  deleteTask(id: number): Observable<ApiResponse> {
+    return this.httpClient.delete<any>(environment.api + 'task/delete/' + id, { headers: this.getHeader() }).pipe(
+      map(res => this.apiResponseAdapter.adapt(res))
+    );
   }
 
-  getOpenShoppingItems(): Observable<ShoppingItem[]> {
+  getOpenShoppingItems(): Observable<ApiResponse> {
     return this.httpClient.get<any>(environment.api + 'shoppinglist/items/getopen', { headers: this.getHeader() }).pipe(
-      concatMap(res => {
-        if (res.status !== 'OK') {
-          return [];
-        } else {
-          return of(res);
-        }
-      }), map((res: any) => res.data.map((item) => this.shoppingItemAdapter.adapt(item)))
+      map(res => this.apiResponseAdapter.adapt(res))
     );
   }
 
-  getDoneShoppingItems(): Observable<ShoppingItem[]> {
+  getDoneShoppingItems(): Observable<ApiResponse> {
     return this.httpClient.get<any>(environment.api + 'shoppinglist/items/getdone', { headers: this.getHeader() }).pipe(
-      concatMap(res => {
-        if (res.status !== 'OK') {
-          return [];
-        } else {
-          return of(res);
-        }
-      }), map((res: any) => res.data.map((item) => this.shoppingItemAdapter.adapt(item)))
+      map(res => this.apiResponseAdapter.adapt(res))
     );
   }
 
-  addShoppingItem(itemName: string): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'shoppinglist/items/add', { name: itemName }, { headers: this.getHeader() });
+  addShoppingItem(itemName: string): Observable<ApiResponse> {
+    return this.httpClient.post<any>(environment.api + 'shoppinglist/items/add', { name: itemName }, { headers: this.getHeader() }).pipe(
+      map(res => this.apiResponseAdapter.adapt(res))
+    );
   }
 
-  updateShoppingItem(data: any): Observable<any> {
-    return this.httpClient.put<any>(environment.api + 'shoppinglist/items/update', data, { headers: this.getHeader() });
+  updateShoppingItem(data: any): Observable<ApiResponse> {
+    return this.httpClient.put<any>(environment.api + 'shoppinglist/items/update', data, { headers: this.getHeader() }).pipe(
+      map(res => this.apiResponseAdapter.adapt(res))
+    );
   }
 
-  getDebtBalance(): Observable<Balance[]> {
+  getDebtBalance(): Observable<ApiResponse> {
     return this.httpClient.get<any>(environment.api + 'debt/balance', { headers: this.getHeader() }).pipe(
-      map((data: any) => data.data.map((item) => this.balanceAdapter.adapt(item)))
+      map(res => this.apiResponseAdapter.adapt(res))
     );
   }
 
-  getMyDebts(): Observable<Debt[]> {
+  getMyDebts(): Observable<ApiResponse> {
     return this.httpClient.get<any>(environment.api + 'debt/mine', { headers: this.getHeader() }).pipe(
-      map((data: any) => data.data.map((item) => this.debtAdapter.adapt(item)))
+      map(res => this.apiResponseAdapter.adapt(res))
     );
   }
 
-  addDebt(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'debt/create', data, { headers: this.getHeader() });
+  addDebt(data: any): Observable<ApiResponse> {
+    return this.httpClient.post<any>(environment.api + 'debt/create', data, { headers: this.getHeader() }).pipe(
+      map(res => this.apiResponseAdapter.adapt(res))
+    );
   }
 
-  getRoutines(): Observable<Routine[]> {
+  getRoutines(): Observable<ApiResponse> {
     return this.httpClient.get<any>(environment.api + 'task/routine/all', { headers: this.getHeader() }).pipe(
-      map((data: any) => data.data.map((item) => this.routineAdapter.adapt(item)))
+      map(res => this.apiResponseAdapter.adapt(res))
     );
   }
 
-  modifyRoutine(data: any): Observable<any> {
-    return this.httpClient.post<any>(environment.api + 'task/routine/modify', data, { headers: this.getHeader() });
+  modifyRoutine(data: any): Observable<ApiResponse> {
+    return this.httpClient.post<any>(environment.api + 'task/routine/modify', data, { headers: this.getHeader() }).pipe(
+      map(res => this.apiResponseAdapter.adapt(res))
+    );
   }
 }

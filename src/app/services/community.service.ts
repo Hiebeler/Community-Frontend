@@ -4,6 +4,7 @@ import { Community } from '../models/community';
 import { Request } from 'src/app/models/request';
 import { ApiService } from './api.service';
 import { UserService } from './user.service';
+import { CommunityAdapter } from '../adapter/community-adapter';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class CommunityService implements OnDestroy {
 
   constructor(
     private apiService: ApiService,
-    private userService: UserService
+    private userService: UserService,
+    private communityAdapter: CommunityAdapter
   ) {
     this.subscriptions.push(this.userService.getCurrentUser().subscribe(user => {
       if (user && (user?.communityId !== this.community.value?.id)) {
@@ -34,13 +36,17 @@ export class CommunityService implements OnDestroy {
   }
 
   fetchCurrentCommunityFromApi(id?: number): void {
-    this.subscriptions.push(this.apiService.getCommunityById(id ?? this.community?.value?.id ?? -1).subscribe(community => {
+    this.subscriptions.push(this.apiService.getCommunityById(id ?? this.community?.value?.id ?? -1).pipe(
+      map(res => this.communityAdapter.adapt(res.data))
+    ).subscribe(community => {
       this.community.next(community);
     }));
   }
 
   getCommunity(code: string): Observable<Community> {
-    return this.apiService.getCommunityByCode(code);
+    return this.apiService.getCommunityByCode(code).pipe(
+      map(res => this.communityAdapter.adapt(res.data))
+    );
   }
 
   createCommunity(name: string): Observable<boolean> {

@@ -1,4 +1,3 @@
-import { Debt } from './debt';
 import { User } from './user';
 
 export class Balance {

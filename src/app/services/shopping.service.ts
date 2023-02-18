@@ -1,5 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, concatMap, map, Observable, of, Subscription } from 'rxjs';
+import { ShoppingItemAdapter } from '../adapter/shopping-item-adapter';
 import { ShoppingItem } from '../models/shopping-item';
 import { ApiService } from './api.service';
 
@@ -13,7 +14,10 @@ export class ShoppingService implements OnDestroy {
   private openShoppingItems = new BehaviorSubject<ShoppingItem[]>([]);
   private doneShoppingItems = new BehaviorSubject<ShoppingItem[]>([]);
 
-  constructor(private apiService: ApiService) { }
+  constructor(
+    private apiService: ApiService,
+    private shoppingItemAdapter: ShoppingItemAdapter
+  ) { }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
@@ -28,11 +32,27 @@ export class ShoppingService implements OnDestroy {
   }
 
   fetchShoppingItemsFromApi(): void {
-    this.subscriptions.push(this.apiService.getOpenShoppingItems().subscribe(openItems => {
+    this.subscriptions.push(this.apiService.getOpenShoppingItems().pipe(
+      concatMap(res => {
+        if (res.status !== 'OK') {
+          return [];
+        } else {
+          return of(res);
+        }
+      }), map((res: any) => res.data.map((item) => this.shoppingItemAdapter.adapt(item)))
+    ).subscribe(openItems => {
       this.openShoppingItems.next(openItems);
     }));
 
-    this.subscriptions.push(this.apiService.getDoneShoppingItems().subscribe(doneItems => {
+    this.subscriptions.push(this.apiService.getDoneShoppingItems().pipe(
+      concatMap(res => {
+        if (res.status !== 'OK') {
+          return [];
+        } else {
+          return of(res);
+        }
+      }), map((res: any) => res.data.map((item) => this.shoppingItemAdapter.adapt(item)))
+    ).subscribe(doneItems => {
       this.doneShoppingItems.next(doneItems);
     }));
   }

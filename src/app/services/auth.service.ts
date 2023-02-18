@@ -114,7 +114,7 @@ export class AuthService implements OnDestroy {
       let msg = 'Registrierung erfolgreich';
       if (res.status === 'Error') {
         head = 'Error!';
-        msg = res.errors[0];
+        msg = res.error;
       }
 
       this.alertService.showAlert(
@@ -140,6 +140,7 @@ export class AuthService implements OnDestroy {
 
   login(email, password) {
     return this.subscriptions.push(this.apiService.login(email, password).subscribe(async res => {
+      console.log(res);
       if (res.status === 'OK') {
         this.storeToken(res.data.token);
         this.decodedUserToken = this.helper.decodeToken(res.data.token);
@@ -148,7 +149,7 @@ export class AuthService implements OnDestroy {
         this.router.navigate(['/tabs/profile']);
       }
       else {
-        this.alertService.showAlert('Ooops', res.errors[0]);
+        this.alertService.showAlert('Ooops', res.error);
       }
 
     })),
@@ -156,12 +157,6 @@ export class AuthService implements OnDestroy {
         this.alertService.showAlert('Error', e.error.message);
         throw new Error(e);
       });
-  }
-
-  sendVerificationMailAgain(email) {
-    this.subscriptions.push(this.apiService.sendVerificationMailAgain(email).subscribe(async res => {
-      this.alertService.showAlert(res.header, res.message);
-    }));
   }
 
   public getUserFromToken() {
@@ -186,11 +181,11 @@ export class AuthService implements OnDestroy {
       profilepicture: url.changingThisBreaksApplicationSecurity
     };
     return this.subscriptions.push(this.apiService.updateUser(dataToUpdate).subscribe(async res => {
-      if (res.status === 200) {
+      if (res.status === 'OK') {
         this.userService.fetchUserFromApi(this.getUserFromToken().id);
       }
       else {
-        this.alertService.showAlert(res.header, res.message);
+        this.alertService.showAlert(res.data.header, res.data.message);
       }
 
     })),
@@ -198,54 +193,5 @@ export class AuthService implements OnDestroy {
         this.alertService.showAlert('Error', e.error.message);
         throw new Error(e);
       });
-  }
-
-  changePassword(oldPassword, newPassword1, newPassword2) {
-    const obj = {
-      oldPassword,
-      newPassword1,
-      newPassword2,
-      id: this.getUserFromToken().id
-    };
-    return this.subscriptions.push(this.apiService.changePassword(obj).subscribe(async res => {
-      this.alertService.showAlert(res.header, res.message);
-
-    })),
-      catchError(e => {
-        this.alertService.showAlert('Error', e.error.message);
-        throw new Error(e);
-      });
-  }
-
-  resetPassword(email) {
-    return this.subscriptions.push(this.apiService.resetPassword(email).subscribe(async res => {
-      this.alertService.showAlert(res.header, res.message);
-
-    })),
-      catchError(e => {
-        this.alertService.showAlert('Error', e.error.message);
-        throw new Error(e);
-      });
-  }
-
-  setPassword(vcode, pw1, pw2) {
-    const obj = {
-      vcode,
-      pw1,
-      pw2
-    };
-    this.subscriptions.push(this.apiService.setPassword(obj).subscribe(async res => {
-      if (res.stay) {
-        this.alertService.showAlert(res.header, res.message);
-      }
-      else {
-        this.alertService.showAlert(
-          res.header,
-          res.message,
-          'Okay',
-          this.router.navigate.bind(this, ['login'])
-        );
-      }
-    }));
   }
 }
