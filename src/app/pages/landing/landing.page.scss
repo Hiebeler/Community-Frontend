@@ -64,6 +64,7 @@
       .ion-col-right {
         justify-content: end;
         align-items: center;
+
         img {
           margin-top: 20%;
           height: 60vh;
@@ -75,6 +76,8 @@
 
 .mockup-image {
   max-height: 80%;
+  border: solid 8px black;
+  border-radius: 30px;
 }
 
 .features-section {
@@ -102,6 +105,8 @@
 
   .feature-image {
     max-height: 500px;
+    border: black solid 8px;
+    border-radius: 30px;
   }
 
   ion-col {
