@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { Task } from 'src/app/models/task';
 import { User } from 'src/app/models/user';
 import { AlertService } from 'src/app/services/alert.service';
-import { ApiService } from 'src/app/services/api.service';
+import { TaskService } from 'src/app/services/task.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -31,7 +31,7 @@ export class TaskPage implements OnInit, OnDestroy {
 
   constructor(
     private modalController: ModalController,
-    private apiService: ApiService,
+    private taskService: TaskService,
     private alertService: AlertService,
     private userService: UserService
   ) {
@@ -111,7 +111,7 @@ export class TaskPage implements OnInit, OnDestroy {
       data.assignedUser = users;
 
       if (changed) {
-        this.subscriptions.push(this.apiService.updateTask(data).subscribe(() => {
+        this.subscriptions.push(this.taskService.updateTask(data).subscribe(() => {
           this.getTasks();
         }));
       }
@@ -131,7 +131,7 @@ export class TaskPage implements OnInit, OnDestroy {
   }
 
   deleteTask() {
-    this.subscriptions.push(this.apiService.deleteTask(this.task.id).subscribe(() => {
+    this.subscriptions.push(this.taskService.deleteTask(this.task.id).subscribe(() => {
       this.getTasks();
       this.modalController.dismiss();
     }));

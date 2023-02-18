@@ -1,6 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
 import { Community } from '../models/community';
+import { Request } from 'src/app/models/request';
 import { ApiService } from './api.service';
 import { UserService } from './user.service';
 
@@ -62,6 +63,10 @@ export class CommunityService implements OnDestroy {
           return false;
         }
       }));
+  }
+
+  getRequests(): Observable<any> {
+    return this.apiService.getRequests();
   }
 
   acceptRequest(requestId: number, acceptionStatus: boolean): Observable<boolean> {

@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RequestAdapter } from 'src/app/adapter/request-adapter';
-import { ApiService } from 'src/app/services/api.service';
 import { Request } from 'src/app/models/request';
 import { CommunityService } from 'src/app/services/community.service';
 import { UserService } from 'src/app/services/user.service';
@@ -19,7 +18,6 @@ export class OpenRequestsComponent implements OnInit, OnDestroy {
 
   constructor(
     private communityService: CommunityService,
-    private apiService: ApiService,
     private requestAdapter: RequestAdapter,
     private userService: UserService
   ) { }
@@ -37,7 +35,7 @@ export class OpenRequestsComponent implements OnInit, OnDestroy {
   }
 
   getAllRequests() {
-    this.subscriptions.push(this.apiService.getRequests().subscribe((requests) => {
+    this.subscriptions.push(this.communityService.getRequests().subscribe((requests) => {
       if (requests.status === 'OK') {
         requests = requests.data.map((data: any) => this.requestAdapter.adapt(data));
         this.requests = requests;

@@ -25,6 +25,14 @@ export class TaskService implements OnDestroy {
     return this.apiService.getTasks({ startDate, endDate });
   }
 
+  updateTask(data: any): Observable<any> {
+    return this.apiService.updateTask(data);
+  }
+
+  deleteTask(id: number): Observable<any> {
+    return this.apiService.deleteTask(id);
+  }
+
   getRoutines(): Observable<Routine[]> {
     return this.routines;
   }
