@@ -39,7 +39,7 @@ export class CreateCommunityPage implements OnDestroy {
   createCommunity() {
     if (this.communityForm.valid) {
       this.subscriptions.push(this.communityService.createCommunity(this.name.value).subscribe(wasSuccessful => {
-        if (wasSuccessful) {
+        if (!wasSuccessful) {
           this.alertService.showAlert('Error', 'Beim Erstellen der Community ist ein Fehler aufgetreten.');
         } else {
           this.alertService.showAlert('Community erstellt', '', 'Okay', () => {
