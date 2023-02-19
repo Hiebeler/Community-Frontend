@@ -28,6 +28,14 @@
         </ion-col>
       </ion-row>
 
+      <ion-row *ngIf="!enabledRoutines.length && !disabledRoutines.length && completedFirstLoad">
+        <ion-col class="no-items-col">
+          <img src="./../../../../assets/images/no-routines.svg" alt="">
+          <h2 style="margin-top: 0">Noch keine Routinen</h2>
+          <p>Klicke + um eine neue Routine anzulegen</p>
+        </ion-col>
+      </ion-row>
+
       <ion-row *ngIf="enabledRoutines.length">
         <ion-col>
           <h2>Aktive Routinen</h2>

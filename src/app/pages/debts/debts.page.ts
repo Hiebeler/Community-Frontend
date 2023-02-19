@@ -156,7 +156,7 @@ export class DebtsPage implements OnInit, OnDestroy {
   }
 
   gotoHistory() {
-    this.router.navigate(['tabs/debts-history']);
+    this.router.navigate(['tabs/debts/history']);
   }
 
 }

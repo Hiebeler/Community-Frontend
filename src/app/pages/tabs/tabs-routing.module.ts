@@ -29,7 +29,7 @@ const routes: Routes = [
         loadChildren: () => import('../debts/debts.module').then( m => m.DebtsPageModule)
       },
       {
-        path: 'debts-history',
+        path: 'debts/history',
         loadChildren: () => import('../debts-history/debts-history.module').then( m => m.DebtsHistoryPageModule)
       },
       {

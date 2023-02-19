@@ -18,6 +18,8 @@ export class RoutinesPage implements OnInit, OnDestroy {
 
   loadingEvent: any;
 
+  completedFirstLoad = false;
+
   newRoutineEditorIsOpen = false;
 
   updateRoutineEditorOpenId = -1;
@@ -31,6 +33,8 @@ export class RoutinesPage implements OnInit, OnDestroy {
     this.subscriptions.push(this.taskService.getRoutines().subscribe(routines => {
       this.enabledRoutines = [];
       this.disabledRoutines = [];
+
+      this.completedFirstLoad = true;
 
       routines.map(routine => {
         if (routine.active) {

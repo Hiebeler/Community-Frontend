@@ -7,12 +7,16 @@ select {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
 
-.no-items-img {
-  border-radius: var(--border-radius-small);
-  width: 80%;
-  max-width: 300px;
+  img {
+    border-radius: var(--border-radius-small);
+    width: 80%;
+    max-width: 300px;
+  }
+
+  p, h2 {
+    text-align: center;
+  }
 }
 
 .heading-row {
