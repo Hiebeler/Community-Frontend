@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter';
-import { Balance } from '../models/balance';
-import { Debt } from '../models/debt';
-import { UserAdapter } from './user-adapter';
 import { ApiResponse } from '../models/api-response';
 
 @Injectable({

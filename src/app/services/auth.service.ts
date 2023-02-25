@@ -2,7 +2,6 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { catchError } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { AlertService } from './alert.service';
 import { Platform } from '@ionic/angular';
@@ -131,11 +130,7 @@ export class AuthService implements OnDestroy {
           }
         }
       );
-    })),
-      catchError(e => {
-        this.alertService.showAlert('Error', e.error.message);
-        throw new Error(e);
-      });
+    }));
   }
 
   login(email, password) {
@@ -152,11 +147,7 @@ export class AuthService implements OnDestroy {
         this.alertService.showAlert('Ooops', res.error);
       }
 
-    })),
-      catchError(e => {
-        this.alertService.showAlert('Error', e.error.message);
-        throw new Error(e);
-      });
+    }));
   }
 
   public getUserFromToken() {
@@ -188,10 +179,6 @@ export class AuthService implements OnDestroy {
         this.alertService.showAlert(res.data.header, res.data.message);
       }
 
-    })),
-      catchError(e => {
-        this.alertService.showAlert('Error', e.error.message);
-        throw new Error(e);
-      });
+    }));
   }
 }
