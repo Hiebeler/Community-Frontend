@@ -155,7 +155,7 @@ export class ApiService {
   }
 
   createCommunity(data: any): Observable<ApiResponse> {
-    return this.apiPost(environment.api + 'community/create', data, true);
+    return this.apiPost('community/create', data, true);
   }
 
   getRequests(): Observable<ApiResponse> {
