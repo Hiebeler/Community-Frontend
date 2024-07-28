@@ -34,7 +34,7 @@
     "swiper": "^8.4.6",
     "tint-shade-color": "^1.0.0",
     "tslib": "^2.4.1",
-    "zone.js": "~0.13.3"
+    "zone.js": "~0.14.8"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^16.2.14",
@@ -68,7 +68,7 @@
     "karma-jasmine-html-reporter": "^2.0.0",
     "protractor": "~7.0.0",
     "ts-node": "~10.9.1",
-    "typescript": "~4.9.4"
+    "typescript": "~5.2.0"
   },
   "description": "An Ionic and Angular Project"
 }
