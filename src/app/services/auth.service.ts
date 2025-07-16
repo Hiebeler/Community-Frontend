@@ -140,7 +140,13 @@ export class AuthService implements OnDestroy {
         this.router.navigate(['tabs/profile']);
       }
       else {
-        this.alertService.showAlert('Ooops', res.error);
+        if (!res.data.verified) {
+          this.alertService.showAlert('not verified', res.error, 'Resend Verification Email', () => {
+            this.resendVerificationEmail(email);
+          }, 'Okay');
+        } else {
+          this.alertService.showAlert('Ooops', res.error);
+        }
       }
 
     }));
@@ -191,6 +197,23 @@ export class AuthService implements OnDestroy {
               this.router.navigate(['login']);
             }
           }
+        );
+      }
+      else {
+        this.alertService.showAlert('Ooops', res.error);
+      }
+
+    }));
+  }
+
+  resendVerificationEmail(email: string) {
+   return this.subscriptions.push(this.apiService.resendVerificationEmail(email).subscribe(async res => {
+      if (res.status === 'OK') {
+
+        this.alertService.showAlert(
+          'Resent Verification Email',
+          'You Received an email with an link to verify your account',
+          'Okay',
         );
       }
       else {

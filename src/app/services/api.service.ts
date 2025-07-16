@@ -128,7 +128,11 @@ export class ApiService {
   }
 
   verify(code: string): Observable<ApiResponse> {
-      return this.apiGet('registration/verify/' + code);
+    return this.apiGet('registration/verify/' + code);
+  }
+
+  resendVerificationEmail(email: string): Observable<ApiResponse> {
+    return this.apiPost('registration/resendVerificationEmail', { email });
   }
 
   getNewJWT(): Observable<ApiResponse> {
