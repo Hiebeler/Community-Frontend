@@ -127,6 +127,10 @@ export class ApiService {
     return this.apiPost('registration/login', { email, password });
   }
 
+  verify(code: string): Observable<ApiResponse> {
+      return this.apiGet('registration/verify/' + code);
+  }
+
   getNewJWT(): Observable<ApiResponse> {
     return this.apiGet('registration/getnewtoken', true);
   }

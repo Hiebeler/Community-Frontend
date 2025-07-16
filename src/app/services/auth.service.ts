@@ -110,7 +110,7 @@ export class AuthService implements OnDestroy {
 
     return this.subscriptions.push(this.apiService.register(obj).subscribe(async res => {
       let head = 'Gratuliere';
-      let msg = 'Registrierung erfolgreich';
+      let msg = 'Registrierung erfolgreich, Ihnen wurde eine Email zugesended, um ihren account zu verifizieren';
       if (res.status === 'Error') {
         head = 'Error!';
         msg = res.error;
@@ -122,11 +122,7 @@ export class AuthService implements OnDestroy {
         'Okay',
         async () => {
           if (res.status === 'OK') {
-            this.storeToken(res.data.token);
-            this.decodedUserToken = this.helper.decodeToken(res.data.token);
-            this.updateAuthenticationState(this.decodedUserToken);
-            this.userService.fetchUserFromApi(this.getUserFromToken().id);
-            this.router.navigate(['tabs/profile']);
+            this.router.navigate(['login']);
           }
         }
       );
@@ -177,6 +173,28 @@ export class AuthService implements OnDestroy {
       }
       else {
         this.alertService.showAlert(res.data.header, res.data.message);
+      }
+
+    }));
+  }
+
+  verify(code: string) {
+    return this.subscriptions.push(this.apiService.verify(code).subscribe(async res => {
+      if (res.status === 'OK') {
+
+        this.alertService.showAlert(
+          'Verified',
+          'Your Account is now verified, you can now login to your account',
+          'Okay',
+          async () => {
+            if (res.status === 'OK') {
+              this.router.navigate(['login']);
+            }
+          }
+        );
+      }
+      else {
+        this.alertService.showAlert('Ooops', res.error);
       }
 
     }));

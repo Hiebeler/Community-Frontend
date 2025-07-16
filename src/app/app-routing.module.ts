@@ -62,6 +62,14 @@ const routes: Routes = [
     data: {
       roles: ['user']
     }
+  },
+  {
+    path: 'verify/:code',
+    loadChildren: () => import('./pages/verify/verify.module').then( m => m.VerifyPageModule),
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['none']
+    }
   }
 ];
 @NgModule({
