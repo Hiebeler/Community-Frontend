@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Routine } from 'src/app/models/routine';
@@ -14,7 +14,8 @@ import { UserService } from 'src/app/services/user.service';
     styleUrls: ['./routine-editor.component.scss'],
     imports: [
       IonicModule,
-      CommonModule
+      CommonModule,
+      ReactiveFormsModule
     ],
     standalone: true
 })
