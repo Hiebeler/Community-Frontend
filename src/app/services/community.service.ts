@@ -22,7 +22,7 @@ export class CommunityService implements OnDestroy {
   ) {
     this.subscriptions.push(this.userService.getCurrentUser().subscribe(user => {
       if (user && (user?.communityId !== this.community.value?.id)) {
-        this.fetchCurrentCommunityFromApi(user.communityId);
+        this.fetchCurrentCommunityFromApi(user.communities);
       }
     }));
   }
@@ -35,12 +35,14 @@ export class CommunityService implements OnDestroy {
     return this.community;
   }
 
-  fetchCurrentCommunityFromApi(id?: number): void {
-    this.subscriptions.push(this.apiService.getCommunityById(id ?? this.community?.value?.id ?? -1).pipe(
+  fetchCurrentCommunityFromApi(communities: Community[]): void {
+    /*this.subscriptions.push(this.apiService.getCommunityById(id ?? this.community?.value?.id ?? -1).pipe(
       map(res => this.communityAdapter.adapt(res.data))
     ).subscribe(community => {
       this.community.next(community);
-    }));
+    }));*/
+    this.userService.fetchUsersInCommunityFromApi(communities[0].id);
+    this.community.next(communities[0]);
   }
 
   getCommunity(code: string): Observable<Community> {
