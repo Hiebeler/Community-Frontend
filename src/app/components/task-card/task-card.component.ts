@@ -1,11 +1,17 @@
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { IonicModule } from '@ionic/angular';
 import { Task } from 'src/app/models/task';
 
 @Component({
     selector: 'app-task-card',
     templateUrl: './task-card.component.html',
     styleUrls: ['./task-card.component.scss'],
-    standalone: false
+    imports: [
+      CommonModule,
+      IonicModule
+    ],
+    standalone: true
 })
 export class TaskCardComponent implements OnInit {
 

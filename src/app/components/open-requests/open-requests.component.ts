@@ -4,12 +4,18 @@ import { Request } from 'src/app/models/request';
 import { CommunityService } from 'src/app/services/community.service';
 import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
     selector: 'app-open-requests',
     templateUrl: './open-requests.component.html',
     styleUrls: ['./open-requests.component.scss'],
-    standalone: false
+    imports: [
+      CommonModule,
+      IonicModule
+    ],
+    standalone: true
 })
 export class OpenRequestsComponent implements OnInit, OnDestroy {
 

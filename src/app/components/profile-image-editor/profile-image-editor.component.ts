@@ -1,6 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { IonicModule } from '@ionic/angular';
+import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
@@ -10,7 +12,13 @@ import { UserService } from 'src/app/services/user.service';
     selector: 'app-profile-image-editor',
     templateUrl: './profile-image-editor.component.html',
     styleUrls: ['./profile-image-editor.component.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      CommonModule,
+      IonicModule,
+      ImageCropperComponent
+    ]
+
 })
 export class ProfileImageEditorComponent implements OnInit, OnDestroy {
 

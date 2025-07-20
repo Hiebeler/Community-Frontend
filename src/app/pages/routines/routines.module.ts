@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 import { RoutinesPageRoutingModule } from './routines-routing.module';
 
 import { RoutinesPage } from './routines.page';
-import { ComponentsModule } from 'src/app/components/components.module';
 
 @NgModule({
   imports: [
@@ -15,7 +14,6 @@ import { ComponentsModule } from 'src/app/components/components.module';
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    ComponentsModule,
     RoutinesPageRoutingModule
   ],
   declarations: [RoutinesPage]

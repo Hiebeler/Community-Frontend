@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Routine } from 'src/app/models/routine';
 import { User } from 'src/app/models/user';
@@ -10,7 +12,11 @@ import { UserService } from 'src/app/services/user.service';
     selector: 'app-routine-editor',
     templateUrl: './routine-editor.component.html',
     styleUrls: ['./routine-editor.component.scss'],
-    standalone: false
+    imports: [
+      IonicModule,
+      CommonModule
+    ],
+    standalone: true
 })
 export class RoutineEditorComponent implements OnInit, OnDestroy {
 
