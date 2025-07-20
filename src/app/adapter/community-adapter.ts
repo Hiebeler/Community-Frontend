@@ -12,9 +12,6 @@ export class CommunityAdapter implements Adapter<Community | null> {
   constructor(private userAdapter: UserAdapter) { }
 
   adapt(item: any): Community | null {
-
-    console.log(item);
-
     if (item.id) {
       if (item.admin) {
         item.admin = this.userAdapter.adapt(item.admin);

@@ -43,7 +43,6 @@ export class CommunityService implements OnDestroy {
     ).subscribe(community => {
       this.community.next(community);
     }));*/
-    console.log('get current community');
     if (communities.length === 0) {
       return;
     }
@@ -53,7 +52,6 @@ export class CommunityService implements OnDestroy {
       this.storageService.setCurrentCommunity(firstCommunityId);
       currentCommunityId = firstCommunityId;
     }
-    console.log(currentCommunityId);
     const currentCommunity = communities.find((community: Community) => community.id === currentCommunityId);
     this.userService.fetchUsersInCommunityFromApi(currentCommunity.id);
     this.community.next(currentCommunity);

@@ -21,7 +21,6 @@ export class VerifyPage implements OnInit {
 
   ngOnInit() {
     this.code = this.route.snapshot.paramMap.get('code');
-    console.log(this.code);
     this.authService.verify(this.code);
   }
 

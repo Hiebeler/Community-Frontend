@@ -40,7 +40,6 @@ export class AuthService implements OnDestroy {
     });
 
     this.subscriptions.push(this.authenticationState.subscribe(state => {
-      console.log('meem:', state);
     }));
 
     this.subscriptions.push(this.userService.getCurrentUser().subscribe(user => {
@@ -83,7 +82,6 @@ export class AuthService implements OnDestroy {
   }
 
   updateAuthenticationState(token) {
-    console.log(token);
     if (!token.version) {
       this.requestNewToken();
     } else {
@@ -136,7 +134,6 @@ export class AuthService implements OnDestroy {
 
   login(email, password) {
     return this.subscriptions.push(this.apiService.login(email, password).subscribe(async res => {
-      console.log(res);
       if (res.status === 'OK') {
         this.storeToken(res.data.token);
         this.decodedUserToken = this.helper.decodeToken(res.data.token);

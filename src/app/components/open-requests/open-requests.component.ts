@@ -46,7 +46,6 @@ export class OpenRequestsComponent implements OnInit, OnDestroy {
       if (requests.status === 'OK') {
         requests = requests.data.map((data: any) => this.requestAdapter.adapt(data));
         this.requests = requests;
-        console.log(requests);
       }
     }));
   }

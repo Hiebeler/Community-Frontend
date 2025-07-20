@@ -60,7 +60,6 @@ export class FindCommunityPage implements OnDestroy {
         this.loading = false;
         if (community?.id) {
           this.foundCommunity = community;
-          console.log(community);
         }
         else {
           this.didntFoundCommunity = true;
