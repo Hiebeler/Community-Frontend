@@ -14,9 +14,8 @@ import { SwiperModule } from 'swiper/angular';
     CommonModule,
     FormsModule,
     IonicModule,
-    SwiperModule,
     LandingPageRoutingModule
   ],
-  declarations: [LandingPage]
+  declarations: []
 })
 export class LandingPageModule {}

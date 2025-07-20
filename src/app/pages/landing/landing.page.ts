@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 import SwiperCore, { EffectCards } from 'swiper';
 
 SwiperCore.use([EffectCards]);
@@ -8,7 +10,11 @@ SwiperCore.use([EffectCards]);
     selector: 'app-landing',
     templateUrl: './landing.page.html',
     styleUrls: ['./landing.page.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      CommonModule,
+      IonicModule
+    ]
 })
 export class LandingPage implements OnInit {
 
