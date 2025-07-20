@@ -10,6 +10,7 @@ import { UserService } from './user.service';
 import { User } from '../models/user';
 import { ShoppingService } from './shopping.service';
 import { CommunityService } from './community.service';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -67,6 +68,9 @@ export class AuthService implements OnDestroy {
         this.updateAuthenticationState(decoded);
         this.userService.fetchUserFromApi(this.getUserFromToken().id);
         this.shoppingService.fetchShoppingItemsFromApi();
+      }
+      if (decoded.version !== environment.jwtVersion) {
+        this.requestNewToken();
       }
     }
     else {
