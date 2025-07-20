@@ -26,32 +26,45 @@
       </ion-row>
 
       <ion-row class="ion-nowrap">
-        <ion-col class="day-col" [size]="84 / numberOfColumns" *ngFor="let day of days"
-          [ngClass]="day.date.toDateString() === dayToday.toDateString() ? 'today-col' : ''">
-          <p class="ion-text-center p-weekday"
-            *ngIf="!isTodayDate(day.date, -1) && !isTodayDate(day.date, 0) && !isTodayDate(day.date, 1)">
-            {{day.date.toLocaleDateString('de-AT', { weekday: 'short' })}}</p>
-          <p class="ion-text-center p-weekday" *ngIf="isTodayDate(day.date, -1)">Gestern</p>
-          <p class="ion-text-center p-weekday" *ngIf="isTodayDate(day.date, 0)">Heute</p>
-          <p class="ion-text-center p-weekday" *ngIf="isTodayDate(day.date, 1)">Morgen</p>
-          <p class="ion-text-center p-date">{{day.date.toLocaleDateString('de-AT', { year: 'numeric', month: 'short', day:
+        @for (day of days; track day) {
+          <ion-col class="day-col" [size]="84 / numberOfColumns"
+            [ngClass]="day.date.toDateString() === dayToday.toDateString() ? 'today-col' : ''">
+            @if (!isTodayDate(day.date, -1) && !isTodayDate(day.date, 0) && !isTodayDate(day.date, 1)) {
+              <p class="ion-text-center p-weekday"
+                >
+              {{day.date.toLocaleDateString('de-AT', { weekday: 'short' })}}</p>
+            }
+            @if (isTodayDate(day.date, -1)) {
+              <p class="ion-text-center p-weekday">Gestern</p>
+            }
+            @if (isTodayDate(day.date, 0)) {
+              <p class="ion-text-center p-weekday">Heute</p>
+            }
+            @if (isTodayDate(day.date, 1)) {
+              <p class="ion-text-center p-weekday">Morgen</p>
+            }
+            <p class="ion-text-center p-date">{{day.date.toLocaleDateString('de-AT', { year: 'numeric', month: 'short', day:
             'numeric' })}}</p>
-          <div *ngFor="let task of day.openTasks">
-            <app-task-card [task]="task" (openModal)="openModal(task)"></app-task-card>
-          </div>
-
-          <div class="task-div add-task-div" (click)="openModal(day.date)">
-            +
-          </div>
-
-          <div *ngIf="day.doneTasks[0]" class="done-div">
-            Erledigt:
-          </div>
-
-          <div *ngFor="let task of day.doneTasks">
-            <app-task-card [task]="task" (openModal)="openModal(task)"></app-task-card>
-          </div>
-        </ion-col>
+            @for (task of day.openTasks; track task) {
+              <div>
+                <app-task-card [task]="task" (openModal)="openModal(task)"></app-task-card>
+              </div>
+            }
+            <div class="task-div add-task-div" (click)="openModal(day.date)">
+              +
+            </div>
+            @if (day.doneTasks[0]) {
+              <div class="done-div">
+                Erledigt:
+              </div>
+            }
+            @for (task of day.doneTasks; track task) {
+              <div>
+                <app-task-card [task]="task" (openModal)="openModal(task)"></app-task-card>
+              </div>
+            }
+          </ion-col>
+        }
       </ion-row>
     </ion-grid>
   </div>

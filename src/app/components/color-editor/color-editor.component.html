@@ -16,14 +16,20 @@
       </ion-row>
 
       <ion-row>
-        <ion-col size-xs="42" size-sm="28" size-md="21" size-lg="14" size-xl="14" *ngFor="let color of colors; let i = index"
-          (click)="changeColor(color)">
-          <div class="color-selection-field" [ngStyle]="{'background-color': color}"
-            [ngClass]="{'active-color': colorUsernames[i] === user.firstname, 'clickable': colorUsernames[i] === ''}">
-            <p *ngIf="colorUsernames[i]">{{colorUsernames[i]}}</p>
-            <p *ngIf="!colorUsernames[i]">&nbsp;</p>
-          </div>
-        </ion-col>
+        @for (color of colors; track color; let i = $index) {
+          <ion-col size-xs="42" size-sm="28" size-md="21" size-lg="14" size-xl="14"
+            (click)="changeColor(color)">
+            <div class="color-selection-field" [ngStyle]="{'background-color': color}"
+              [ngClass]="{'active-color': colorUsernames[i] === user.firstname, 'clickable': colorUsernames[i] === ''}">
+              @if (colorUsernames[i]) {
+                <p>{{colorUsernames[i]}}</p>
+              }
+              @if (!colorUsernames[i]) {
+                <p>&nbsp;</p>
+              }
+            </div>
+          </ion-col>
+        }
       </ion-row>
     </ion-grid>
   </ion-col>

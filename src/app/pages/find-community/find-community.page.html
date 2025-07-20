@@ -20,71 +20,73 @@
               <input type="text" id="search" autocomplete="off" formControlName="search" placeholder="123456">
             </div>
             <button [disabled]="searchForm.invalid || loading" type="submit"
-              class="btn-large btn-primary">Suchen</button>
+            class="btn-large btn-primary">Suchen</button>
           </form>
         </ion-col>
       </ion-row>
 
-      <ion-row *ngIf="loading">
-        <ion-col>
-          <ion-spinner name="crescent"></ion-spinner>
-        </ion-col>
-      </ion-row>
+      @if (loading) {
+        <ion-row>
+          <ion-col>
+            <ion-spinner name="crescent"></ion-spinner>
+          </ion-col>
+        </ion-row>
+      }
 
-      <ion-row *ngIf="didntFoundCommunity">
-        <ion-col>
-          <ion-grid>
-            <ion-row>
-              <ion-col class="no-community-col">
-                <ion-icon name="warning-outline" color="danger"></ion-icon>
-                <p>Es existiert keine Gemeinschaft mit diesem Code</p>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-col>
-      </ion-row>
+      @if (didntFoundCommunity) {
+        <ion-row>
+          <ion-col>
+            <ion-grid>
+              <ion-row>
+                <ion-col class="no-community-col">
+                  <ion-icon name="warning-outline" color="danger"></ion-icon>
+                  <p>Es existiert keine Gemeinschaft mit diesem Code</p>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      }
 
-      <ion-row *ngIf="foundCommunity">
-        <ion-col>
-          <ion-grid class="card">
-            <ion-row>
-              <ion-col>
-                <h2 class="ion-text-center" style="margin: 0">{{foundCommunity.name}}</h2>
-              </ion-col>
-            </ion-row>
-
-            <ion-row class="info-row">
-              <ion-col>
-                <div>
-                  <h2>{{foundCommunity.admin.firstname}}</h2>
-                  <p>Admin</p>
-                </div>
-              </ion-col>
-
-              <ion-col>
-                <div>
-                  <h2>{{foundCommunity.memberCount}}</h2>
-                  <p>Mitglieder</p>
-                </div>
-
-              </ion-col>
-            </ion-row>
-
-            <ion-row>
-              <ion-col>
-                <button type="button" style="width: 100%" class="btn-small btn-primary"
-                  (click)="join()">Beitrittsanfrage
+      @if (foundCommunity) {
+        <ion-row>
+          <ion-col>
+            <ion-grid class="card">
+              <ion-row>
+                <ion-col>
+                  <h2 class="ion-text-center" style="margin: 0">{{foundCommunity.name}}</h2>
+                </ion-col>
+              </ion-row>
+              <ion-row class="info-row">
+                <ion-col>
+                  <div>
+                    <h2>{{foundCommunity.admin.firstname}}</h2>
+                    <p>Admin</p>
+                  </div>
+                </ion-col>
+                <ion-col>
+                  <div>
+                    <h2>{{foundCommunity.memberCount}}</h2>
+                    <p>Mitglieder</p>
+                  </div>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <button type="button" style="width: 100%" class="btn-small btn-primary"
+                    (click)="join()">Beitrittsanfrage
                   senden</button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-col>
-      </ion-row>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      }
 
       <ion-row style="padding-top: 50px;">
         <ion-col>
           <button type="button" class="btn-small btn-outline-primary" (click)="gotoCreateCommunity()">Neue Gemeinschaft
-            erstellen</button>
+          erstellen</button>
         </ion-col>
       </ion-row>
     </ion-grid>

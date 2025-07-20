@@ -6,165 +6,186 @@
   <div class="container">
     <ion-grid fixed="true">
       <ion-row class="topbar">
-        <ion-col *ngIf="!editorIsOpen" size="auto" class="topbar-buttons-col">
-          <button type="button" class="btn-small btn-primary" (click)="gotoHistory()">
-            <ion-icon color="dark" style="display: flex; font-size: 1.2rem;" name="receipt-outline"></ion-icon>
-          </button>
-        </ion-col>
+        @if (!editorIsOpen) {
+          <ion-col size="auto" class="topbar-buttons-col">
+            <button type="button" class="btn-small btn-primary" (click)="gotoHistory()">
+              <ion-icon color="dark" style="display: flex; font-size: 1.2rem;" name="receipt-outline"></ion-icon>
+            </button>
+          </ion-col>
+        }
 
         <ion-col class="topbar-header-col">
-          <p *ngIf="!editorIsOpen">Schulden</p>
-          <p *ngIf="editorIsOpen">Neue Schuld</p>
+          @if (!editorIsOpen) {
+            <p>Schulden</p>
+          }
+          @if (editorIsOpen) {
+            <p>Neue Schuld</p>
+          }
         </ion-col>
 
-        <ion-col *ngIf="!editorIsOpen" size="auto" class="topbar-buttons-col">
-          <button type="button" class="btn-small btn-primary" (click)="openEditor(true)">
-            <ion-icon color="dark" style="display: flex; font-size: 1.2rem;" name="add-outline"></ion-icon>
-          </button>
-        </ion-col>
+        @if (!editorIsOpen) {
+          <ion-col size="auto" class="topbar-buttons-col">
+            <button type="button" class="btn-small btn-primary" (click)="openEditor(true)">
+              <ion-icon color="dark" style="display: flex; font-size: 1.2rem;" name="add-outline"></ion-icon>
+            </button>
+          </ion-col>
+        }
       </ion-row>
 
-      <ion-row *ngIf="editorIsOpen">
-        <ion-col>
-          <form [formGroup]="itemEditorForm" (ngSubmit)="saveDebt()">
-            <ion-grid class="card">
-              <ion-row>
-                <ion-col size="auto" style="display: flex; justify-content: center">
-                  <button type="button" class="btn-small btn-outline-danger btn-center" style="width: 100%;"
-                    (click)="openEditor(false)">
-                    <ion-icon color="danger" style="display: flex; font-size: 1.6rem;" name="close-outline"></ion-icon>
-                  </button>
-                </ion-col>
-                <ion-col>
-                  <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveDebt()"
-                    class="btn-large btn-primary" style="width: 100%;">Speichern</button>
-                </ion-col>
-              </ion-row>
-
-              <ion-row>
-                <ion-col style="display: flex; justify-content: center">
-                  <button type="button" class="btn-small" style="width: 100%;"
-                    [ngClass]="iOwe ? 'btn-primary' : 'btn-dark'" (click)="changeIOwe(true)">
-                    Ich Schulde
-                  </button>
-                </ion-col>
-                <ion-col>
-                  <button type="button" class="btn-large" style="width: 100%;"
-                    [ngClass]="!iOwe ? 'btn-primary' : 'btn-dark'" (click)="changeIOwe(false)">Ich Bekomme</button>
-                </ion-col>
-              </ion-row>
-
-              <ion-row>
-                <ion-col>
-                  <p>Schuldner:</p>
-                  <div class="field-box">
-                    <select name="cars" id="cars" formControlName="debitor">
-                      <option *ngFor="let user of usersInCommunity" [ngValue]="user">{{user.firstname + ' ' +
-                        user.lastname}}</option>
-                    </select>
-                  </div>
-                </ion-col>
-              </ion-row>
-
-              <ion-row>
-                <ion-col>
-                  <p>Euro:</p>
-                  <div class="field-box">
-                    <input type="number" id="name" autocomplete="off" formControlName="amount" placeholder="Menge">
-                  </div>
-                </ion-col>
-              </ion-row>
-
-              <ion-row>
-                <ion-col>
-                  <p>Grund:</p>
-                  <div class="field-box">
-                    <input type="text" id="name" autocomplete="off" formControlName="name" placeholder="Grund">
-                  </div>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </form>
-        </ion-col>
-      </ion-row>
-
-      <ion-row *ngIf="!allBalances.length">
-        <ion-col class="no-items-col">
-          <img src="./../../../../assets/images/no-debts.svg" alt="">
-          <h2>Alles Beglichen👍</h2>
-          <p>Klicke + um neue Schulden hinzuzufügen
-          </p>
-        </ion-col>
-      </ion-row>
-
-      <div *ngIf="allBalances.length">
-
-        <div *ngFor="let balance of allBalances">
-          <ion-row>
-            <ion-col>
+      @if (editorIsOpen) {
+        <ion-row>
+          <ion-col>
+            <form [formGroup]="itemEditorForm" (ngSubmit)="saveDebt()">
               <ion-grid class="card">
-                <div *ngIf="clearOffEditorIsOpenId !== balance.debitor.id">
-                  <ion-row class="card-top-row">
-                    <ion-col size="auto">
-                      <img class="rounded-image" [src]="balance.debitor.profileimage" alt="">
-
-                    </ion-col>
-                    <ion-col>
-                      <p>{{balance.debitor.firstname + ' ' + balance.debitor.lastname}}</p>
-                    </ion-col>
-
-                    <ion-col size="auto">
-                      <button type="button" class="btn-small btn-primary" (click)="openClearOffEditor(balance)">
-                        <ion-icon color="dark" style="display: flex; font-size: 1.2rem;" name="card-outline"></ion-icon>
-                      </button>
-                    </ion-col>
-                  </ion-row>
-                  <ion-row>
-                    <ion-col class="amount-col">
-                      <p *ngIf="balance.amount < 0">{{balance.debitor.firstname}} schuldet mir</p>
-                      <p *ngIf="balance.amount > 0">Ich schulde {{balance.debitor.firstname}}</p>
-                      <h2 *ngIf="balance.amount < 0" class="negative-amount">{{balance.amount * -1}} €</h2>
-                      <h2 *ngIf="balance.amount > 0" class="positive-amount">{{balance.amount}} €</h2>
-                    </ion-col>
-                  </ion-row>
-                </div>
-                <ion-row style="display: flex" *ngIf="clearOffEditorIsOpenId === balance.debitor.id">
+                <ion-row>
+                  <ion-col size="auto" style="display: flex; justify-content: center">
+                    <button type="button" class="btn-small btn-outline-danger btn-center" style="width: 100%;"
+                      (click)="openEditor(false)">
+                      <ion-icon color="danger" style="display: flex; font-size: 1.6rem;" name="close-outline"></ion-icon>
+                    </button>
+                  </ion-col>
                   <ion-col>
-                    <ion-grid class="card">
-                      <ion-row>
-                        <ion-col size="auto" style="display: flex; justify-content: center">
-                          <button type="button" class="btn-small btn-outline-danger btn-center" style="width: 100%;"
-                            (click)="openClearOffEditor()">
-                            <ion-icon color="danger" style="display: flex; font-size: 1.6rem;"
-                              name="close-outline"></ion-icon>
-                          </button>
-                        </ion-col>
-                        <ion-col>
-                          <button [disabled]="clearOffBalanceEditorForm.invalid" type="button"
-                            class="btn-large btn-primary" style="width: 100%;"
-                            (click)="clearOffBalance(balance)">Begleichen</button>
-                        </ion-col>
-                      </ion-row>
-
-                      <ion-row>
-                        <ion-col>
-                          <form [formGroup]="clearOffBalanceEditorForm" (ngSubmit)="clearOffBalance(balance)">
-                            <div class="field-box">
-                              <input type="number" id="name" autocomplete="off" formControlName="amount"
-                                placeholder="Amount">
-                            </div>
-                          </form>
-                        </ion-col>
-                      </ion-row>
-                    </ion-grid>
+                    <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveDebt()"
+                    class="btn-large btn-primary" style="width: 100%;">Speichern</button>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col style="display: flex; justify-content: center">
+                    <button type="button" class="btn-small" style="width: 100%;"
+                      [ngClass]="iOwe ? 'btn-primary' : 'btn-dark'" (click)="changeIOwe(true)">
+                      Ich Schulde
+                    </button>
+                  </ion-col>
+                  <ion-col>
+                    <button type="button" class="btn-large" style="width: 100%;"
+                    [ngClass]="!iOwe ? 'btn-primary' : 'btn-dark'" (click)="changeIOwe(false)">Ich Bekomme</button>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <p>Schuldner:</p>
+                    <div class="field-box">
+                      <select name="cars" id="cars" formControlName="debitor">
+                        @for (user of usersInCommunity; track user) {
+                          <option [ngValue]="user">{{user.firstname + ' ' +
+                          user.lastname}}</option>
+                        }
+                      </select>
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <p>Euro:</p>
+                    <div class="field-box">
+                      <input type="number" id="name" autocomplete="off" formControlName="amount" placeholder="Menge">
+                    </div>
+                  </ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col>
+                    <p>Grund:</p>
+                    <div class="field-box">
+                      <input type="text" id="name" autocomplete="off" formControlName="name" placeholder="Grund">
+                    </div>
                   </ion-col>
                 </ion-row>
               </ion-grid>
+            </form>
+          </ion-col>
+        </ion-row>
+      }
 
-            </ion-col>
-          </ion-row>
+      @if (!allBalances.length) {
+        <ion-row>
+          <ion-col class="no-items-col">
+            <img src="./../../../../assets/images/no-debts.svg" alt="">
+            <h2>Alles Beglichen👍</h2>
+            <p>Klicke + um neue Schulden hinzuzufügen
+            </p>
+          </ion-col>
+        </ion-row>
+      }
+
+      @if (allBalances.length) {
+        <div>
+          @for (balance of allBalances; track balance) {
+            <div>
+              <ion-row>
+                <ion-col>
+                  <ion-grid class="card">
+                    @if (clearOffEditorIsOpenId !== balance.debitor.id) {
+                      <div>
+                        <ion-row class="card-top-row">
+                          <ion-col size="auto">
+                            <img class="rounded-image" [src]="balance.debitor.profileimage" alt="">
+                          </ion-col>
+                          <ion-col>
+                            <p>{{balance.debitor.firstname + ' ' + balance.debitor.lastname}}</p>
+                          </ion-col>
+                          <ion-col size="auto">
+                            <button type="button" class="btn-small btn-primary" (click)="openClearOffEditor(balance)">
+                              <ion-icon color="dark" style="display: flex; font-size: 1.2rem;" name="card-outline"></ion-icon>
+                            </button>
+                          </ion-col>
+                        </ion-row>
+                        <ion-row>
+                          <ion-col class="amount-col">
+                            @if (balance.amount < 0) {
+                              <p>{{balance.debitor.firstname}} schuldet mir</p>
+                            }
+                            @if (balance.amount > 0) {
+                              <p>Ich schulde {{balance.debitor.firstname}}</p>
+                            }
+                            @if (balance.amount < 0) {
+                              <h2 class="negative-amount">{{balance.amount * -1}} €</h2>
+                            }
+                            @if (balance.amount > 0) {
+                              <h2 class="positive-amount">{{balance.amount}} €</h2>
+                            }
+                          </ion-col>
+                        </ion-row>
+                      </div>
+                    }
+                    @if (clearOffEditorIsOpenId === balance.debitor.id) {
+                      <ion-row style="display: flex">
+                        <ion-col>
+                          <ion-grid class="card">
+                            <ion-row>
+                              <ion-col size="auto" style="display: flex; justify-content: center">
+                                <button type="button" class="btn-small btn-outline-danger btn-center" style="width: 100%;"
+                                  (click)="openClearOffEditor()">
+                                  <ion-icon color="danger" style="display: flex; font-size: 1.6rem;"
+                                  name="close-outline"></ion-icon>
+                                </button>
+                              </ion-col>
+                              <ion-col>
+                                <button [disabled]="clearOffBalanceEditorForm.invalid" type="button"
+                                  class="btn-large btn-primary" style="width: 100%;"
+                                (click)="clearOffBalance(balance)">Begleichen</button>
+                              </ion-col>
+                            </ion-row>
+                            <ion-row>
+                              <ion-col>
+                                <form [formGroup]="clearOffBalanceEditorForm" (ngSubmit)="clearOffBalance(balance)">
+                                  <div class="field-box">
+                                    <input type="number" id="name" autocomplete="off" formControlName="amount"
+                                      placeholder="Amount">
+                                  </div>
+                                </form>
+                              </ion-col>
+                            </ion-row>
+                          </ion-grid>
+                        </ion-col>
+                      </ion-row>
+                    }
+                  </ion-grid>
+                </ion-col>
+              </ion-row>
+            </div>
+          }
         </div>
-      </div>
+      }
     </ion-grid>
   </div>
 </ion-content>

@@ -6,75 +6,97 @@
   <div class="container">
     <ion-grid fixed="true">
       <ion-row class="topbar">
-        <ion-col *ngIf="!newRoutineEditorIsOpen" size="auto" class="topbar-buttons-col">
-          <button type="button" class="btn-small btn-medium" (click)="gotoTasks()">
-            <ion-icon style="display: flex; font-size: 1.2rem;" name="return-up-back-outline"></ion-icon>
-          </button>
-        </ion-col>
+        @if (!newRoutineEditorIsOpen) {
+          <ion-col size="auto" class="topbar-buttons-col">
+            <button type="button" class="btn-small btn-medium" (click)="gotoTasks()">
+              <ion-icon style="display: flex; font-size: 1.2rem;" name="return-up-back-outline"></ion-icon>
+            </button>
+          </ion-col>
+        }
         <ion-col class="topbar-header-col">
-          <p *ngIf="!newRoutineEditorIsOpen">Routinen</p>
-          <p *ngIf="newRoutineEditorIsOpen">Neue Routine</p>
+          @if (!newRoutineEditorIsOpen) {
+            <p>Routinen</p>
+          }
+          @if (newRoutineEditorIsOpen) {
+            <p>Neue Routine</p>
+          }
         </ion-col>
-        <ion-col *ngIf="!newRoutineEditorIsOpen" size="auto" class="topbar-buttons-col">
-          <button type="button" class="btn-small btn-primary" (click)="openNewRoutineEditor(true)">
-            <ion-icon color="dark" style="display: flex; font-size: 1.2rem;" name="add-outline"></ion-icon>
-          </button>
-        </ion-col>
+        @if (!newRoutineEditorIsOpen) {
+          <ion-col size="auto" class="topbar-buttons-col">
+            <button type="button" class="btn-small btn-primary" (click)="openNewRoutineEditor(true)">
+              <ion-icon color="dark" style="display: flex; font-size: 1.2rem;" name="add-outline"></ion-icon>
+            </button>
+          </ion-col>
+        }
       </ion-row>
 
-      <ion-row *ngIf="newRoutineEditorIsOpen">
-        <ion-col>
-          <app-routine-editor (closeEditor)="openNewRoutineEditor(false)"></app-routine-editor>
-        </ion-col>
-      </ion-row>
-
-      <ion-row *ngIf="!enabledRoutines.length && !disabledRoutines.length && completedFirstLoad">
-        <ion-col class="no-items-col">
-          <img src="./../../../../assets/images/no-routines.svg" alt="">
-          <h2 style="margin-top: 0">Noch keine Routinen</h2>
-          <p>Klicke + um eine neue Routine anzulegen</p>
-        </ion-col>
-      </ion-row>
-
-      <ion-row *ngIf="enabledRoutines.length">
-        <ion-col>
-          <h2>Aktive Routinen</h2>
-        </ion-col>
-      </ion-row>
-
-      <div *ngFor="let routine of enabledRoutines">
+      @if (newRoutineEditorIsOpen) {
         <ion-row>
           <ion-col>
-            <app-routine-card (click)="openUpdateEditor(routine.id)" [routine]="routine"></app-routine-card>
+            <app-routine-editor (closeEditor)="openNewRoutineEditor(false)"></app-routine-editor>
           </ion-col>
         </ion-row>
+      }
 
-        <ion-row *ngIf="updateRoutineEditorOpenId === routine.id">
-          <ion-col>
-            <app-routine-editor [routine]="routine" (closeEditor)="openUpdateEditor(-1)"></app-routine-editor>
+      @if (!enabledRoutines.length && !disabledRoutines.length && completedFirstLoad) {
+        <ion-row>
+          <ion-col class="no-items-col">
+            <img src="./../../../../assets/images/no-routines.svg" alt="">
+            <h2 style="margin-top: 0">Noch keine Routinen</h2>
+            <p>Klicke + um eine neue Routine anzulegen</p>
           </ion-col>
         </ion-row>
-      </div>
+      }
 
-      <ion-row *ngIf="disabledRoutines.length">
-        <ion-col>
-          <h2>Deaktivierte Routinen</h2>
-        </ion-col>
-      </ion-row>
-
-      <div *ngFor="let routine of disabledRoutines">
+      @if (enabledRoutines.length) {
         <ion-row>
           <ion-col>
-            <app-routine-card (click)="openUpdateEditor(routine.id)" [routine]="routine"></app-routine-card>
+            <h2>Aktive Routinen</h2>
           </ion-col>
         </ion-row>
+      }
 
-        <ion-row *ngIf="updateRoutineEditorOpenId === routine.id">
+      @for (routine of enabledRoutines; track routine) {
+        <div>
+          <ion-row>
+            <ion-col>
+              <app-routine-card (click)="openUpdateEditor(routine.id)" [routine]="routine"></app-routine-card>
+            </ion-col>
+          </ion-row>
+          @if (updateRoutineEditorOpenId === routine.id) {
+            <ion-row>
+              <ion-col>
+                <app-routine-editor [routine]="routine" (closeEditor)="openUpdateEditor(-1)"></app-routine-editor>
+              </ion-col>
+            </ion-row>
+          }
+        </div>
+      }
+
+      @if (disabledRoutines.length) {
+        <ion-row>
           <ion-col>
-            <app-routine-editor [routine]="routine" (closeEditor)="openUpdateEditor(-1)"></app-routine-editor>
+            <h2>Deaktivierte Routinen</h2>
           </ion-col>
         </ion-row>
-      </div>
+      }
+
+      @for (routine of disabledRoutines; track routine) {
+        <div>
+          <ion-row>
+            <ion-col>
+              <app-routine-card (click)="openUpdateEditor(routine.id)" [routine]="routine"></app-routine-card>
+            </ion-col>
+          </ion-row>
+          @if (updateRoutineEditorOpenId === routine.id) {
+            <ion-row>
+              <ion-col>
+                <app-routine-editor [routine]="routine" (closeEditor)="openUpdateEditor(-1)"></app-routine-editor>
+              </ion-col>
+            </ion-row>
+          }
+        </div>
+      }
     </ion-grid>
   </div>
 </ion-content>

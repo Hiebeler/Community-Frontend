@@ -5,23 +5,31 @@
         <ion-icon name="close" style="font-size: 15px;"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title *ngIf="task" style="margin-top: 1rem; font-size: 1rem;" class="titl p-0 mt-0">
-      <div *ngIf="task.id || task.fkRoutineId" class="ion-text-wrap semibold">
-        {{task.date.toLocaleDateString('de-AT', { weekday: 'long' })}}
-        <span *ngIf="task.assignedUsers[0]"> - </span>
-
-        <ion-chip *ngFor="let user of task.assignedUsers" [ngStyle]="{'background-color': user?.color}">
-          <ion-avatar>
-            <img alt="" [src]="user.profileimage" />
-          </ion-avatar>
-          <ion-label>{{user.firstname}}</ion-label>
-        </ion-chip>
-      </div>
-
-      <div *ngIf="!task.id && !task.fkRoutineId" class="ion-text-wrap semibold">
-        Neue Aufgabe
-      </div>
-    </ion-title>
+    @if (task) {
+      <ion-title style="margin-top: 1rem; font-size: 1rem;" class="titl p-0 mt-0">
+        @if (task.id || task.fkRoutineId) {
+          <div class="ion-text-wrap semibold">
+            {{task.date.toLocaleDateString('de-AT', { weekday: 'long' })}}
+            @if (task.assignedUsers[0]) {
+              <span> - </span>
+            }
+            @for (user of task.assignedUsers; track user) {
+              <ion-chip [ngStyle]="{'background-color': user?.color}">
+                <ion-avatar>
+                  <img alt="" [src]="user.profileimage" />
+                </ion-avatar>
+                <ion-label>{{user.firstname}}</ion-label>
+              </ion-chip>
+            }
+          </div>
+        }
+        @if (!task.id && !task.fkRoutineId) {
+          <div class="ion-text-wrap semibold">
+            Neue Aufgabe
+          </div>
+        }
+      </ion-title>
+    }
   </ion-toolbar>
 
   <ion-grid>
@@ -49,86 +57,89 @@
       </ion-col>
     </ion-row>
 
-    <div *ngIf="!updatingResponsibleUsers">
-      <ion-row>
-        <ion-col>
-          <p style="margin: 0">Zuständig:</p>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-
-        <ion-col size="84" *ngFor="let user of task.assignedUsers">
-          <ion-chip>
-            <ion-avatar>
-              <img alt="" [src]="user.profileimage" />
-            </ion-avatar>
-            <ion-label>{{user.firstname}}</ion-label>
-          </ion-chip>
-        </ion-col>
-      </ion-row>
-
-      <ion-row style="margin-top: 10px;">
-        <ion-col>
-          <button type="button" class="btn-small btn-primary" (click)="setUpdatingResponsibleUsers(true)">Zuständige
+    @if (!updatingResponsibleUsers) {
+      <div>
+        <ion-row>
+          <ion-col>
+            <p style="margin: 0">Zuständig:</p>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          @for (user of task.assignedUsers; track user) {
+            <ion-col size="84">
+              <ion-chip>
+                <ion-avatar>
+                  <img alt="" [src]="user.profileimage" />
+                </ion-avatar>
+                <ion-label>{{user.firstname}}</ion-label>
+              </ion-chip>
+            </ion-col>
+          }
+        </ion-row>
+        <ion-row style="margin-top: 10px;">
+          <ion-col>
+            <button type="button" class="btn-small btn-primary" (click)="setUpdatingResponsibleUsers(true)">Zuständige
             ändern</button>
-        </ion-col>
-      </ion-row>
-    </div>
+          </ion-col>
+        </ion-row>
+      </div>
+    }
 
 
-    <div *ngIf="updatingResponsibleUsers">
-      <ion-row>
-        <ion-col>
-          <ion-grid class="card ion-no-margin">
-            <ion-row>
-              <ion-col style="display: flex; justify-content: center">
-                <button type="button" class="btn-small btn-outline-danger btn-center"
-                  (click)="setUpdatingResponsibleUsers(false)">
-                  <ion-icon color="danger" style="display: flex; font-size: 1.6rem;" name="close-outline"></ion-icon>
-                </button>
-              </ion-col>
-            </ion-row>
-
-            <ion-row>
-              <ion-col>
-                <p>Zuständig:</p>
-              </ion-col>
-            </ion-row>
-
-            <ion-row>
-              <ion-col size="84" *ngFor="let user of task.assignedUsers" (click)="removeUser(user)">
-                <ion-chip>
-                  <ion-avatar>
-                    <img alt="" [src]="user.profileimage" />
-                  </ion-avatar>
-                  <ion-label>{{user.firstname}}</ion-label>
-                  <ion-icon name="close-circle"></ion-icon>
-                </ion-chip>
-              </ion-col>
-            </ion-row>
-
-            <ion-row>
-              <ion-col>
-                <p>Nicht zuständig:</p>
-              </ion-col>
-            </ion-row>
-
-            <ion-row>
-              <ion-col size="84" *ngFor="let user of assignableUsers" (click)="addUser(user)">
-                <ion-chip>
-                  <ion-avatar>
-                    <img alt="" [src]="user.profileimage" />
-                  </ion-avatar>
-                  <ion-label>{{user.firstname}}</ion-label>
-                  <ion-icon name="add-circle"></ion-icon>
-                </ion-chip>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-col>
-      </ion-row>
-
-    </div>
+    @if (updatingResponsibleUsers) {
+      <div>
+        <ion-row>
+          <ion-col>
+            <ion-grid class="card ion-no-margin">
+              <ion-row>
+                <ion-col style="display: flex; justify-content: center">
+                  <button type="button" class="btn-small btn-outline-danger btn-center"
+                    (click)="setUpdatingResponsibleUsers(false)">
+                    <ion-icon color="danger" style="display: flex; font-size: 1.6rem;" name="close-outline"></ion-icon>
+                  </button>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <p>Zuständig:</p>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                @for (user of task.assignedUsers; track user) {
+                  <ion-col size="84" (click)="removeUser(user)">
+                    <ion-chip>
+                      <ion-avatar>
+                        <img alt="" [src]="user.profileimage" />
+                      </ion-avatar>
+                      <ion-label>{{user.firstname}}</ion-label>
+                      <ion-icon name="close-circle"></ion-icon>
+                    </ion-chip>
+                  </ion-col>
+                }
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <p>Nicht zuständig:</p>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                @for (user of assignableUsers; track user) {
+                  <ion-col size="84" (click)="addUser(user)">
+                    <ion-chip>
+                      <ion-avatar>
+                        <img alt="" [src]="user.profileimage" />
+                      </ion-avatar>
+                      <ion-label>{{user.firstname}}</ion-label>
+                      <ion-icon name="add-circle"></ion-icon>
+                    </ion-chip>
+                  </ion-col>
+                }
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </div>
+    }
 
 
     <ion-row style="margin-top: 50px;">

@@ -1,12 +1,18 @@
-<div class="task-div" *ngIf="task" [ngStyle]="{'background-color': task.assignedUsers[0]?.color}"
-  (click)="cardClicked()">
-  <p style="margin: 0;">{{task.name}}</p>
-  <p *ngIf="task.assignedUsers" style="margin-top: 5px; margin-bottom: 0">
-    <ion-chip *ngFor="let user of task.assignedUsers">
-      <ion-avatar>
-        <img alt="" [src]="user.profileimage" />
-      </ion-avatar>
-      <ion-label>{{user.firstname}}</ion-label>
-    </ion-chip>
-  </p>
-</div>
+@if (task) {
+  <div class="task-div" [ngStyle]="{'background-color': task.assignedUsers[0]?.color}"
+    (click)="cardClicked()">
+    <p style="margin: 0;">{{task.name}}</p>
+    @if (task.assignedUsers) {
+      <p style="margin-top: 5px; margin-bottom: 0">
+        @for (user of task.assignedUsers; track user) {
+          <ion-chip>
+            <ion-avatar>
+              <img alt="" [src]="user.profileimage" />
+            </ion-avatar>
+            <ion-label>{{user.firstname}}</ion-label>
+          </ion-chip>
+        }
+      </p>
+    }
+  </div>
+}

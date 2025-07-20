@@ -5,13 +5,17 @@
       <ion-tab-button tab="tasks">
         <ion-icon name="calendar-outline"></ion-icon>
         <ion-label>Aufgaben</ion-label>
-        <ion-badge *ngIf="tasksForTodayExists">!</ion-badge>
+        @if (tasksForTodayExists) {
+          <ion-badge>!</ion-badge>
+        }
       </ion-tab-button>
 
       <ion-tab-button tab="shopping-list">
         <ion-icon name="cart-outline"></ion-icon>
         <ion-label>Einkaufsliste</ion-label>
-        <ion-badge *ngIf="numberOfOpenShoppingItems !== 0">{{numberOfOpenShoppingItems}}</ion-badge>
+        @if (numberOfOpenShoppingItems !== 0) {
+          <ion-badge>{{numberOfOpenShoppingItems}}</ion-badge>
+        }
       </ion-tab-button>
 
       <ion-tab-button tab="debts">
