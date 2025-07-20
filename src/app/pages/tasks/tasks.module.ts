@@ -15,6 +15,6 @@ import { TasksPage } from './tasks.page';
     IonicModule,
     TasksPageRoutingModule
   ],
-  declarations: [TasksPage]
+  declarations: []
 })
 export class TasksPageModule {}

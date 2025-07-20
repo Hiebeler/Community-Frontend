@@ -1,8 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { IonicModule, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { TaskAdapter } from 'src/app/adapter/task-adapter';
+import { TaskCardComponent } from 'src/app/components/task-card/task-card.component';
 import { TaskPage } from 'src/app/modals/task/task.page';
 import { Day } from 'src/app/models/day';
 import { Task } from 'src/app/models/task';
@@ -12,7 +14,12 @@ import { TaskService } from 'src/app/services/task.service';
     selector: 'app-tasks',
     templateUrl: './tasks.page.html',
     styleUrls: ['./tasks.page.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      CommonModule,
+      IonicModule,
+      TaskCardComponent
+    ]
 })
 export class TasksPage implements OnInit, OnDestroy {
 

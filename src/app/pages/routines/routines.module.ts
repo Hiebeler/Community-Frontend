@@ -6,7 +6,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { RoutinesPageRoutingModule } from './routines-routing.module';
 
-import { RoutinesPage } from './routines.page';
 
 @NgModule({
   imports: [
@@ -16,6 +15,6 @@ import { RoutinesPage } from './routines.page';
     ReactiveFormsModule,
     RoutinesPageRoutingModule
   ],
-  declarations: [RoutinesPage]
+  declarations: []
 })
 export class RoutinesPageModule {}

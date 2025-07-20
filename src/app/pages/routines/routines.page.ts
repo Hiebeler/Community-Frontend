@@ -1,6 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 import { skip, Subscription } from 'rxjs';
+import { RoutineCardComponent } from 'src/app/components/routine-card/routine-card.component';
+import { RoutineEditorComponent } from 'src/app/components/routine-editor/routine-editor.component';
 import { Routine } from 'src/app/models/routine';
 import { TaskService } from 'src/app/services/task.service';
 
@@ -8,7 +12,13 @@ import { TaskService } from 'src/app/services/task.service';
     selector: 'app-routines',
     templateUrl: './routines.page.html',
     styleUrls: ['./routines.page.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      CommonModule,
+      IonicModule,
+      RoutineEditorComponent,
+      RoutineCardComponent
+    ]
 })
 export class RoutinesPage implements OnInit, OnDestroy {
 
