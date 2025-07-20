@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
-import { TabsPage } from './pages/tabs/tabs.page';
 import { LandingPage } from './pages/landing/landing.page';
 import { LoginPage } from './pages/login/login.page';
 import { RegisterPage } from './pages/register/register.page';
@@ -34,7 +33,7 @@ const routes: Routes = [
   },
   {
     path: 'tabs',
-    component: TabsPage,
+    loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule),
     canActivate: [AuthGuard],
     data: {
       roles: ['community'],

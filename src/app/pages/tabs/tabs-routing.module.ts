@@ -2,6 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { TabsPage } from './tabs.page';
+import { TasksPage } from '../tasks/tasks.page';
+import { ProfilePage } from '../profile/profile.page';
+import { RoutinesPage } from '../routines/routines.page';
+import { DebtsPage } from '../debts/debts.page';
+import { DebtsHistoryPage } from '../debts-history/debts-history.page';
+import { ShoppingListPage } from '../shopping-list/shopping-list.page';
 
 const routes: Routes = [
   {
@@ -10,27 +16,27 @@ const routes: Routes = [
     children: [
       {
         path: 'profile',
-        loadChildren: () => import('../profile/profile.module').then( m => m.ProfilePageModule)
+        component: ProfilePage
       },
       {
         path: 'tasks',
-        loadChildren: () => import('../tasks/tasks.module').then( m => m.TasksPageModule)
+        component: TasksPage
       },
       {
         path: 'tasks/routines',
-        loadChildren: () => import('../routines/routines.module').then( m => m.RoutinesPageModule)
+        component: RoutinesPage
       },
       {
         path: 'shopping-list',
-        loadChildren: () => import('../shopping-list/shopping-list.module').then( m => m.ShoppingListPageModule)
+        component: ShoppingListPage
       },
       {
         path: 'debts',
-        loadChildren: () => import('../debts/debts.module').then( m => m.DebtsPageModule)
+        component: DebtsPage
       },
       {
         path: 'debts/history',
-        loadChildren: () => import('../debts-history/debts-history.module').then( m => m.DebtsHistoryPageModule)
+        component: DebtsHistoryPage
       },
       {
         path: '**',
