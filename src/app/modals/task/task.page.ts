@@ -1,6 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { IonicModule, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Task } from 'src/app/models/task';
 import { User } from 'src/app/models/user';
@@ -12,7 +13,12 @@ import { UserService } from 'src/app/services/user.service';
     selector: 'app-task',
     templateUrl: './task.page.html',
     styleUrls: ['./task.page.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      CommonModule,
+      IonicModule,
+      ReactiveFormsModule
+    ]
 })
 export class TaskPage implements OnInit, OnDestroy {
 

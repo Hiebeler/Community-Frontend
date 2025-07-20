@@ -1,7 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { IonicModule, ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Community } from 'src/app/models/community';
 import { AlertService } from 'src/app/services/alert.service';
@@ -11,7 +12,12 @@ import { CommunityService } from 'src/app/services/community.service';
     selector: 'app-find-community',
     templateUrl: './find-community.page.html',
     styleUrls: ['./find-community.page.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      CommonModule,
+      IonicModule,
+      ReactiveFormsModule
+    ]
 })
 export class FindCommunityPage implements OnDestroy {
 

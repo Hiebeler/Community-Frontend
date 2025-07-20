@@ -1,6 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 import { filter, Subscription } from 'rxjs';
 import { Balance } from 'src/app/models/balance';
 import { Debt } from 'src/app/models/debt';
@@ -11,7 +13,12 @@ import { UserService } from 'src/app/services/user.service';
     selector: 'app-debts',
     templateUrl: './debts.page.html',
     styleUrls: ['./debts.page.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      CommonModule,
+      IonicModule,
+      ReactiveFormsModule
+    ]
 })
 export class DebtsPage implements OnInit, OnDestroy {
 

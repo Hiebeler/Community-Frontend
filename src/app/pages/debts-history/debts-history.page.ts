@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Debt } from 'src/app/models/debt';
 import { User } from 'src/app/models/user';
@@ -9,7 +11,11 @@ import { DebtService } from 'src/app/services/debt.service';
     selector: 'app-debts-history',
     templateUrl: './debts-history.page.html',
     styleUrls: ['./debts-history.page.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      IonicModule,
+      CommonModule
+    ]
 })
 export class DebtsHistoryPage implements OnInit {
 
