@@ -5,6 +5,7 @@ import { ApiService } from './api.service';
 import { Balance } from '../models/balance';
 import { BalanceAdapter } from '../adapter/balance-adapter';
 import { DebtAdapter } from '../adapter/debt-adapter';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,8 @@ export class DebtService implements OnDestroy {
   constructor(
     private apiService: ApiService,
     private debtAdapter: DebtAdapter,
-    private balanceAdapter: BalanceAdapter
+    private balanceAdapter: BalanceAdapter,
+    private storageService: StorageService
   ) { }
 
   ngOnDestroy(): void {
@@ -25,7 +27,12 @@ export class DebtService implements OnDestroy {
   }
 
   addDebt(debt: Debt): Observable<any> {
-    return this.apiService.addDebt({ debitorId: debt.debitor.id, creditorId: debt.creditor.id, amount: debt.amount, name: debt.name });
+    return this.apiService.addDebt({
+      debitorId: debt.debitor.id,
+      creditorId: debt.creditor.id,
+      amount: debt.amount,
+      name: debt.name
+    });
   }
 
   fetchDebtsAndBalanceFromApi(): void {
