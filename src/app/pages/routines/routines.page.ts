@@ -5,9 +5,10 @@ import { Routine } from 'src/app/models/routine';
 import { TaskService } from 'src/app/services/task.service';
 
 @Component({
-  selector: 'app-routines',
-  templateUrl: './routines.page.html',
-  styleUrls: ['./routines.page.scss'],
+    selector: 'app-routines',
+    templateUrl: './routines.page.html',
+    styleUrls: ['./routines.page.scss'],
+    standalone: false
 })
 export class RoutinesPage implements OnInit, OnDestroy {
 

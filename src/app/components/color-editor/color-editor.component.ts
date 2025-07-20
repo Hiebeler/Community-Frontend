@@ -4,9 +4,10 @@ import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-color-editor',
-  templateUrl: './color-editor.component.html',
-  styleUrls: ['./color-editor.component.scss'],
+    selector: 'app-color-editor',
+    templateUrl: './color-editor.component.html',
+    styleUrls: ['./color-editor.component.scss'],
+    standalone: false
 })
 export class ColorEditorComponent implements OnInit, OnDestroy {
 

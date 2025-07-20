@@ -6,9 +6,10 @@ import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-open-requests',
-  templateUrl: './open-requests.component.html',
-  styleUrls: ['./open-requests.component.scss'],
+    selector: 'app-open-requests',
+    templateUrl: './open-requests.component.html',
+    styleUrls: ['./open-requests.component.scss'],
+    standalone: false
 })
 export class OpenRequestsComponent implements OnInit, OnDestroy {
 

@@ -9,9 +9,10 @@ import { TaskService } from 'src/app/services/task.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-task',
-  templateUrl: './task.page.html',
-  styleUrls: ['./task.page.scss'],
+    selector: 'app-task',
+    templateUrl: './task.page.html',
+    styleUrls: ['./task.page.scss'],
+    standalone: false
 })
 export class TaskPage implements OnInit, OnDestroy {
 

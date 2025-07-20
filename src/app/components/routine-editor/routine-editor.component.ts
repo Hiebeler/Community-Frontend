@@ -7,9 +7,10 @@ import { TaskService } from 'src/app/services/task.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-routine-editor',
-  templateUrl: './routine-editor.component.html',
-  styleUrls: ['./routine-editor.component.scss'],
+    selector: 'app-routine-editor',
+    templateUrl: './routine-editor.component.html',
+    styleUrls: ['./routine-editor.component.scss'],
+    standalone: false
 })
 export class RoutineEditorComponent implements OnInit, OnDestroy {
 

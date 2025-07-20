@@ -5,9 +5,10 @@ import { TaskService } from 'src/app/services/task.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-tabs',
-  templateUrl: './tabs.page.html',
-  styleUrls: ['./tabs.page.scss'],
+    selector: 'app-tabs',
+    templateUrl: './tabs.page.html',
+    styleUrls: ['./tabs.page.scss'],
+    standalone: false
 })
 export class TabsPage implements OnInit, OnDestroy {
 

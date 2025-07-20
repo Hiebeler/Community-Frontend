@@ -8,9 +8,10 @@ import { AlertService } from 'src/app/services/alert.service';
 import { CommunityService } from 'src/app/services/community.service';
 
 @Component({
-  selector: 'app-find-community',
-  templateUrl: './find-community.page.html',
-  styleUrls: ['./find-community.page.scss'],
+    selector: 'app-find-community',
+    templateUrl: './find-community.page.html',
+    styleUrls: ['./find-community.page.scss'],
+    standalone: false
 })
 export class FindCommunityPage implements OnDestroy {
 

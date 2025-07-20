@@ -5,9 +5,10 @@ import { ShoppingItem } from 'src/app/models/shopping-item';
 import { ShoppingService } from 'src/app/services/shopping.service';
 
 @Component({
-  selector: 'app-shopping-list',
-  templateUrl: './shopping-list.page.html',
-  styleUrls: ['./shopping-list.page.scss'],
+    selector: 'app-shopping-list',
+    templateUrl: './shopping-list.page.html',
+    styleUrls: ['./shopping-list.page.scss'],
+    standalone: false
 })
 export class ShoppingListPage implements OnInit, OnDestroy {
 

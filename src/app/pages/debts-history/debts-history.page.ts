@@ -6,9 +6,10 @@ import { User } from 'src/app/models/user';
 import { DebtService } from 'src/app/services/debt.service';
 
 @Component({
-  selector: 'app-debts-history',
-  templateUrl: './debts-history.page.html',
-  styleUrls: ['./debts-history.page.scss'],
+    selector: 'app-debts-history',
+    templateUrl: './debts-history.page.html',
+    styleUrls: ['./debts-history.page.scss'],
+    standalone: false
 })
 export class DebtsHistoryPage implements OnInit {
 

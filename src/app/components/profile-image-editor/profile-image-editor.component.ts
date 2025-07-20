@@ -7,9 +7,10 @@ import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-profile-image-editor',
-  templateUrl: './profile-image-editor.component.html',
-  styleUrls: ['./profile-image-editor.component.scss'],
+    selector: 'app-profile-image-editor',
+    templateUrl: './profile-image-editor.component.html',
+    styleUrls: ['./profile-image-editor.component.scss'],
+    standalone: false
 })
 export class ProfileImageEditorComponent implements OnInit, OnDestroy {
 

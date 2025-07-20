@@ -5,9 +5,10 @@ import SwiperCore, { EffectCards } from 'swiper';
 SwiperCore.use([EffectCards]);
 
 @Component({
-  selector: 'app-landing',
-  templateUrl: './landing.page.html',
-  styleUrls: ['./landing.page.scss'],
+    selector: 'app-landing',
+    templateUrl: './landing.page.html',
+    styleUrls: ['./landing.page.scss'],
+    standalone: false
 })
 export class LandingPage implements OnInit {
 

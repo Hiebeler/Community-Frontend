@@ -8,9 +8,10 @@ import { User } from 'src/app/models/user';
 import { DebtService } from 'src/app/services/debt.service';
 import { UserService } from 'src/app/services/user.service';
 @Component({
-  selector: 'app-debts',
-  templateUrl: './debts.page.html',
-  styleUrls: ['./debts.page.scss'],
+    selector: 'app-debts',
+    templateUrl: './debts.page.html',
+    styleUrls: ['./debts.page.scss'],
+    standalone: false
 })
 export class DebtsPage implements OnInit, OnDestroy {
 
