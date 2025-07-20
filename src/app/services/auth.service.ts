@@ -44,8 +44,8 @@ export class AuthService implements OnDestroy {
 
     this.subscriptions.push(this.userService.getCurrentUser().subscribe(user => {
       if (this.storageService.getToken()) {
-        const tokenCommunityId = this.helper.decodeToken(this.storageService.getToken()).communityId;
-        if (user && user?.communityId !== tokenCommunityId) {
+        const tokenCommunityId = this.helper.decodeToken(this.storageService.getToken()).communities;
+        if (user && user?.communities === tokenCommunityId) {
           this.requestNewToken();
         }
       }
@@ -79,10 +79,11 @@ export class AuthService implements OnDestroy {
   }
 
   updateAuthenticationState(token) {
+    console.log(token);
     if (!token.version) {
       this.requestNewToken();
     } else {
-      if (token.communityId) {
+      if (token.communities) {
         this.authenticationState.next('community');
       } else {
         this.authenticationState.next('user');

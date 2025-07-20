@@ -5,6 +5,7 @@ import { Request } from 'src/app/models/request';
 import { ApiService } from './api.service';
 import { UserService } from './user.service';
 import { CommunityAdapter } from '../adapter/community-adapter';
+import { StorageService } from './storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +19,12 @@ export class CommunityService implements OnDestroy {
   constructor(
     private apiService: ApiService,
     private userService: UserService,
-    private communityAdapter: CommunityAdapter
+    private communityAdapter: CommunityAdapter,
+    private storageService: StorageService
   ) {
     this.subscriptions.push(this.userService.getCurrentUser().subscribe(user => {
       if (user && (user?.communityId !== this.community.value?.id)) {
-        this.fetchCurrentCommunityFromApi(user.communityId);
+        this.fetchCurrentCommunityFromApi(user.communities);
       }
     }));
   }
@@ -35,12 +37,26 @@ export class CommunityService implements OnDestroy {
     return this.community;
   }
 
-  fetchCurrentCommunityFromApi(id?: number): void {
-    this.subscriptions.push(this.apiService.getCommunityById(id ?? this.community?.value?.id ?? -1).pipe(
+  fetchCurrentCommunityFromApi(communities: Community[]): void {
+    /*this.subscriptions.push(this.apiService.getCommunityById(id ?? this.community?.value?.id ?? -1).pipe(
       map(res => this.communityAdapter.adapt(res.data))
     ).subscribe(community => {
       this.community.next(community);
-    }));
+    }));*/
+    console.log('get current community');
+    if (communities.length === 0) {
+      return;
+    }
+    let currentCommunityId = this.storageService.getCurrentCommunity();
+    if (!currentCommunityId) {
+      const firstCommunityId = communities[0].id;
+      this.storageService.setCurrentCommunity(firstCommunityId);
+      currentCommunityId = firstCommunityId;
+    }
+    console.log(currentCommunityId);
+    const currentCommunity = communities.find((community: Community) => community.id === currentCommunityId);
+    this.userService.fetchUsersInCommunityFromApi(currentCommunity.id);
+    this.community.next(currentCommunity);
   }
 
   getCommunity(code: string): Observable<Community> {
@@ -88,5 +104,9 @@ export class CommunityService implements OnDestroy {
 
   clearData(): void {
     this.community.next(null);
+  }
+
+  setCurrentCommunity(): void {
+
   }
 }

@@ -1,4 +1,5 @@
 import { SafeResourceUrl } from '@angular/platform-browser';
+import { Community } from './community';
 
 export class User {
 
@@ -11,6 +12,7 @@ export class User {
   public creationDate: Date;
   public communityId: number;
   public color: string;
+  public communities: Community[];
 
   constructor(
     id: number,
@@ -20,7 +22,8 @@ export class User {
     profileImage: SafeResourceUrl,
     creationDate: Date,
     communityId: number,
-    color: string
+    color: string,
+    communities: Community[]
   ) {
     this.id = id;
     this.email = email;
@@ -30,5 +33,6 @@ export class User {
     this.creationDate = creationDate;
     this.communityId = communityId;
     this.color = color;
+    this.communities = communities;
   }
 }

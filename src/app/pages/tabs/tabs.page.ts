@@ -26,7 +26,7 @@ export class TabsPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscriptions.push(this.userService.getCurrentUser().subscribe((user) => {
       if (user) {
-        if (user.communityId) {
+        if (user.communities.length > 0) {
           this.communityExists = true;
           this.subscriptions.push(this.taskService.getTasks(new Date(), new Date()).subscribe(res => {
             this.tasksForTodayExists = res.some(element => element.assignedUsers.some(usr => usr.id === user.id) && !element.done);
