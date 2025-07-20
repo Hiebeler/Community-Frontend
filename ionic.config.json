@@ -1,7 +1,6 @@
 {
   "name": "Community-Frontend",
   "integrations": {
-    "capacitor": {}
   },
   "type": "angular"
 }

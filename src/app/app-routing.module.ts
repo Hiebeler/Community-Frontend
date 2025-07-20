@@ -1,81 +1,90 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { TabsPage } from './pages/tabs/tabs.page';
+import { LandingPage } from './pages/landing/landing.page';
+import { LoginPage } from './pages/login/login.page';
+import { RegisterPage } from './pages/register/register.page';
+import { FindCommunityPage } from './pages/find-community/find-community.page';
+import { CreateCommunityPage } from './pages/create-community/create-community.page';
+import { TaskPage } from './modals/task/task.page';
+import { ProfilePage } from './pages/profile/profile.page';
+import { VerifyPage } from './pages/verify/verify.page';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./pages/landing/landing.module').then( m => m.LandingPageModule)
+    component: LandingPage,
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
+    component: LoginPage,
     canActivate: [AuthGuard],
     data: {
-      roles: ['none']
-    }
+      roles: ['none'],
+    },
   },
   {
     path: 'register',
-    loadChildren: () => import('./pages/register/register.module').then( m => m.RegisterPageModule),
+    component: RegisterPage,
     canActivate: [AuthGuard],
     data: {
-      roles: ['none']
-    }
+      roles: ['none'],
+    },
   },
   {
     path: 'tabs',
-    loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule),
+    component: TabsPage,
     canActivate: [AuthGuard],
     data: {
-      roles: ['community']
-    }
+      roles: ['community'],
+    },
   },
   {
     path: 'find-community',
-    loadChildren: () => import('./pages/find-community/find-community.module').then( m => m.FindCommunityPageModule),
+    component: FindCommunityPage,
     canActivate: [AuthGuard],
     data: {
-      roles: ['user']
-    }
+      roles: ['user'],
+    },
   },
   {
     path: 'create-community',
-    loadChildren: () => import('./pages/create-community/create-community.module').then( m => m.CreateCommunityPageModule),
+    component: CreateCommunityPage,
     canActivate: [AuthGuard],
     data: {
-      roles: ['user']
-    }
+      roles: ['user'],
+    },
   },
   {
     path: 'task',
-    loadChildren: () => import('./modals/task/task.module').then( m => m.TaskPageModule),
+    component: TaskPage,
     canActivate: [AuthGuard],
     data: {
-      roles: ['community']
-    }
+      roles: ['community'],
+    },
   },
   {
     path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule),
+    component: ProfilePage,
     canActivate: [AuthGuard],
     data: {
-      roles: ['user']
-    }
+      roles: ['user'],
+    },
   },
   {
     path: 'verify/:code',
-    loadChildren: () => import('./pages/verify/verify.module').then( m => m.VerifyPageModule),
+    component: VerifyPage,
     canActivate: [AuthGuard],
     data: {
-      roles: ['none']
-    }
-  }
+      roles: ['none'],
+    },
+  },
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}
