@@ -78,7 +78,6 @@
     </div>
     }
 
-    @if (!editingColor) {
     <div class="grid grid-cols-2 gap-4">
       @if (community) {
       <div class="card flex justify-center items-center clickable p-4" (click)="editColor(true)">
@@ -91,16 +90,17 @@
         <ion-icon name="log-out-outline" class="text-xl text-red-500"></ion-icon>
       </div>
     </div>
-    }
-
-    @if (editingColor) {
-    <app-color-editor (closeEditor)="editColor(false)" />
-    }
 
     <app-open-requests />
   </div>
   }
 </div>
 
-<app-confirmation-popup *ngIf="showLogoutPopup" title="Abmelden" content="Bist du dir sicher?" submitText="Abmelden" [isDanger]="true"
-  [hasAbortButton]="true" (abort)="showLogoutPopup = false" (submit)="logout()"></app-confirmation-popup>
+<app-popup [show]="editingColor" (close)="editingColor = false">
+<app-color-editor (closeEditor)="editColor(false)" />
+
+</app-popup>
+
+<app-confirmation-popup *ngIf="showLogoutPopup" title="Abmelden" content="Bist du dir sicher?" submitText="Abmelden"
+  [isDanger]="true" [hasAbortButton]="true" (abort)="showLogoutPopup = false"
+  (submit)="logout()"></app-confirmation-popup>

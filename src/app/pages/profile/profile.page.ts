@@ -14,6 +14,7 @@ import { ColorEditorComponent } from 'src/app/components/color-editor/color-edit
 import { OpenRequestsComponent } from 'src/app/components/open-requests/open-requests.component';
 import { LucideAngularModule, PaletteIcon } from 'lucide-angular';
 import { ConfirmationPopupComponent } from 'src/app/components/confirmation-popup/confirmation-popup.component';
+import { PopupComponent } from 'src/app/components/popup/popup.component';
 
 @Component({
     selector: 'app-profile',
@@ -27,7 +28,8 @@ import { ConfirmationPopupComponent } from 'src/app/components/confirmation-popu
       ProfileImageEditorComponent,
       OpenRequestsComponent,
       LucideAngularModule,
-      ConfirmationPopupComponent
+      ConfirmationPopupComponent,
+      PopupComponent
     ]
 })
 export class ProfilePage implements OnInit, OnDestroy {

@@ -1,0 +1,10 @@
+<div *ngIf="show" class="fixed inset-0 z-50 flex items-center justify-center bg-[#0006]">
+  <div class="card p-6 w-full max-w-4xl shadow-xl relative">
+    <!-- Close button -->
+    <button (click)="onBackdropClick()" class="absolute top-3 right-3 text-white hover:text-gray-300 text-lg">
+      ✕
+    </button>
+
+    <ng-content></ng-content>
+  </div>
+</div>
