@@ -1,8 +1,8 @@
 <div class="container mx-auto px-4 pt-4 pb-24">
   @if (user) {
-    <div class="absolute">
-      <lucide-icon name="user-pen"></lucide-icon>
-    </div>
+    <button type="button" class="absolute right-0 top-0 m-5 p-2" (click)="editChangeCommunityPopup(true)">
+      <lucide-icon [img]="userPen"></lucide-icon>
+    </button>
   <div class="grid gap-4">
     @if (!editingImage) {
     <div class="flex justify-center">
@@ -101,6 +101,14 @@
 
 <app-popup [show]="editingColor" (close)="editingColor = false" title="Farbe auswählen">
   <app-color-editor (closeEditor)="editColor(false)" />
+</app-popup>
+
+<app-popup [show]="changeCommunityPopup" (close)="changeCommunityPopup = false" title="Deine Communities">
+  @for (community of user.communities; track community) {
+    <div>
+      {{community.name}}
+    </div>
+  }
 </app-popup>
 
 <app-confirmation-popup *ngIf="showLogoutPopup" title="Abmelden" content="Bist du dir sicher?" submitText="Abmelden"

@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { ColorEditorComponent } from 'src/app/components/color-editor/color-editor.component';
 import { OpenRequestsComponent } from 'src/app/components/open-requests/open-requests.component';
-import { LucideAngularModule, PaletteIcon } from 'lucide-angular';
+import { LucideAngularModule, PaletteIcon, UserPenIcon } from 'lucide-angular';
 import { ConfirmationPopupComponent } from 'src/app/components/confirmation-popup/confirmation-popup.component';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 
@@ -34,16 +34,18 @@ import { PopupComponent } from 'src/app/components/popup/popup.component';
 })
 export class ProfilePage implements OnInit, OnDestroy {
   readonly paletteIcon = PaletteIcon;
-
+  readonly userPen = UserPenIcon;
   subscriptions: Subscription[] = [];
 
   user: User;
   community: Community;
   usersInCommunity: User[];
+  communitiesOfUser: Community[];
 
   editingImage = false;
   editingColor = false;
   editingName = false;
+  changeCommunityPopup = false;
 
   showLogoutPopup = false;
 
@@ -122,6 +124,10 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   editColor(state: boolean) {
     this.editingColor = state;
+  }
+
+  editChangeCommunityPopup(state: boolean) {
+    this.changeCommunityPopup = state;
   }
 
   gotoCreateCommunity() {
