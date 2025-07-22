@@ -11,7 +11,7 @@ import { ProfileImageEditorComponent } from 'src/app/components/profile-image-ed
 import { CommonModule } from '@angular/common';
 import { ColorEditorComponent } from 'src/app/components/color-editor/color-editor.component';
 import { OpenRequestsComponent } from 'src/app/components/open-requests/open-requests.component';
-import { LucideAngularModule, PaletteIcon, UserPenIcon } from 'lucide-angular';
+import { ArrowLeftRightIcon, LucideAngularModule, PaletteIcon, UserPenIcon } from 'lucide-angular';
 import { ConfirmationPopupComponent } from 'src/app/components/confirmation-popup/confirmation-popup.component';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 
@@ -33,6 +33,7 @@ import { PopupComponent } from 'src/app/components/popup/popup.component';
 export class ProfilePage implements OnInit, OnDestroy {
   readonly paletteIcon = PaletteIcon;
   readonly userPen = UserPenIcon;
+  readonly switchIcon = ArrowLeftRightIcon;
   subscriptions: Subscription[] = [];
 
   user: User;
@@ -134,6 +135,10 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   gotoFindCommunity() {
     this.router.navigate(['find-community']);
+  }
+
+  gotoOnboarding() {
+    this.router.navigate(['onboarding'])
   }
 
   selectCommunity(communityId: number) {
