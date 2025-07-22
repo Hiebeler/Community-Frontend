@@ -50,7 +50,7 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
-              "src/global.scss",
+              "src/styles.scss",
               "src/theme/variables.scss"
             ],
             "scripts": [],

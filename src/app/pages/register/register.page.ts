@@ -1,13 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.page.html',
     styleUrls: ['./register.page.scss'],
-    standalone: false
+    standalone: true,
+    imports: [
+      IonicModule,
+      CommonModule,
+      ReactiveFormsModule
+    ]
 })
 export class RegisterPage {
 

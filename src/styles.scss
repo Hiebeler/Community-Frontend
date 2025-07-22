@@ -1,0 +1,296 @@
+@use "tailwindcss";
+
+/* ------------------------------------------- */
+/* Base Layer: Global Resets, Fonts, Typo */
+/* ------------------------------------------- */
+@layer base {
+  ::selection {
+    @apply text-white bg-green-300;
+  }
+
+  @font-face {
+    font-family: "custom-regular";
+    src: url("/assets/fonts/Poppins-Regular.ttf") format("truetype");
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "custom-medium";
+    src: url("/assets/fonts/Poppins-Medium.ttf") format("truetype");
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "custom-semibold";
+    src: url("/assets/fonts/Poppins-SemiBold.ttf") format("truetype");
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "custom-bold";
+    src: url("/assets/fonts/Poppins-Bold.ttf") format("truetype");
+    font-display: swap;
+  }
+
+  * {
+    font-family: "custom-medium", sans-serif;
+    @apply text-gray-100;
+  }
+
+  p {
+    @apply mt-0;
+  }
+
+  h1 {
+    font-family: "custom-bold", sans-serif;
+    @apply text-[2.2rem];
+  }
+
+  h2 {
+    font-family: "custom-bold", sans-serif;
+  }
+
+  button:focus,
+  img:focus {
+    outline: none;
+  }
+
+  a {
+    @apply no-underline;
+  }
+
+  a:hover {
+    @apply cursor-pointer;
+  }
+
+  input,
+  select {
+    @apply w-full block rounded-lg p-4 box-border text-sm my-1.5 bg-gray-800 text-white;
+    border: none;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    @apply outline-green-500 outline outline-2;
+  }
+
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 50px #1f2937 inset; /* Tailwind gray-800 */
+    -webkit-text-fill-color: #f3f4f6; /* Tailwind gray-100 */
+  }
+
+  .empty-input:focus {
+    @apply outline-green-500;
+  }
+
+  .invalid-input:not(:focus) {
+    @apply text-red-500;
+  }
+
+  .invalid-input:focus {
+    @apply outline-red-500;
+  }
+
+  .valid-input:not(:focus) {
+    @apply text-green-500;
+  }
+
+  .valid-input:focus {
+    @apply outline-green-500 outline outline-2;
+  }
+}
+
+/* ------------------------------------------- */
+/* Components: Buttons, Cards, Fields, Alerts */
+/* ------------------------------------------- */
+@layer components {
+  /* Fonts */
+  .regular {
+    font-family: "custom-regular";
+  }
+
+  .medium {
+    font-family: "custom-medium";
+  }
+
+  .semibold {
+    font-family: "custom-semibold";
+  }
+
+  .bold {
+    font-family: "custom-bold";
+  }
+
+  /* Buttons */
+  .btn-small {
+    @apply text-gray-900 py-3 px-3 rounded-lg text-sm leading-normal bg-green-500 hover:bg-green-600 transition;
+  }
+
+  .btn-large {
+    @apply text-gray-900 py-4 px-5 rounded-lg text-base leading-normal bg-green-500 hover:bg-green-600 transition;
+  }
+
+  .btn-primary {
+    @apply text-gray-900 bg-green-500 hover:bg-green-600 transition;
+  }
+
+  .btn-danger {
+    @apply bg-red-500 hover:bg-red-600 text-white transition;
+  }
+
+  .btn-medium {
+    @apply text-gray-100 bg-gray-600 hover:bg-gray-700 transition;
+  }
+
+  .btn-dark {
+    @apply text-gray-100 bg-gray-800 hover:bg-gray-900 transition;
+  }
+
+  .btn-outline-primary {
+    @apply text-green-500 bg-transparent border-2 border-green-500 hover:text-green-600 hover:border-green-600 transition;
+  }
+
+  .btn-outline-danger {
+    @apply text-red-500 bg-transparent border-2 border-red-500 hover:text-red-600 hover:border-red-600 transition;
+  }
+
+  .btn-circle {
+    @apply text-white p-2.5 rounded-full inline-flex items-center justify-center transition-all duration-300 bg-green-500 hover:bg-green-600;
+  }
+
+  .btn-link {
+    @apply text-green-400 hover:text-green-300 bg-transparent;
+  }
+
+  .btn-center {
+    @apply flex items-center justify-center;
+  }
+
+  /* Card */
+  .card {
+    @apply bg-gray-700 rounded-lg p-4;
+  }
+
+  /* Field Box */
+  .field-box {
+    @apply my-4;
+
+    span {
+      @apply text-red-500;
+    }
+  }
+
+  /* Containers */
+  .container {
+    @apply px-1 max-w-full mx-auto;
+  }
+
+  .container-wide {
+    @apply px-1 max-w-full mx-auto;
+  }
+
+  @screen md {
+    .container {
+      width: 750px;
+    }
+
+    .container-wide {
+      width: 750px;
+    }
+  }
+
+  @screen lg {
+    .container {
+      width: 900px;
+    }
+
+    .container-wide {
+      width: 950px;
+    }
+  }
+
+  @screen xl {
+    .container {
+      width: 900px;
+    }
+
+    .container-wide {
+      width: 1200px;
+    }
+  }
+
+  /* Alerts */
+  ion-alert {
+    .alert-wrapper {
+      @apply text-white bg-gray-700 rounded-xl p-4 flex justify-center items-center;
+    }
+
+    .alert-title,
+    .alert-message {
+      @apply text-white text-center;
+    }
+
+    .alert-button-group {
+      @apply justify-center;
+    }
+
+    .alert-button {
+      @apply bg-green-500 text-gray-900 rounded-lg normal-case px-6 hover:bg-green-600 transition;
+    }
+
+    &.custom-alert-two {
+      .alert-button:first-of-type {
+        @apply bg-gray-600 text-white;
+      }
+
+      .alert-button:nth-of-type(2) {
+        @apply bg-green-500 text-gray-900;
+
+        span {
+          color: #111827 !important; /* Tailwind gray-900 */
+        }
+      }
+    }
+  }
+
+  /* Modals */
+  ion-modal {
+    --ion-background-color: #111827; /* Tailwind gray-900 */
+  }
+
+  @screen md {
+    ion-modal {
+      --border-radius: 15px !important;
+    }
+  }
+}
+
+/* ------------------------------------------- */
+/* Utilities: Helpers and Layout Tweaks */
+/* ------------------------------------------- */
+@layer utilities {
+  .d-flex {
+    @apply flex;
+  }
+
+  .clickable:hover {
+    @apply cursor-pointer;
+  }
+
+  .topbar {
+    @apply mb-5;
+  }
+
+  .topbar-header-col {
+    @apply flex flex-col justify-center;
+
+    p {
+      @apply m-0 p-2 text-center;
+    }
+  }
+
+  .swiper-slide .swiper-slide-shadow {
+    background: transparent;
+  }
+}
