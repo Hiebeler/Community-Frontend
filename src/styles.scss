@@ -1,11 +1,29 @@
 @use "tailwindcss";
 
-/* ------------------------------------------- */
-/* Base Layer: Global Resets, Fonts, Typo */
-/* ------------------------------------------- */
+@theme {
+  --color-main: #fff;
+  --color-main-light: #f1f1f1;
+  --color-main-text: #000;
+  --color-primary: #00c950;
+  --color-background: #101828;
+  --color-surface: #1e2939;
+
+  --color-sidebar: #ebebeb;
+  --color-secondary-text: #364153;
+  --color-accent-main: #0681ac;
+  --color-accent-main-light: #f18647;
+  --color-accent-secondary: #0681ac;
+  --color-accent-secondary-dark: #04779f;
+  --color-danger: #f44336;
+  --color-warning: #ff6900;
+  --color-success: #4caf50;
+  --radius-main: .75rem;
+}
+
+
 @layer base {
   ::selection {
-    @apply text-white bg-green-300;
+    @apply text-background bg-primary;
   }
 
   @font-face {
@@ -48,6 +66,10 @@
 
   h2 {
     font-family: "custom-bold", sans-serif;
+  }
+
+  button:enabled:hover {
+    cursor: pointer;
   }
 
   button:focus,
@@ -169,7 +191,7 @@
 
   /* Card */
   .card {
-    @apply bg-gray-700 rounded-lg p-4;
+    @apply bg-surface rounded-lg p-4;
   }
 
   /* Field Box */

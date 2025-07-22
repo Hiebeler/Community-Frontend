@@ -1,37 +1,45 @@
 <div class="flex flex-col h-screen">
   <!-- Main Content -->
-  <div class="flex-1 overflow-auto pb-16">
+  <div class="flex-1 overflow-auto pb-24 bg-background">
     <router-outlet></router-outlet>
   </div>
 
   <!-- Bottom Navigation Bar -->
-  <nav class="fixed bottom-0 inset-x-0 bg-gray-800 border-t border-gray-700 flex justify-around items-center py-3">
-    <a routerLink="/tasks" routerLinkActive="text-green-400" class="flex flex-col items-center relative text-white">
-      <lucide-icon [img]="tasksIcon"></lucide-icon>
-      <span class="text-xs mt-1">Aufgaben</span>
-      @if (tasksForTodayExists) {
-      <span class="absolute top-0 right-0 bg-red-500 text-xs rounded-full px-1">!</span>
-      }
-    </a>
+  <div class="fixed bottom-3 inset-x-3 flex justify-center pointer-events-none">
+    <nav
+      class="pointer-events-auto backdrop-blur-lg bg-surface/50 border border-gray-700 rounded-xl shadow-lg flex justify-around items-center py-3 px-5 w-full max-w-xl mx-auto">
 
-    <a routerLink="/shopping-list" routerLinkActive="text-green-400"
-      class="flex flex-col items-center relative text-white">
-      <lucide-icon [img]="cartIcon"></lucide-icon>
-      <span class="text-xs mt-1">Einkaufsliste</span>
-      @if (numberOfOpenShoppingItems !== 0) {
-      <span class="absolute top-0 right-0 bg-red-500 text-xs rounded-full px-1">
-        {{numberOfOpenShoppingItems}}
-      </span>
-      }
-    </a>
+      <a routerLink="/tasks" routerLinkActive="text-green-400"
+        class="flex flex-col items-center relative text-white">
+        <lucide-icon [img]="tasksIcon"></lucide-icon>
+        <span class="text-xs mt-1">Aufgaben</span>
+        @if (tasksForTodayExists) {
+          <span class="absolute top-0 right-0 bg-red-500 text-xs rounded-full px-1">!</span>
+        }
+      </a>
 
-    <a routerLink="/debts" routerLinkActive="text-green-400" class="flex flex-col items-center text-white">
-      <lucide-icon [img]="debtsIcon"></lucide-icon>
-      <span class="text-xs mt-1">Schulden</span>
-    </a>
+      <a routerLink="/shopping-list" routerLinkActive="text-green-400"
+        class="flex flex-col items-center relative text-white">
+        <lucide-icon [img]="cartIcon"></lucide-icon>
+        <span class="text-xs mt-1">Einkaufsliste</span>
+        @if (numberOfOpenShoppingItems !== 0) {
+          <span class="absolute top-0 right-0 bg-red-500 text-xs rounded-full px-1">
+            {{numberOfOpenShoppingItems}}
+          </span>
+        }
+      </a>
 
-    <a routerLink="/profile" routerLinkActive="text-green-400" class="flex flex-col items-center text-white">
-      <lucide-icon [img]="profileIcon"></lucide-icon> <span class="text-xs mt-1">Profil</span>
-    </a>
-  </nav>
+      <a routerLink="/debts" routerLinkActive="text-green-400"
+        class="flex flex-col items-center text-white">
+        <lucide-icon [img]="debtsIcon"></lucide-icon>
+        <span class="text-xs mt-1">Schulden</span>
+      </a>
+
+      <a routerLink="/profile" routerLinkActive="text-green-400"
+        class="flex flex-col items-center text-white">
+        <lucide-icon [img]="profileIcon"></lucide-icon>
+        <span class="text-xs mt-1">Profil</span>
+      </a>
+    </nav>
+  </div>
 </div>

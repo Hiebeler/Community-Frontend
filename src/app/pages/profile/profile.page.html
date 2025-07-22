@@ -86,7 +86,7 @@
         <lucide-icon [ngStyle]="{'color': user.color}" [img]="paletteIcon"></lucide-icon>
       </div>
       }
-      <div class="card flex justify-center items-center clickable p-4" (click)="logout()">
+      <div class="card flex justify-center items-center clickable p-4" (click)="openLogoutPopup()">
         <p class="mr-2">Abmelden</p>
         <ion-icon name="log-out-outline" class="text-xl text-red-500"></ion-icon>
       </div>
@@ -101,3 +101,6 @@
   </div>
   }
 </div>
+
+<app-popup *ngIf="showLogoutPopup" title="Abmelden" content="Bist du dir sicher?" submitText="Abmelden" [isDanger]="true"
+  [hasAbortButton]="true" (abort)="showLogoutPopup = false" (submit)="logout()"></app-popup>
