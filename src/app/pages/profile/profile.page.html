@@ -104,10 +104,13 @@
 </app-popup>
 
 <app-popup [show]="changeCommunityPopup" (close)="changeCommunityPopup = false" title="Deine Communities">
-  @for (community of user.communities; track community) {
-    <div>
-      {{community.name}}
-    </div>
+  @if (user) {
+    
+    @for (community of user.communities; track community) {
+      <div (click)="selectCommunity(community.id)">
+        {{community.name}}
+      </div>
+    }
   }
   <a href="/onboarding">Join / Create community</a>
 </app-popup>

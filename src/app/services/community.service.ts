@@ -106,7 +106,7 @@ export class CommunityService implements OnDestroy {
     this.community.next(null);
   }
 
-  setCurrentCommunity(): void {
-
+  setCurrentCommunity(communityId: number): void {
+    this.storageService.setCurrentCommunity(communityId);
   }
 }

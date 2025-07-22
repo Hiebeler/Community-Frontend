@@ -29,9 +29,7 @@ import { PopupComponent } from 'src/app/components/popup/popup.component';
       OpenRequestsComponent,
       LucideAngularModule,
       ConfirmationPopupComponent,
-      PopupComponent,
-      RouterOutlet,
-      RouterLink
+      PopupComponent
     ]
 })
 export class ProfilePage implements OnInit, OnDestroy {
@@ -138,6 +136,10 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   gotoFindCommunity() {
     this.router.navigate(['find-community']);
+  }
+
+  selectCommunity(communityId: number) {
+    this.communityService.setCurrentCommunity(communityId);
   }
 
 }
