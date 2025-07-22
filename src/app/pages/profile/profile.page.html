@@ -68,7 +68,7 @@
       <p class="text-center mb-4">Mitglieder</p>
       <div class="flex flex-wrap gap-2 justify-center">
         @for (user of usersInCommunity; track user) {
-        <div class="user-wrapper w-20 md:w-24 lg:w-28 text-center">
+        <div class="card w-20 md:w-28 lg:w-32 text-center">
           <img [src]="user.profileimage" alt="" class="rounded-full w-full aspect-square object-cover mb-2" />
           <p class="text-xs">{{user.firstname}}</p>
           <p class="text-[0.7rem]">{{user.lastname}}</p>

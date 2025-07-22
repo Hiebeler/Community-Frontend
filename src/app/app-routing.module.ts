@@ -73,6 +73,10 @@ const routes: Routes = [
         component: DebtsHistoryPage,
       },
     ],
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['community'],
+    }
   },
   {
     path: 'find-community',
