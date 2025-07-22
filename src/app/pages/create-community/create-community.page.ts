@@ -11,7 +11,6 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
     selector: 'app-create-community',
     templateUrl: './create-community.page.html',
-    styleUrls: ['./create-community.page.scss'],
     standalone: true,
     imports: [
       CommonModule,

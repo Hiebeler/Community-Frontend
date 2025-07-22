@@ -90,7 +90,7 @@
 
     <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()">
       <input type="text" formControlName="createname" placeholder="Name" autocomplete="off"
-        class="w-full bg-gray-800 border border-gray-600 rounded px-4 py-2 text-white" />
+        class="w-full" />
     </form>
 
     <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveItem()" class="btn-large btn-primary w-full">
