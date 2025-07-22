@@ -9,17 +9,17 @@
     <!-- Top Bar -->
     <div class="flex items-center justify-between">
       <button type="button" class="btn-small btn-primary" (click)="gotoRoutines()">
-        <ion-icon name="infinite-outline" class="text-xl"></ion-icon>
+        <lucide-icon [img]="InfinityIcon"></lucide-icon>
       </button>
 
       <p class="text-lg font-semibold">Aufgaben</p>
 
       <div class="flex items-center space-x-2">
         <button type="button" class="btn-small btn-medium" (click)="changeSelectedDays('previous')">
-          <ion-icon name="chevron-back-outline" class="text-xl"></ion-icon>
+          <lucide-icon [img]="ChevronLeftIcon"></lucide-icon>
         </button>
         <button type="button" class="btn-small btn-medium" (click)="changeSelectedDays('next')">
-          <ion-icon name="chevron-forward-outline" class="text-xl"></ion-icon>
+          <lucide-icon [img]="ChevronRightIcon"></lucide-icon>
         </button>
       </div>
     </div>
