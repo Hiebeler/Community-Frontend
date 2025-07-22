@@ -9,7 +9,6 @@ import { ShoppingService } from 'src/app/services/shopping.service';
 @Component({
     selector: 'app-shopping-list',
     templateUrl: './shopping-list.page.html',
-    styleUrls: ['./shopping-list.page.scss'],
     imports: [
       CommonModule,
       IonicModule,

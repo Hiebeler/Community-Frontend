@@ -13,7 +13,6 @@ import { TaskService } from 'src/app/services/task.service';
 @Component({
     selector: 'app-tasks',
     templateUrl: './tasks.page.html',
-    styleUrls: ['./tasks.page.scss'],
     standalone: true,
     imports: [
       CommonModule,

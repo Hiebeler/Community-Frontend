@@ -10,7 +10,6 @@ import { DebtService } from 'src/app/services/debt.service';
 @Component({
     selector: 'app-debts-history',
     templateUrl: './debts-history.page.html',
-    styleUrls: ['./debts-history.page.scss'],
     standalone: true,
     imports: [
       IonicModule,

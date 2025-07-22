@@ -1,102 +1,94 @@
-<ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="getRoutines($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-
-  <div class="container">
-    <ion-grid fixed="true">
-      <ion-row class="topbar">
-        @if (!newRoutineEditorIsOpen) {
-          <ion-col size="auto" class="topbar-buttons-col">
-            <button type="button" class="btn-small btn-medium" (click)="gotoTasks()">
-              <ion-icon style="display: flex; font-size: 1.2rem;" name="return-up-back-outline"></ion-icon>
-            </button>
-          </ion-col>
-        }
-        <ion-col class="topbar-header-col">
-          @if (!newRoutineEditorIsOpen) {
-            <p>Routinen</p>
-          }
-          @if (newRoutineEditorIsOpen) {
-            <p>Neue Routine</p>
-          }
-        </ion-col>
-        @if (!newRoutineEditorIsOpen) {
-          <ion-col size="auto" class="topbar-buttons-col">
-            <button type="button" class="btn-small btn-primary" (click)="openNewRoutineEditor(true)">
-              <ion-icon color="dark" style="display: flex; font-size: 1.2rem;" name="add-outline"></ion-icon>
-            </button>
-          </ion-col>
-        }
-      </ion-row>
-
-      @if (newRoutineEditorIsOpen) {
-        <ion-row>
-          <ion-col>
-            <app-routine-editor (closeEditor)="openNewRoutineEditor(false)"></app-routine-editor>
-          </ion-col>
-        </ion-row>
-      }
-
-      @if (!enabledRoutines.length && !disabledRoutines.length && completedFirstLoad) {
-        <ion-row>
-          <ion-col class="no-items-col">
-            <img src="./../../../../assets/images/no-routines.svg" alt="">
-            <h2 style="margin-top: 0">Noch keine Routinen</h2>
-            <p>Klicke + um eine neue Routine anzulegen</p>
-          </ion-col>
-        </ion-row>
-      }
-
-      @if (enabledRoutines.length) {
-        <ion-row>
-          <ion-col>
-            <h2>Aktive Routinen</h2>
-          </ion-col>
-        </ion-row>
-      }
-
-      @for (routine of enabledRoutines; track routine) {
-        <div>
-          <ion-row>
-            <ion-col>
-              <app-routine-card (click)="openUpdateEditor(routine.id)" [routine]="routine"></app-routine-card>
-            </ion-col>
-          </ion-row>
-          @if (updateRoutineEditorOpenId === routine.id) {
-            <ion-row>
-              <ion-col>
-                <app-routine-editor [routine]="routine" (closeEditor)="openUpdateEditor(-1)"></app-routine-editor>
-              </ion-col>
-            </ion-row>
-          }
-        </div>
-      }
-
-      @if (disabledRoutines.length) {
-        <ion-row>
-          <ion-col>
-            <h2>Deaktivierte Routinen</h2>
-          </ion-col>
-        </ion-row>
-      }
-
-      @for (routine of disabledRoutines; track routine) {
-        <div>
-          <ion-row>
-            <ion-col>
-              <app-routine-card (click)="openUpdateEditor(routine.id)" [routine]="routine"></app-routine-card>
-            </ion-col>
-          </ion-row>
-          @if (updateRoutineEditorOpenId === routine.id) {
-            <ion-row>
-              <ion-col>
-                <app-routine-editor [routine]="routine" (closeEditor)="openUpdateEditor(-1)"></app-routine-editor>
-              </ion-col>
-            </ion-row>
-          }
-        </div>
-      }
-    </ion-grid>
+<div class="min-h-screen flex flex-col">
+  <!-- Refresher placeholder: Replace ion-refresher with your own implementation or a button -->
+  <div class="fixed top-0 left-0 right-0 z-50">
+    <!-- Implement your pull-to-refresh or refresh button here -->
   </div>
-</ion-content>
+
+  <main class="flex-1 overflow-auto container mx-auto px-4 py-6">
+    <!-- Top Bar -->
+    <div class="flex items-center mb-6">
+      <!-- Back button -->
+      @if (!newRoutineEditorIsOpen) {
+      <button type="button" class="btn-small btn-medium flex items-center justify-center mr-4" (click)="gotoTasks()"
+        aria-label="Zurück zu Aufgaben">
+        <ion-icon name="return-up-back-outline" class="text-xl"></ion-icon>
+      </button>
+      }
+
+      <!-- Header text -->
+      <div class="flex-1 text-center font-semibold text-lg">
+        @if (!newRoutineEditorIsOpen) {
+        <p>Routinen</p>
+        }
+        @if (newRoutineEditorIsOpen) {
+        <p>Neue Routine</p>
+        }
+      </div>
+
+      <!-- Add button -->
+      @if (!newRoutineEditorIsOpen) {
+      <button type="button" class="btn-small btn-primary flex items-center justify-center ml-4"
+        (click)="openNewRoutineEditor(true)" aria-label="Neue Routine hinzufügen">
+        <ion-icon name="add-outline" color="dark" class="text-xl"></ion-icon>
+      </button>
+      }
+    </div>
+
+    <!-- New Routine Editor -->
+    @if (newRoutineEditorIsOpen) {
+    <div class="mb-6">
+      <app-routine-editor (closeEditor)="openNewRoutineEditor(false)"></app-routine-editor>
+    </div>
+    }
+
+    <!-- No Routines Message -->
+    @if (!enabledRoutines.length && !disabledRoutines.length && completedFirstLoad) {
+    <div class="flex flex-col items-center text-center p-6">
+      <img src="./../../../../assets/images/no-routines.svg" alt="Keine Routinen"
+        class="rounded-md w-4/5 max-w-xs mb-4" />
+      <h2 class="text-2xl font-semibold mb-2">Noch keine Routinen</h2>
+      <p>Klicke + um eine neue Routine anzulegen</p>
+    </div>
+    }
+
+    <!-- Active Routines Header -->
+    @if (enabledRoutines.length) {
+    <h2 class="text-xl font-semibold mb-4">Aktive Routinen</h2>
+    }
+
+    <!-- Active Routines List -->
+    @for (routine of enabledRoutines; track routine) {
+    <div class="mb-6">
+      <div (click)="openUpdateEditor(routine.id)">
+        <app-routine-card [routine]="routine"></app-routine-card>
+      </div>
+
+      @if (updateRoutineEditorOpenId === routine.id) {
+      <div class="mt-4">
+        <app-routine-editor [routine]="routine" (closeEditor)="openUpdateEditor(-1)"></app-routine-editor>
+      </div>
+      }
+    </div>
+    }
+
+    <!-- Disabled Routines Header -->
+    @if (disabledRoutines.length) {
+    <h2 class="text-xl font-semibold mb-4">Deaktivierte Routinen</h2>
+    }
+
+    <!-- Disabled Routines List -->
+    @for (routine of disabledRoutines; track routine) {
+    <div class="mb-6">
+      <div (click)="openUpdateEditor(routine.id)">
+        <app-routine-card [routine]="routine"></app-routine-card>
+      </div>
+
+      @if (updateRoutineEditorOpenId === routine.id) {
+      <div class="mt-4">
+        <app-routine-editor [routine]="routine" (closeEditor)="openUpdateEditor(-1)"></app-routine-editor>
+      </div>
+      }
+    </div>
+    }
+  </main>
+</div>

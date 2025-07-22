@@ -1,60 +1,73 @@
-<ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="getTasks($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+<div class="min-h-screen flex flex-col bg-gray-900 text-white">
+  <!-- Refresher -->
+  <div class="fixed top-0 left-0 right-0 z-50">
+    <!-- Add your own pull-to-refresh logic or button here -->
+  </div>
 
-  <div class="container">
-    <ion-grid fixed="true">
-      <ion-row class="topbar">
-        <ion-col size="auto">
-          <button type="button" class="btn-small btn-primary" (click)="gotoRoutines()">
-            <ion-icon style="display: flex; font-size: 1.2rem;" color="dark" name="infinite-outline"></ion-icon>
-          </button>
-        </ion-col>
-        <ion-col class="topbar-header-col">
-          <p>Aufgaben
+  <main class="flex-1 overflow-auto container mx-auto px-4 py-6 space-y-6">
+
+    <!-- Top Bar -->
+    <div class="flex items-center justify-between">
+      <button type="button" class="btn-small btn-primary" (click)="gotoRoutines()">
+        <ion-icon name="infinite-outline" class="text-xl"></ion-icon>
+      </button>
+
+      <p class="text-lg font-semibold">Aufgaben</p>
+
+      <div class="flex items-center space-x-2">
+        <button type="button" class="btn-small btn-medium" (click)="changeSelectedDays('previous')">
+          <ion-icon name="chevron-back-outline" class="text-xl"></ion-icon>
+        </button>
+        <button type="button" class="btn-small btn-medium" (click)="changeSelectedDays('next')">
+          <ion-icon name="chevron-forward-outline" class="text-xl"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Days Grid -->
+    <div class="grid grid-cols-3 gap-4">
+      @for (day of days; track day) {
+        <div [ngClass]="day.date.toDateString() === dayToday.toDateString() ? 'bg-gray-800 rounded-xl p-3' : 'p-3'">
+          <!-- Weekday -->
+          @if (!isTodayDate(day.date, -1) && !isTodayDate(day.date, 0) && !isTodayDate(day.date, 1)) {
+            <p class="text-center text-sm font-medium">
+              {{day.date.toLocaleDateString('de-AT', { weekday: 'short' })}}
+            </p>
+          }
+          @if (isTodayDate(day.date, -1)) {
+            <p class="text-center text-sm font-medium">Gestern</p>
+          }
+          @if (isTodayDate(day.date, 0)) {
+            <p class="text-center text-sm font-medium">Heute</p>
+          }
+          @if (isTodayDate(day.date, 1)) {
+            <p class="text-center text-sm font-medium">Morgen</p>
+          }
+
+          <!-- Date -->
+          <p class="text-center text-xs text-gray-400">
+            {{day.date.toLocaleDateString('de-AT', { year: 'numeric', month: 'short', day: 'numeric' })}}
           </p>
-        </ion-col>
-        <ion-col size="auto" class="topbar-buttons-col">
-          <button type="button" class="btn-small btn-medium" (click)="changeSelectedDays('previous')">
-            <ion-icon style="display: flex; font-size: 1.2rem;" name="chevron-back-outline"></ion-icon>
-          </button>
-          <button type="button" class="btn-small btn-medium" (click)="changeSelectedDays('next')">
-            <ion-icon style="display: flex; font-size: 1.2rem;" name="chevron-forward-outline"></ion-icon>
-          </button>
-        </ion-col>
-      </ion-row>
 
-      <ion-row class="ion-nowrap">
-        @for (day of days; track day) {
-          <ion-col class="day-col" [size]="84 / numberOfColumns"
-            [ngClass]="day.date.toDateString() === dayToday.toDateString() ? 'today-col' : ''">
-            @if (!isTodayDate(day.date, -1) && !isTodayDate(day.date, 0) && !isTodayDate(day.date, 1)) {
-              <p class="ion-text-center p-weekday"
-                >
-              {{day.date.toLocaleDateString('de-AT', { weekday: 'short' })}}</p>
-            }
-            @if (isTodayDate(day.date, -1)) {
-              <p class="ion-text-center p-weekday">Gestern</p>
-            }
-            @if (isTodayDate(day.date, 0)) {
-              <p class="ion-text-center p-weekday">Heute</p>
-            }
-            @if (isTodayDate(day.date, 1)) {
-              <p class="ion-text-center p-weekday">Morgen</p>
-            }
-            <p class="ion-text-center p-date">{{day.date.toLocaleDateString('de-AT', { year: 'numeric', month: 'short', day:
-            'numeric' })}}</p>
+          <!-- Open Tasks -->
+          <div class="mt-2 space-y-2">
             @for (task of day.openTasks; track task) {
               <div>
                 <app-task-card [task]="task" (openModal)="openModal(task)"></app-task-card>
               </div>
             }
-            <div class="task-div add-task-div" (click)="openModal(day.date)">
+
+            <!-- Add Task Button -->
+            <div
+              class="bg-gray-700 hover:bg-gray-600 rounded-md text-center text-lg cursor-pointer py-1"
+              (click)="openModal(day.date)"
+            >
               +
             </div>
+
+            <!-- Done Tasks -->
             @if (day.doneTasks[0]) {
-              <div class="done-div">
+              <div class="mt-4 mb-2 pt-2 border-t border-gray-600 text-xs text-gray-400">
                 Erledigt:
               </div>
             }
@@ -63,10 +76,10 @@
                 <app-task-card [task]="task" (openModal)="openModal(task)"></app-task-card>
               </div>
             }
-          </ion-col>
-        }
-      </ion-row>
-    </ion-grid>
-  </div>
+          </div>
+        </div>
+      }
+    </div>
 
-</ion-content>
+  </main>
+</div>

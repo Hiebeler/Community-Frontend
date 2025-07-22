@@ -9,7 +9,6 @@ SwiperCore.use([EffectCards]);
 @Component({
     selector: 'app-landing',
     templateUrl: './landing.page.html',
-    styleUrls: ['./landing.page.scss'],
     standalone: true,
     imports: [
       CommonModule,

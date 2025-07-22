@@ -17,7 +17,6 @@ import { OpenRequestsComponent } from 'src/app/components/open-requests/open-req
 @Component({
     selector: 'app-profile',
     templateUrl: './profile.page.html',
-    styleUrls: ['./profile.page.scss'],
     standalone: true,
     imports: [
       CommonModule,

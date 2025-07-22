@@ -1,11 +1,11 @@
-<div class="flex flex-col h-full">
+<div class="flex flex-col h-screen">
   <!-- Main Content -->
-  <div class="flex-1 overflow-auto">
+  <div class="flex-1 overflow-auto pb-16">
     <router-outlet></router-outlet>
   </div>
 
   <!-- Bottom Navigation Bar -->
-  <nav class="bg-gray-800 border-t border-gray-700 flex justify-around items-center py-3">
+  <nav class="fixed bottom-0 inset-x-0 bg-gray-800 border-t border-gray-700 flex justify-around items-center py-3">
     <a routerLink="/tasks" routerLinkActive="text-green-400" class="flex flex-col items-center relative text-white">
       <ion-icon name="calendar-outline" class="text-2xl"></ion-icon>
       <span class="text-xs mt-1">Aufgaben</span>

@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { filter, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Balance } from 'src/app/models/balance';
 import { Debt } from 'src/app/models/debt';
 import { User } from 'src/app/models/user';
@@ -12,7 +12,6 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
     selector: 'app-debts',
     templateUrl: './debts.page.html',
-    styleUrls: ['./debts.page.scss'],
     standalone: true,
     imports: [
       CommonModule,
