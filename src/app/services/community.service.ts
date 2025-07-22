@@ -5,6 +5,8 @@ import { ApiService } from './api.service';
 import { UserService } from './user.service';
 import { CommunityAdapter } from '../adapter/community-adapter';
 import { StorageService } from './storage.service';
+import { User } from '../models/user';
+import { UserAdapter } from '../adapter/user-adapter';
 
 @Injectable({
   providedIn: 'root'
@@ -14,18 +16,28 @@ export class CommunityService implements OnDestroy {
   subscriptions: Subscription[] = [];
 
   private community = new BehaviorSubject<Community>(null);
+  private usersInCommunity = new BehaviorSubject<User[]>([]);
 
   constructor(
     private apiService: ApiService,
-    private userService: UserService,
     private communityAdapter: CommunityAdapter,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private userAdapter: UserAdapter,
+    private userService: UserService
   ) {
     this.subscriptions.push(this.userService.getCurrentUser().subscribe(user => {
       if (user && (user?.communityId !== this.community.value?.id)) {
         this.fetchCurrentCommunityFromApi(user.communities);
       }
     }));
+
+    this.subscriptions.push(
+      this.getCurrentCommunity().subscribe((community) => {
+        if (community) {
+          this.fetchUsersInCommunityFromApi(community.id)
+        }
+      })
+    );
   }
 
   ngOnDestroy(): void {
@@ -53,7 +65,7 @@ export class CommunityService implements OnDestroy {
       currentCommunityId = firstCommunityId;
     }
     const currentCommunity = communities.find((community: Community) => community.id === currentCommunityId);
-    this.userService.fetchUsersInCommunityFromApi(currentCommunity.id);
+    this.fetchUsersInCommunityFromApi(currentCommunity.id);
     this.community.next(currentCommunity);
   }
 
@@ -86,6 +98,21 @@ export class CommunityService implements OnDestroy {
         }
       }));
   }
+
+  getUsersInCurrentCommunity(): Observable<User[]> {
+    return this.usersInCommunity;
+  }
+
+  fetchUsersInCommunityFromApi(id: number): void {
+    if (id) {
+      this.subscriptions.push(this.apiService.getUsersInCommunity(id).pipe(
+        map((data: any) => data.data.map((item) => this.userAdapter.adapt(item)))
+      ).subscribe(users => {
+        this.usersInCommunity.next(users);
+      }));
+    }
+  }
+
 
   getRequests(): Observable<any> {
     return this.apiService.getRequests();

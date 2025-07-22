@@ -80,7 +80,7 @@ export class ProfilePage implements OnInit, OnDestroy {
       this.community = community;
     }));
 
-    this.subscriptions.push(this.userService.getUsersInCurrentCommunity().subscribe(users => {
+    this.subscriptions.push(this.communityService.getUsersInCurrentCommunity().subscribe(users => {
       this.usersInCommunity = users;
     }));
   }

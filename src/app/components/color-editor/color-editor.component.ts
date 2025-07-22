@@ -3,6 +3,7 @@ import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/cor
 import { IonicModule } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
+import { CommunityService } from 'src/app/services/community.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -43,7 +44,8 @@ export class ColorEditorComponent implements OnInit, OnDestroy {
   colorUsernames: string[] = [];
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private communityService: CommunityService
   ) { }
 
   ngOnInit() {
@@ -54,7 +56,7 @@ export class ColorEditorComponent implements OnInit, OnDestroy {
       this.user = user;
     }));
 
-    this.subscriptions.push(this.userService.getUsersInCurrentCommunity().subscribe(users => {
+    this.subscriptions.push(this.communityService.getUsersInCurrentCommunity().subscribe(users => {
       this.usersInCommunity = users;
       this.fillColorArray();
     }));

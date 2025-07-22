@@ -8,6 +8,7 @@ import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { Balance } from 'src/app/models/balance';
 import { Debt } from 'src/app/models/debt';
 import { User } from 'src/app/models/user';
+import { CommunityService } from 'src/app/services/community.service';
 import { DebtService } from 'src/app/services/debt.service';
 import { UserService } from 'src/app/services/user.service';
 @Component({
@@ -51,6 +52,7 @@ export class DebtsPage implements OnInit, OnDestroy {
   constructor(
     private debtService: DebtService,
     private userService: UserService,
+    private communityService: CommunityService,
     private router: Router
   ) {
     this.itemEditorForm = new FormGroup({
@@ -99,7 +101,7 @@ export class DebtsPage implements OnInit, OnDestroy {
       }
     }));
 
-    this.subscriptions.push(this.userService.getUsersInCurrentCommunity().subscribe(users => {
+    this.subscriptions.push(this.communityService.getUsersInCurrentCommunity().subscribe(users => {
       this.usersInCommunity = users;
       this.filterCurrentUser();
     }));

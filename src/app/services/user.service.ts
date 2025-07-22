@@ -12,7 +12,6 @@ export class UserService implements OnDestroy {
 
   subscriptions: Subscription[] = [];
   private user = new BehaviorSubject<User>(null);
-  private usersInCommunity = new BehaviorSubject<User[]>([]);
 
   constructor(
     private apiService: ApiService,
@@ -38,20 +37,6 @@ export class UserService implements OnDestroy {
     }));
   }
 
-  getUsersInCurrentCommunity(): Observable<User[]> {
-    return this.usersInCommunity;
-  }
-
-  fetchUsersInCommunityFromApi(id: number): void {
-    if (id) {
-      this.subscriptions.push(this.apiService.getUsersInCommunity(id).pipe(
-        map((data: any) => data.data.map((item) => this.userAdapter.adapt(item)))
-      ).subscribe(users => {
-        this.usersInCommunity.next(users);
-      }));
-    }
-  }
-
   updateUser(data: any): Observable<boolean> {
     return this.apiService.updateUser(data).pipe(
       map(res => {
@@ -65,6 +50,5 @@ export class UserService implements OnDestroy {
 
   clearData(): void {
     this.user.next(null);
-    this.usersInCommunity.next([]);
   }
 }
