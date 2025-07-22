@@ -83,3 +83,7 @@
 
   </main>
 </div>
+
+<app-popup [show]="taskToShow != null" (close)="taskToShow = null">
+  <app-task />
+</app-popup>

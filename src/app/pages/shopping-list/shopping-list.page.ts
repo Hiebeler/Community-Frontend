@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { IonicModule } from '@ionic/angular';
 import { LucideAngularModule, PlusIcon, XIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
+import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { ShoppingItem } from 'src/app/models/shopping-item';
 import { ShoppingService } from 'src/app/services/shopping.service';
 
@@ -14,7 +15,8 @@ import { ShoppingService } from 'src/app/services/shopping.service';
       CommonModule,
       IonicModule,
       ReactiveFormsModule,
-      LucideAngularModule
+      LucideAngularModule,
+      PopupComponent
     ]
 })
 export class ShoppingListPage implements OnInit, OnDestroy {

@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { LucideAngularModule, PlusIcon, ReceiptEuroIcon, ScaleIcon, XIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
+import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { Balance } from 'src/app/models/balance';
 import { Debt } from 'src/app/models/debt';
 import { User } from 'src/app/models/user';
@@ -16,7 +17,8 @@ import { UserService } from 'src/app/services/user.service';
     imports: [
       CommonModule,
       ReactiveFormsModule,
-      LucideAngularModule
+      LucideAngularModule,
+      PopupComponent
     ]
 })
 export class DebtsPage implements OnInit, OnDestroy {

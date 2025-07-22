@@ -8,42 +8,16 @@
     <!-- Top Bar -->
     <div class="flex items-center justify-between">
       <div class="text-lg font-semibold">
-        @if (!editorIsOpen) {
-        <p>Einkaufsliste</p>
-        }
-        @if (editorIsOpen) {
-        <p>Neues Element</p>
-        }
+        Einkaufsliste
       </div>
 
-      @if (!editorIsOpen) {
       <button type="button" class="btn-small btn-primary flex items-center justify-center" (click)="openEditor(true)"
         aria-label="Neues Element hinzufügen">
         <lucide-icon [img]="plusIcon"></lucide-icon>
       </button>
-      }
     </div>
 
-    <!-- Editor for new item -->
-    @if (editorIsOpen) {
-    <div class="bg-gray-800 p-4 rounded-lg space-y-4">
-      <div class="flex justify-between items-center space-x-2">
-        <button type="button" class="btn-small btn-outline-danger" (click)="openEditor(false)">
-          <lucide-icon [img]="closeIcon" class="text-red-500"></lucide-icon>
-        </button>
 
-        <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveItem()"
-          class="btn-large btn-primary w-full">
-          Speichern
-        </button>
-      </div>
-
-      <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()">
-        <input type="text" formControlName="createname" placeholder="Name" autocomplete="off"
-          class="w-full bg-gray-800 border border-gray-600 rounded px-4 py-2 text-white" />
-      </form>
-    </div>
-    }
 
     <!-- Open Items -->
     @if (openItems.length) {
@@ -108,3 +82,17 @@
     }
   </main>
 </div>
+
+<app-popup [show]="editorIsOpen" (close)="editorIsOpen = false" title="Neues Element">
+  <div class="space-y-4">
+
+    <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()">
+      <input type="text" formControlName="createname" placeholder="Name" autocomplete="off"
+        class="w-full bg-gray-800 border border-gray-600 rounded px-4 py-2 text-white" />
+    </form>
+
+    <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveItem()" class="btn-large btn-primary w-full">
+      Speichern
+    </button>
+  </div>
+</app-popup>

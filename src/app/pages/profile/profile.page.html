@@ -96,9 +96,8 @@
   }
 </div>
 
-<app-popup [show]="editingColor" (close)="editingColor = false">
-<app-color-editor (closeEditor)="editColor(false)" />
-
+<app-popup [show]="editingColor" (close)="editingColor = false" title="Farbe auswählen">
+  <app-color-editor (closeEditor)="editColor(false)" />
 </app-popup>
 
 <app-confirmation-popup *ngIf="showLogoutPopup" title="Abmelden" content="Bist du dir sicher?" submitText="Abmelden"

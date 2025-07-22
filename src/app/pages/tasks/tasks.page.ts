@@ -9,19 +9,31 @@ import { TaskPage } from 'src/app/modals/task/task.page';
 import { Day } from 'src/app/models/day';
 import { Task } from 'src/app/models/task';
 import { TaskService } from 'src/app/services/task.service';
-import { LucideAngularModule, InfinityIcon, ChevronRightIcon, ChevronLeftIcon } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  InfinityIcon,
+  ChevronRightIcon,
+  ChevronLeftIcon,
+} from 'lucide-angular';
+import { PopupComponent } from 'src/app/components/popup/popup.component';
 
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.page.html',
   standalone: true,
-  imports: [CommonModule, IonicModule, TaskCardComponent, LucideAngularModule],
+  imports: [
+    CommonModule,
+    IonicModule,
+    TaskCardComponent,
+    LucideAngularModule,
+    PopupComponent,
+    TaskPage,
+  ],
 })
 export class TasksPage implements OnInit, OnDestroy {
   readonly InfinityIcon = InfinityIcon;
   readonly ChevronRightIcon = ChevronRightIcon;
   readonly ChevronLeftIcon = ChevronLeftIcon;
-
 
   subscriptions: Subscription[] = [];
 
@@ -33,6 +45,8 @@ export class TasksPage implements OnInit, OnDestroy {
 
   startDate: Date;
   endDate: Date;
+
+  taskToShow: Task = null;
 
   constructor(
     private taskService: TaskService,
@@ -121,7 +135,7 @@ export class TasksPage implements OnInit, OnDestroy {
     return num.toString().padStart(2, '0');
   }
 
-  async openModal(data: Task | Date) {
+  openModal(data: Task | Date) {
     let task: Task;
     if (data instanceof Date) {
       task = this.taskAdapter.adapt({ date: data });
@@ -129,18 +143,8 @@ export class TasksPage implements OnInit, OnDestroy {
       task = data;
       task.date = new Date(data.date);
     }
-    const modal = await this.modalController.create({
-      component: TaskPage,
-      cssClass: 'bezahlen-modal',
-      canDismiss: true,
-      componentProps: {
-        task,
-        getTasks: this.getTasks.bind(this),
-      },
-      presentingElement: await this.modalController.getTop(),
-    });
 
-    return await modal.present();
+    this.taskToShow = task;
   }
 
   changeSelectedDays(direction: 'previous' | 'next') {

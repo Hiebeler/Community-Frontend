@@ -3,77 +3,20 @@
 
     <!-- Topbar -->
     <div class="flex items-center justify-between">
-      @if (!editorIsOpen) {
       <button type="button" class="btn-small btn-primary" (click)="gotoHistory()">
         <lucide-icon [img]="receiptIcon"></lucide-icon>
       </button>
-      }
 
       <p class="text-lg font-semibold">
-        @if (!editorIsOpen) { Schulden }
-        @else { Neue Schuld }
+        Schulden
       </p>
 
-      @if (!editorIsOpen) {
       <button type="button" class="btn-small btn-primary" (click)="openEditor(true)">
         <lucide-icon [img]="plusIcon"></lucide-icon>
       </button>
-      }
+
     </div>
 
-    <!-- New Debt Editor -->
-    @if (editorIsOpen) {
-    <form [formGroup]="itemEditorForm" (ngSubmit)="saveDebt()" class="bg-gray-800 rounded-xl p-4 space-y-4">
-
-      <!-- Action Buttons -->
-      <div class="flex justify-between items-center">
-        <button type="button" class="btn-small btn-outline-danger w-1/4" (click)="openEditor(false)">
-          <lucide-icon [img]="closeIcon" class="text-red-500"></lucide-icon>
-        </button>
-        <button type="button" class="btn-large btn-primary w-3/4" [disabled]="itemEditorForm.invalid"
-          (click)="saveDebt()">
-          Speichern
-        </button>
-      </div>
-
-      <!-- Schuld Type Toggle -->
-      <div class="flex space-x-2">
-        <button type="button" class="btn-small w-1/2" [ngClass]="iOwe ? 'btn-primary' : 'bg-gray-700'"
-          (click)="changeIOwe(true)">
-          Ich Schulde
-        </button>
-        <button type="button" class="btn-small w-1/2" [ngClass]="!iOwe ? 'btn-primary' : 'bg-gray-700'"
-          (click)="changeIOwe(false)">
-          Ich Bekomme
-        </button>
-      </div>
-
-      <!-- Schuldner -->
-      <div>
-        <p class="text-sm text-gray-300 mb-1">Schuldner:</p>
-        <select formControlName="debitor" class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-white">
-          @for (user of usersInCommunity; track user) {
-          <option [ngValue]="user">{{user.firstname + ' ' + user.lastname}}</option>
-          }
-        </select>
-      </div>
-
-      <!-- Amount -->
-      <div>
-        <p class="text-sm text-gray-300 mb-1">Euro:</p>
-        <input type="number" formControlName="amount" placeholder="Menge"
-          class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-white">
-      </div>
-
-      <!-- Reason -->
-      <div>
-        <p class="text-sm text-gray-300 mb-1">Grund:</p>
-        <input type="text" formControlName="name" placeholder="Grund"
-          class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-white">
-      </div>
-
-    </form>
-    }
 
     <!-- No Items -->
     @if (!allBalances.length) {
@@ -140,3 +83,50 @@
 
   </main>
 </div>
+
+<app-popup [show]="editorIsOpen" (close)="editorIsOpen = false" title="Schulden anlegen">
+  <form [formGroup]="itemEditorForm" (ngSubmit)="saveDebt()" class="space-y-4">
+
+    <!-- Schuld Type Toggle -->
+    <div class="flex space-x-2">
+      <button type="button" class="btn-small w-1/2" [ngClass]="iOwe ? 'btn-primary' : 'bg-gray-700'"
+        (click)="changeIOwe(true)">
+        Ich Schulde
+      </button>
+      <button type="button" class="btn-small w-1/2" [ngClass]="!iOwe ? 'btn-primary' : 'bg-gray-700'"
+        (click)="changeIOwe(false)">
+        Ich Bekomme
+      </button>
+    </div>
+
+    <!-- Schuldner -->
+    <div>
+      <p class="text-sm text-gray-300 mb-1">Schuldner:</p>
+      <select formControlName="debitor" class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-white">
+        @for (user of usersInCommunity; track user) {
+        <option [ngValue]="user">{{user.firstname + ' ' + user.lastname}}</option>
+        }
+      </select>
+    </div>
+
+    <!-- Amount -->
+    <div>
+      <p class="text-sm text-gray-300 mb-1">Euro:</p>
+      <input type="number" formControlName="amount" placeholder="Menge"
+        class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-white">
+    </div>
+
+    <!-- Reason -->
+    <div>
+      <p class="text-sm text-gray-300 mb-1">Grund:</p>
+      <input type="text" formControlName="name" placeholder="Grund"
+        class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-white">
+    </div>
+
+    <button type="button" class="btn-large btn-primary w-3/4" [disabled]="itemEditorForm.invalid"
+        (click)="saveDebt()">
+        Speichern
+      </button>
+
+  </form>
+</app-popup>
