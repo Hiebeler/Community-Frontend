@@ -157,6 +157,7 @@ export class AuthService implements OnDestroy {
 
   logout() {
     this.storageService.removeToken();
+    this.storageService.removeCurrentCommunity();
     this.userService.clearData();
     this.communityService.clearData();
     this.decodedUserToken = null;

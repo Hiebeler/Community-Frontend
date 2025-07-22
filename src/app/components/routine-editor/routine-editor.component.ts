@@ -5,6 +5,7 @@ import { LucideAngularModule, XIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
 import { Routine } from 'src/app/models/routine';
 import { User } from 'src/app/models/user';
+import { CommunityService } from 'src/app/services/community.service';
 import { TaskService } from 'src/app/services/task.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -39,7 +40,7 @@ export class RoutineEditorComponent implements OnInit, OnDestroy {
 
   constructor(
     private taskService: TaskService,
-    private userService: UserService
+    private communityService: CommunityService
   ) {
     this.routineForm = new FormGroup({
       name: new FormControl<string | null>('', [Validators.minLength(1), Validators.required]),
@@ -79,7 +80,7 @@ export class RoutineEditorComponent implements OnInit, OnDestroy {
       this.doneControl.setValue(this.routine.active);
     }
 
-    this.subscriptions.push(this.userService.getUsersInCurrentCommunity().subscribe((allUsersOfCommunity: User[]) => {
+    this.subscriptions.push(this.communityService.getUsersInCurrentCommunity().subscribe((allUsersOfCommunity: User[]) => {
       this.assignableUsers = allUsersOfCommunity;
       if (this.routine) {
         this.assignedUsers = this.routine.assignedUsers;

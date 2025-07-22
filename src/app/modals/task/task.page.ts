@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { Task } from 'src/app/models/task';
 import { User } from 'src/app/models/user';
 import { AlertService } from 'src/app/services/alert.service';
+import { CommunityService } from 'src/app/services/community.service';
 import { TaskService } from 'src/app/services/task.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -37,7 +38,7 @@ export class TaskPage implements OnInit, OnDestroy {
   constructor(
     private taskService: TaskService,
     private alertService: AlertService,
-    private userService: UserService
+    private communityService: CommunityService
   ) {
     this.taskForm = new FormGroup({
       name: new FormControl<string | null>('', [Validators.minLength(1), Validators.required]),
@@ -57,7 +58,7 @@ export class TaskPage implements OnInit, OnDestroy {
     this.name.setValue(this.task.name);
     this.notes.setValue(this.task.notes);
 
-    this.subscriptions.push(this.userService.getUsersInCurrentCommunity().subscribe((allUsersOfCommunity: User[]) => {
+    this.subscriptions.push(this.communityService.getUsersInCurrentCommunity().subscribe((allUsersOfCommunity: User[]) => {
       this.assignableUsers = allUsersOfCommunity;
       this.task.assignedUsers.forEach(assignedUser => {
         this.assignableUsers = this.assignableUsers.filter(el => el.id !== assignedUser.id);
