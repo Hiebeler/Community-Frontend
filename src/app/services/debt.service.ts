@@ -6,6 +6,7 @@ import { Balance } from '../models/balance';
 import { BalanceAdapter } from '../adapter/balance-adapter';
 import { DebtAdapter } from '../adapter/debt-adapter';
 import { StorageService } from './storage.service';
+import { CommunityService } from './community.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,13 @@ export class DebtService implements OnDestroy {
     private apiService: ApiService,
     private debtAdapter: DebtAdapter,
     private balanceAdapter: BalanceAdapter,
-    private storageService: StorageService
-  ) { }
+    private communityService: CommunityService
+  ) {
+    this.subscriptions.push(this.communityService.getCurrentCommunity().subscribe(community => {
+      this.fetchDebtsAndBalanceFromApi();
+    }));
+
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());

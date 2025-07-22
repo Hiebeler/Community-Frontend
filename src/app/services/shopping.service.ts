@@ -3,6 +3,7 @@ import { BehaviorSubject, concatMap, map, Observable, of, Subscription } from 'r
 import { ShoppingItemAdapter } from '../adapter/shopping-item-adapter';
 import { ShoppingItem } from '../models/shopping-item';
 import { ApiService } from './api.service';
+import { CommunityService } from './community.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,13 @@ export class ShoppingService implements OnDestroy {
 
   constructor(
     private apiService: ApiService,
-    private shoppingItemAdapter: ShoppingItemAdapter
-  ) { }
+    private shoppingItemAdapter: ShoppingItemAdapter,
+    private communityService: CommunityService
+  ) {
+    this.subscriptions.push(this.communityService.getCurrentCommunity().subscribe(community => {
+      this.fetchShoppingItemsFromApi();
+    }));
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());

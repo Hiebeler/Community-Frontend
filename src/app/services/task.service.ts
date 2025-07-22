@@ -5,6 +5,7 @@ import { TaskAdapter } from '../adapter/task-adapter';
 import { Routine } from '../models/routine';
 import { Task } from '../models/task';
 import { ApiService } from './api.service';
+import { CommunityService } from './community.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class TaskService implements OnDestroy {
   constructor(
     private apiService: ApiService,
     private taskAdapter: TaskAdapter,
-    private routineAdapter: RoutineAdapter
+    private routineAdapter: RoutineAdapter,
+    private communityService: CommunityService
   ) { }
 
   ngOnDestroy(): void {

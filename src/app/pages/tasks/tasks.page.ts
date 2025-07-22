@@ -15,6 +15,7 @@ import {
   ChevronLeftIcon,
 } from 'lucide-angular';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
+import { CommunityService } from 'src/app/services/community.service';
 
 @Component({
   selector: 'app-tasks',
@@ -49,8 +50,13 @@ export class TasksPage implements OnInit, OnDestroy {
   constructor(
     private taskService: TaskService,
     private taskAdapter: TaskAdapter,
-    private router: Router
-  ) {}
+    private router: Router,
+    private communityService: CommunityService
+  ) {
+    this.subscriptions.push(this.communityService.getCurrentCommunity().subscribe(community => {
+      this.getTasks();
+    }));
+  }
 
   ngOnInit() {
     this.dayToday = new Date();
