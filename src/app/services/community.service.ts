@@ -1,7 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
 import { Community } from '../models/community';
-import { Request } from 'src/app/models/request';
 import { ApiService } from './api.service';
 import { UserService } from './user.service';
 import { CommunityAdapter } from '../adapter/community-adapter';
@@ -47,6 +46,7 @@ export class CommunityService implements OnDestroy {
       return;
     }
     let currentCommunityId = this.storageService.getCurrentCommunity();
+    console.log(currentCommunityId)
     if (!currentCommunityId) {
       const firstCommunityId = communities[0].id;
       this.storageService.setCurrentCommunity(firstCommunityId);
@@ -108,5 +108,11 @@ export class CommunityService implements OnDestroy {
 
   setCurrentCommunity(communityId: number): void {
     this.storageService.setCurrentCommunity(communityId);
+    console.log("set localstoreage " + communityId);
+    this.userService.getCurrentUser().subscribe(user => {
+      if (user) {
+        this.fetchCurrentCommunityFromApi(user.communities);
+      }
+    })
   }
 }
