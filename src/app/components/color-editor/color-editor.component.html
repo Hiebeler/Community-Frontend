@@ -5,7 +5,7 @@
       @for (color of colors; track color; let i = $index) {
         <div
           (click)="changeColor(color)"
-          class="w-[20%] min-w-[50px] min-h-[80px] flex items-center justify-center rounded-md cursor-pointer"
+          class="w-[20%] min-w-[50px] aspect-video flex items-center justify-center rounded-md cursor-pointer"
           [ngStyle]="{'background-color': color}"
           [ngClass]="{
             'border-2 border-white': colorUsernames[i] === user.firstname,

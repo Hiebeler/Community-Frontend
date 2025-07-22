@@ -30,7 +30,6 @@
     "ngx-image-cropper": "^9.1.5",
     "postcss": "^8.5.6",
     "rxjs": "~7.8.2",
-    "swiper": "^8.4.6",
     "tailwindcss": "^4.1.11",
     "tint-shade-color": "^1.0.0",
     "tslib": "^2.8.1",

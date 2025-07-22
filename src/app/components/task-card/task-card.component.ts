@@ -6,7 +6,6 @@ import { Task } from 'src/app/models/task';
 @Component({
     selector: 'app-task-card',
     templateUrl: './task-card.component.html',
-    styleUrls: ['./task-card.component.scss'],
     imports: [
       CommonModule,
       IonicModule

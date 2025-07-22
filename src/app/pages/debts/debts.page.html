@@ -1,4 +1,4 @@
-<div class="min-h-screen flex flex-col bg-gray-900 text-white">
+<div class="flex flex-col">
   <main class="flex-1 overflow-auto container mx-auto px-4 py-6 space-y-6">
 
     <!-- Topbar -->
@@ -102,7 +102,7 @@
     <!-- Schuldner -->
     <div>
       <p class="text-sm text-gray-300 mb-1">Schuldner:</p>
-      <select formControlName="debitor" class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-white">
+      <select formControlName="debitor" class="w-full ">
         @for (user of usersInCommunity; track user) {
         <option [ngValue]="user">{{user.firstname + ' ' + user.lastname}}</option>
         }
@@ -113,14 +113,14 @@
     <div>
       <p class="text-sm text-gray-300 mb-1">Euro:</p>
       <input type="number" formControlName="amount" placeholder="Menge"
-        class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-white">
+        class="w-full">
     </div>
 
     <!-- Reason -->
     <div>
       <p class="text-sm text-gray-300 mb-1">Grund:</p>
       <input type="text" formControlName="name" placeholder="Grund"
-        class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-white">
+        class="w-full">
     </div>
 
     <button type="button" class="btn-large btn-primary w-3/4" [disabled]="itemEditorForm.invalid"

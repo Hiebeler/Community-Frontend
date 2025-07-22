@@ -16,6 +16,7 @@ import { RoutinesPage } from './pages/routines/routines.page';
 import { ShoppingListPage } from './pages/shopping-list/shopping-list.page';
 import { DebtsPage } from './pages/debts/debts.page';
 import { DebtsHistoryPage } from './pages/debts-history/debts-history.page';
+import { OnboardingComponent } from './pages/onboarding/onboarding.component';
 
 const routes: Routes = [
   {
@@ -95,16 +96,8 @@ const routes: Routes = [
     },
   },
   {
-    path: 'task',
-    component: TaskPage,
-    canActivate: [AuthGuard],
-    data: {
-      roles: ['community'],
-    },
-  },
-  {
-    path: 'profile',
-    component: ProfilePage,
+    path: 'onboarding',
+    component: OnboardingComponent,
     canActivate: [AuthGuard],
     data: {
       roles: ['user'],

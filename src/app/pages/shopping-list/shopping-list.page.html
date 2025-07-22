@@ -1,8 +1,4 @@
-<div class="min-h-screen flex flex-col">
-  <!-- Refresher (Replace with your own logic or a refresh button) -->
-  <div class="fixed top-0 left-0 right-0 z-50">
-    <!-- Implement pull-to-refresh or a refresh button here -->
-  </div>
+<div class="flex flex-col">
 
   <main class="flex-1 overflow-auto container mx-auto px-4 py-6 space-y-6">
     <!-- Top Bar -->
@@ -94,7 +90,7 @@
 
     <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()">
       <input type="text" formControlName="createname" placeholder="Name" autocomplete="off"
-        class="w-full bg-gray-800 border border-gray-600 rounded px-4 py-2 text-white" />
+        class="w-full" />
     </form>
 
     <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveItem()" class="btn-large btn-primary w-full">

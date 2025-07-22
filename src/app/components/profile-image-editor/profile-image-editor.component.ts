@@ -11,7 +11,6 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
     selector: 'app-profile-image-editor',
     templateUrl: './profile-image-editor.component.html',
-    styleUrls: ['./profile-image-editor.component.scss'],
     standalone: true,
     imports: [
       CommonModule,
