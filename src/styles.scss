@@ -193,15 +193,6 @@
     @apply backdrop-blur-lg bg-surface/50 border border-gray-700 rounded-lg p-4;
   }
 
-  /* Field Box */
-  .field-box {
-    @apply my-4;
-
-    span {
-      @apply text-red-500;
-    }
-  }
-
   /* Containers */
   .container {
     @apply px-1 max-w-full mx-auto;
@@ -241,49 +232,8 @@
     }
   }
 
-  /* Alerts */
-  ion-alert {
-    .alert-wrapper {
-      @apply text-white bg-gray-700 rounded-xl p-4 flex justify-center items-center;
-    }
-
-    .alert-title,
-    .alert-message {
-      @apply text-white text-center;
-    }
-
-    .alert-button-group {
-      @apply justify-center;
-    }
-
-    .alert-button {
-      @apply bg-green-500 text-gray-900 rounded-lg normal-case px-6 hover:bg-green-600 transition;
-    }
-
-    &.custom-alert-two {
-      .alert-button:first-of-type {
-        @apply bg-gray-600 text-white;
-      }
-
-      .alert-button:nth-of-type(2) {
-        @apply bg-green-500 text-gray-900;
-
-        span {
-          color: #111827 !important; /* Tailwind gray-900 */
-        }
-      }
-    }
-  }
-
-  /* Modals */
-  ion-modal {
-    --ion-background-color: #111827; /* Tailwind gray-900 */
-  }
-
-  @screen md {
-    ion-modal {
-      --border-radius: 15px !important;
-    }
+  .active-tab {
+    @apply bg-surface/50 rounded-lg border border-gray-700;
   }
 }
 
@@ -291,9 +241,6 @@
 /* Utilities: Helpers and Layout Tweaks */
 /* ------------------------------------------- */
 @layer utilities {
-  .d-flex {
-    @apply flex;
-  }
 
   .clickable:hover {
     @apply cursor-pointer;
@@ -309,9 +256,5 @@
     p {
       @apply m-0 p-2 text-center;
     }
-  }
-
-  .swiper-slide .swiper-slide-shadow {
-    background: transparent;
   }
 }

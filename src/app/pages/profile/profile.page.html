@@ -3,7 +3,7 @@
   <div class="grid gap-4">
     @if (!editingImage) {
     <div class="flex justify-center">
-      <img class="profile-image clickable" [src]="user.profileimage" alt="" width="100" height="100"
+      <img class="profile-image clickable rounded-full" [src]="user.profileimage" alt="" width="100" height="100"
         (click)="editImage(true)" />
     </div>
     }
