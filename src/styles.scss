@@ -50,6 +50,10 @@
     font-display: swap;
   }
 
+  html {
+    @apply bg-background;
+  }
+
   * {
     font-family: "custom-medium", sans-serif;
     @apply text-gray-100;

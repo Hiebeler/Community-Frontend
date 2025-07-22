@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { LucideAngularModule, XIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
 import { Routine } from 'src/app/models/routine';
 import { User } from 'src/app/models/user';
@@ -11,15 +12,16 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
     selector: 'app-routine-editor',
     templateUrl: './routine-editor.component.html',
-    styleUrls: ['./routine-editor.component.scss'],
     imports: [
       IonicModule,
       CommonModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      LucideAngularModule
     ],
     standalone: true
 })
 export class RoutineEditorComponent implements OnInit, OnDestroy {
+  readonly closeIcon = XIcon;
 
   @Input() routine: Routine;
   @Output() closeEditor: EventEmitter<any> = new EventEmitter();
