@@ -67,6 +67,7 @@ export class CommunityService implements OnDestroy {
     return this.apiService.createCommunity({ name }).pipe(
       map(res => {
         if (res.status === 'OK') {
+          this.storageService.setCurrentCommunity(res.data.id);
           return true;
         } else {
           return false;
@@ -78,6 +79,7 @@ export class CommunityService implements OnDestroy {
     return this.apiService.joinCommunity({ code }).pipe(
       map(res => {
         if (res.status === 'OK') {
+          this.storageService.setCurrentCommunity(res.data.id);
           return true;
         } else {
           return false;

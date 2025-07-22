@@ -21,6 +21,7 @@ export class AuthGuard implements CanActivate {
     return this.authService.authenticationState.pipe(
       filter(val => val !== null),
       map(role => {
+        console.log(role);
         if (allowedRoles.indexOf(role) !== -1) {
           return true;
         }

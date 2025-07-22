@@ -1,25 +1,22 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommunityService } from 'src/app/services/community.service';
+import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-create-community',
-  templateUrl: './create-community.page.html',
+  templateUrl: './create-community.component.html',
   standalone: true,
   imports: [
-    CommonModule,
-    IonicModule,
     ReactiveFormsModule
   ]
 })
-export class CreateCommunityPage implements OnDestroy {
+export class CreateCommunityComponent  implements OnInit {
 
   subscriptions: Subscription[] = [];
 
@@ -27,23 +24,25 @@ export class CreateCommunityPage implements OnDestroy {
 
   constructor(
     private alertService: AlertService,
-    private authService: AuthService,
     private userService: UserService,
+    private authService: AuthService,
     private communityService: CommunityService,
     private router: Router
   ) {
     this.communityForm = new FormGroup({
       name: new FormControl<string | null>('', [Validators.required, Validators.minLength(3)])
     });
-  }
+   }
 
-  get name() {
+  ngOnInit() {}
+
+   get name() {
     return this.communityForm.get('name');
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
+    }
 
   createCommunity() {
     if (this.communityForm.valid) {
@@ -52,11 +51,9 @@ export class CreateCommunityPage implements OnDestroy {
           this.alertService.showAlert('Error', 'Beim Erstellen der Community ist ein Fehler aufgetreten.');
         } else {
           this.authService.requestNewToken()
-
           this.alertService.showAlert('Community erstellt', '', 'Okay', () => {
             this.userService.fetchUserFromApi();
             this.router.navigate(['profile']);
-
           });
         }
       }));

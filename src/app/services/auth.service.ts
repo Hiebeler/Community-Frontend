@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ApiService } from './api.service';
 import { AlertService } from './alert.service';
@@ -85,7 +85,7 @@ export class AuthService implements OnDestroy {
     if (!token.version) {
       this.requestNewToken();
     } else {
-      if (token.communities) {
+      if (token.communities && token.communities.length > 0) {
         this.authenticationState.next('community');
       } else {
         this.authenticationState.next('onboarding');
@@ -94,6 +94,7 @@ export class AuthService implements OnDestroy {
   }
 
   requestNewToken() {
+    console.log("get new token")
     this.subscriptions.push(this.apiService.getNewJWT().subscribe(res => {
       if (res.status === 'OK') {
         this.storeToken(res.data.token);
