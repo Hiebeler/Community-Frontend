@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
 import { LucideAngularModule, XIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
 import { Routine } from 'src/app/models/routine';
@@ -13,7 +12,6 @@ import { UserService } from 'src/app/services/user.service';
     selector: 'app-routine-editor',
     templateUrl: './routine-editor.component.html',
     imports: [
-      IonicModule,
       CommonModule,
       ReactiveFormsModule,
       LucideAngularModule

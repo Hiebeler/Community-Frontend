@@ -3,7 +3,8 @@
 
     <!-- Header Buttons -->
     <div class="flex justify-between items-center">
-      <button type="button" (click)="parentCloseEditor()" class="btn-small btn-outline-danger w-12 h-12 flex items-center justify-center">
+      <button type="button" (click)="parentCloseEditor()"
+        class="btn-small btn-outline-danger w-12 h-12 flex items-center justify-center">
         <lucide-icon [img]="closeIcon"></lucide-icon>
       </button>
       <button [disabled]="routineForm.invalid" (click)="saveRoutine()" type="submit"
@@ -45,10 +46,10 @@
       <p class="mb-1">Zuständig:</p>
       <div class="flex flex-wrap gap-2">
         @for (user of assignedUsers; track user) {
-          <div class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-2 rounded-md">
-            <img [src]="user.profileimage" alt="" class="w-4 h-4 rounded-full mr-1" />
-            <span>{{user.firstname}}</span>
-          </div>
+        <div class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-2 rounded-md">
+          <img [src]="user.profileimage" alt="" class="w-4 h-4 rounded-full mr-1" />
+          <span>{{user.firstname}}</span>
+        </div>
         }
       </div>
 
@@ -72,12 +73,11 @@
         <p class="mb-1">Zuständig:</p>
         <div class="flex flex-wrap gap-2">
           @for (user of assignedUsers; track user) {
-            <div (click)="removeUser(user)"
-              class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-2 rounded-md cursor-pointer hover:opacity-80">
-              <img [src]="user.profileimage" alt="" class="w-4 h-4 rounded-full mr-1" />
-              <span>{{user.firstname}}</span>
-              <ion-icon name="close-circle" class="ml-1 text-white text-xs"></ion-icon>
-            </div>
+          <div (click)="removeUser(user)"
+            class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-2 rounded-md cursor-pointer hover:opacity-80">
+            <img [src]="user.profileimage" alt="" class="w-4 h-4 rounded-full mr-1" />
+            <span>{{user.firstname}}</span>
+X          </div>
           }
         </div>
       </div>
@@ -87,12 +87,11 @@
         <p class="mb-1">Nicht zuständig:</p>
         <div class="flex flex-wrap gap-2">
           @for (user of assignableUsers; track user) {
-            <div (click)="addUser(user)"
-              class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-2 rounded-md cursor-pointer hover:opacity-80">
-              <img [src]="user.profileimage" alt="" class="w-4 h-4 rounded-full mr-1" />
-              <span>{{user.firstname}}</span>
-              <ion-icon name="add-circle" class="ml-1 text-white text-xs"></ion-icon>
-            </div>
+          <div (click)="addUser(user)"
+            class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-2 rounded-md cursor-pointer hover:opacity-80">
+            <img [src]="user.profileimage" alt="" class="w-4 h-4 rounded-full mr-1" />
+            <span>{{user.firstname}}</span>
++          </div>
           }
         </div>
       </div>
@@ -101,8 +100,11 @@
     <!-- Active Checkbox -->
     <div *ngIf="routine" class="flex items-center pt-4">
       <label class="mr-3">Aktiviert:</label>
-      <ion-checkbox formControlName="done" style="--size: 32px; --border-color: white;"></ion-checkbox>
+
+      <input type="checkbox" formControlName="done"
+        class="w-8 h-8 bg-background border-white text-primary-500 rounded focus:ring-0 focus:outline-none checked:bg-primary-500 checked:border-primary-500" />
     </div>
+
 
   </div>
 </form>

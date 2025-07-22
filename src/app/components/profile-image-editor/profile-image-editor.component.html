@@ -1,17 +1,5 @@
 <div class="w-full bg-surface rounded-xl p-4 shadow-md space-y-4">
 
-  <!-- Header Buttons -->
-  <div class="flex justify-between">
-    <button type="button" (click)="parentCloseEditor()" class="btn-small btn-outline-danger w-12 h-12 flex items-center justify-center">
-      <ion-icon name="close-outline" class="text-red-500 text-xl"></ion-icon>
-    </button>
-
-    <button type="button" (click)="saveImage()" [disabled]="!cropImgPreview"
-      class="btn-small btn-primary w-full max-w-xs">
-      Speichern
-    </button>
-  </div>
-
   <!-- File Input & Cropper -->
   <div class="flex flex-wrap gap-4 items-center justify-center">
 
@@ -39,5 +27,10 @@
     </div>
 
   </div>
+
+   <button type="button" (click)="saveImage()" [disabled]="!cropImgPreview"
+      class="btn-small btn-primary w-full max-w-xs">
+      Speichern
+    </button>
 
 </div>

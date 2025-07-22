@@ -1,10 +1,9 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ApiService } from './api.service';
 import { AlertService } from './alert.service';
-import { Platform } from '@ionic/angular';
 import { StorageService } from './storage.service';
 import { UserService } from './user.service';
 import { User } from '../models/user';
@@ -26,7 +25,6 @@ export class AuthService implements OnDestroy {
 
   constructor(
     private router: Router,
-    private platform: Platform,
     private apiService: ApiService,
     private alertService: AlertService,
     private storageService: StorageService,
@@ -35,9 +33,7 @@ export class AuthService implements OnDestroy {
     private communityService: CommunityService
   ) {
     this.helper = new JwtHelperService();
-    this.platform.ready().then(() => {
-      this.checkToken();
-    });
+    this.checkToken();
 
     this.subscriptions.push(this.authenticationState.subscribe(state => {
     }));

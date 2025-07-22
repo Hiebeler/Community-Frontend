@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonicModule, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Task } from 'src/app/models/task';
 import { User } from 'src/app/models/user';
@@ -16,7 +15,6 @@ import { UserService } from 'src/app/services/user.service';
     standalone: true,
     imports: [
       CommonModule,
-      IonicModule,
       ReactiveFormsModule
     ]
 })
@@ -37,7 +35,6 @@ export class TaskPage implements OnInit, OnDestroy {
   getTasks;
 
   constructor(
-    private modalController: ModalController,
     private taskService: TaskService,
     private alertService: AlertService,
     private userService: UserService
@@ -124,7 +121,7 @@ export class TaskPage implements OnInit, OnDestroy {
       }
     }
 
-    await this.modalController.dismiss();
+    //await this.modalController.dismiss();
   }
 
   askToDeleteTask() {
@@ -140,7 +137,7 @@ export class TaskPage implements OnInit, OnDestroy {
   deleteTask() {
     this.subscriptions.push(this.taskService.deleteTask(this.task.id).subscribe(() => {
       this.getTasks();
-      this.modalController.dismiss();
+      //this.modalController.dismiss();
     }));
   }
 

@@ -46,8 +46,7 @@
         <div class="bg-gray-800 p-4 rounded-lg space-y-4">
           <div class="flex justify-between items-center space-x-2">
             <button type="button" class="btn-small btn-outline-danger w-full" (click)="openUpdateEditor()">
-              <ion-icon name="close-outline" class="text-2xl text-red-500"></ion-icon>
-            </button>
+              X </button>
 
             <button [disabled]="itemUpdateEditorForm.invalid || updateNameField.value === item.name" type="button"
               (click)="updateName(item.id)" class="btn-large btn-primary w-full">
@@ -89,8 +88,7 @@
   <div class="space-y-4">
 
     <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()">
-      <input type="text" formControlName="createname" placeholder="Name" autocomplete="off"
-        class="w-full" />
+      <input type="text" formControlName="createname" placeholder="Name" autocomplete="off" class="w-full" />
     </form>
 
     <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveItem()" class="btn-large btn-primary w-full">

@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
 import { ArrowLeftIcon, LucideAngularModule, PlusIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
 import { RoutineCardComponent } from 'src/app/components/routine-card/routine-card.component';
@@ -15,7 +14,6 @@ import { TaskService } from 'src/app/services/task.service';
   standalone: true,
   imports: [
     CommonModule,
-    IonicModule,
     RoutineEditorComponent,
     RoutineCardComponent,
     LucideAngularModule

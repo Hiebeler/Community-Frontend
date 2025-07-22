@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
 import { Task } from 'src/app/models/task';
 
 @Component({
@@ -8,7 +7,6 @@ import { Task } from 'src/app/models/task';
     templateUrl: './task-card.component.html',
     imports: [
       CommonModule,
-      IonicModule
     ],
     standalone: true
 })

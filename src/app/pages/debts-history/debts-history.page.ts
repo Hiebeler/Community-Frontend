@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
 import {
+  ArrowDownIcon,
   ArrowLeftIcon,
   LucideAngularModule,
   TrendingDownIcon,
@@ -17,12 +17,13 @@ import { DebtService } from 'src/app/services/debt.service';
   selector: 'app-debts-history',
   templateUrl: './debts-history.page.html',
   standalone: true,
-  imports: [IonicModule, CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule],
 })
 export class DebtsHistoryPage implements OnInit {
   readonly backIcon = ArrowLeftIcon;
   readonly stonksIcon = TrendingUpIcon;
   readonly stinksIcon = TrendingDownIcon;
+  readonly arrowDown = ArrowDownIcon;
 
   subscriptions: Subscription[] = [];
 

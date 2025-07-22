@@ -5,11 +5,10 @@ import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommunityService } from 'src/app/services/community.service';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProfileImageEditorComponent } from 'src/app/components/profile-image-editor/profile-image-editor.component';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
 import { ColorEditorComponent } from 'src/app/components/color-editor/color-editor.component';
 import { OpenRequestsComponent } from 'src/app/components/open-requests/open-requests.component';
 import { LucideAngularModule, PaletteIcon, UserPenIcon } from 'lucide-angular';
@@ -22,7 +21,6 @@ import { PopupComponent } from 'src/app/components/popup/popup.component';
     standalone: true,
     imports: [
       CommonModule,
-      IonicModule,
       ReactiveFormsModule,
       ColorEditorComponent,
       ProfileImageEditorComponent,

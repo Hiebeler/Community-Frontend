@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -11,7 +10,6 @@ import { AuthService } from 'src/app/services/auth.service';
     standalone: true,
     imports: [
       CommonModule,
-      IonicModule
     ]
 })
 export class VerifyPage implements OnInit {

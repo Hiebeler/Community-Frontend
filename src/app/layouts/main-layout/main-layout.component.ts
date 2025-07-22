@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
 import {
   CalendarIcon,
   CircleUserRoundIcon,
@@ -15,7 +14,7 @@ import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-main-layout',
-  imports: [RouterModule, IonicModule, LucideAngularModule],
+  imports: [RouterModule, LucideAngularModule],
   templateUrl: './main-layout.component.html',
 })
 export class MainLayoutComponent implements OnInit, OnDestroy {

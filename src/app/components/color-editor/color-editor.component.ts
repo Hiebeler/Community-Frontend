@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
@@ -10,8 +9,7 @@ import { UserService } from 'src/app/services/user.service';
     templateUrl: './color-editor.component.html',
     standalone: true,
     imports: [
-      CommonModule,
-      IonicModule
+      CommonModule
     ]
 })
 export class ColorEditorComponent implements OnInit, OnDestroy {

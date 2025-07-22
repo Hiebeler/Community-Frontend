@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IonicModule, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { TaskAdapter } from 'src/app/adapter/task-adapter';
 import { TaskCardComponent } from 'src/app/components/task-card/task-card.component';
@@ -23,7 +22,6 @@ import { PopupComponent } from 'src/app/components/popup/popup.component';
   standalone: true,
   imports: [
     CommonModule,
-    IonicModule,
     TaskCardComponent,
     LucideAngularModule,
     PopupComponent,
@@ -50,7 +48,6 @@ export class TasksPage implements OnInit, OnDestroy {
 
   constructor(
     private taskService: TaskService,
-    private modalController: ModalController,
     private taskAdapter: TaskAdapter,
     private router: Router
   ) {}

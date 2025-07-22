@@ -4,15 +4,11 @@ import {
 } from '@angular/common/http';
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
-
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +16,6 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    IonicModule.forRoot({ mode: 'md' }),
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: false,
@@ -30,7 +25,6 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     }),
   ],
   providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideHttpClient(withInterceptorsFromDi()),
   ],
 })

@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
 import { Routine } from 'src/app/models/routine';
 
 @Component({
@@ -9,7 +8,6 @@ import { Routine } from 'src/app/models/routine';
     standalone: true,
     imports: [
       CommonModule,
-      IonicModule
     ]
 })
 export class RoutineCardComponent implements OnInit {

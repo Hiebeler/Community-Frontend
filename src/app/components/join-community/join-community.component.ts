@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Community } from 'src/app/models/community';
 import { AlertService } from 'src/app/services/alert.service';
@@ -25,7 +24,6 @@ export class JoinCommunityComponent implements OnInit {
   foundCommunity: Community = null;
   constructor(
     private communityService: CommunityService,
-    private toastController: ToastController,
     private alertService: AlertService,
   ) {
     this.searchForm = new FormGroup({
@@ -63,12 +61,7 @@ export class JoinCommunityComponent implements OnInit {
   join() {
     this.subscriptions.push(this.communityService.joinCommunity(this.foundCommunity.code).subscribe(async wasSuccessful => {
       if (wasSuccessful) {
-        const toast = await this.toastController.create({
-          message: 'Anfrage gesendet',
-          duration: 1500,
-          position: 'bottom'
-        });
-        await toast.present();
+
       }
       else {
         this.alertService.showAlert(

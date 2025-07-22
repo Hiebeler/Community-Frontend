@@ -4,16 +4,11 @@
       <lucide-icon [img]="userPen"></lucide-icon>
     </button>
   <div class="grid gap-4">
-    @if (!editingImage) {
     <div class="flex justify-center">
       <img class="profile-image clickable rounded-full" [src]="user.profileimage" alt="" width="100" height="100"
         (click)="editImage(true)" />
     </div>
-    }
 
-    @if (editingImage) {
-    <app-profile-image-editor (closeEditor)="editImage(false)" />
-    }
 
     @if (!editingName) {
     <div class="flex justify-center">
@@ -27,8 +22,7 @@
     <div class="card p-4">
       <div class="flex gap-2 mb-4">
         <button type="button" class="btn-small btn-outline-danger flex-1" (click)="toggleNameEditor()">
-          <ion-icon name="close-outline" class="text-2xl text-red-500"></ion-icon>
-        </button>
+X        </button>
         <button type="button"
           [disabled]="nameUpdateEditorForm.invalid || (firstname.value === user.firstname && lastname.value === user.lastname)"
           (click)="updateName()" class="btn-large btn-primary flex-1">Updaten</button>
@@ -90,7 +84,6 @@
       }
       <div class="card flex justify-center items-center clickable p-4" (click)="openLogoutPopup()">
         <p class="mr-2">Abmelden</p>
-        <ion-icon name="log-out-outline" class="text-xl text-red-500"></ion-icon>
       </div>
     </div>
 
@@ -103,9 +96,13 @@
   <app-color-editor (closeEditor)="editColor(false)" />
 </app-popup>
 
+<app-popup [show]="editingImage" (close)="editingImage = false" title="Bild auswählen">
+  <app-profile-image-editor (closeEditor)="editImage(false)" />
+</app-popup>
+
 <app-popup [show]="changeCommunityPopup" (close)="changeCommunityPopup = false" title="Deine Communities">
   @if (user) {
-    
+
     @for (community of user.communities; track community) {
       <div (click)="selectCommunity(community.id)">
         {{community.name}}

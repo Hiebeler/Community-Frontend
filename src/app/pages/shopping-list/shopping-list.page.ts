@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
 import { LucideAngularModule, PlusIcon, XIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
@@ -13,7 +12,6 @@ import { ShoppingService } from 'src/app/services/shopping.service';
     templateUrl: './shopping-list.page.html',
     imports: [
       CommonModule,
-      IonicModule,
       ReactiveFormsModule,
       LucideAngularModule,
       PopupComponent

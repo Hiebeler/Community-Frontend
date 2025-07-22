@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { AlertController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
 
-  constructor(private alertController: AlertController) { }
+  constructor() { }
 
   showAlert(
     header: string,
@@ -35,13 +34,13 @@ export class AlertService {
       }];
     }
 
-    const alert = this.alertController.create({
+    /* const alert = this.alertController.create({
       cssClass,
       backdropDismiss: false,
       message,
       header,
       buttons,
     });
-    alert.then(createdAlert => createdAlert.present());
+    alert.then(createdAlert => createdAlert.present()); */
   }
 }

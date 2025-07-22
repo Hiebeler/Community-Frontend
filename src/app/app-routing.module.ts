@@ -4,8 +4,6 @@ import { AuthGuard } from './guards/auth.guard';
 import { LandingPage } from './pages/landing/landing.page';
 import { LoginPage } from './pages/login/login.page';
 import { RegisterPage } from './pages/register/register.page';
-import { FindCommunityPage } from './pages/find-community/find-community.page';
-import { CreateCommunityPage } from './pages/create-community/create-community.page';
 import { ProfilePage } from './pages/profile/profile.page';
 import { VerifyPage } from './pages/verify/verify.page';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
