@@ -52,7 +52,7 @@ export class CreateCommunityPage implements OnDestroy {
         } else {
           this.alertService.showAlert('Community erstellt', '', 'Okay', () => {
             this.userService.fetchUserFromApi();
-            this.router.navigate(['tabs/profile']);
+            this.router.navigate(['profile']);
           });
         }
       }));

@@ -1,139 +1,89 @@
-<ion-header class="ion-no-border header-wrapper">
-  <div class="container-fluid">
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <img class="logo-img" alt="" src="../../../assets/logos/logo.svg" />
-        </ion-col>
+<header class="flex justify-between items-center px-8 py-4 bg-transparent">
+  <img src="../../../assets/logos/logo.svg" alt="Logo" class="h-12 rounded-lg" />
 
-        <ion-col size="auto">
-          <button type="button" class="btn-small btn-outline-primary" (click)="gotoLogin()">Login</button>
-        </ion-col>
-
-        <ion-col size="auto">
-          <button type="button" class="btn-small btn-primary" (click)="gotoRegister()">Registrieren</button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+  <div class="flex gap-4">
+    <button type="button" (click)="gotoLogin()" class="px-4 py-2 border-2 border-green-500 text-green-500 rounded hover:bg-green-500 hover:text-white transition">
+      Login
+    </button>
+    <button type="button" (click)="gotoRegister()" class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">
+      Registrieren
+    </button>
   </div>
-</ion-header>
+</header>
 
-<ion-content>
-  <div class="container-wide wrappe">
-    <section>
-      <div class="inner-wrap">
-        <ion-grid class="ion-no-padding first-grid">
-          <ion-row>
-            <ion-col size-xs="84" size-sm="84" size-md="42" size-lg="42" size-xl="42" class="ion-col-left">
-              <div>
-                <h1>
-                  Behalte die Kontrolle mit <span>Kommiuniti</span>
-                </h1>
-                <button type="button" class="btn-large btn-primary"
-                  style="display: flex; justify-content: center; align-items: center;" (click)="gotoApp()">Zur App
-                  <ion-icon color="dark" style="padding-left: 5px; font-size: 1.3rem;" name="log-in-outline"></ion-icon>
-                </button>
-              </div>
+<main class="max-w-screen-xl mx-auto px-4">
 
-            </ion-col>
+  <!-- Hero Section -->
+  <section class="flex flex-wrap items-center justify-between py-20">
+    <div class="w-full md:w-1/2 flex flex-col items-start justify-center px-8">
+      <h1 class="text-5xl md:text-6xl font-bold text-white mb-8">
+        Behalte die Kontrolle mit <span class="text-green-500">Kommiuniti</span>
+      </h1>
+      <button type="button" (click)="gotoApp()" class="flex items-center justify-center px-6 py-3 bg-green-500 text-black rounded hover:bg-green-600 transition">
+        Zur App
+        <ion-icon name="log-in-outline" class="text-xl ml-2"></ion-icon>
+      </button>
+    </div>
+    <div class="w-full md:w-1/2 flex justify-center items-center mt-12 md:mt-0">
+      <!-- Empty for now -->
+    </div>
+  </section>
 
-            <ion-col size-xs="84" size-sm="84" size-md="42" size-lg="42" size-xl="42" class="ion-col-right">
+  <!-- Features Section -->
+  <section class="mt-32 pb-24 border-t border-gray-600">
+    <h2 class="text-center text-4xl font-bold text-white mb-12">Features</h2>
 
-              <!-- <swiper [slidesPerView]="'auto'" [grabCursor]='true' [effect]="'cards'" class="mySwiper">
-                <ng-template swiperSlide>
-                  <img class="mockup-image" src="../../../assets/images/mockup-tasks-new.png" alt="">
-                </ng-template>
-                <ng-template swiperSlide>
-                  <img class="mockup-image" src="../../../assets/images/mockup-shoppinglist-new.png" alt="">
-                </ng-template>
-                <ng-template swiperSlide>
-                  <img class="mockup-image" src="../../../assets/images/mockup-debts-new.png" alt="">
-                </ng-template>
-              </swiper> -->
-
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+    <!-- Feature: Aufgabenverwaltung -->
+    <div class="flex flex-wrap items-center mb-20">
+      <div class="w-full md:w-1/2 px-8">
+        <p class="uppercase text-green-500 font-semibold">AUFGABENVERWALTUNG</p>
+        <h3 class="text-3xl font-bold text-white mt-2 mb-4">Verteile Aufgaben innerhalb der Mitglieder</h3>
+        <p class="text-gray-300">Mit Kommiuniti kannst du den Mitgliedern täglich Aufgaben zuweisen oder Routinen erstellen.</p>
       </div>
-    </section>
+      <div class="w-full md:w-1/2 flex justify-center px-8 mt-8 md:mt-0">
+        <img src="../../../assets/images/mockup-tasks-cropped-new.png" alt="Aufgaben" class="max-h-[500px] rounded-3xl border-8 border-black">
+      </div>
+    </div>
 
-    <section class="features-section">
-      <ion-grid>
-        <ion-row>
-          <ion-col class="features-header-col">
-            <h1 style="text-align: center;">Features</h1>
-          </ion-col>
-        </ion-row>
+    <!-- Feature: Einkaufsliste -->
+    <div class="flex flex-wrap-reverse items-center mb-20">
+      <div class="w-full md:w-1/2 flex justify-center px-8 mt-8 md:mt-0">
+        <img src="../../../assets/images/mockup-shoppinglist-cropped-new.png" alt="Einkaufsliste" class="max-h-[500px] rounded-3xl border-8 border-black">
+      </div>
+      <div class="w-full md:w-1/2 px-8">
+        <p class="uppercase text-green-500 font-semibold">EINKAUFSLISTE</p>
+        <h3 class="text-3xl font-bold text-white mt-2 mb-4">Eine gemeinsame Einkaufsliste</h3>
+        <p class="text-gray-300">Mit unserer geteilten Einkaufsliste sieht jeder in der Gemeinschaft dieselben Einträge.</p>
+      </div>
+    </div>
 
-        <ion-row class="feature-row">
-          <ion-col size-xs="84" size-sm="84" size-md="42" size-lg="42" size-xl="42">
-            <div>
-              <p class="small-header">AUFGABENVERWALTUNG</p>
-              <h1>Verteile Aufgaben innerhalb der Mitglieder</h1>
-              <p>Mit hilfe von Kommiuniti kannst du, den Mitgliedern der Gemeinschaft, täglich neue Aufgaben zuweisen.
-                Oder
-                du kannst auch eine Routine festlegen, das sich eine Aufgabe in einem bestimmten Intervall wiederholt.
-              </p>
-            </div>
-          </ion-col>
+    <!-- Feature: Schuldenmanagement -->
+    <div class="flex flex-wrap items-center">
+      <div class="w-full md:w-1/2 px-8">
+        <p class="uppercase text-green-500 font-semibold">SCHULDENMANAGEMENT</p>
+        <h3 class="text-3xl font-bold text-white mt-2 mb-4">Kontrolliere deine Schulden</h3>
+        <p class="text-gray-300">Der Schuldenmanager hilft dir, deine Schulden in der Gemeinschaft zu verwalten.</p>
+      </div>
+      <div class="w-full md:w-1/2 flex justify-center px-8 mt-8 md:mt-0">
+        <img src="../../../assets/images/mockup-debts-cropped-new.png" alt="Schulden" class="max-h-[500px] rounded-3xl border-8 border-black">
+      </div>
+    </div>
+  </section>
 
-          <ion-col size-xs="84" size-sm="84" size-md="42" size-lg="42" size-xl="42" class="ion-col-right">
-            <img class="feature-image" src="../../../assets/images/mockup-tasks-cropped-new.png" alt="">
-          </ion-col>
-        </ion-row>
+  <!-- Credits Section -->
+  <section class="pt-16 border-t border-gray-600 text-center">
+    <h3 class="text-2xl font-bold text-white mb-4">Entwickelt von</h3>
+    <p class="text-gray-300">
+      <span (click)="openExternalLink('https://daniebeler.com')" class="hover:text-green-500 cursor-pointer">Daniel Hiebeler</span> und
+      <span (click)="openExternalLink('https://emanuelhiebeler.me/')" class="hover:text-green-500 cursor-pointer">Emanuel Hiebeler</span>
+    </p>
 
-        <ion-row class="feature-row reverse-wrap">
-          <ion-col size-xs="84" size-sm="84" size-md="42" size-lg="42" size-xl="42" class="ion-col-right">
-            <img class="feature-image" src="../../../assets/images/mockup-shoppinglist-cropped-new.png" alt="">
-          </ion-col>
+    <div class="mt-8">
+      <button type="button" (click)="openExternalLink('https://github.com/Hiebeler/Community-Frontend')"
+        class="px-6 py-3 border-2 border-green-500 text-green-500 rounded hover:bg-green-500 hover:text-black transition">
+        Auf Github ansehen
+      </button>
+    </div>
+  </section>
 
-          <ion-col size-xs="84" size-sm="84" size-md="42" size-lg="42" size-xl="42">
-            <div>
-              <p class="small-header">EINKAUFSLISTE</p>
-              <h1>Eine gemeinsame Einkaufsliste</h1>
-              <p>Mit unserer geteilten Einkaufsliste hat man eine simple Liste, welche jeder aus dieser Gemeinschaft
-                sieht.
-              </p>
-            </div>
-          </ion-col>
-        </ion-row>
-
-        <ion-row class="feature-row">
-          <ion-col size-xs="84" size-sm="84" size-md="42" size-lg="42" size-xl="42">
-            <div>
-              <p class="small-header">SCHULDENMANAGEMENT</p>
-              <h1>Kontrolliere deine Schulden in einer Gemeinschaft</h1>
-              <p>Mit Hilfe von unserem Schuldenmanager kannst du ganz einfach deine Schulden in einer Gemeinschaft
-                managen.
-              </p>
-            </div>
-          </ion-col>
-
-          <ion-col size-xs="84" size-sm="84" size-md="42" size-lg="42" size-xl="42" class="ion-col-right">
-            <img class="feature-image" src="../../../assets/images/mockup-debts-cropped-new.png" alt="">
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </section>
-
-    <section class="credits-section">
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <h2>Entwickelt von</h2>
-            <p><span (click)="openExternalLink('https://daniebeler.com')">Daniel Hiebeler</span> und <span
-                (click)="openExternalLink('https://emanuelhiebeler.me/')">Emanuel Hiebeler</span></p>
-          </ion-col>
-        </ion-row>
-
-        <ion-row style="margin: 30px 0;">
-          <ion-col>
-            <button type="button" class="btn-large btn-outline-primary"
-              (click)="openExternalLink('https://github.com/Hiebeler/Community-Frontend')">Auf Github ansehen</button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </section>
-
-  </div>
-</ion-content>
+</main>

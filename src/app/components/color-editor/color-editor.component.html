@@ -1,36 +1,26 @@
-<ion-row>
-  <ion-col class="card-flex">
-    <ion-grid class="card card-center-text ion-no-margin">
-      <ion-row>
-        <ion-col style="display: flex; justify-content: center">
-          <button type="button" class="btn-small btn-outline-danger btn-center" (click)="parentCloseEditor()">
-            <ion-icon color="danger" style="display: flex; font-size: 1.6rem;" name="close-outline"></ion-icon>
-          </button>
-        </ion-col>
-      </ion-row>
+<div class="flex justify-center">
+  <div class="w-full">
+    <!-- Color Grid -->
+    <div class="flex flex-wrap justify-center gap-3">
+      @for (color of colors; track color; let i = $index) {
+        <div
+          (click)="changeColor(color)"
+          class="w-[20%] min-w-[50px] min-h-[80px] flex items-center justify-center rounded-md cursor-pointer"
+          [ngStyle]="{'background-color': color}"
+          [ngClass]="{
+            'border-2 border-white': colorUsernames[i] === user.firstname,
+            'hover:opacity-80 transition': colorUsernames[i] === ''
+          }"
+        >
+          @if (colorUsernames[i]) {
+            <p class="text-white text-sm m-0">{{colorUsernames[i]}}</p>
+          }
+          @if (!colorUsernames[i]) {
+            <p class="m-0">&nbsp;</p>
+          }
+        </div>
+      }
+    </div>
 
-      <ion-row>
-        <ion-col>
-          <p>Farbe auswählen:</p>
-        </ion-col>
-      </ion-row>
-
-      <ion-row>
-        @for (color of colors; track color; let i = $index) {
-          <ion-col size-xs="42" size-sm="28" size-md="21" size-lg="14" size-xl="14"
-            (click)="changeColor(color)">
-            <div class="color-selection-field" [ngStyle]="{'background-color': color}"
-              [ngClass]="{'active-color': colorUsernames[i] === user.firstname, 'clickable': colorUsernames[i] === ''}">
-              @if (colorUsernames[i]) {
-                <p>{{colorUsernames[i]}}</p>
-              }
-              @if (!colorUsernames[i]) {
-                <p>&nbsp;</p>
-              }
-            </div>
-          </ion-col>
-        }
-      </ion-row>
-    </ion-grid>
-  </ion-col>
-</ion-row>
+  </div>
+</div>

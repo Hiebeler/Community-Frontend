@@ -1,151 +1,92 @@
-<ion-content>
-  <ion-toolbar class="ion-align-items-start ion-justify-content-start">
-    <ion-buttons slot="end">
-      <button type="button" class="btn-circle btn-medium" (click)="closeModal()">
-        <ion-icon name="close" style="font-size: 15px;"></ion-icon>
-      </button>
-    </ion-buttons>
-    @if (task) {
-      <ion-title style="margin-top: 1rem; font-size: 1rem;" class="titl p-0 mt-0">
-        @if (task.id || task.fkRoutineId) {
-          <div class="ion-text-wrap semibold">
+<div class="p-4">
+
+  <!-- Header -->
+  <div class="flex justify-between items-start mb-4">
+    <div>
+      <div *ngIf="task">
+        <h2 class="text-base font-semibold leading-tight">
+          <ng-container *ngIf="task.id || task.fkRoutineId; else newTask">
             {{task.date.toLocaleDateString('de-AT', { weekday: 'long' })}}
-            @if (task.assignedUsers[0]) {
-              <span> - </span>
-            }
-            @for (user of task.assignedUsers; track user) {
-              <ion-chip [ngStyle]="{'background-color': user?.color}">
-                <ion-avatar>
-                  <img alt="" [src]="user.profileimage" />
-                </ion-avatar>
-                <ion-label>{{user.firstname}}</ion-label>
-              </ion-chip>
-            }
-          </div>
-        }
-        @if (!task.id && !task.fkRoutineId) {
-          <div class="ion-text-wrap semibold">
-            Neue Aufgabe
-          </div>
-        }
-      </ion-title>
-    }
-  </ion-toolbar>
-
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <form [formGroup]="taskForm">
-          <div class="field-box">
-            <input type="text" id="name" autocomplete="off" formControlName="name" placeholder="Name">
-          </div>
-
-          <div class="field-box">
-            <h2>Notizen:</h2>
-            <input type="text" id="notes" autocomplete="off" formControlName="notes" placeholder="Notizen">
-          </div>
-        </form>
-      </ion-col>
-    </ion-row>
-    <ion-row style="margin-bottom: 20px;">
-      <ion-col style="display: flex; align-items: center;" size="auto">
-        Erledigt:
-      </ion-col>
-      <ion-col>
-        <ion-checkbox style="display: flex;" color="primary" [checked]="task.done" (ionChange)="toggleChanged($event)">
-        </ion-checkbox>
-      </ion-col>
-    </ion-row>
-
-    @if (!updatingResponsibleUsers) {
-      <div>
-        <ion-row>
-          <ion-col>
-            <p style="margin: 0">Zuständig:</p>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          @for (user of task.assignedUsers; track user) {
-            <ion-col size="84">
-              <ion-chip>
-                <ion-avatar>
-                  <img alt="" [src]="user.profileimage" />
-                </ion-avatar>
-                <ion-label>{{user.firstname}}</ion-label>
-              </ion-chip>
-            </ion-col>
-          }
-        </ion-row>
-        <ion-row style="margin-top: 10px;">
-          <ion-col>
-            <button type="button" class="btn-small btn-primary" (click)="setUpdatingResponsibleUsers(true)">Zuständige
-            ändern</button>
-          </ion-col>
-        </ion-row>
+            <span *ngIf="task.assignedUsers.length"> - </span>
+            <ng-container *ngFor="let user of task.assignedUsers; track user">
+              <div class="inline-flex items-center bg-opacity-70 text-sm rounded-full px-2 py-1 mr-1"
+                [ngStyle]="{'background-color': user?.color}">
+                <img [src]="user.profileimage" alt="" class="w-6 h-6 rounded-full mr-1" />
+                <span>{{user.firstname}}</span>
+              </div>
+            </ng-container>
+          </ng-container>
+          <ng-template #newTask>Neue Aufgabe</ng-template>
+        </h2>
       </div>
-    }
+    </div>
+    <button type="button" (click)="closeModal()" class="w-8 h-8 flex items-center justify-center rounded-full border border-gray-500 hover:bg-gray-700">
+      <ion-icon name="close" class="text-sm"></ion-icon>
+    </button>
+  </div>
 
+  <!-- Form -->
+  <form [formGroup]="taskForm" class="flex flex-col gap-4">
+    <input type="text" formControlName="name" placeholder="Name"
+      class="w-full bg-gray-800 text-white p-2 rounded-md outline-none" />
+    <div>
+      <label class="block text-sm font-medium mb-1">Notizen:</label>
+      <input type="text" formControlName="notes" placeholder="Notizen"
+        class="w-full bg-gray-800 text-white p-2 rounded-md outline-none" />
+    </div>
+  </form>
 
-    @if (updatingResponsibleUsers) {
-      <div>
-        <ion-row>
-          <ion-col>
-            <ion-grid class="card ion-no-margin">
-              <ion-row>
-                <ion-col style="display: flex; justify-content: center">
-                  <button type="button" class="btn-small btn-outline-danger btn-center"
-                    (click)="setUpdatingResponsibleUsers(false)">
-                    <ion-icon color="danger" style="display: flex; font-size: 1.6rem;" name="close-outline"></ion-icon>
-                  </button>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <p>Zuständig:</p>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                @for (user of task.assignedUsers; track user) {
-                  <ion-col size="84" (click)="removeUser(user)">
-                    <ion-chip>
-                      <ion-avatar>
-                        <img alt="" [src]="user.profileimage" />
-                      </ion-avatar>
-                      <ion-label>{{user.firstname}}</ion-label>
-                      <ion-icon name="close-circle"></ion-icon>
-                    </ion-chip>
-                  </ion-col>
-                }
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <p>Nicht zuständig:</p>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                @for (user of assignableUsers; track user) {
-                  <ion-col size="84" (click)="addUser(user)">
-                    <ion-chip>
-                      <ion-avatar>
-                        <img alt="" [src]="user.profileimage" />
-                      </ion-avatar>
-                      <ion-label>{{user.firstname}}</ion-label>
-                      <ion-icon name="add-circle"></ion-icon>
-                    </ion-chip>
-                  </ion-col>
-                }
-              </ion-row>
-            </ion-grid>
-          </ion-col>
-        </ion-row>
+  <!-- Done Toggle -->
+  <div class="flex items-center mt-4">
+    <span class="mr-2 text-sm">Erledigt:</span>
+    <ion-checkbox color="primary" [checked]="task.done" (ionChange)="toggleChanged($event)"></ion-checkbox>
+  </div>
+
+  <!-- Responsible Users -->
+  <div *ngIf="!updatingResponsibleUsers" class="mt-4">
+    <p class="mb-2 text-sm font-medium">Zuständig:</p>
+    <div class="flex flex-wrap gap-2">
+      <div *ngFor="let user of task.assignedUsers; track user" class="flex items-center bg-gray-700 text-sm rounded-full px-2 py-1">
+        <img [src]="user.profileimage" alt="" class="w-6 h-6 rounded-full mr-1" />
+        <span>{{user.firstname}}</span>
       </div>
-    }
+    </div>
+    <button type="button" (click)="setUpdatingResponsibleUsers(true)" class="btn-small btn-primary mt-3">Zuständige ändern</button>
+  </div>
 
+  <!-- Edit Responsible Users -->
+  <div *ngIf="updatingResponsibleUsers" class="mt-4 bg-gray-800 p-4 rounded-lg">
+    <div class="flex justify-center mb-2">
+      <button type="button" (click)="setUpdatingResponsibleUsers(false)"
+        class="w-8 h-8 flex items-center justify-center rounded-full border border-red-500 hover:bg-red-700">
+        <ion-icon name="close-outline" class="text-red-500 text-xl"></ion-icon>
+      </button>
+    </div>
 
-    <ion-row style="margin-top: 50px;">
-      <ion-col>
-        <button type="button" class="btn-small btn-danger" (click)="askToDeleteTask()">Aufgabe löschen</button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
+    <p class="text-sm mb-2">Zuständig:</p>
+    <div class="flex flex-wrap gap-2 mb-4">
+      <div *ngFor="let user of task.assignedUsers; track user" (click)="removeUser(user)"
+        class="flex items-center bg-gray-700 text-sm rounded-full px-2 py-1 cursor-pointer hover:bg-gray-600">
+        <img [src]="user.profileimage" alt="" class="w-6 h-6 rounded-full mr-1" />
+        <span>{{user.firstname}}</span>
+        <ion-icon name="close-circle" class="ml-1 text-white text-base"></ion-icon>
+      </div>
+    </div>
+
+    <p class="text-sm mb-2">Nicht zuständig:</p>
+    <div class="flex flex-wrap gap-2">
+      <div *ngFor="let user of assignableUsers; track user" (click)="addUser(user)"
+        class="flex items-center bg-gray-700 text-sm rounded-full px-2 py-1 cursor-pointer hover:bg-gray-600">
+        <img [src]="user.profileimage" alt="" class="w-6 h-6 rounded-full mr-1" />
+        <span>{{user.firstname}}</span>
+        <ion-icon name="add-circle" class="ml-1 text-white text-base"></ion-icon>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Button -->
+  <div class="mt-10">
+    <button type="button" class="btn-small btn-danger" (click)="askToDeleteTask()">Aufgabe löschen</button>
+  </div>
+
+</div>

@@ -139,7 +139,7 @@ export class AuthService implements OnDestroy {
         this.decodedUserToken = this.helper.decodeToken(res.data.token);
         this.updateAuthenticationState(this.decodedUserToken);
         this.userService.fetchUserFromApi(this.getUserFromToken().id);
-        this.router.navigate(['tabs/profile']);
+        this.router.navigate(['profile']);
       }
       else {
         if (!res.data.verified) {

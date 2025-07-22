@@ -8,7 +8,6 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
     selector: 'app-color-editor',
     templateUrl: './color-editor.component.html',
-    styleUrls: ['./color-editor.component.scss'],
     standalone: true,
     imports: [
       CommonModule,

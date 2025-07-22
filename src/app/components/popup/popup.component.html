@@ -1,0 +1,15 @@
+<div *ngIf="show" class="fixed inset-0 p-3 z-50 flex items-center justify-center bg-[#0006]">
+  <div class="card p-6 w-full max-w-4xl shadow-xl relative">
+
+    <div class="w-full flex justify-between items-center pb-5">
+      <span>
+        {{title}}
+      </span>
+      <button (click)="onBackdropClick()" class="bg-surface/50 border border-gray-700 rounded-full p-2">
+        <lucide-icon [img]="closeIcon" size="20"></lucide-icon>
+      </button>
+    </div>
+
+    <ng-content></ng-content>
+  </div>
+</div>

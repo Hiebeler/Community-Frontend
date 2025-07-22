@@ -1,143 +1,104 @@
-<ion-content>
-  <ion-refresher slot="fixed" (ionRefresh)="getItems($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+<div class="min-h-screen flex flex-col">
+  <!-- Refresher (Replace with your own logic or a refresh button) -->
+  <div class="fixed top-0 left-0 right-0 z-50">
+    <!-- Implement pull-to-refresh or a refresh button here -->
+  </div>
 
-  <div class="container">
-    <ion-grid fixed="true">
-      <ion-row class="topbar">
-        <ion-col class="topbar-header-col">
-          @if (!editorIsOpen) {
-          <p>Einkaufsliste</p>
-          }
-          @if (editorIsOpen) {
-          <p>Neues Element</p>
-          }
-        </ion-col>
-        @if (!editorIsOpen) {
-        <ion-col size="auto" class="topbar-buttons-col">
-          <button type="button" class="btn-small btn-primary" (click)="openEditor(true)">
-            <ion-icon color="dark" style="display: flex; font-size: 1.2rem;" name="add-outline"></ion-icon>
-          </button>
-        </ion-col>
-        }
-      </ion-row>
+  <main class="flex-1 overflow-auto container mx-auto px-4 py-6 space-y-6">
+    <!-- Top Bar -->
+    <div class="flex items-center justify-between">
+      <div class="text-lg font-semibold">
+        Einkaufsliste
+      </div>
 
-      @if (editorIsOpen) {
-      <ion-row>
-        <ion-col>
-          <ion-grid class="card">
-            <ion-row>
-              <ion-col size="auto" style="display: flex; justify-content: center">
-                <button type="button" class="btn-small btn-outline-danger btn-center" (click)="openEditor(false)">
-                  <ion-icon color="danger" style="display: flex; font-size: 1.6rem;" name="close-outline"></ion-icon>
-                </button>
-              </ion-col>
-              <ion-col>
-                <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveItem()"
-                  class="btn-large btn-primary" style="width: 100%;">Speichern</button>
-              </ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>
-                <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()">
-                  <div>
-                    <input type="text" id="name" autocomplete="off" formControlName="createname" placeholder="Name">
-                  </div>
-                </form>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-col>
-      </ion-row>
-      }
+      <button type="button" class="btn-small btn-primary flex items-center justify-center" (click)="openEditor(true)"
+        aria-label="Neues Element hinzufügen">
+        <lucide-icon [img]="plusIcon"></lucide-icon>
+      </button>
+    </div>
 
+
+    <div class="card">
+      <!-- Open Items -->
       @if (openItems.length) {
-      <ion-row>
-        <ion-col>
-          <h2>Offen:</h2>
-        </ion-col>
-      </ion-row>
+      <h2 class="text-lg font-semibold">Offen:</h2>
       }
 
+      <!-- Empty State -->
       @if (!openItems.length && completedFirstLoad) {
-      <ion-row>
-        <ion-col class="no-items-col">
-          <img src="./../../../../assets/images/no-shopping-items.svg" alt="">
-          <h2 style="margin-top: 0">Alles Erledigt👍</h2>
-          <p>Klicke + um neue Elemente hinzuzufügen</p>
-        </ion-col>
-      </ion-row>
-      }
-
-      @for (item of openItems; track item) {
-      <div>
-        @if (editorIsOpenId !== item.id) {
-        <ion-row>
-          <ion-col size="auto">
-            <ion-checkbox style="display: flex;" color="primary" [checked]="item.done"
-              (ionChange)="updateDone(item.id, $event)"></ion-checkbox>
-          </ion-col>
-          <ion-col>
-            <span class="clickable" (click)="openUpdateEditor(item)">
-              {{item.name}}
-            </span>
-          </ion-col>
-        </ion-row>
-        }
-        @if (editorIsOpenId === item.id) {
-        <ion-row style="display: flex">
-          <ion-col>
-            <ion-grid class="card">
-              <ion-row>
-                <ion-col size="auto" style="display: flex; justify-content: center">
-                  <button type="button" class="btn-small btn-outline-danger btn-center" style="width: 100%;"
-                    (click)="openUpdateEditor()">
-                    <ion-icon color="danger" style="display: flex; font-size: 1.6rem;" name="close-outline"></ion-icon>
-                  </button>
-                </ion-col>
-                <ion-col>
-                  <button [disabled]="itemUpdateEditorForm.invalid || updateNameField.value === item.name" type="button"
-                    (click)="updateName(item.id)" class="btn-large btn-primary" style="width: 100%;">Updaten</button>
-                </ion-col>
-              </ion-row>
-              <ion-row>
-                <ion-col>
-                  <form [formGroup]="itemUpdateEditorForm" (ngSubmit)="updateName(item.id)">
-                    <div class="field-box">
-                      <input type="text" id="name" autocomplete="off" formControlName="updatename" placeholder="Name">
-                    </div>
-                  </form>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-col>
-        </ion-row>
-        }
+      <div class="flex flex-col items-center text-center space-y-2">
+        <img src="./../../../../assets/images/no-shopping-items.svg" alt="" class="rounded-md w-4/5 max-w-xs" />
+        <h2 class="text-xl font-semibold mt-0">Alles Erledigt 👍</h2>
+        <p>Klicke + um neue Elemente hinzuzufügen</p>
       </div>
       }
 
-      @if (doneItems.length) {
-      <ion-row>
-        <ion-col>
-          <h2>Heute erledigt:</h2>
-        </ion-col>
-      </ion-row>
+      <!-- Open Items List -->
+      @for (item of openItems; track item) {
+      <div>
+        @if (editorIsOpenId !== item.id) {
+        <div class="flex items-center space-x-4 py-2">
+          <input type="checkbox" [checked]="item.done" (change)="updateDone(item.id, $event)"
+            class="w-5 h-5 text-green-500 bg-gray-800 border-gray-600 rounded focus:ring-green-500" />
+          <span class="clickable text-white" (click)="openUpdateEditor(item)">
+            {{item.name}}
+          </span>
+        </div>
+        }
+
+        @if (editorIsOpenId === item.id) {
+        <div class="bg-gray-800 p-4 rounded-lg space-y-4">
+          <div class="flex justify-between items-center space-x-2">
+            <button type="button" class="btn-small btn-outline-danger w-full" (click)="openUpdateEditor()">
+              <ion-icon name="close-outline" class="text-2xl text-red-500"></ion-icon>
+            </button>
+
+            <button [disabled]="itemUpdateEditorForm.invalid || updateNameField.value === item.name" type="button"
+              (click)="updateName(item.id)" class="btn-large btn-primary w-full">
+              Updaten
+            </button>
+          </div>
+
+          <form [formGroup]="itemUpdateEditorForm" (ngSubmit)="updateName(item.id)">
+            <input type="text" formControlName="updatename" placeholder="Name" autocomplete="off"
+              class="w-full bg-gray-800 border border-gray-600 rounded px-4 py-2 text-white" />
+          </form>
+        </div>
+        }
+      </div>
       }
+    </div>
+
+
+    @if (doneItems.length) {
+    <div class="card">
+      <!-- Done Items -->
+
+      <h2 class="text-lg font-semibold">Heute erledigt:</h2>
 
 
       @for (item of doneItems; track item) {
-      <ion-row>
-        <ion-col size="auto">
-          <ion-checkbox style="display: flex;" color="primary" [checked]="item.done"
-            (ionChange)="updateDone(item.id, $event)"></ion-checkbox>
-        </ion-col>
-        <ion-col>
-          {{item.name}}
-        </ion-col>
-      </ion-row>
+      <div class="flex items-center space-x-4 py-2">
+        <input type="checkbox" [checked]="item.done" (change)="updateDone(item.id, $event)"
+          class="w-5 h-5 text-green-500 bg-gray-800 border-gray-600 rounded focus:ring-green-500" />
+        <span class="text-gray-400 line-through">{{item.name}}</span>
+      </div>
       }
+    </div>
+    }
+  </main>
+</div>
 
-    </ion-grid>
+<app-popup [show]="editorIsOpen" (close)="editorIsOpen = false" title="Neues Element">
+  <div class="space-y-4">
+
+    <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()">
+      <input type="text" formControlName="createname" placeholder="Name" autocomplete="off"
+        class="w-full bg-gray-800 border border-gray-600 rounded px-4 py-2 text-white" />
+    </form>
+
+    <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveItem()" class="btn-large btn-primary w-full">
+      Speichern
+    </button>
   </div>
-</ion-content>
+</app-popup>

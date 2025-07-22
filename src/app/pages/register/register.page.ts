@@ -1,28 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
-    selector: 'app-register',
-    templateUrl: './register.page.html',
-    styleUrls: ['./register.page.scss'],
-    standalone: false
+  selector: 'app-register',
+  templateUrl: './register.page.html',
+  standalone: true,
+  imports: [IonicModule, CommonModule, ReactiveFormsModule, RouterModule],
 })
 export class RegisterPage {
-
   registerForm: FormGroup;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) {
+  constructor(private authService: AuthService) {
     this.registerForm = new FormGroup({
-      email: new FormControl<string | null>('', [Validators.required, Validators.email]),
-      firstname: new FormControl<string | null>('', [Validators.required, Validators.minLength(3)]),
-      lastname: new FormControl<string | null>('', [Validators.required, Validators.minLength(3)]),
-      password: new FormControl<string | null>('', [Validators.required, Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[\S]{6,}$/)]),
-      password2: new FormControl<string | null>('', Validators.required)
+      email: new FormControl<string | null>('', [
+        Validators.required,
+        Validators.email,
+      ]),
+      firstname: new FormControl<string | null>('', [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+      lastname: new FormControl<string | null>('', [
+        Validators.required,
+        Validators.minLength(3),
+      ]),
+      password: new FormControl<string | null>('', [
+        Validators.required,
+        Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[\S]{6,}$/),
+      ]),
+      password2: new FormControl<string | null>('', Validators.required),
     });
   }
 
@@ -47,12 +62,16 @@ export class RegisterPage {
   }
 
   onSubmit() {
-    if (this.registerForm.valid && this.password.value === this.password2.value) {
-      this.authService.register(this.email.value, this.firstname.value, this.lastname.value, this.password.value);
+    if (
+      this.registerForm.valid &&
+      this.password.value === this.password2.value
+    ) {
+      this.authService.register(
+        this.email.value,
+        this.firstname.value,
+        this.lastname.value,
+        this.password.value
+      );
     }
-  }
-
-  gotoLogin() {
-    this.router.navigate(['login']);
   }
 }

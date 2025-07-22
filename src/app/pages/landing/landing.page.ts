@@ -9,7 +9,6 @@ SwiperCore.use([EffectCards]);
 @Component({
     selector: 'app-landing',
     templateUrl: './landing.page.html',
-    styleUrls: ['./landing.page.scss'],
     standalone: true,
     imports: [
       CommonModule,
@@ -36,7 +35,7 @@ export class LandingPage implements OnInit {
   }
 
   gotoApp() {
-    this.router.navigate(['tabs/tasks']);
+    this.router.navigate(['tasks']);
   }
 
 }

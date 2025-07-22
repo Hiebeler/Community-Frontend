@@ -2,25 +2,28 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { skip, Subscription } from 'rxjs';
+import { ArrowLeftIcon, LucideAngularModule, PlusIcon } from 'lucide-angular';
+import { Subscription } from 'rxjs';
 import { RoutineCardComponent } from 'src/app/components/routine-card/routine-card.component';
 import { RoutineEditorComponent } from 'src/app/components/routine-editor/routine-editor.component';
 import { Routine } from 'src/app/models/routine';
 import { TaskService } from 'src/app/services/task.service';
 
 @Component({
-    selector: 'app-routines',
-    templateUrl: './routines.page.html',
-    styleUrls: ['./routines.page.scss'],
-    standalone: true,
-    imports: [
-      CommonModule,
-      IonicModule,
-      RoutineEditorComponent,
-      RoutineCardComponent
-    ]
+  selector: 'app-routines',
+  templateUrl: './routines.page.html',
+  standalone: true,
+  imports: [
+    CommonModule,
+    IonicModule,
+    RoutineEditorComponent,
+    RoutineCardComponent,
+    LucideAngularModule
+  ],
 })
 export class RoutinesPage implements OnInit, OnDestroy {
+  readonly plusIcon = PlusIcon;
+  readonly backIcon = ArrowLeftIcon
 
   subscriptions: Subscription[] = [];
 
@@ -35,30 +38,29 @@ export class RoutinesPage implements OnInit, OnDestroy {
 
   updateRoutineEditorOpenId = -1;
 
-  constructor(
-    private router: Router,
-    private taskService: TaskService
-  ) { }
+  constructor(private router: Router, private taskService: TaskService) {}
 
   ngOnInit() {
-    this.subscriptions.push(this.taskService.getRoutines().subscribe(routines => {
-      this.enabledRoutines = [];
-      this.disabledRoutines = [];
+    this.subscriptions.push(
+      this.taskService.getRoutines().subscribe((routines) => {
+        this.enabledRoutines = [];
+        this.disabledRoutines = [];
 
-      this.completedFirstLoad = true;
+        this.completedFirstLoad = true;
 
-      routines.map(routine => {
-        if (routine.active) {
-          this.enabledRoutines.push(routine);
-        } else {
-          this.disabledRoutines.push(routine);
+        routines.map((routine) => {
+          if (routine.active) {
+            this.enabledRoutines.push(routine);
+          } else {
+            this.disabledRoutines.push(routine);
+          }
+        });
+
+        if (this.loadingEvent) {
+          this.loadingEvent.target.complete();
         }
-      });
-
-      if (this.loadingEvent) {
-        this.loadingEvent.target.complete();
-      }
-    }));
+      })
+    );
 
     this.getRoutines();
   }
@@ -84,7 +86,6 @@ export class RoutinesPage implements OnInit, OnDestroy {
   }
 
   gotoTasks() {
-    this.router.navigate(['tabs/tasks']);
+    this.router.navigate(['tasks']);
   }
-
 }

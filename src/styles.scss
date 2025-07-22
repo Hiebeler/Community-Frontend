@@ -1,0 +1,260 @@
+@use "tailwindcss";
+
+@theme {
+  --color-main: #fff;
+  --color-main-light: #f1f1f1;
+  --color-main-text: #000;
+  --color-primary: #00c950;
+  --color-background: #101828;
+  --color-surface: #1e2939;
+
+  --color-sidebar: #ebebeb;
+  --color-secondary-text: #364153;
+  --color-accent-main: #0681ac;
+  --color-accent-main-light: #f18647;
+  --color-accent-secondary: #0681ac;
+  --color-accent-secondary-dark: #04779f;
+  --color-danger: #f44336;
+  --color-warning: #ff6900;
+  --color-success: #4caf50;
+  --radius-main: .75rem;
+}
+
+
+@layer base {
+  ::selection {
+    @apply text-background bg-primary;
+  }
+
+  @font-face {
+    font-family: "custom-regular";
+    src: url("/assets/fonts/Poppins-Regular.ttf") format("truetype");
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "custom-medium";
+    src: url("/assets/fonts/Poppins-Medium.ttf") format("truetype");
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "custom-semibold";
+    src: url("/assets/fonts/Poppins-SemiBold.ttf") format("truetype");
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "custom-bold";
+    src: url("/assets/fonts/Poppins-Bold.ttf") format("truetype");
+    font-display: swap;
+  }
+
+  * {
+    font-family: "custom-medium", sans-serif;
+    @apply text-gray-100;
+  }
+
+  p {
+    @apply mt-0;
+  }
+
+  h1 {
+    font-family: "custom-bold", sans-serif;
+    @apply text-[2.2rem];
+  }
+
+  h2 {
+    font-family: "custom-bold", sans-serif;
+  }
+
+  button:enabled:hover {
+    cursor: pointer;
+  }
+
+  button:focus,
+  img:focus {
+    outline: none;
+  }
+
+  a {
+    @apply no-underline;
+  }
+
+  a:hover {
+    @apply cursor-pointer;
+  }
+
+  input,
+  select {
+    @apply w-full block rounded-lg p-4 box-border text-sm my-1.5 bg-gray-800 text-white;
+    border: none;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    @apply outline-green-500 outline outline-2;
+  }
+
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 50px #1f2937 inset; /* Tailwind gray-800 */
+    -webkit-text-fill-color: #f3f4f6; /* Tailwind gray-100 */
+  }
+
+  .empty-input:focus {
+    @apply outline-green-500;
+  }
+
+  .invalid-input:not(:focus) {
+    @apply text-red-500;
+  }
+
+  .invalid-input:focus {
+    @apply outline-red-500;
+  }
+
+  .valid-input:not(:focus) {
+    @apply text-green-500;
+  }
+
+  .valid-input:focus {
+    @apply outline-green-500 outline outline-2;
+  }
+}
+
+/* ------------------------------------------- */
+/* Components: Buttons, Cards, Fields, Alerts */
+/* ------------------------------------------- */
+@layer components {
+  /* Fonts */
+  .regular {
+    font-family: "custom-regular";
+  }
+
+  .medium {
+    font-family: "custom-medium";
+  }
+
+  .semibold {
+    font-family: "custom-semibold";
+  }
+
+  .bold {
+    font-family: "custom-bold";
+  }
+
+  /* Buttons */
+  .btn-small {
+    @apply text-gray-900 py-3 px-3 rounded-lg text-sm leading-normal bg-green-500 hover:bg-green-600 transition;
+  }
+
+  .btn-large {
+    @apply text-gray-900 py-4 px-5 rounded-lg text-base leading-normal bg-green-500 hover:bg-green-600 transition;
+  }
+
+  .btn-primary {
+    @apply text-gray-900 bg-primary enabled:hover:bg-green-600 transition disabled:opacity-50;
+  }
+
+  .btn-danger {
+    @apply bg-red-500 hover:bg-red-600 text-white transition;
+  }
+
+  .btn-neutral {
+    @apply text-gray-100 backdrop-blur-lg bg-surface/50 border border-gray-700 hover:bg-surface/90 transition;
+  }
+
+  .btn-dark {
+    @apply text-gray-100 bg-gray-800 hover:bg-gray-900 transition;
+  }
+
+  .btn-outline-primary {
+    @apply text-green-500 bg-transparent border-2 border-green-500 hover:text-green-600 hover:border-green-600 transition;
+  }
+
+  .btn-outline-danger {
+    @apply text-red-500 bg-transparent border-2 border-red-500 hover:text-red-600 hover:border-red-600 transition;
+  }
+
+  .btn-circle {
+    @apply text-white p-2.5 rounded-full inline-flex items-center justify-center transition-all duration-300 bg-green-500 hover:bg-green-600;
+  }
+
+  .btn-link {
+    @apply text-green-400 hover:text-green-300 bg-transparent;
+  }
+
+  .btn-center {
+    @apply flex items-center justify-center;
+  }
+
+  .card {
+    @apply backdrop-blur-lg bg-surface/50 border border-gray-700 rounded-lg p-4;
+  }
+
+  /* Containers */
+  .container {
+    @apply px-1 max-w-full mx-auto;
+  }
+
+  .container-wide {
+    @apply px-1 max-w-full mx-auto;
+  }
+
+  @screen md {
+    .container {
+      width: 750px;
+    }
+
+    .container-wide {
+      width: 750px;
+    }
+  }
+
+  @screen lg {
+    .container {
+      width: 900px;
+    }
+
+    .container-wide {
+      width: 950px;
+    }
+  }
+
+  @screen xl {
+    .container {
+      width: 900px;
+    }
+
+    .container-wide {
+      width: 1200px;
+    }
+  }
+
+  .active-tab {
+    @apply bg-surface/50 rounded-lg border border-gray-700;
+  }
+}
+
+/* ------------------------------------------- */
+/* Utilities: Helpers and Layout Tweaks */
+/* ------------------------------------------- */
+@layer utilities {
+
+  .clickable:hover {
+    @apply cursor-pointer;
+  }
+
+  .topbar {
+    @apply mb-5;
+  }
+
+  .topbar-header-col {
+    @apply flex flex-col justify-center;
+
+    p {
+      @apply m-0 p-2 text-center;
+    }
+  }
+}

@@ -3,7 +3,6 @@ import { Community } from 'src/app/models/community';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
-import { AlertService } from 'src/app/services/alert.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommunityService } from 'src/app/services/community.service';
 import { Router } from '@angular/router';
@@ -13,11 +12,13 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { ColorEditorComponent } from 'src/app/components/color-editor/color-editor.component';
 import { OpenRequestsComponent } from 'src/app/components/open-requests/open-requests.component';
+import { LucideAngularModule, PaletteIcon } from 'lucide-angular';
+import { ConfirmationPopupComponent } from 'src/app/components/confirmation-popup/confirmation-popup.component';
+import { PopupComponent } from 'src/app/components/popup/popup.component';
 
 @Component({
     selector: 'app-profile',
     templateUrl: './profile.page.html',
-    styleUrls: ['./profile.page.scss'],
     standalone: true,
     imports: [
       CommonModule,
@@ -25,10 +26,14 @@ import { OpenRequestsComponent } from 'src/app/components/open-requests/open-req
       ReactiveFormsModule,
       ColorEditorComponent,
       ProfileImageEditorComponent,
-      OpenRequestsComponent
+      OpenRequestsComponent,
+      LucideAngularModule,
+      ConfirmationPopupComponent,
+      PopupComponent
     ]
 })
 export class ProfilePage implements OnInit, OnDestroy {
+  readonly paletteIcon = PaletteIcon;
 
   subscriptions: Subscription[] = [];
 
@@ -40,13 +45,14 @@ export class ProfilePage implements OnInit, OnDestroy {
   editingColor = false;
   editingName = false;
 
+  showLogoutPopup = false;
+
   nameUpdateEditorForm: FormGroup;
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
     private communityService: CommunityService,
-    private alertService: AlertService,
     private router: Router
   ) {
     this.nameUpdateEditorForm = new FormGroup({
@@ -101,14 +107,13 @@ export class ProfilePage implements OnInit, OnDestroy {
     }));
   }
 
-  async logout() {
-    this.alertService.showAlert(
-      'Bist du dir sicher?',
-      '',
-      'Logout',
-      this.authService.logout.bind(this.authService),
-      'Cancel'
-    );
+  openLogoutPopup() {
+    this.showLogoutPopup = true;
+  }
+
+  logout() {
+    this.authService.logout()
+    this.showLogoutPopup = false;
   }
 
   editImage(state: boolean) {

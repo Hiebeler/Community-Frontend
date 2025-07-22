@@ -1,162 +1,105 @@
-<ion-content>
-  <div class="container" style="padding-top: 15px; padding-bottom: 100px;">
-    @if (user) {
-      <ion-grid>
-        @if (!editingImage) {
-          <ion-row>
-            <ion-col style="display: flex; justify-content: center">
-              <img class="profileimage clickable" [src]="user.profileimage" alt="" height="100" width="100"
-                (click)="editImage(true)">
-            </ion-col>
-          </ion-row>
-        }
-        @if (editingImage) {
-          <div>
-            <app-profile-image-editor (closeEditor)="editImage(false)" />
-          </div>
-        }
-        @if (!editingName) {
-          <ion-row>
-            <ion-col style="display: flex; justify-content: center">
-              <h2 class="clickable" (click)="toggleNameEditor()">{{user.firstname + ' ' + user.lastname}}</h2>
-            </ion-col>
-          </ion-row>
-        }
-        @if (editingName) {
-          <ion-row style="display: flex">
-            <ion-col>
-              <ion-grid class="card">
-                <ion-row>
-                  <ion-col size="auto" style="display: flex; justify-content: center">
-                    <button type="button" class="btn-small btn-outline-danger btn-center" style="width: 100%;"
-                      (click)="toggleNameEditor()">
-                      <ion-icon color="danger" style="display: flex; font-size: 1.6rem;" name="close-outline"></ion-icon>
-                    </button>
-                  </ion-col>
-                  <ion-col>
-                    <button
-                      [disabled]="nameUpdateEditorForm.invalid || (firstname.value === user.firstname && lastname.value === user.lastname)"
-                      type="button" (click)="updateName()" class="btn-large btn-primary"
-                    style="width: 100%;">Updaten</button>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <form class="d-flex name-form" [formGroup]="nameUpdateEditorForm" (ngSubmit)="updateName()">
-                    <ion-col size="42">
-                      <div>
-                        <input type="text" id="firstname" autocomplete="off" formControlName="firstname"
-                          placeholder="Vorname">
-                      </div>
-                    </ion-col>
-                    <ion-col size="42">
-                      <div>
-                        <input type="text" id="lastname" autocomplete="off" formControlName="lastname"
-                          placeholder="Nachname">
-                      </div>
-                    </ion-col>
-                  </form>
-                </ion-row>
-              </ion-grid>
-            </ion-col>
-          </ion-row>
-        }
-        @if (!user.communities) {
-          <ion-row>
-            <ion-col>
-              <ion-grid class="card card-center-text" style="padding: 10px;">
-                <ion-row>
-                  <ion-col>
-                    <p>Noch keiner Gemeinschaft beigetreten</p>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col style="display: flex; justify-content: center">
-                    <button type="button" class="btn-large btn-primary" style="width: 100%;"
-                    (click)="gotoFindCommunity()">Beitreten</button>
-                  </ion-col>
-                  <ion-col>
-                    <button type="button" (click)="gotoCreateCommunity()" class="btn-large btn-outline-primary"
-                    style="width: 100%;">Erstellen</button>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-col>
-          </ion-row>
-        }
-        @if (community) {
-          <ion-row>
-            <ion-col size="42">
-              <div class="card card-center-text">
-                <h2>{{community.name}}</h2>
-                <p>Gemeinschaft</p>
-              </div>
-            </ion-col>
-            <ion-col size="42">
-              <div class="card card-center-text">
-                <h2>{{community.code}}</h2>
-                <p>Beitrittscode</p>
-              </div>
-            </ion-col>
-          </ion-row>
-        }
-        @if (usersInCommunity.length) {
-          <ion-row>
-            <ion-col>
-              <ion-grid class="card card-no-center ion-no-margin">
-                <ion-row>
-                  <ion-col>
-                    <p class="ion-text-center">Mitglieder</p>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  @for (user of usersInCommunity; track user) {
-                    <ion-col size-xs="28" size-sm="21" size-md="21" size-lg="14" size-xl="14"
-                      >
-                      <ion-grid class="user-wrapper">
-                        <ion-row>
-                          <ion-col class="img-col">
-                            <img class="rounded-image" [src]="user.profileimage" alt="">
-                          </ion-col>
-                        </ion-row>
-                        <ion-row>
-                          <ion-col class="name-col">
-                            <p class="firstname">{{user.firstname}}</p>
-                            <p class="lastname">{{user.lastname}}</p>
-                          </ion-col>
-                        </ion-row>
-                      </ion-grid>
-                    </ion-col>
-                  }
-                </ion-row>
-              </ion-grid>
-            </ion-col>
-          </ion-row>
-        }
-        @if (!editingColor) {
-          <ion-row>
-            @if (community) {
-              <ion-col class="card-1-flex" size="42">
-                <div class="card card-center-text wrapper-color clickable" (click)="editColor(true)">
-                  <p>Meine Farbe</p>
-                  <ion-icon [ngStyle]="{'color': user.color}" name="color-palette"></ion-icon>
-                </div>
-              </ion-col>
-            }
-            <ion-col class="card-1-flex">
-              <div class="card card-center-text wrapper-logout clickable" (click)="logout()">
-                <p>Abmelden </p>
-                <ion-icon name="log-out-outline"></ion-icon>
-              </div>
-            </ion-col>
-          </ion-row>
-        }
-        @if (editingColor) {
-          <div>
-            <app-color-editor (closeEditor)="editColor(false)" />
-          </div>
-        }
-        <app-open-requests />
-      </ion-grid>
+<div class="container mx-auto px-4 pt-4 pb-24">
+  @if (user) {
+  <div class="grid gap-4">
+    @if (!editingImage) {
+    <div class="flex justify-center">
+      <img class="profile-image clickable rounded-full" [src]="user.profileimage" alt="" width="100" height="100"
+        (click)="editImage(true)" />
+    </div>
     }
+
+    @if (editingImage) {
+    <app-profile-image-editor (closeEditor)="editImage(false)" />
+    }
+
+    @if (!editingName) {
+    <div class="flex justify-center">
+      <h2 class="clickable text-xl font-semibold" (click)="toggleNameEditor()">
+        {{user.firstname + ' ' + user.lastname}}
+      </h2>
+    </div>
+    }
+
+    @if (editingName) {
+    <div class="card p-4">
+      <div class="flex gap-2 mb-4">
+        <button type="button" class="btn-small btn-outline-danger flex-1" (click)="toggleNameEditor()">
+          <ion-icon name="close-outline" class="text-2xl text-red-500"></ion-icon>
+        </button>
+        <button type="button"
+          [disabled]="nameUpdateEditorForm.invalid || (firstname.value === user.firstname && lastname.value === user.lastname)"
+          (click)="updateName()" class="btn-large btn-primary flex-1">Updaten</button>
+      </div>
+
+      <form class="flex gap-2 w-full" [formGroup]="nameUpdateEditorForm" (ngSubmit)="updateName()">
+        <input type="text" id="firstname" autocomplete="off" formControlName="firstname" placeholder="Vorname"
+          class="flex-1" />
+        <input type="text" id="lastname" autocomplete="off" formControlName="lastname" placeholder="Nachname"
+          class="flex-1" />
+      </form>
+    </div>
+    }
+
+    @if (!user.communities) {
+    <div class="card p-4 text-center">
+      <p>Noch keiner Gemeinschaft beigetreten</p>
+      <div class="grid grid-cols-2 gap-4 mt-4">
+        <button class="btn-large btn-primary w-full" (click)="gotoFindCommunity()">Beitreten</button>
+        <button class="btn-large btn-outline-primary w-full" (click)="gotoCreateCommunity()">Erstellen</button>
+      </div>
+    </div>
+    }
+
+    @if (community) {
+    <div class="grid grid-cols-2 gap-4">
+      <div class="card text-center p-4">
+        <h2 class="text-lg font-semibold">{{community.name}}</h2>
+        <p class="text-sm">Gemeinschaft</p>
+      </div>
+      <div class="card text-center p-4">
+        <h2 class="text-lg font-semibold">{{community.code}}</h2>
+        <p class="text-sm">Beitrittscode</p>
+      </div>
+    </div>
+    }
+
+    @if (usersInCommunity.length) {
+    <div class="card p-4">
+      <p class="text-center mb-4">Mitglieder</p>
+      <div class="flex flex-wrap gap-2 justify-center">
+        @for (user of usersInCommunity; track user) {
+        <div class="card w-20 md:w-28 lg:w-32 text-center">
+          <img [src]="user.profileimage" alt="" class="rounded-full w-full aspect-square object-cover mb-2" />
+          <p class="text-xs">{{user.firstname}}</p>
+          <p class="text-[0.7rem]">{{user.lastname}}</p>
+        </div>
+        }
+      </div>
+    </div>
+    }
+
+    <div class="grid grid-cols-2 gap-4">
+      @if (community) {
+      <div class="card flex justify-center items-center clickable p-4" (click)="editColor(true)">
+        <p class="mr-2">Meine Farbe</p>
+        <lucide-icon [ngStyle]="{'color': user.color}" [img]="paletteIcon"></lucide-icon>
+      </div>
+      }
+      <div class="card flex justify-center items-center clickable p-4" (click)="openLogoutPopup()">
+        <p class="mr-2">Abmelden</p>
+        <ion-icon name="log-out-outline" class="text-xl text-red-500"></ion-icon>
+      </div>
+    </div>
+
+    <app-open-requests />
   </div>
-</ion-content>
+  }
+</div>
+
+<app-popup [show]="editingColor" (close)="editingColor = false" title="Farbe auswählen">
+  <app-color-editor (closeEditor)="editColor(false)" />
+</app-popup>
+
+<app-confirmation-popup *ngIf="showLogoutPopup" title="Abmelden" content="Bist du dir sicher?" submitText="Abmelden"
+  [isDanger]="true" [hasAbortButton]="true" (abort)="showLogoutPopup = false"
+  (submit)="logout()"></app-confirmation-popup>

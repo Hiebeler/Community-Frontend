@@ -2,21 +2,26 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { LucideAngularModule, PlusIcon, XIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
+import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { ShoppingItem } from 'src/app/models/shopping-item';
 import { ShoppingService } from 'src/app/services/shopping.service';
 
 @Component({
     selector: 'app-shopping-list',
     templateUrl: './shopping-list.page.html',
-    styleUrls: ['./shopping-list.page.scss'],
     imports: [
       CommonModule,
       IonicModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      LucideAngularModule,
+      PopupComponent
     ]
 })
 export class ShoppingListPage implements OnInit, OnDestroy {
+  readonly plusIcon = PlusIcon;
+  readonly closeIcon = XIcon;
 
   subscriptions: Subscription[] = [];
 

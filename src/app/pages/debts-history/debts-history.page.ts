@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { ArrowLeftIcon, LucideAngularModule } from 'lucide-angular';
 import { Subscription } from 'rxjs';
 import { Debt } from 'src/app/models/debt';
 import { User } from 'src/app/models/user';
@@ -10,14 +11,15 @@ import { DebtService } from 'src/app/services/debt.service';
 @Component({
     selector: 'app-debts-history',
     templateUrl: './debts-history.page.html',
-    styleUrls: ['./debts-history.page.scss'],
     standalone: true,
     imports: [
       IonicModule,
-      CommonModule
+      CommonModule,
+      LucideAngularModule
     ]
 })
 export class DebtsHistoryPage implements OnInit {
+  readonly backIcon = ArrowLeftIcon;
 
   subscriptions: Subscription[] = [];
 
@@ -54,7 +56,7 @@ export class DebtsHistoryPage implements OnInit {
   }
 
   gotoDebts() {
-    this.router.navigate(['tabs/debts']);
+    this.router.navigate(['debts']);
   }
 
 }
