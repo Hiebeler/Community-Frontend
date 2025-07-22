@@ -1,8 +1,8 @@
 <div class="container mx-auto px-4 pt-4 pb-24">
   @if (user) {
-    <button type="button" class="absolute right-0 top-0 m-5 p-2" (click)="editChangeCommunityPopup(true)">
-      <lucide-icon [img]="userPen"></lucide-icon>
-    </button>
+  <button type="button" class="absolute right-0 top-0 m-5 p-2" (click)="editChangeCommunityPopup(true)">
+    <lucide-icon [img]="userPen"></lucide-icon>
+  </button>
   <div class="grid gap-4">
     <div class="flex justify-center">
       <img class="profile-image clickable rounded-full" [src]="user.profileimage" alt="" width="100" height="100"
@@ -10,32 +10,11 @@
     </div>
 
 
-    @if (!editingName) {
     <div class="flex justify-center">
       <h2 class="clickable text-xl font-semibold" (click)="toggleNameEditor()">
         {{user.firstname + ' ' + user.lastname}}
       </h2>
     </div>
-    }
-
-    @if (editingName) {
-    <div class="card p-4">
-      <div class="flex gap-2 mb-4">
-        <button type="button" class="btn-small btn-outline-danger flex-1" (click)="toggleNameEditor()">
-X        </button>
-        <button type="button"
-          [disabled]="nameUpdateEditorForm.invalid || (firstname.value === user.firstname && lastname.value === user.lastname)"
-          (click)="updateName()" class="btn-large btn-primary flex-1">Updaten</button>
-      </div>
-
-      <form class="flex gap-2 w-full" [formGroup]="nameUpdateEditorForm" (ngSubmit)="updateName()">
-        <input type="text" id="firstname" autocomplete="off" formControlName="firstname" placeholder="Vorname"
-          class="flex-1" />
-        <input type="text" id="lastname" autocomplete="off" formControlName="lastname" placeholder="Nachname"
-          class="flex-1" />
-      </form>
-    </div>
-    }
 
     @if (!user.communities) {
     <div class="card p-4 text-center">
@@ -96,6 +75,22 @@ X        </button>
   <app-color-editor (closeEditor)="editColor(false)" />
 </app-popup>
 
+<app-popup [show]="editingName" (close)="editingName = false" title="Name ändern">
+  <div class="p-4">
+
+    <form class="flex gap-2 mb-3 w-full" [formGroup]="nameUpdateEditorForm" (ngSubmit)="updateName()">
+      <input type="text" id="firstname" autocomplete="off" formControlName="firstname" placeholder="Vorname"
+        class="flex-1" />
+      <input type="text" id="lastname" autocomplete="off" formControlName="lastname" placeholder="Nachname"
+        class="flex-1" />
+    </form>
+
+    <button type="button"
+        [disabled]="nameUpdateEditorForm.invalid || (firstname.value === user.firstname && lastname.value === user.lastname)"
+        (click)="updateName()" class="btn-large btn-primary flex-1">Updaten</button>
+  </div>
+</app-popup>
+
 <app-popup [show]="editingImage" (close)="editingImage = false" title="Bild auswählen">
   <app-profile-image-editor (closeEditor)="editImage(false)" />
 </app-popup>
@@ -103,11 +98,11 @@ X        </button>
 <app-popup [show]="changeCommunityPopup" (close)="changeCommunityPopup = false" title="Deine Communities">
   @if (user) {
 
-    @for (community of user.communities; track community) {
-      <div (click)="selectCommunity(community.id)">
-        {{community.name}}
-      </div>
-    }
+  @for (community of user.communities; track community) {
+  <div (click)="selectCommunity(community.id)">
+    {{community.name}}
+  </div>
+  }
   }
   <a href="/onboarding">Join / Create community</a>
 </app-popup>
