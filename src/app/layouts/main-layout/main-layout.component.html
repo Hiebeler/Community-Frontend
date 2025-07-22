@@ -7,31 +7,31 @@
   <!-- Bottom Navigation Bar -->
   <nav class="fixed bottom-0 inset-x-0 bg-gray-800 border-t border-gray-700 flex justify-around items-center py-3">
     <a routerLink="/tasks" routerLinkActive="text-green-400" class="flex flex-col items-center relative text-white">
-      <ion-icon name="calendar-outline" class="text-2xl"></ion-icon>
+      <lucide-icon [img]="tasksIcon"></lucide-icon>
       <span class="text-xs mt-1">Aufgaben</span>
       @if (tasksForTodayExists) {
-        <span class="absolute top-0 right-0 bg-red-500 text-xs rounded-full px-1">!</span>
+      <span class="absolute top-0 right-0 bg-red-500 text-xs rounded-full px-1">!</span>
       }
     </a>
 
-    <a routerLink="/shopping-list" routerLinkActive="text-green-400" class="flex flex-col items-center relative text-white">
-      <ion-icon name="cart-outline" class="text-2xl"></ion-icon>
+    <a routerLink="/shopping-list" routerLinkActive="text-green-400"
+      class="flex flex-col items-center relative text-white">
+      <lucide-icon [img]="cartIcon"></lucide-icon>
       <span class="text-xs mt-1">Einkaufsliste</span>
       @if (numberOfOpenShoppingItems !== 0) {
-        <span class="absolute top-0 right-0 bg-red-500 text-xs rounded-full px-1">
-          {{numberOfOpenShoppingItems}}
-        </span>
+      <span class="absolute top-0 right-0 bg-red-500 text-xs rounded-full px-1">
+        {{numberOfOpenShoppingItems}}
+      </span>
       }
     </a>
 
     <a routerLink="/debts" routerLinkActive="text-green-400" class="flex flex-col items-center text-white">
-      <ion-icon name="wallet-outline" class="text-2xl"></ion-icon>
+      <lucide-icon [img]="debtsIcon"></lucide-icon>
       <span class="text-xs mt-1">Schulden</span>
     </a>
 
     <a routerLink="/profile" routerLinkActive="text-green-400" class="flex flex-col items-center text-white">
-      <ion-icon name="person-circle-outline" class="text-2xl"></ion-icon>
-      <span class="text-xs mt-1">Profil</span>
+      <lucide-icon [img]="profileIcon"></lucide-icon> <span class="text-xs mt-1">Profil</span>
     </a>
   </nav>
 </div>

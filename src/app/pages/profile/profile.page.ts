@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { ColorEditorComponent } from 'src/app/components/color-editor/color-editor.component';
 import { OpenRequestsComponent } from 'src/app/components/open-requests/open-requests.component';
+import { LucideAngularModule, PaletteIcon } from 'lucide-angular';
 
 @Component({
     selector: 'app-profile',
@@ -24,10 +25,12 @@ import { OpenRequestsComponent } from 'src/app/components/open-requests/open-req
       ReactiveFormsModule,
       ColorEditorComponent,
       ProfileImageEditorComponent,
-      OpenRequestsComponent
+      OpenRequestsComponent,
+      LucideAngularModule
     ]
 })
 export class ProfilePage implements OnInit, OnDestroy {
+  readonly paletteIcon = PaletteIcon;
 
   subscriptions: Subscription[] = [];
 

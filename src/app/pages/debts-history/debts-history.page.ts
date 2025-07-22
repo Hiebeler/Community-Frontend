@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { ArrowLeftIcon, LucideAngularModule } from 'lucide-angular';
 import { Subscription } from 'rxjs';
 import { Debt } from 'src/app/models/debt';
 import { User } from 'src/app/models/user';
@@ -13,10 +14,12 @@ import { DebtService } from 'src/app/services/debt.service';
     standalone: true,
     imports: [
       IonicModule,
-      CommonModule
+      CommonModule,
+      LucideAngularModule
     ]
 })
 export class DebtsHistoryPage implements OnInit {
+  readonly backIcon = ArrowLeftIcon;
 
   subscriptions: Subscription[] = [];
 

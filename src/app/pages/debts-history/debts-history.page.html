@@ -4,7 +4,7 @@
     <!-- Topbar -->
     <div class="flex items-center justify-between mb-6">
       <button type="button" class="btn-small btn-medium" (click)="gotoDebts()">
-        <ion-icon name="return-up-back-outline" class="text-xl"></ion-icon>
+        <lucide-icon [img]="backIcon"></lucide-icon>
       </button>
 
       <p class="text-lg font-semibold">Verlauf</p>
@@ -13,39 +13,39 @@
     <!-- Debt History -->
     <div class="space-y-4">
       @for (debt of debts; track debt) {
-        <div class="bg-gray-800 rounded-xl p-4">
+      <div class="bg-gray-800 rounded-xl p-4">
 
-          <!-- Date Row -->
-          <div class="flex items-center justify-between mb-4">
-            <p class="text-sm text-gray-400">
-              {{debt.timestamp.toLocaleDateString('de-AT', { year: 'numeric', month: 'short', day: 'numeric' })}}
-            </p>
+        <!-- Date Row -->
+        <div class="flex items-center justify-between mb-4">
+          <p class="text-sm text-gray-400">
+            {{debt.timestamp.toLocaleDateString('de-AT', { year: 'numeric', month: 'short', day: 'numeric' })}}
+          </p>
 
-            @if (debt.creditor.id === currentUser?.id) {
-              <ion-icon name="trending-down-outline" class="text-2xl text-red-500"></ion-icon>
-            }
-            @if (debt.creditor.id !== currentUser?.id) {
-              <ion-icon name="trending-up-outline" class="text-2xl text-green-400"></ion-icon>
-            }
-          </div>
-
-          <!-- Body Row -->
-          <div class="flex justify-around items-center">
-            <!-- Left Col -->
-            <div class="flex flex-col items-center">
-              <p class="text-base">{{debt.name}}</p>
-              <p class="text-2xl font-bold">{{debt.amount}} €</p>
-            </div>
-
-            <!-- Right Col -->
-            <div class="flex flex-col items-center">
-              <p class="text-base m-0">{{debt.creditor.firstname}}</p>
-              <ion-icon name="arrow-down-outline" class="text-lg my-1"></ion-icon>
-              <p class="text-base m-0">{{debt.debitor.firstname}}</p>
-            </div>
-          </div>
-
+          @if (debt.creditor.id === currentUser?.id) {
+          <ion-icon name="trending-down-outline" class="text-2xl text-red-500"></ion-icon>
+          }
+          @if (debt.creditor.id !== currentUser?.id) {
+          <ion-icon name="trending-up-outline" class="text-2xl text-green-400"></ion-icon>
+          }
         </div>
+
+        <!-- Body Row -->
+        <div class="flex justify-around items-center">
+          <!-- Left Col -->
+          <div class="flex flex-col items-center">
+            <p class="text-base">{{debt.name}}</p>
+            <p class="text-2xl font-bold">{{debt.amount}} €</p>
+          </div>
+
+          <!-- Right Col -->
+          <div class="flex flex-col items-center">
+            <p class="text-base m-0">{{debt.creditor.firstname}}</p>
+            <ion-icon name="arrow-down-outline" class="text-lg my-1"></ion-icon>
+            <p class="text-base m-0">{{debt.debitor.firstname}}</p>
+          </div>
+        </div>
+
+      </div>
       }
     </div>
 

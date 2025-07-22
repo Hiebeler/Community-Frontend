@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { LucideAngularModule, PlusIcon, ReceiptEuroIcon, ScaleIcon, XIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
 import { Balance } from 'src/app/models/balance';
 import { Debt } from 'src/app/models/debt';
@@ -15,11 +15,15 @@ import { UserService } from 'src/app/services/user.service';
     standalone: true,
     imports: [
       CommonModule,
-      IonicModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      LucideAngularModule
     ]
 })
 export class DebtsPage implements OnInit, OnDestroy {
+  readonly plusIcon = PlusIcon;
+  readonly receiptIcon = ReceiptEuroIcon;
+  readonly closeIcon = XIcon;
+  readonly scaleIcon = ScaleIcon;
 
   subscriptions: Subscription[] = [];
 

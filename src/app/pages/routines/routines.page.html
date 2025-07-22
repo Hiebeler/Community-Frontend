@@ -11,7 +11,7 @@
       @if (!newRoutineEditorIsOpen) {
       <button type="button" class="btn-small btn-medium flex items-center justify-center mr-4" (click)="gotoTasks()"
         aria-label="Zurück zu Aufgaben">
-        <ion-icon name="return-up-back-outline" class="text-xl"></ion-icon>
+        <lucide-icon [img]="backIcon"></lucide-icon>
       </button>
       }
 
@@ -29,7 +29,7 @@
       @if (!newRoutineEditorIsOpen) {
       <button type="button" class="btn-small btn-primary flex items-center justify-center ml-4"
         (click)="openNewRoutineEditor(true)" aria-label="Neue Routine hinzufügen">
-        <ion-icon name="add-outline" color="dark" class="text-xl"></ion-icon>
+        <lucide-icon [img]="plusIcon"></lucide-icon>
       </button>
       }
     </div>

@@ -9,140 +9,102 @@
     <div class="flex items-center justify-between">
       <div class="text-lg font-semibold">
         @if (!editorIsOpen) {
-          <p>Einkaufsliste</p>
+        <p>Einkaufsliste</p>
         }
         @if (editorIsOpen) {
-          <p>Neues Element</p>
+        <p>Neues Element</p>
         }
       </div>
 
       @if (!editorIsOpen) {
-        <button
-          type="button"
-          class="btn-small btn-primary flex items-center justify-center"
-          (click)="openEditor(true)"
-          aria-label="Neues Element hinzufügen"
-        >
-          <ion-icon name="add-outline" color="dark" class="text-xl"></ion-icon>
-        </button>
+      <button type="button" class="btn-small btn-primary flex items-center justify-center" (click)="openEditor(true)"
+        aria-label="Neues Element hinzufügen">
+        <lucide-icon [img]="plusIcon"></lucide-icon>
+      </button>
       }
     </div>
 
     <!-- Editor for new item -->
     @if (editorIsOpen) {
-      <div class="bg-gray-800 p-4 rounded-lg space-y-4">
-        <div class="flex justify-between items-center space-x-2">
-          <button
-            type="button"
-            class="btn-small btn-outline-danger"
-            (click)="openEditor(false)"
-          >
-            <ion-icon name="close-outline" class="text-2xl text-red-500"></ion-icon>
-          </button>
+    <div class="bg-gray-800 p-4 rounded-lg space-y-4">
+      <div class="flex justify-between items-center space-x-2">
+        <button type="button" class="btn-small btn-outline-danger" (click)="openEditor(false)">
+          <lucide-icon [img]="closeIcon" class="text-red-500"></lucide-icon>
+        </button>
 
-          <button
-            [disabled]="itemEditorForm.invalid"
-            type="button"
-            (click)="saveItem()"
-            class="btn-large btn-primary w-full"
-          >
-            Speichern
-          </button>
-        </div>
-
-        <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()">
-          <input
-            type="text"
-            formControlName="createname"
-            placeholder="Name"
-            autocomplete="off"
-            class="w-full bg-gray-800 border border-gray-600 rounded px-4 py-2 text-white"
-          />
-        </form>
+        <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveItem()"
+          class="btn-large btn-primary w-full">
+          Speichern
+        </button>
       </div>
+
+      <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()">
+        <input type="text" formControlName="createname" placeholder="Name" autocomplete="off"
+          class="w-full bg-gray-800 border border-gray-600 rounded px-4 py-2 text-white" />
+      </form>
+    </div>
     }
 
     <!-- Open Items -->
     @if (openItems.length) {
-      <h2 class="text-lg font-semibold">Offen:</h2>
+    <h2 class="text-lg font-semibold">Offen:</h2>
     }
 
     <!-- Empty State -->
     @if (!openItems.length && completedFirstLoad) {
-      <div class="flex flex-col items-center text-center space-y-2">
-        <img src="./../../../../assets/images/no-shopping-items.svg" alt="" class="rounded-md w-4/5 max-w-xs" />
-        <h2 class="text-xl font-semibold mt-0">Alles Erledigt 👍</h2>
-        <p>Klicke + um neue Elemente hinzuzufügen</p>
-      </div>
+    <div class="flex flex-col items-center text-center space-y-2">
+      <img src="./../../../../assets/images/no-shopping-items.svg" alt="" class="rounded-md w-4/5 max-w-xs" />
+      <h2 class="text-xl font-semibold mt-0">Alles Erledigt 👍</h2>
+      <p>Klicke + um neue Elemente hinzuzufügen</p>
+    </div>
     }
 
     <!-- Open Items List -->
     @for (item of openItems; track item) {
-      <div>
-        @if (editorIsOpenId !== item.id) {
-          <div class="flex items-center space-x-4 py-2">
-            <input
-              type="checkbox"
-              [checked]="item.done"
-              (change)="updateDone(item.id, $event)"
-              class="w-5 h-5 text-green-500 bg-gray-800 border-gray-600 rounded focus:ring-green-500"
-            />
-            <span class="clickable text-white" (click)="openUpdateEditor(item)">
-              {{item.name}}
-            </span>
-          </div>
-        }
-
-        @if (editorIsOpenId === item.id) {
-          <div class="bg-gray-800 p-4 rounded-lg space-y-4">
-            <div class="flex justify-between items-center space-x-2">
-              <button
-                type="button"
-                class="btn-small btn-outline-danger w-full"
-                (click)="openUpdateEditor()"
-              >
-                <ion-icon name="close-outline" class="text-2xl text-red-500"></ion-icon>
-              </button>
-
-              <button
-                [disabled]="itemUpdateEditorForm.invalid || updateNameField.value === item.name"
-                type="button"
-                (click)="updateName(item.id)"
-                class="btn-large btn-primary w-full"
-              >
-                Updaten
-              </button>
-            </div>
-
-            <form [formGroup]="itemUpdateEditorForm" (ngSubmit)="updateName(item.id)">
-              <input
-                type="text"
-                formControlName="updatename"
-                placeholder="Name"
-                autocomplete="off"
-                class="w-full bg-gray-800 border border-gray-600 rounded px-4 py-2 text-white"
-              />
-            </form>
-          </div>
-        }
+    <div>
+      @if (editorIsOpenId !== item.id) {
+      <div class="flex items-center space-x-4 py-2">
+        <input type="checkbox" [checked]="item.done" (change)="updateDone(item.id, $event)"
+          class="w-5 h-5 text-green-500 bg-gray-800 border-gray-600 rounded focus:ring-green-500" />
+        <span class="clickable text-white" (click)="openUpdateEditor(item)">
+          {{item.name}}
+        </span>
       </div>
+      }
+
+      @if (editorIsOpenId === item.id) {
+      <div class="bg-gray-800 p-4 rounded-lg space-y-4">
+        <div class="flex justify-between items-center space-x-2">
+          <button type="button" class="btn-small btn-outline-danger w-full" (click)="openUpdateEditor()">
+            <ion-icon name="close-outline" class="text-2xl text-red-500"></ion-icon>
+          </button>
+
+          <button [disabled]="itemUpdateEditorForm.invalid || updateNameField.value === item.name" type="button"
+            (click)="updateName(item.id)" class="btn-large btn-primary w-full">
+            Updaten
+          </button>
+        </div>
+
+        <form [formGroup]="itemUpdateEditorForm" (ngSubmit)="updateName(item.id)">
+          <input type="text" formControlName="updatename" placeholder="Name" autocomplete="off"
+            class="w-full bg-gray-800 border border-gray-600 rounded px-4 py-2 text-white" />
+        </form>
+      </div>
+      }
+    </div>
     }
 
     <!-- Done Items -->
     @if (doneItems.length) {
-      <h2 class="text-lg font-semibold">Heute erledigt:</h2>
+    <h2 class="text-lg font-semibold">Heute erledigt:</h2>
     }
 
     @for (item of doneItems; track item) {
-      <div class="flex items-center space-x-4 py-2">
-        <input
-          type="checkbox"
-          [checked]="item.done"
-          (change)="updateDone(item.id, $event)"
-          class="w-5 h-5 text-green-500 bg-gray-800 border-gray-600 rounded focus:ring-green-500"
-        />
-        <span class="text-gray-400 line-through">{{item.name}}</span>
-      </div>
+    <div class="flex items-center space-x-4 py-2">
+      <input type="checkbox" [checked]="item.done" (change)="updateDone(item.id, $event)"
+        class="w-5 h-5 text-green-500 bg-gray-800 border-gray-600 rounded focus:ring-green-500" />
+      <span class="text-gray-400 line-through">{{item.name}}</span>
+    </div>
     }
   </main>
 </div>

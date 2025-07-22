@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { ArrowLeftIcon, LucideAngularModule, PlusIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
 import { RoutineCardComponent } from 'src/app/components/routine-card/routine-card.component';
 import { RoutineEditorComponent } from 'src/app/components/routine-editor/routine-editor.component';
@@ -17,9 +18,13 @@ import { TaskService } from 'src/app/services/task.service';
     IonicModule,
     RoutineEditorComponent,
     RoutineCardComponent,
+    LucideAngularModule
   ],
 })
 export class RoutinesPage implements OnInit, OnDestroy {
+  readonly plusIcon = PlusIcon;
+  readonly backIcon = ArrowLeftIcon
+
   subscriptions: Subscription[] = [];
 
   enabledRoutines: Routine[] = [];

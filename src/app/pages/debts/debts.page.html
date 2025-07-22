@@ -5,7 +5,7 @@
     <div class="flex items-center justify-between">
       @if (!editorIsOpen) {
       <button type="button" class="btn-small btn-primary" (click)="gotoHistory()">
-        <ion-icon name="receipt-outline" class="text-xl"></ion-icon>
+        <lucide-icon [img]="receiptIcon"></lucide-icon>
       </button>
       }
 
@@ -16,7 +16,7 @@
 
       @if (!editorIsOpen) {
       <button type="button" class="btn-small btn-primary" (click)="openEditor(true)">
-        <ion-icon name="add-outline" class="text-xl"></ion-icon>
+        <lucide-icon [img]="plusIcon"></lucide-icon>
       </button>
       }
     </div>
@@ -28,7 +28,7 @@
       <!-- Action Buttons -->
       <div class="flex justify-between items-center">
         <button type="button" class="btn-small btn-outline-danger w-1/4" (click)="openEditor(false)">
-          <ion-icon name="close-outline" class="text-2xl text-red-500"></ion-icon>
+          <lucide-icon [img]="closeIcon" class="text-red-500"></lucide-icon>
         </button>
         <button type="button" class="btn-large btn-primary w-3/4" [disabled]="itemEditorForm.invalid"
           (click)="saveDebt()">
@@ -99,7 +99,7 @@
           </div>
 
           <button type="button" class="btn-small btn-primary" (click)="openClearOffEditor(balance)">
-            <ion-icon name="card-outline" class="text-xl"></ion-icon>
+            <lucide-icon [img]="scaleIcon"></lucide-icon>
           </button>
         </div>
 
@@ -119,7 +119,7 @@
         <form [formGroup]="clearOffBalanceEditorForm" (ngSubmit)="clearOffBalance(balance)" class="space-y-4">
           <div class="flex items-center space-x-2">
             <button type="button" class="btn-small btn-outline-danger w-1/4" (click)="openClearOffEditor()">
-              <ion-icon name="close-outline" class="text-2xl text-red-500"></ion-icon>
+              <lucide-icon [img]="closeIcon" class="text-red-500"></lucide-icon>
             </button>
 
             <button type="button" class="btn-large btn-primary w-3/4" [disabled]="clearOffBalanceEditorForm.invalid"

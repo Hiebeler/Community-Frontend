@@ -83,7 +83,7 @@
       @if (community) {
       <div class="card flex justify-center items-center clickable p-4" (click)="editColor(true)">
         <p class="mr-2">Meine Farbe</p>
-        <ion-icon [ngStyle]="{'color': user.color}" name="color-palette" class="text-xl"></ion-icon>
+        <lucide-icon [ngStyle]="{'color': user.color}" [img]="paletteIcon"></lucide-icon>
       </div>
       }
       <div class="card flex justify-center items-center clickable p-4" (click)="logout()">
