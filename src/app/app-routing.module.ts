@@ -6,7 +6,6 @@ import { LoginPage } from './pages/login/login.page';
 import { RegisterPage } from './pages/register/register.page';
 import { FindCommunityPage } from './pages/find-community/find-community.page';
 import { CreateCommunityPage } from './pages/create-community/create-community.page';
-import { TaskPage } from './modals/task/task.page';
 import { ProfilePage } from './pages/profile/profile.page';
 import { VerifyPage } from './pages/verify/verify.page';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
@@ -80,27 +79,11 @@ const routes: Routes = [
     }
   },
   {
-    path: 'find-community',
-    component: FindCommunityPage,
-    canActivate: [AuthGuard],
-    data: {
-      roles: ['onboarding'],
-    },
-  },
-  {
-    path: 'create-community',
-    component: CreateCommunityPage,
-    canActivate: [AuthGuard],
-    data: {
-      roles: ['onboarding'],
-    },
-  },
-  {
     path: 'onboarding',
     component: OnboardingComponent,
     canActivate: [AuthGuard],
     data: {
-      roles: ['onboarding'],
+      roles: ['onboarding', 'community'],
     },
   },
   {
