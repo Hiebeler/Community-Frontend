@@ -139,6 +139,7 @@ export class ProfilePage implements OnInit, OnDestroy {
   selectCommunity(communityId: number) {
     console.log("select community " + communityId)
     this.communityService.setCurrentCommunity(communityId);
+    this.changeCommunityPopup = false;
   }
 
 }
