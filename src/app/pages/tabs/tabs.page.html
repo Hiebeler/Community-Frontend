@@ -1,32 +1,37 @@
-<ion-content>
-  <ion-tabs>
-    <ion-tab-bar slot="bottom">
+<div class="flex flex-col h-full">
+  <!-- Main Content -->
+  <div class="flex-1 overflow-auto">
+    <router-outlet></router-outlet>
+  </div>
 
-      <ion-tab-button tab="tasks">
-        <ion-icon name="calendar-outline"></ion-icon>
-        <ion-label>Aufgaben</ion-label>
-        @if (tasksForTodayExists) {
-          <ion-badge>!</ion-badge>
-        }
-      </ion-tab-button>
+  <!-- Bottom Navigation Bar -->
+  <nav class="bg-gray-800 border-t border-gray-700 flex justify-around items-center py-3">
+    <a routerLink="/tabs/tasks" routerLinkActive="text-green-400" class="flex flex-col items-center relative text-white">
+      <ion-icon name="calendar-outline" class="text-2xl"></ion-icon>
+      <span class="text-xs mt-1">Aufgaben</span>
+      @if (tasksForTodayExists) {
+        <span class="absolute top-0 right-0 bg-red-500 text-xs rounded-full px-1">!</span>
+      }
+    </a>
 
-      <ion-tab-button tab="shopping-list">
-        <ion-icon name="cart-outline"></ion-icon>
-        <ion-label>Einkaufsliste</ion-label>
-        @if (numberOfOpenShoppingItems !== 0) {
-          <ion-badge>{{numberOfOpenShoppingItems}}</ion-badge>
-        }
-      </ion-tab-button>
+    <a routerLink="/tabs/shopping-list" routerLinkActive="text-green-400" class="flex flex-col items-center relative text-white">
+      <ion-icon name="cart-outline" class="text-2xl"></ion-icon>
+      <span class="text-xs mt-1">Einkaufsliste</span>
+      @if (numberOfOpenShoppingItems !== 0) {
+        <span class="absolute top-0 right-0 bg-red-500 text-xs rounded-full px-1">
+          {{numberOfOpenShoppingItems}}
+        </span>
+      }
+    </a>
 
-      <ion-tab-button tab="debts">
-        <ion-icon name="wallet-outline"></ion-icon>
-        <ion-label>Schulden</ion-label>
-      </ion-tab-button>
+    <a routerLink="/tabs/debts" routerLinkActive="text-green-400" class="flex flex-col items-center text-white">
+      <ion-icon name="wallet-outline" class="text-2xl"></ion-icon>
+      <span class="text-xs mt-1">Schulden</span>
+    </a>
 
-      <ion-tab-button tab="profile">
-        <ion-icon name="person-circle-outline"></ion-icon>
-        <ion-label>Profil</ion-label>
-      </ion-tab-button>
-    </ion-tab-bar>
-  </ion-tabs>
-</ion-content>
+    <a routerLink="/tabs/profile" routerLinkActive="text-green-400" class="flex flex-col items-center text-white">
+      <ion-icon name="person-circle-outline" class="text-2xl"></ion-icon>
+      <span class="text-xs mt-1">Profil</span>
+    </a>
+  </nav>
+</div>
