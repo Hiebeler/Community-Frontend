@@ -102,5 +102,5 @@
   }
 </div>
 
-<app-popup *ngIf="showLogoutPopup" title="Abmelden" content="Bist du dir sicher?" submitText="Abmelden" [isDanger]="true"
-  [hasAbortButton]="true" (abort)="showLogoutPopup = false" (submit)="logout()"></app-popup>
+<app-confirmation-popup *ngIf="showLogoutPopup" title="Abmelden" content="Bist du dir sicher?" submitText="Abmelden" [isDanger]="true"
+  [hasAbortButton]="true" (abort)="showLogoutPopup = false" (submit)="logout()"></app-confirmation-popup>

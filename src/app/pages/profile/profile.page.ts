@@ -13,7 +13,7 @@ import { IonicModule } from '@ionic/angular';
 import { ColorEditorComponent } from 'src/app/components/color-editor/color-editor.component';
 import { OpenRequestsComponent } from 'src/app/components/open-requests/open-requests.component';
 import { LucideAngularModule, PaletteIcon } from 'lucide-angular';
-import { PopupComponent } from 'src/app/components/popup/popup.component';
+import { ConfirmationPopupComponent } from 'src/app/components/confirmation-popup/confirmation-popup.component';
 
 @Component({
     selector: 'app-profile',
@@ -27,7 +27,7 @@ import { PopupComponent } from 'src/app/components/popup/popup.component';
       ProfileImageEditorComponent,
       OpenRequestsComponent,
       LucideAngularModule,
-      PopupComponent
+      ConfirmationPopupComponent
     ]
 })
 export class ProfilePage implements OnInit, OnDestroy {

@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-popup',
+  selector: 'app-confirmation-popup',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './popup.component.html',
+  templateUrl: './confirmation-popup.component.html',
   animations: [
     trigger('popupAnimation', [
       transition(':enter', [
@@ -19,7 +19,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     ])
   ]
 })
-export class PopupComponent {
+export class ConfirmationPopupComponent {
   @Input() title: string;
   @Input() content: string;
   @Input() hasAbortButton: boolean = true;
