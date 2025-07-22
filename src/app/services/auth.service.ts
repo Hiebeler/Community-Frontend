@@ -88,7 +88,7 @@ export class AuthService implements OnDestroy {
       if (token.communities) {
         this.authenticationState.next('community');
       } else {
-        this.authenticationState.next('user');
+        this.authenticationState.next('onboarding');
       }
     }
   }

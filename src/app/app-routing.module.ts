@@ -84,7 +84,7 @@ const routes: Routes = [
     component: FindCommunityPage,
     canActivate: [AuthGuard],
     data: {
-      roles: ['user'],
+      roles: ['onboarding'],
     },
   },
   {
@@ -92,7 +92,7 @@ const routes: Routes = [
     component: CreateCommunityPage,
     canActivate: [AuthGuard],
     data: {
-      roles: ['user'],
+      roles: ['onboarding'],
     },
   },
   {
@@ -100,7 +100,7 @@ const routes: Routes = [
     component: OnboardingComponent,
     canActivate: [AuthGuard],
     data: {
-      roles: ['user'],
+      roles: ['onboarding'],
     },
   },
   {

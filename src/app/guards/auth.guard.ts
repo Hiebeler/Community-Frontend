@@ -28,8 +28,8 @@ export class AuthGuard implements CanActivate {
           if (role === 'community') {
             this.router.navigate(['tasks']);
           }
-          else if (role === 'user') {
-            this.router.navigate(['profile']);
+          else if (role === 'onboarding') {
+            this.router.navigate(['onboarding']);
           }
           else {
             this.router.navigate(['login']);
