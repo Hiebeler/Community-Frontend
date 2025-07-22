@@ -3,7 +3,7 @@
 
     <!-- Topbar -->
     <div class="flex items-center justify-between mb-6">
-      <button type="button" class="btn-small btn-medium" (click)="gotoDebts()">
+      <button type="button" class="btn-small btn-neutral" (click)="gotoDebts()">
         <lucide-icon [img]="backIcon"></lucide-icon>
       </button>
 
@@ -13,7 +13,7 @@
     <!-- Debt History -->
     <div class="space-y-4">
       @for (debt of debts; track debt) {
-      <div class="bg-gray-800 rounded-xl p-4">
+      <div class="card">
 
         <!-- Date Row -->
         <div class="flex items-center justify-between mb-4">

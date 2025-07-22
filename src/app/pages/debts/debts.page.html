@@ -88,7 +88,7 @@
     @if (allBalances.length) {
     <div class="space-y-4">
       @for (balance of allBalances; track balance) {
-      <div class="bg-gray-800 rounded-xl p-4">
+      <div class="card">
 
         <!-- Card View -->
         @if (clearOffEditorIsOpenId !== balance.debitor.id) {

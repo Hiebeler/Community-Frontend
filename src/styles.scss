@@ -154,15 +154,15 @@
   }
 
   .btn-primary {
-    @apply text-gray-900 bg-green-500 hover:bg-green-600 transition;
+    @apply text-gray-900 bg-primary enabled:hover:bg-green-600 transition disabled:opacity-50;
   }
 
   .btn-danger {
     @apply bg-red-500 hover:bg-red-600 text-white transition;
   }
 
-  .btn-medium {
-    @apply text-gray-100 bg-gray-600 hover:bg-gray-700 transition;
+  .btn-neutral {
+    @apply text-gray-100 backdrop-blur-lg bg-surface/50 border border-gray-700 hover:bg-surface/90 transition;
   }
 
   .btn-dark {
@@ -189,9 +189,8 @@
     @apply flex items-center justify-center;
   }
 
-  /* Card */
   .card {
-    @apply bg-surface rounded-lg p-4;
+    @apply backdrop-blur-lg bg-surface/50 border border-gray-700 rounded-lg p-4;
   }
 
   /* Field Box */

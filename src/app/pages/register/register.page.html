@@ -1,4 +1,4 @@
-<div class="w-full max-w-md bg-white dark:bg-gray-900 p-8 rounded-xl shadow-lg">
+<div class="w-full max-w-md card p-8 rounded-xl shadow-lg">
 
   <h1 class="text-2xl mb-8 text-center font-semibold text-gray-900 dark:text-gray-100">Registrieren</h1>
 
@@ -40,15 +40,15 @@
     </div>
 
     <button type="submit" [disabled]="registerForm.invalid"
-      class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition disabled:opacity-50">
+      class="w-full btn-large btn-primary">
       Registrieren
     </button>
   </form>
 
   <div class="flex justify-center mt-6">
-    <button type="button" (click)="gotoLogin()" class="text-blue-600 hover:underline text-sm font-medium">
+    <a routerLink="/login" class="text-primary text-sm hover:underline">
       Ich habe schon einen Account
-    </button>
+    </a>
   </div>
 
 </div>
