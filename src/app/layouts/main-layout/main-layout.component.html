@@ -6,7 +6,7 @@
 
   <!-- Bottom Navigation Bar -->
   <nav class="bg-gray-800 border-t border-gray-700 flex justify-around items-center py-3">
-    <a routerLink="/tabs/tasks" routerLinkActive="text-green-400" class="flex flex-col items-center relative text-white">
+    <a routerLink="/tasks" routerLinkActive="text-green-400" class="flex flex-col items-center relative text-white">
       <ion-icon name="calendar-outline" class="text-2xl"></ion-icon>
       <span class="text-xs mt-1">Aufgaben</span>
       @if (tasksForTodayExists) {
@@ -14,7 +14,7 @@
       }
     </a>
 
-    <a routerLink="/tabs/shopping-list" routerLinkActive="text-green-400" class="flex flex-col items-center relative text-white">
+    <a routerLink="/shopping-list" routerLinkActive="text-green-400" class="flex flex-col items-center relative text-white">
       <ion-icon name="cart-outline" class="text-2xl"></ion-icon>
       <span class="text-xs mt-1">Einkaufsliste</span>
       @if (numberOfOpenShoppingItems !== 0) {
@@ -24,12 +24,12 @@
       }
     </a>
 
-    <a routerLink="/tabs/debts" routerLinkActive="text-green-400" class="flex flex-col items-center text-white">
+    <a routerLink="/debts" routerLinkActive="text-green-400" class="flex flex-col items-center text-white">
       <ion-icon name="wallet-outline" class="text-2xl"></ion-icon>
       <span class="text-xs mt-1">Schulden</span>
     </a>
 
-    <a routerLink="/tabs/profile" routerLinkActive="text-green-400" class="flex flex-col items-center text-white">
+    <a routerLink="/profile" routerLinkActive="text-green-400" class="flex flex-col items-center text-white">
       <ion-icon name="person-circle-outline" class="text-2xl"></ion-icon>
       <span class="text-xs mt-1">Profil</span>
     </a>

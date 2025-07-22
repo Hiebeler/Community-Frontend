@@ -5,7 +5,7 @@
   "background_color": "#1f2028",
   "display": "standalone",
   "scope": "./",
-  "start_url": "./tabs/tasks",
+  "start_url": "./tasks",
   "icons": [
     {
       "src": "assets/logos/logo_72.png",

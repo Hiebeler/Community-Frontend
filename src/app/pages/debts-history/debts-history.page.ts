@@ -54,7 +54,7 @@ export class DebtsHistoryPage implements OnInit {
   }
 
   gotoDebts() {
-    this.router.navigate(['tabs/debts']);
+    this.router.navigate(['debts']);
   }
 
 }

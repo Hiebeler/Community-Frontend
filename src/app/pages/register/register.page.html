@@ -1,89 +1,54 @@
-<div class="min-h-screen w-full bg-cover bg-center" style="background-image: url('../../../assets/images/bg7.svg');">
-  <div class="flex items-center justify-center min-h-screen px-4">
-    <div class="w-full max-w-md bg-white dark:bg-gray-900 p-8 rounded-xl shadow-lg">
+<div class="w-full max-w-md bg-white dark:bg-gray-900 p-8 rounded-xl shadow-lg">
 
-      <h1 class="text-2xl mb-8 text-center font-semibold text-gray-900 dark:text-gray-100">Registrieren</h1>
+  <h1 class="text-2xl mb-8 text-center font-semibold text-gray-900 dark:text-gray-100">Registrieren</h1>
 
-      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <div class="mb-6">
-          <label for="email" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
-          <input
-            type="email"
-            id="email"
-            formControlName="email"
-            placeholder="Email"
-            [ngClass]="email.value ? email.valid ? 'valid-input' : 'invalid-input' : 'empty-input'"
-            class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-          >
-        </div>
-
-        <div class="mb-6">
-          <label for="name" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Vorname</label>
-          <input
-            type="text"
-            id="name"
-            formControlName="firstname"
-            placeholder="Vorname"
-            [ngClass]="firstname.value ? firstname.valid ? 'valid-input' : 'invalid-input' : 'empty-input'"
-            class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-          >
-        </div>
-
-        <div class="mb-6">
-          <label for="lastname" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Nachname</label>
-          <input
-            type="text"
-            id="lastname"
-            formControlName="lastname"
-            placeholder="Nachname"
-            [ngClass]="lastname.value ? lastname.valid ? 'valid-input' : 'invalid-input' : 'empty-input'"
-            class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-          >
-        </div>
-
-        <div class="mb-6">
-          <label for="password" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Passwort</label>
-          <input
-            type="password"
-            id="password"
-            formControlName="password"
-            placeholder="Passwort"
-            [ngClass]="password.value ? password.valid ? 'valid-input' : 'invalid-input' : 'empty-input'"
-            class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-          >
-        </div>
-
-        <div class="mb-6">
-          <label for="password2" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Passwort wiederholen</label>
-          <input
-            type="password"
-            id="password2"
-            formControlName="password2"
-            placeholder="Passwort wiederholen"
-            [ngClass]="password.value ? (password.value === password2.value ? 'valid-input' : 'invalid-input') : 'empty-input'"
-            class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-          >
-        </div>
-
-        <button
-          type="submit"
-          [disabled]="registerForm.invalid"
-          class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition disabled:opacity-50"
-        >
-          Registrieren
-        </button>
-      </form>
-
-      <div class="flex justify-center mt-6">
-        <button
-          type="button"
-          (click)="gotoLogin()"
-          class="text-blue-600 hover:underline text-sm font-medium"
-        >
-          Ich habe schon einen Account
-        </button>
-      </div>
-
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="mb-6">
+      <label for="email" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+      <input type="email" id="email" formControlName="email" placeholder="Email"
+        [ngClass]="email.value ? email.valid ? 'valid-input' : 'invalid-input' : 'empty-input'"
+        class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
     </div>
+
+    <div class="mb-6">
+      <label for="name" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Vorname</label>
+      <input type="text" id="name" formControlName="firstname" placeholder="Vorname"
+        [ngClass]="firstname.value ? firstname.valid ? 'valid-input' : 'invalid-input' : 'empty-input'"
+        class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+    </div>
+
+    <div class="mb-6">
+      <label for="lastname" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Nachname</label>
+      <input type="text" id="lastname" formControlName="lastname" placeholder="Nachname"
+        [ngClass]="lastname.value ? lastname.valid ? 'valid-input' : 'invalid-input' : 'empty-input'"
+        class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+    </div>
+
+    <div class="mb-6">
+      <label for="password" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Passwort</label>
+      <input type="password" id="password" formControlName="password" placeholder="Passwort"
+        [ngClass]="password.value ? password.valid ? 'valid-input' : 'invalid-input' : 'empty-input'"
+        class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+    </div>
+
+    <div class="mb-6">
+      <label for="password2" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Passwort
+        wiederholen</label>
+      <input type="password" id="password2" formControlName="password2" placeholder="Passwort wiederholen"
+        [ngClass]="password.value ? (password.value === password2.value ? 'valid-input' : 'invalid-input') : 'empty-input'"
+        class="w-full px-4 py-2 rounded-lg bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+    </div>
+
+    <button type="submit" [disabled]="registerForm.invalid"
+      class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition disabled:opacity-50">
+      Registrieren
+    </button>
+  </form>
+
+  <div class="flex justify-center mt-6">
+    <button type="button" (click)="gotoLogin()" class="text-blue-600 hover:underline text-sm font-medium">
+      Ich habe schon einen Account
+    </button>
   </div>
+
 </div>

@@ -9,6 +9,13 @@ import { CreateCommunityPage } from './pages/create-community/create-community.p
 import { TaskPage } from './modals/task/task.page';
 import { ProfilePage } from './pages/profile/profile.page';
 import { VerifyPage } from './pages/verify/verify.page';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
+import { TasksPage } from './pages/tasks/tasks.page';
+import { RoutinesPage } from './pages/routines/routines.page';
+import { ShoppingListPage } from './pages/shopping-list/shopping-list.page';
+import { DebtsPage } from './pages/debts/debts.page';
+import { DebtsHistoryPage } from './pages/debts-history/debts-history.page';
 
 const routes: Routes = [
   {
@@ -16,28 +23,56 @@ const routes: Routes = [
     component: LandingPage,
   },
   {
-    path: 'login',
-    component: LoginPage,
-    canActivate: [AuthGuard],
-    data: {
-      roles: ['none'],
-    },
+    path: '',
+    component: AuthLayoutComponent,
+    children: [
+      {
+        path: 'login',
+        component: LoginPage,
+        canActivate: [AuthGuard],
+        data: {
+          roles: ['none'],
+        },
+      },
+      {
+        path: 'register',
+        component: RegisterPage,
+        canActivate: [AuthGuard],
+        data: {
+          roles: ['none'],
+        },
+      },
+    ],
   },
   {
-    path: 'register',
-    component: RegisterPage,
-    canActivate: [AuthGuard],
-    data: {
-      roles: ['none'],
-    },
-  },
-  {
-    path: 'tabs',
-    loadChildren: () => import('./pages/tabs/tabs.module').then(m => m.TabsPageModule),
-    canActivate: [AuthGuard],
-    data: {
-      roles: ['community'],
-    },
+    path: '',
+    component: MainLayoutComponent,
+    children: [
+      {
+        path: 'profile',
+        component: ProfilePage,
+      },
+      {
+        path: 'tasks',
+        component: TasksPage,
+      },
+      {
+        path: 'tasks/routines',
+        component: RoutinesPage,
+      },
+      {
+        path: 'shopping-list',
+        component: ShoppingListPage,
+      },
+      {
+        path: 'debts',
+        component: DebtsPage,
+      },
+      {
+        path: 'debts/history',
+        component: DebtsHistoryPage,
+      },
+    ],
   },
   {
     path: 'find-community',

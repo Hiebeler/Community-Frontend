@@ -1,51 +1,30 @@
-<div class="min-h-screen w-full bg-cover bg-center" style="background-image: url('../../../assets/images/bg7.svg');">
-  <div class="flex items-center justify-center min-h-screen px-4">
-    <div class="w-full max-w-md bg-white dark:bg-gray-900 p-8 rounded-xl shadow-lg">
+<div class="w-full max-w-md bg-white dark:bg-gray-900 p-8 rounded-xl shadow-lg">
 
-      <h1 class="text-2xl mb-8 text-center font-semibold text-gray-900 dark:text-gray-100">Anmelden</h1>
+  <h1 class="text-2xl mb-8 text-center font-semibold text-gray-900 dark:text-gray-100">Anmelden</h1>
 
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <div class="mb-6">
-          <label for="email" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
-          <input
-            type="email"
-            id="email"
-            formControlName="email"
-            placeholder="Email"
-            class="w-full px-4 py-2 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-        </div>
-
-        <div class="mb-6">
-          <label for="password" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Passwort</label>
-          <input
-            type="password"
-            id="password"
-            formControlName="password"
-            placeholder="Passwort"
-            class="w-full px-4 py-2 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-        </div>
-
-        <button
-          type="submit"
-          [disabled]="loginForm.invalid"
-          class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition disabled:opacity-50"
-        >
-          Anmelden
-        </button>
-      </form>
-
-      <div class="flex justify-center mt-6">
-        <button
-          type="button"
-          (click)="gotoRegister()"
-          class="text-blue-600 hover:underline text-sm font-medium"
-        >
-          Neuen Account erstellen
-        </button>
-      </div>
-
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="mb-6">
+      <label for="email" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+      <input type="email" id="email" formControlName="email" placeholder="Email"
+        class="w-full px-4 py-2 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
     </div>
+
+    <div class="mb-6">
+      <label for="password" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Passwort</label>
+      <input type="password" id="password" formControlName="password" placeholder="Passwort"
+        class="w-full px-4 py-2 bg-gray-800 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid"
+      class="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition disabled:opacity-50">
+      Anmelden
+    </button>
+  </form>
+
+  <div class="flex justify-center mt-6">
+    <button type="button" (click)="gotoRegister()" class="text-blue-600 hover:underline text-sm font-medium">
+      Neuen Account erstellen
+    </button>
   </div>
+
 </div>

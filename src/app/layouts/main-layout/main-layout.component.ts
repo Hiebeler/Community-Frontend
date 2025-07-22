@@ -1,16 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { ShoppingService } from 'src/app/services/shopping.service';
 import { TaskService } from 'src/app/services/task.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-    selector: 'app-tabs',
-    templateUrl: './tabs.page.html',
-    styleUrls: ['./tabs.page.scss'],
-    standalone: false
+  selector: 'app-main-layout',
+  imports: [RouterModule, IonicModule],
+  templateUrl: './main-layout.component.html',
 })
-export class TabsPage implements OnInit, OnDestroy {
+export class MainLayoutComponent implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
