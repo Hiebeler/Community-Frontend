@@ -2,7 +2,7 @@
   "name": "kommiunity-frontend",
   "version": "1.0.0",
   "author": "Daniel Hiebeler, Emanuel Hiebeler",
-  "homepage": "https://kommiuniti.netlify.app/",
+  "homepage": "https://together.ghostbyte.dev",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
