@@ -8,12 +8,13 @@ import {
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { Alert } from "src/app/components/alert/alert";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, Alert],
 })
 export class LoginPage {
   loginForm: FormGroup;

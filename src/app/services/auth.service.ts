@@ -139,7 +139,7 @@ export class AuthService implements OnDestroy {
         this.router.navigate(['profile']);
       }
       else {
-        if (!res.data.verified) {
+        if (res.data.verified === false) {
           this.alertService.showAlert('not verified', res.error, 'Resend Verification Email', () => {
             this.resendVerificationEmail(email);
           }, 'Okay');

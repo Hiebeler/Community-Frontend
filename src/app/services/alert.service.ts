@@ -1,38 +1,45 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+
+interface AlertOptions {
+  header: string;
+  message: string;
+  submitButtonText?: string;
+  submitButtonCallback?: () => void;
+  cancelButtonText?: string;
+  cancelButtonCallback?: () => void;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
-
+private alertSubject = new BehaviorSubject<AlertOptions | null>(null);
+  alert: Observable<AlertOptions | null> = this.alertSubject.asObservable();
   constructor() { }
 
   showAlert(
     header: string,
     message: string,
-    submitButtonText: string = 'Okay',
-    submitButtonCallback: () => void = Function,
-    cancleButtonText?: string
+    submitButtonText = 'Okay',
+    submitButtonCallback: () => void = () => {},
+    cancelButtonText?: string,
+    cancelButtonCallback: () => void = () => {}
   ) {
-    let cssClass = 'custom-alert-ok';
-    let buttons;
-    if (cancleButtonText) {
-      cssClass = 'custom-alert-two';
-      buttons = [
-        {
-          text: cancleButtonText
-        },
-        {
-          text: submitButtonText,
-          handler: () => submitButtonCallback()
-        }
-      ];
-    } else {
-      buttons = [{
-        text: submitButtonText,
-        handler: () => submitButtonCallback()
-      }];
-    }
+    console.log("show alert");
+    this.alertSubject.next({
+      header,
+      message,
+      submitButtonText,
+      submitButtonCallback,
+      cancelButtonText,
+      cancelButtonCallback,
+    });
+  }
+   
+  closeAlert() {
+    this.alertSubject.next(null);
+  }
 
     /* const alert = this.alertController.create({
       cssClass,
@@ -42,5 +49,4 @@ export class AlertService {
       buttons,
     });
     alert.then(createdAlert => createdAlert.present()); */
-  }
 }
