@@ -14,18 +14,15 @@
 <main class="max-w-screen-xl mx-auto px-4">
 
   <!-- Hero Section -->
-  <section class="flex flex-wrap items-center justify-between py-20">
-    <div class="w-full md:w-1/2 flex flex-col items-start justify-center px-8">
-      <h1 class="text-5xl md:text-6xl font-bold text-white mb-8">
-        Behalte die Kontrolle mit <span class="text-green-500">Together</span>
-      </h1>
-      <button type="button" (click)="gotoApp()" class="flex items-center justify-center px-6 py-3 bg-green-500 text-black rounded hover:bg-green-600 transition">
-        Zur App
-      </button>
-    </div>
-    <div class="w-full md:w-1/2 flex justify-center items-center mt-12 md:mt-0">
-      <!-- Empty for now -->
-    </div>
+  <section class="flex flex-col items-center justify-between py-20">
+    <h1 class="text-5xl md:text-6xl font-bold text-white text-center mb-8 flex flex-col items-center space-y-2">
+      <span>Behalte die Kontrolle mit</span>
+      <span class="text-green-500">Together</span>
+    </h1>
+    <button type="button" (click)="gotoApp()"
+      class="flex items-center justify-center px-6 py-3 bg-green-500 text-black rounded hover:bg-green-600 transition">
+      Zur App
+    </button>
   </section>
 
   <!-- Features Section -->
@@ -37,22 +34,26 @@
       <div class="w-full md:w-1/2 px-8">
         <p class="uppercase text-green-500 font-semibold">AUFGABENVERWALTUNG</p>
         <h3 class="text-3xl font-bold text-white mt-2 mb-4">Verteile Aufgaben innerhalb der Mitglieder</h3>
-        <p class="text-gray-300">Mit Together kannst du den Mitgliedern täglich Aufgaben zuweisen oder Routinen erstellen.</p>
+        <p class="text-gray-300">Mit Together kannst du den Mitgliedern täglich Aufgaben zuweisen oder Routinen
+          erstellen.</p>
       </div>
       <div class="w-full md:w-1/2 flex justify-center px-8 mt-8 md:mt-0">
-        <img src="../../../assets/images/mockup-tasks-cropped-new.png" alt="Aufgaben" class="max-h-[500px] rounded-3xl border-8 border-black">
+        <img src="../../../assets/images/mockup-tasks-cropped-new.png" alt="Aufgaben"
+          class="max-h-[500px] rounded-3xl border-8 border-black">
       </div>
     </div>
 
     <!-- Feature: Einkaufsliste -->
     <div class="flex flex-wrap-reverse items-center mb-20">
       <div class="w-full md:w-1/2 flex justify-center px-8 mt-8 md:mt-0">
-        <img src="../../../assets/images/mockup-shoppinglist-cropped-new.png" alt="Einkaufsliste" class="max-h-[500px] rounded-3xl border-8 border-black">
+        <img src="../../../assets/images/mockup-shoppinglist-cropped-new.png" alt="Einkaufsliste"
+          class="max-h-[500px] rounded-3xl border-8 border-black">
       </div>
       <div class="w-full md:w-1/2 px-8">
         <p class="uppercase text-green-500 font-semibold">EINKAUFSLISTE</p>
         <h3 class="text-3xl font-bold text-white mt-2 mb-4">Eine gemeinsame Einkaufsliste</h3>
-        <p class="text-gray-300">Mit unserer geteilten Einkaufsliste sieht jeder in der Gemeinschaft dieselben Einträge.</p>
+        <p class="text-gray-300">Mit unserer geteilten Einkaufsliste sieht jeder in der Gemeinschaft dieselben Einträge.
+        </p>
       </div>
     </div>
 
@@ -64,25 +65,34 @@
         <p class="text-gray-300">Der Schuldenmanager hilft dir, deine Schulden in der Gemeinschaft zu verwalten.</p>
       </div>
       <div class="w-full md:w-1/2 flex justify-center px-8 mt-8 md:mt-0">
-        <img src="../../../assets/images/mockup-debts-cropped-new.png" alt="Schulden" class="max-h-[500px] rounded-3xl border-8 border-black">
+        <img src="../../../assets/images/mockup-debts-cropped-new.png" alt="Schulden"
+          class="max-h-[500px] rounded-3xl border-8 border-black">
       </div>
     </div>
   </section>
 
-  <!-- Credits Section -->
-  <section class="pt-16 border-t border-gray-600 text-center">
-    <h3 class="text-2xl font-bold text-white mb-4">Entwickelt von</h3>
-    <p class="text-gray-300">
-      <span (click)="openExternalLink('https://daniebeler.com')" class="hover:text-green-500 cursor-pointer">Daniel Hiebeler</span> und
-      <span (click)="openExternalLink('https://emanuelhiebeler.me/')" class="hover:text-green-500 cursor-pointer">Emanuel Hiebeler</span>
-    </p>
+  <section class="mb-8">
+    <div class="card">
+      <div>
+        <div class=" flex items-center space-x-2">
+          <img src="../../../assets/logos/logo.svg" alt="Logo" class="h-10 w-10" />
+          <span class="text-2xl bold">Together</span>
+        </div>
+      </div>
 
-    <div class="mt-8">
-      <button type="button" (click)="openExternalLink('https://github.com/Hiebeler/Community-Frontend')"
-        class="px-6 py-3 border-2 border-green-500 text-green-500 rounded hover:bg-green-500 hover:text-black transition">
-        Auf Github ansehen
-      </button>
+
+      <div class="mt-3 w-full flex justify-center">
+        <div class="font-semibold">
+          A
+          <a href="https://ghostbyte.dev" target="_blank" rel="noopener noreferrer"
+            class="hover:underline font-semibold text-primary">
+            Ghostbyte
+          </a>
+          Production
+        </div>
+      </div>
     </div>
+
   </section>
 
 </main>

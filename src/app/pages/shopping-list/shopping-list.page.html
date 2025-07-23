@@ -32,7 +32,6 @@
       <!-- Open Items List -->
       @for (item of openItems; track item) {
       <div>
-        @if (editorIsOpenId !== item.id) {
         <div class="flex items-center space-x-4 py-2">
           <input type="checkbox" [checked]="item.done" (change)="updateDone(item.id, $event)"
             class="w-5 h-5 text-green-500 bg-gray-800 border-gray-600 rounded focus:ring-green-500" />
@@ -40,26 +39,6 @@
             {{item.name}}
           </span>
         </div>
-        }
-
-        @if (editorIsOpenId === item.id) {
-        <div class="bg-gray-800 p-4 rounded-lg space-y-4">
-          <div class="flex justify-between items-center space-x-2">
-            <button type="button" class="btn-small btn-outline-danger w-full" (click)="openUpdateEditor()">
-              X </button>
-
-            <button [disabled]="itemUpdateEditorForm.invalid || updateNameField.value === item.name" type="button"
-              (click)="updateName(item.id)" class="btn-large btn-primary w-full">
-              Updaten
-            </button>
-          </div>
-
-          <form [formGroup]="itemUpdateEditorForm" (ngSubmit)="updateName(item.id)">
-            <input type="text" formControlName="updatename" placeholder="Name" autocomplete="off"
-              class="w-full bg-gray-800 border border-gray-600 rounded px-4 py-2 text-white" />
-          </form>
-        </div>
-        }
       </div>
       }
     </div>
@@ -84,7 +63,7 @@
   </main>
 </div>
 
-<app-popup [show]="editorIsOpen" (close)="editorIsOpen = false" title="Neues Element">
+<app-popup [show]="editorIsOpen" (close)="editorIsOpen = false" title="Neuer Eintrag">
   <div class="space-y-4">
 
     <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()">
@@ -93,6 +72,20 @@
 
     <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveItem()" class="btn-large btn-primary w-full">
       Speichern
+    </button>
+  </div>
+</app-popup>
+
+<app-popup [show]="itemToUpdate !== null" (close)="openUpdateEditor()" title="Eintrag Bearbeiten">
+  <div class="space-y-4">
+    <form [formGroup]="itemUpdateEditorForm" (ngSubmit)="updateName(itemToUpdate.id)">
+      <input type="text" formControlName="updatename" placeholder="Name" autocomplete="off"
+        class="w-full bg-gray-800 border border-gray-600 rounded px-4 py-2 text-white" />
+    </form>
+
+    <button [disabled]="itemUpdateEditorForm.invalid || updateNameField.value === itemToUpdate.name" type="button"
+      (click)="updateName(itemToUpdate.id)" class="btn-large btn-primary w-full">
+      Updaten
     </button>
   </div>
 </app-popup>

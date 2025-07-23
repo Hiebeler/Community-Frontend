@@ -149,19 +149,19 @@
 
   /* Buttons */
   .btn-small {
-    @apply text-gray-900 py-3 px-3 rounded-lg text-sm leading-normal bg-green-500 hover:bg-green-600 transition;
+    @apply py-3 px-3 rounded-lg text-sm leading-normal;
   }
 
   .btn-large {
-    @apply text-gray-900 py-4 px-5 rounded-lg text-base leading-normal bg-green-500 hover:bg-green-600 transition;
+    @apply py-4 px-5 rounded-lg text-base leading-normal;
   }
 
   .btn-primary {
-    @apply text-gray-900 bg-primary enabled:hover:bg-green-600 transition disabled:opacity-50;
+    @apply text-gray-900 bg-primary enabled:hover:bg-green-600 transition disabled:opacity-50 disabled:cursor-not-allowed;
   }
 
   .btn-danger {
-    @apply bg-red-500 hover:bg-red-600 text-white transition;
+    @apply bg-red-500 hover:bg-red-400 text-white transition;
   }
 
   .btn-neutral {
