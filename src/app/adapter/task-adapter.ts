@@ -15,7 +15,7 @@ export class TaskAdapter implements Adapter<Task> {
   adapt(item: any): Task {
     item.date = new Date(item.date);
     const users = [];
-    item.task_user?.forEach(element => {
+    item.calendar_entry_user?.forEach(element => {
       users.push(this.userAdapter.adapt(element.user));
     });
 
