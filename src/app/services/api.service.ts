@@ -178,15 +178,15 @@ export class ApiService {
   }
 
   getTasks(data: any): Observable<ApiResponse> {
-    return this.apiPost('task/gettasksininterval', data, true);
+    return this.apiPost('calendar/interval', data, true);
   }
 
   updateTask(data: any): Observable<ApiResponse> {
-    return this.apiPost('task/create', data, true);
+    return this.apiPost('calendar/create', data, true);
   }
 
   deleteTask(id: number): Observable<ApiResponse> {
-    return this.apiDelete('task/delete/' + id);
+    return this.apiDelete('calendar/delete/' + id);
   }
 
   getOpenShoppingItems(): Observable<ApiResponse> {
@@ -218,10 +218,10 @@ export class ApiService {
   }
 
   getRoutines(): Observable<ApiResponse> {
-    return this.apiGet('task/routine/all', true);
+    return this.apiGet('calendar/routine/all', true);
   }
 
   modifyRoutine(data: any): Observable<ApiResponse> {
-    return this.apiPost('task/routine/modify', data, true);
+    return this.apiPost('calendar/routine/modify', data, true);
   }
 }
