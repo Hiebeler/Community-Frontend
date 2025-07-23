@@ -24,7 +24,7 @@ export class ShoppingListPage implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   editorIsOpen = false;
-  editorIsOpenId = -1;
+  itemToUpdate: ShoppingItem = null;
 
   completedFirstLoad = false;
 
@@ -90,9 +90,9 @@ export class ShoppingListPage implements OnInit, OnDestroy {
   openUpdateEditor(item?: ShoppingItem) {
     if (item) {
       this.itemUpdateEditorForm.controls.updatename.setValue(item.name);
-      this.editorIsOpenId = item.id;
+      this.itemToUpdate = item;
     } else {
-      this.editorIsOpenId = -1;
+      this.itemToUpdate = null;
     }
   }
 
@@ -127,7 +127,7 @@ export class ShoppingListPage implements OnInit, OnDestroy {
 
   updateName(id: number) {
     if (this.updateNameField.value) {
-      this.editorIsOpenId = -1;
+      this.itemToUpdate = null;
       const data = {
         id,
         name: this.updateNameField.value
