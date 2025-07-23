@@ -1,6 +1,12 @@
-<div class="min-h-screen w-full bg-cover bg-center" style="background-image: url('../../../assets/images/bg7.svg');">
+<div class="min-h-screen relative w-full bg-cover bg-center"
+  style="background-image: url('../../../assets/images/bg7.svg');">
   <div class="flex items-center justify-center min-h-screen px-4">
 
     <router-outlet></router-outlet>
   </div>
+
+  <a routerLink="/" class="fixed left-5 top-5 flex items-center space-x-2">
+    <img src="../../../assets/logos/logo.svg" alt="Logo" class="h-10 w-10" />
+    <span class="text-2xl bold">Together</span>
+  </a>
 </div>
