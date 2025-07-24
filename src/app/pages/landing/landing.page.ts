@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-landing',
     templateUrl: './landing.page.html',
     standalone: true,
     imports: [
-      CommonModule
+      CommonModule,
+      RouterModule
     ]
 })
 export class LandingPage implements OnInit {
@@ -28,9 +29,4 @@ export class LandingPage implements OnInit {
   openExternalLink(url: string) {
     window.open(url, '_blank');
   }
-
-  gotoApp() {
-    this.router.navigate(['calendar']);
-  }
-
 }
