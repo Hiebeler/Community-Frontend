@@ -1,17 +1,5 @@
 <form [formGroup]="routineForm" (ngSubmit)="saveRoutine()">
-  <div class="bg-surface rounded-xl p-4 shadow-md space-y-4">
-
-    <!-- Header Buttons -->
-    <div class="flex justify-between items-center">
-      <button type="button" (click)="parentCloseEditor()"
-        class="btn-small btn-outline-danger w-12 h-12 flex items-center justify-center">
-        <lucide-icon [img]="closeIcon"></lucide-icon>
-      </button>
-      <button [disabled]="routineForm.invalid" (click)="saveRoutine()" type="submit"
-        class="btn-large btn-primary w-full max-w-xs">
-        Speichern
-      </button>
-    </div>
+  <div class="space-y-4">
 
     <!-- Name -->
     <div>
@@ -105,6 +93,9 @@ X          </div>
         class="w-8 h-8 bg-background border-white text-primary-500 rounded focus:ring-0 focus:outline-none checked:bg-primary-500 checked:border-primary-500" />
     </div>
 
-
+    <button [disabled]="routineForm.invalid" (click)="saveRoutine()" type="submit"
+        class="btn-small btn-primary w-full">
+        Speichern
+      </button>
   </div>
 </form>

@@ -1,45 +1,23 @@
 <div class="min-h-screen flex flex-col">
-  <!-- Refresher placeholder: Replace ion-refresher with your own implementation or a button -->
-  <div class="fixed top-0 left-0 right-0 z-50">
-    <!-- Implement your pull-to-refresh or refresh button here -->
-  </div>
-
   <main class="flex-1 overflow-auto container mx-auto px-4 py-6">
     <!-- Top Bar -->
     <div class="flex items-center mb-6">
       <!-- Back button -->
-      @if (!newRoutineEditorIsOpen) {
       <button type="button" class="btn-small btn-neutral flex items-center justify-center mr-4" (click)="gotoTasks()"
         aria-label="Zurück zu Kalender">
         <lucide-icon [img]="backIcon"></lucide-icon>
       </button>
-      }
 
       <!-- Header text -->
       <div class="flex-1 text-center font-semibold text-lg">
-        @if (!newRoutineEditorIsOpen) {
         <p>Routinen</p>
-        }
-        @if (newRoutineEditorIsOpen) {
-        <p>Neue Routine</p>
-        }
       </div>
 
-      <!-- Add button -->
-      @if (!newRoutineEditorIsOpen) {
       <button type="button" class="btn-small btn-primary flex items-center justify-center ml-4"
         (click)="openNewRoutineEditor(true)" aria-label="Neue Routine hinzufügen">
         <lucide-icon [img]="plusIcon"></lucide-icon>
       </button>
-      }
     </div>
-
-    <!-- New Routine Editor -->
-    @if (newRoutineEditorIsOpen) {
-    <div class="mb-6">
-      <app-routine-editor (closeEditor)="openNewRoutineEditor(false)"></app-routine-editor>
-    </div>
-    }
 
     <!-- No Routines Message -->
     @if (!enabledRoutines.length && !disabledRoutines.length && completedFirstLoad) {
@@ -59,15 +37,9 @@
     <!-- Active Routines List -->
     @for (routine of enabledRoutines; track routine) {
     <div class="mb-6">
-      <div (click)="openUpdateEditor(routine.id)">
+      <div (click)="openUpdateEditor(routine)">
         <app-routine-card [routine]="routine"></app-routine-card>
       </div>
-
-      @if (updateRoutineEditorOpenId === routine.id) {
-      <div class="mt-4">
-        <app-routine-editor [routine]="routine" (closeEditor)="openUpdateEditor(-1)"></app-routine-editor>
-      </div>
-      }
     </div>
     }
 
@@ -79,16 +51,18 @@
     <!-- Disabled Routines List -->
     @for (routine of disabledRoutines; track routine) {
     <div class="mb-6">
-      <div (click)="openUpdateEditor(routine.id)">
+      <div (click)="openUpdateEditor(routine)">
         <app-routine-card [routine]="routine"></app-routine-card>
       </div>
-
-      @if (updateRoutineEditorOpenId === routine.id) {
-      <div class="mt-4">
-        <app-routine-editor [routine]="routine" (closeEditor)="openUpdateEditor(-1)"></app-routine-editor>
-      </div>
-      }
     </div>
     }
   </main>
 </div>
+
+<app-popup [show]="newRoutineEditorIsOpen" (close)="newRoutineEditorIsOpen = false" title="Neue Routine erstellen">
+  <app-routine-editor (closeEditor)="openNewRoutineEditor(false)"></app-routine-editor>
+</app-popup>
+
+<app-popup [show]="openRoutineEditor != null" (close)="openRoutineEditor = null" title="Routine bearbeiten">
+  <app-routine-editor [routine]="openRoutineEditor" (closeEditor)="openUpdateEditor(null)"></app-routine-editor>
+</app-popup>

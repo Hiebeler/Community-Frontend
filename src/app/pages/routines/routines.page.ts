@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ArrowLeftIcon, LucideAngularModule, PlusIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
+import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { RoutineCardComponent } from 'src/app/components/routine-card/routine-card.component';
 import { RoutineEditorComponent } from 'src/app/components/routine-editor/routine-editor.component';
 import { Routine } from 'src/app/models/routine';
@@ -16,7 +17,8 @@ import { TaskService } from 'src/app/services/task.service';
     CommonModule,
     RoutineEditorComponent,
     RoutineCardComponent,
-    LucideAngularModule
+    LucideAngularModule,
+    PopupComponent
   ],
 })
 export class RoutinesPage implements OnInit, OnDestroy {
@@ -34,7 +36,7 @@ export class RoutinesPage implements OnInit, OnDestroy {
 
   newRoutineEditorIsOpen = false;
 
-  updateRoutineEditorOpenId = -1;
+  openRoutineEditor: Routine = null;
 
   constructor(private router: Router, private taskService: TaskService) {}
 
@@ -79,8 +81,8 @@ export class RoutinesPage implements OnInit, OnDestroy {
     this.newRoutineEditorIsOpen = state;
   }
 
-  openUpdateEditor(routineId: number) {
-    this.updateRoutineEditorOpenId = routineId;
+  openUpdateEditor(routine: Routine) {
+    this.openRoutineEditor = routine;
   }
 
   gotoTasks() {

@@ -7,7 +7,6 @@ import { Routine } from 'src/app/models/routine';
 import { User } from 'src/app/models/user';
 import { CommunityService } from 'src/app/services/community.service';
 import { TaskService } from 'src/app/services/task.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
     selector: 'app-routine-editor',
