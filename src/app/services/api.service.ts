@@ -114,7 +114,7 @@ export class ApiService {
   }
 
   getUsersInCommunity(communityId): Observable<ApiResponse> {
-    return this.apiGet('user/getcommunitymembers/' + communityId, true);
+    return this.apiGet('community/members' + communityId, true);
   }
 
   updateUser(data: any): Observable<ApiResponse> {
@@ -161,7 +161,7 @@ export class ApiService {
   }
 
   joinCommunity(data: any): Observable<ApiResponse> {
-    return this.apiPost('user/sendrequest', data, true);
+    return this.apiPost('community/sendrequest', data, true);
   }
 
   createCommunity(data: any): Observable<ApiResponse> {
