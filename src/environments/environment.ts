@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  api: 'https://api.community.daniebeler.com/',
-  jwtVersion: 3
+  api: 'http://localhost:3000/',
+  jwtVersion: 4
 };
 
 /*
