@@ -1,13 +1,13 @@
-import { Task } from './task';
+import { CalendarEntry } from './calendarEntry';
 
 export class Day {
 
   public name: string;
-  public openTasks: Task[];
-  public doneTasks: Task[];
+  public openTasks: CalendarEntry[];
+  public doneTasks: CalendarEntry[];
   public date: Date;
 
-  constructor(name: string, openTasks: Task[], doneTasks: Task[], date: Date) {
+  constructor(name: string, openTasks: CalendarEntry[], doneTasks: CalendarEntry[], date: Date) {
     this.name = name;
     this.openTasks = openTasks;
     this.doneTasks = doneTasks;

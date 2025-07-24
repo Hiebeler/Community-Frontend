@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { ArrowLeftIcon, LucideAngularModule, PlusIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
 import { Navbar } from 'src/app/components/navbar/navbar';
@@ -16,6 +16,7 @@ import { TaskService } from 'src/app/services/task.service';
   standalone: true,
   imports: [
     CommonModule,
+    RouterModule,
     RoutineEditorComponent,
     RoutineCardComponent,
     LucideAngularModule,
@@ -40,7 +41,7 @@ export class RoutinesPage implements OnInit, OnDestroy {
 
   openRoutineEditor: Routine = null;
 
-  constructor(private router: Router, private taskService: TaskService) {}
+  constructor(private taskService: TaskService) {}
 
   ngOnInit() {
     this.subscriptions.push(
@@ -85,9 +86,5 @@ export class RoutinesPage implements OnInit, OnDestroy {
 
   openUpdateEditor(routine: Routine) {
     this.openRoutineEditor = routine;
-  }
-
-  gotoTasks() {
-    this.router.navigate(['calendar']);
   }
 }

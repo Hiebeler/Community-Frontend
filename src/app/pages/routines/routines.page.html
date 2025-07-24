@@ -1,8 +1,8 @@
 <app-navbar title="Routinen">
-  <button left type="button" class="btn-small btn-neutral flex items-center justify-center mr-4" (click)="gotoTasks()"
+  <a left class="btn-small btn-neutral" routerLink="/calendar"
     aria-label="Zurück zu Kalender">
     <lucide-icon [img]="backIcon"></lucide-icon>
-  </button>
+</a>
 
   <button right type="button" class="btn-small btn-primary flex items-center justify-center ml-4"
     (click)="openNewRoutineEditor(true)" aria-label="Neue Routine hinzufügen">

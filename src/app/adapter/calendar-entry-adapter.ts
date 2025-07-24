@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Task } from '../models/task';
-import { User } from '../models/user';
+import { CalendarEntry } from '../models/calendarEntry';
 import { Adapter } from './adapter';
 import { UserAdapter } from './user-adapter';
 
@@ -8,11 +7,11 @@ import { UserAdapter } from './user-adapter';
   providedIn: 'root',
 })
 
-export class TaskAdapter implements Adapter<Task> {
+export class CalendarEntryAdapter implements Adapter<CalendarEntry> {
 
   constructor(private userAdapter: UserAdapter) { }
 
-  adapt(item: any): Task {
+  adapt(item: any): CalendarEntry {
     item.date = new Date(item.date);
     const users = [];
     item.calendar_entry_user?.forEach(element => {
@@ -20,7 +19,7 @@ export class TaskAdapter implements Adapter<Task> {
     });
 
     item.assignedUsers = users;
-    return new Task(item.id, item.name, item.notes, item.date,
+    return new CalendarEntry(item.id, item.name, item.notes, item.date,
       item.done, item.fk_routine_id, item.fk_community_id, item.assignedUsers);
   }
 }

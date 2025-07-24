@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import {
   CheckCheckIcon,
   HistoryIcon,
@@ -30,10 +30,11 @@ import { UserService } from 'src/app/services/user.service';
   standalone: true,
   imports: [
     CommonModule,
+    RouterModule,
     ReactiveFormsModule,
     LucideAngularModule,
     PopupComponent,
-    Navbar
+    Navbar,
   ],
 })
 export class DebtsPage implements OnInit, OnDestroy {
@@ -67,8 +68,7 @@ export class DebtsPage implements OnInit, OnDestroy {
   constructor(
     private debtService: DebtService,
     private userService: UserService,
-    private communityService: CommunityService,
-    private router: Router
+    private communityService: CommunityService
   ) {
     this.itemEditorForm = new FormGroup({
       debitor: new FormControl<string | null>('', [
@@ -234,9 +234,5 @@ export class DebtsPage implements OnInit, OnDestroy {
 
   changeIOwe(iOwe: boolean) {
     this.iOwe = iOwe;
-  }
-
-  gotoHistory() {
-    this.router.navigate(['debts/history']);
   }
 }

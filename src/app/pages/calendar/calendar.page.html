@@ -1,7 +1,7 @@
 <app-navbar title="Kalender">
-  <button left type="button" class="btn-small btn-primary" (click)="gotoRoutines()">
+  <a left routerLink="/calendar/routines" class="btn-small btn-primary">
     <lucide-icon [img]="InfinityIcon"></lucide-icon>
-  </button>
+  </a>
 
   <div right class="flex items-center space-x-2">
     <button type="button" class="btn-small btn-neutral" (click)="changeSelectedDays('previous')">
@@ -69,5 +69,5 @@
 </div>
 
 <app-popup [show]="taskToShow != null" (close)="taskToShow = null">
-  <app-task />
+  <app-calendar-entry-editor title="Neuen Eintrag erstellen" />
 </app-popup>

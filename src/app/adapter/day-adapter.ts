@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Day } from '../models/day';
-import { Task } from '../models/task';
 import { Adapter } from './adapter';
 
 @Injectable({
