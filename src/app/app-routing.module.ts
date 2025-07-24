@@ -15,11 +15,28 @@ import { DebtsPage } from './pages/debts/debts.page';
 import { DebtsHistoryPage } from './pages/debts-history/debts-history.page';
 import { OnboardingComponent } from './pages/onboarding/onboarding.component';
 import { Todos } from './pages/todos/todos';
+import { PrivacyPage } from './pages/privacy-page/privacy-page';
+import { ImprintPage } from './pages/imprint-page/imprint-page';
+import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: LandingPage,
+    component: LandingLayoutComponent,
+    children: [
+      {
+        path: '',
+        component: LandingPage,
+      },
+      {
+        path: 'imprint',
+        component: ImprintPage,
+      },
+      {
+        path: 'privacy',
+        component: PrivacyPage,
+      },
+    ],
   },
   {
     path: '',
@@ -28,20 +45,16 @@ const routes: Routes = [
       {
         path: 'login',
         component: LoginPage,
-        canActivate: [AuthGuard],
-        data: {
-          roles: ['none'],
-        },
       },
       {
         path: 'register',
         component: RegisterPage,
-        canActivate: [AuthGuard],
-        data: {
-          roles: ['none'],
-        },
       },
     ],
+    canActivate: [AuthGuard],
+    data: {
+      roles: ['none'],
+    },
   },
   {
     path: '',
@@ -79,7 +92,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       roles: ['community'],
-    }
+    },
   },
   {
     path: 'onboarding',
