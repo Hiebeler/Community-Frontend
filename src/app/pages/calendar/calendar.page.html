@@ -42,13 +42,13 @@
     <div class="mt-2 space-y-2">
       @for (task of day.openTasks; track task) {
       <div>
-        <app-task-card [task]="task" (openModal)="openModal(task)"></app-task-card>
+        <app-task-card [task]="task" (openModal)="entryToEdit = task"></app-task-card>
       </div>
       }
 
       <!-- Add Task Button -->
       <div class="bg-gray-700 hover:bg-gray-600 rounded-md text-center text-lg cursor-pointer py-1"
-        (click)="openModal(day.date)">
+        (click)="dateForNewEntry = day.date">
         +
       </div>
 
@@ -60,7 +60,7 @@
       }
       @for (task of day.doneTasks; track task) {
       <div>
-        <app-task-card [task]="task" (openModal)="openModal(task)"></app-task-card>
+        <app-task-card [task]="task" (openModal)="entryToEdit = task"></app-task-card>
       </div>
       }
     </div>
@@ -68,6 +68,10 @@
   }
 </div>
 
-<app-popup [show]="taskToShow != null" (close)="taskToShow = null">
-  <app-calendar-entry-editor title="Neuen Eintrag erstellen" />
+<app-popup [show]="entryToEdit != null" (close)="entryToEdit = null">
+  <app-calendar-entry-editor title="Eintrag bearbeiten" [calendarEntry]="entryToEdit" />
+</app-popup>
+
+<app-popup [show]="dateForNewEntry != null" (close)="dateForNewEntry = null">
+  <app-calendar-entry-editor title="Neuen Eintrag erstellen" [date]="dateForNewEntry" />
 </app-popup>

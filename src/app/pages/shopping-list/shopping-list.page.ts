@@ -111,7 +111,7 @@ export class ShoppingListPage implements OnInit, OnDestroy {
     if (this.createNameField.value) {
       this.editorIsOpen = false;
       this.subscriptions.push(
-        this.shoppingService.addShoppingItem(new ShoppingItem(null, this.createNameField.value, null)).subscribe((res) => {
+        this.shoppingService.addShoppingItem(new ShoppingItem(undefined, this.createNameField.value, undefined)).subscribe((res) => {
           this.getItems();
         })
       );
@@ -121,7 +121,7 @@ export class ShoppingListPage implements OnInit, OnDestroy {
 
   updateDone(id: number, checked: boolean) {
     this.subscriptions.push(
-      this.shoppingService.updateShoppingItem(new ShoppingItem(id, null, checked)).subscribe((res) => {
+      this.shoppingService.updateShoppingItem(new ShoppingItem(id, undefined, checked)).subscribe((res) => {
         if (res.status === 'OK') {
           this.getItems();
         }
