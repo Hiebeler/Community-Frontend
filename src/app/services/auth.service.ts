@@ -35,6 +35,7 @@ export class AuthService implements OnDestroy {
     this.helper = new JwtHelperService();
     this.checkToken();
 
+
     this.subscriptions.push(this.authenticationState.subscribe(state => {
     }));
 
@@ -53,6 +54,7 @@ export class AuthService implements OnDestroy {
   }
 
   checkToken() {
+    console.log("check token");
     const token = this.storageService.getToken();
     if (token) {
       const decoded = this.helper.decodeToken(token);
