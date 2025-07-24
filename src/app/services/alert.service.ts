@@ -26,6 +26,7 @@ private alertSubject = new BehaviorSubject<AlertOptions | null>(null);
     cancelButtonText?: string,
     cancelButtonCallback: () => void = () => {}
   ) {
+    console.log("fuf")
     this.alertSubject.next({
       header,
       message,

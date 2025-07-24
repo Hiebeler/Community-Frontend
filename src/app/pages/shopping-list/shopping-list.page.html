@@ -76,10 +76,16 @@
       <input type="text" formControlName="updatename" placeholder="Name" autocomplete="off"
         class="w-full bg-gray-800 border border-gray-600 rounded px-4 py-2 text-white" />
     </form>
+    <div class="flex gap-3">
+      <button type="button" (click)="askToDeleteTask(itemToUpdate.id)" class="btn-small btn-danger w-1/2">
+        Löschen
+      </button>
 
-    <button [disabled]="itemUpdateEditorForm.invalid || updateNameField.value === itemToUpdate?.name" type="button"
-      (click)="updateName(itemToUpdate.id)" class="btn-small btn-primary w-full">
-      Updaten
-    </button>
+      <button [disabled]="itemUpdateEditorForm.invalid || updateNameField.value === itemToUpdate?.name" type="button"
+        (click)="updateName(itemToUpdate.id)" class="btn-small btn-primary w-1/2">
+        Updaten
+      </button>
+    </div>
+
   </div>
 </app-popup>

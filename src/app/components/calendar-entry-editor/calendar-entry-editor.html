@@ -22,7 +22,7 @@
 <div *ngIf="!updatingResponsibleUsers" class="mt-4">
   <p class="mb-2 text-sm font-medium">Zuständig:</p>
   <div class="flex flex-wrap gap-2">
-    <div *ngFor="let user of calendarEntry?.assignedUsers; track user"
+    <div *ngFor="let user of calendarEntry?.assignedUsers ?? []; track user"
       class="flex items-center bg-gray-700 text-sm rounded-full px-2 py-1">
       <img [src]="user.profileimage" alt="" class="w-6 h-6 rounded-full mr-1" />
       <span>{{user.name}}</span>
@@ -42,7 +42,7 @@
 
   <p class="text-sm mb-2">Zuständig:</p>
   <div class="flex flex-wrap gap-2 mb-4">
-    <div *ngFor="let user of calendarEntry?.assignedUsers; track user" (click)="removeUser(user)"
+    <div *ngFor="let user of calendarEntry?.assignedUsers ?? []; track user" (click)="removeUser(user)"
       class="flex items-center bg-gray-700 text-sm rounded-full px-2 py-1 cursor-pointer hover:bg-gray-600">
       <img [src]="user.profileimage" alt="" class="w-6 h-6 rounded-full mr-1" />
       <span>{{user.name}}</span>
@@ -52,7 +52,7 @@
 
   <p class="text-sm mb-2">Nicht zuständig:</p>
   <div class="flex flex-wrap gap-2">
-    <div *ngFor="let user of assignableUsers; track user" (click)="addUser(user)"
+    <div *ngFor="let user of assignableUsers ?? []; track user" (click)="addUser(user)"
       class="flex items-center bg-gray-700 text-sm rounded-full px-2 py-1 cursor-pointer hover:bg-gray-600">
       <img [src]="user.profileimage" alt="" class="w-6 h-6 rounded-full mr-1" />
       <span>{{user.name}}</span>

@@ -205,6 +205,10 @@ export class ApiService {
     return this.apiPut('shoppinglist', data);
   }
 
+   deleteShoppingItem(id: number): Observable<ApiResponse> {
+    return this.apiDelete('shoppinglist/' + id);
+  }
+
   getDebtBalance(): Observable<ApiResponse> {
     return this.apiGet('debt/balance', true);
   }

@@ -1,15 +1,21 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, concatMap, map, Observable, of, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  concatMap,
+  map,
+  Observable,
+  of,
+  Subscription,
+} from 'rxjs';
 import { ShoppingItemAdapter } from '../adapter/shopping-item-adapter';
 import { ShoppingItem } from '../models/shopping-item';
 import { ApiService } from './api.service';
 import { CommunityService } from './community.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ShoppingService implements OnDestroy {
-
   subscriptions: Subscription[] = [];
 
   private openShoppingItems = new BehaviorSubject<ShoppingItem[]>([]);
@@ -20,9 +26,11 @@ export class ShoppingService implements OnDestroy {
     private shoppingItemAdapter: ShoppingItemAdapter,
     private communityService: CommunityService
   ) {
-    this.subscriptions.push(this.communityService.getCurrentCommunity().subscribe(community => {
-      this.fetchShoppingItemsFromApi();
-    }));
+    this.subscriptions.push(
+      this.communityService.getCurrentCommunity().subscribe((community) => {
+        this.fetchShoppingItemsFromApi();
+      })
+    );
   }
 
   ngOnDestroy(): void {
@@ -38,29 +46,45 @@ export class ShoppingService implements OnDestroy {
   }
 
   fetchShoppingItemsFromApi(): void {
-    this.subscriptions.push(this.apiService.getOpenShoppingItems().pipe(
-      concatMap(res => {
-        if (res.status !== 'OK') {
-          return [];
-        } else {
-          return of(res);
-        }
-      }), map((res: any) => res.data.map((item) => this.shoppingItemAdapter.adapt(item)))
-    ).subscribe(openItems => {
-      this.openShoppingItems.next(openItems);
-    }));
+    this.subscriptions.push(
+      this.apiService
+        .getOpenShoppingItems()
+        .pipe(
+          concatMap((res) => {
+            if (res.status !== 'OK') {
+              return [];
+            } else {
+              return of(res);
+            }
+          }),
+          map((res: any) =>
+            res.data.map((item) => this.shoppingItemAdapter.adapt(item))
+          )
+        )
+        .subscribe((openItems) => {
+          this.openShoppingItems.next(openItems);
+        })
+    );
 
-    this.subscriptions.push(this.apiService.getDoneShoppingItems().pipe(
-      concatMap(res => {
-        if (res.status !== 'OK') {
-          return [];
-        } else {
-          return of(res);
-        }
-      }), map((res: any) => res.data.map((item) => this.shoppingItemAdapter.adapt(item)))
-    ).subscribe(doneItems => {
-      this.doneShoppingItems.next(doneItems);
-    }));
+    this.subscriptions.push(
+      this.apiService
+        .getDoneShoppingItems()
+        .pipe(
+          concatMap((res) => {
+            if (res.status !== 'OK') {
+              return [];
+            } else {
+              return of(res);
+            }
+          }),
+          map((res: any) =>
+            res.data.map((item) => this.shoppingItemAdapter.adapt(item))
+          )
+        )
+        .subscribe((doneItems) => {
+          this.doneShoppingItems.next(doneItems);
+        })
+    );
   }
 
   addShoppingItem(shoppingItem: ShoppingItem): Observable<any> {
@@ -68,6 +92,14 @@ export class ShoppingService implements OnDestroy {
   }
 
   updateShoppingItem(shoppingItem: ShoppingItem): Observable<any> {
-    return this.apiService.updateShoppingItem({ id: shoppingItem.id, done: shoppingItem.done, name: shoppingItem.name });
+    return this.apiService.updateShoppingItem({
+      id: shoppingItem.id,
+      done: shoppingItem.done,
+      name: shoppingItem.name,
+    });
+  }
+
+  deleteShoppingItem(id: number): Observable<any> {
+    return this.apiService.deleteShoppingItem(id);
   }
 }
