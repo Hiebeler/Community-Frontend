@@ -104,11 +104,9 @@
       {{community.name}}
     </div>
     } @else {
-    <div class="card px-6 py-3 flex flex-row justify-between">
+    <div class="card px-6 py-3 flex flex-row justify-between clickable" (click)="selectCommunity(community.id)">
       {{community.name}}
-      <button type="button" (click)="selectCommunity(community.id)">
-        <lucide-icon [img]="switchIcon"></lucide-icon>
-      </button>
+      <lucide-icon [img]="switchIcon"></lucide-icon>
     </div>
     }
     }

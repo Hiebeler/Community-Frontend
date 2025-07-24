@@ -20,7 +20,7 @@ import { Navbar } from 'src/app/components/navbar/navbar';
 
 @Component({
   selector: 'app-tasks',
-  templateUrl: './tasks.page.html',
+  templateUrl: './calendar.page.html',
   standalone: true,
   imports: [
     CommonModule,
@@ -31,7 +31,7 @@ import { Navbar } from 'src/app/components/navbar/navbar';
     Navbar
   ],
 })
-export class TasksPage implements OnInit, OnDestroy {
+export class CalendarPage implements OnInit, OnDestroy {
   readonly InfinityIcon = InfinityIcon;
   readonly ChevronRightIcon = ChevronRightIcon;
   readonly ChevronLeftIcon = ChevronLeftIcon;
