@@ -6,7 +6,6 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
     selector: 'app-verify',
     templateUrl: './verify.page.html',
-    styleUrls: ['./verify.page.scss'],
     standalone: true,
     imports: [
       CommonModule,
