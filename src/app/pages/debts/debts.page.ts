@@ -1,8 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
-import { LucideAngularModule, PlusIcon, ReceiptEuroIcon, ScaleIcon, XIcon } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  PlusIcon,
+  ReceiptEuroIcon,
+  ScaleIcon,
+  XIcon,
+} from 'lucide-angular';
 import { Subscription } from 'rxjs';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { Balance } from 'src/app/models/balance';
@@ -12,15 +23,15 @@ import { CommunityService } from 'src/app/services/community.service';
 import { DebtService } from 'src/app/services/debt.service';
 import { UserService } from 'src/app/services/user.service';
 @Component({
-    selector: 'app-debts',
-    templateUrl: './debts.page.html',
-    standalone: true,
-    imports: [
-      CommonModule,
-      ReactiveFormsModule,
-      LucideAngularModule,
-      PopupComponent
-    ]
+  selector: 'app-debts',
+  templateUrl: './debts.page.html',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    LucideAngularModule,
+    PopupComponent,
+  ],
 })
 export class DebtsPage implements OnInit, OnDestroy {
   readonly plusIcon = PlusIcon;
@@ -32,7 +43,7 @@ export class DebtsPage implements OnInit, OnDestroy {
 
   editorIsOpen = false;
 
-  clearOffEditorIsOpenId = -1;
+  clearOffEditorBalance: Balance = null;
 
   itemEditorForm: FormGroup;
   clearOffBalanceEditorForm: FormGroup;
@@ -56,13 +67,25 @@ export class DebtsPage implements OnInit, OnDestroy {
     private router: Router
   ) {
     this.itemEditorForm = new FormGroup({
-      debitor: new FormControl<string | null>('', [Validators.minLength(1), Validators.required]),
-      amount: new FormControl<string | null>('', [Validators.pattern(/^[0-9]*((\.|,)[0-9]{0,2})?$/), Validators.required]),
-      name: new FormControl<string | null>('', [Validators.minLength(1), Validators.required])
+      debitor: new FormControl<string | null>('', [
+        Validators.minLength(1),
+        Validators.required,
+      ]),
+      amount: new FormControl<string | null>('', [
+        Validators.pattern(/^[0-9]*((\.|,)[0-9]{0,2})?$/),
+        Validators.required,
+      ]),
+      name: new FormControl<string | null>('', [
+        Validators.minLength(1),
+        Validators.required,
+      ]),
     });
 
     this.clearOffBalanceEditorForm = new FormGroup({
-      amount: new FormControl<string | null>('', [Validators.pattern(/^[0-9]{0,2}(\.\d{1,2})?/), Validators.required]),
+      amount: new FormControl<string | null>('', [
+        Validators.pattern(/^[0-9]{0,2}(\.\d{1,2})?/),
+        Validators.required,
+      ]),
     });
   }
 
@@ -81,30 +104,40 @@ export class DebtsPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.getItems();
 
-    this.subscriptions.push(this.debtService.getBalance().subscribe((balances) => {
-      this.allBalances = balances;
-      this.positiveBalances = balances.filter(balance => balance.amount > 0);
-      this.negativeBalances = balances.filter(balance => balance.amount < 0);
+    this.subscriptions.push(
+      this.debtService.getBalance().subscribe((balances) => {
+        this.allBalances = balances;
+        this.positiveBalances = balances.filter(
+          (balance) => balance.amount > 0
+        );
+        this.negativeBalances = balances.filter(
+          (balance) => balance.amount < 0
+        );
 
-      if (this.loadingEvent) {
-        this.loadingEvent.target.complete();
-      }
-    }));
+        if (this.loadingEvent) {
+          this.loadingEvent.target.complete();
+        }
+      })
+    );
 
-    this.subscriptions.push(this.userService.getCurrentUser().subscribe((user) => {
-      this.currentUser = user;
+    this.subscriptions.push(
+      this.userService.getCurrentUser().subscribe((user) => {
+        this.currentUser = user;
 
-      this.filterCurrentUser();
+        this.filterCurrentUser();
 
-      if (this.loadingEvent) {
-        this.loadingEvent.target.complete();
-      }
-    }));
+        if (this.loadingEvent) {
+          this.loadingEvent.target.complete();
+        }
+      })
+    );
 
-    this.subscriptions.push(this.communityService.getUsersInCurrentCommunity().subscribe(users => {
-      this.usersInCommunity = users;
-      this.filterCurrentUser();
-    }));
+    this.subscriptions.push(
+      this.communityService.getUsersInCurrentCommunity().subscribe((users) => {
+        this.usersInCommunity = users;
+        this.filterCurrentUser();
+      })
+    );
   }
 
   ngOnDestroy(): void {
@@ -113,7 +146,9 @@ export class DebtsPage implements OnInit, OnDestroy {
 
   filterCurrentUser() {
     if (this.currentUser && this.usersInCommunity.length) {
-      this.usersInCommunity = this.usersInCommunity.filter(user => user.id !== this.currentUser.id);
+      this.usersInCommunity = this.usersInCommunity.filter(
+        (user) => user.id !== this.currentUser.id
+      );
     }
   }
 
@@ -122,11 +157,11 @@ export class DebtsPage implements OnInit, OnDestroy {
   }
 
   openClearOffEditor(item?: Balance) {
+    this.clearOffEditorBalance = item;
     if (item) {
-      this.clearOffBalanceEditorForm.controls.amount.setValue(item.amount < 0 ? item.amount * -1 : item.amount);
-      this.clearOffEditorIsOpenId = item.debitor.id;
-    } else {
-      this.clearOffEditorIsOpenId = -1;
+      this.clearOffBalanceEditorForm.controls.amount.setValue(
+        item.amount < 0 ? item.amount * -1 : item.amount
+      );
     }
   }
 
@@ -138,31 +173,59 @@ export class DebtsPage implements OnInit, OnDestroy {
   }
 
   clearOffBalance(balance: Balance) {
-    this.clearOffEditorIsOpenId = -1;
+    this.clearOffEditorBalance = null;
     let debt: Debt;
     if (balance.amount < 0) {
-      debt = new Debt(-1, 'debt ausgeglichen', this.clearOffBalanceEditorForm.controls.amount.value, balance.debitor, this.currentUser);
+      debt = new Debt(
+        -1,
+        'debt ausgeglichen',
+        this.clearOffBalanceEditorForm.controls.amount.value,
+        balance.debitor,
+        this.currentUser
+      );
     } else {
-      debt = new Debt(-1, 'debt ausgeglichen', this.clearOffBalanceEditorForm.controls.amount.value, this.currentUser, balance.debitor);
+      debt = new Debt(
+        -1,
+        'debt ausgeglichen',
+        this.clearOffBalanceEditorForm.controls.amount.value,
+        this.currentUser,
+        balance.debitor
+      );
     }
 
-    this.subscriptions.push(this.debtService.addDebt(debt).subscribe((res) => {
-      this.getItems();
-    }));
+    this.subscriptions.push(
+      this.debtService.addDebt(debt).subscribe((res) => {
+        this.getItems();
+      })
+    );
   }
 
   saveDebt() {
     this.editorIsOpen = false;
     let debt: Debt;
     if (this.iOwe) {
-      debt = new Debt(-1, this.nameControl.value, this.amountControl.value, this.debitorControl.value, this.currentUser);
+      debt = new Debt(
+        -1,
+        this.nameControl.value,
+        this.amountControl.value,
+        this.debitorControl.value,
+        this.currentUser
+      );
     } else {
-      debt = new Debt(-1, this.nameControl.value, this.amountControl.value, this.currentUser, this.debitorControl.value);
+      debt = new Debt(
+        -1,
+        this.nameControl.value,
+        this.amountControl.value,
+        this.currentUser,
+        this.debitorControl.value
+      );
     }
 
-    this.subscriptions.push(this.debtService.addDebt(debt).subscribe((res) => {
-      this.getItems();
-    }));
+    this.subscriptions.push(
+      this.debtService.addDebt(debt).subscribe((res) => {
+        this.getItems();
+      })
+    );
   }
 
   changeIOwe(iOwe: boolean) {
@@ -172,5 +235,4 @@ export class DebtsPage implements OnInit, OnDestroy {
   gotoHistory() {
     this.router.navigate(['debts/history']);
   }
-
 }

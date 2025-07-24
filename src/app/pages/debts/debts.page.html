@@ -33,8 +33,6 @@
       @for (balance of allBalances; track balance) {
       <div class="card">
 
-        <!-- Card View -->
-        @if (clearOffEditorIsOpenId !== balance.debitor.id) {
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center space-x-3">
             <img [src]="balance.debitor.profileimage" alt="" class="w-10 h-10 rounded-full object-cover">
@@ -55,26 +53,6 @@
           <h2 [ngClass]="balance.amount < 0 ? 'text-green-400' : 'text-red-400'" class="text-3xl font-bold mt-2">
             {{balance.amount < 0 ? (balance.amount * -1) : balance.amount}} € </h2>
         </div>
-        }
-
-        <!-- Clear Off Editor -->
-        @if (clearOffEditorIsOpenId === balance.debitor.id) {
-        <form [formGroup]="clearOffBalanceEditorForm" (ngSubmit)="clearOffBalance(balance)" class="space-y-4">
-          <div class="flex items-center space-x-2">
-            <button type="button" class="btn-small btn-outline-danger w-1/4" (click)="openClearOffEditor()">
-              <lucide-icon [img]="closeIcon" class="text-red-500"></lucide-icon>
-            </button>
-
-            <button type="button" class="btn-large btn-primary w-3/4" [disabled]="clearOffBalanceEditorForm.invalid"
-              (click)="clearOffBalance(balance)">
-              Begleichen
-            </button>
-          </div>
-
-          <input type="number" formControlName="amount" placeholder="Amount"
-            class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-white">
-        </form>
-        }
 
       </div>
       }
@@ -83,6 +61,21 @@
 
   </main>
 </div>
+
+<app-popup [show]="clearOffEditorBalance !== null" (close)="clearOffEditorBalance = null"
+  [title]="clearOffEditorBalance?.debitor?.firstname">
+  <form [formGroup]="clearOffBalanceEditorForm" (ngSubmit)="clearOffBalance(clearOffEditorBalance)" class="space-y-4">
+    <input type="number" formControlName="amount" placeholder="Amount"
+      class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-white">
+
+    <button type="button" class="btn-small btn-primary w-full" [disabled]="clearOffBalanceEditorForm.invalid"
+      (click)="clearOffBalance(clearOffEditorBalance)">
+      Begleichen
+    </button>
+  </form>
+
+</app-popup>
+
 
 <app-popup [show]="editorIsOpen" (close)="editorIsOpen = false" title="Schulden anlegen">
   <form [formGroup]="itemEditorForm" (ngSubmit)="saveDebt()" class="space-y-4">
@@ -112,21 +105,18 @@
     <!-- Amount -->
     <div>
       <p class="text-sm text-gray-300 mb-1">Euro:</p>
-      <input type="number" formControlName="amount" placeholder="Menge"
-        class="w-full">
+      <input type="number" formControlName="amount" placeholder="Menge" class="w-full">
     </div>
 
     <!-- Reason -->
     <div>
       <p class="text-sm text-gray-300 mb-1">Grund:</p>
-      <input type="text" formControlName="name" placeholder="Grund"
-        class="w-full">
+      <input type="text" formControlName="name" placeholder="Grund" class="w-full">
     </div>
 
-    <button type="button" class="btn-large btn-primary w-3/4" [disabled]="itemEditorForm.invalid"
-        (click)="saveDebt()">
-        Speichern
-      </button>
+    <button type="button" class="btn-small btn-primary w-full" [disabled]="itemEditorForm.invalid" (click)="saveDebt()">
+      Speichern
+    </button>
 
   </form>
 </app-popup>

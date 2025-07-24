@@ -26,7 +26,6 @@ private alertSubject = new BehaviorSubject<AlertOptions | null>(null);
     cancelButtonText?: string,
     cancelButtonCallback: () => void = () => {}
   ) {
-    console.log("show alert");
     this.alertSubject.next({
       header,
       message,
@@ -36,17 +35,8 @@ private alertSubject = new BehaviorSubject<AlertOptions | null>(null);
       cancelButtonCallback,
     });
   }
-   
+
   closeAlert() {
     this.alertSubject.next(null);
   }
-
-    /* const alert = this.alertController.create({
-      cssClass,
-      backdropDismiss: false,
-      message,
-      header,
-      buttons,
-    });
-    alert.then(createdAlert => createdAlert.present()); */
 }

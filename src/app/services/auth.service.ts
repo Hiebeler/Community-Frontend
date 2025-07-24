@@ -90,7 +90,6 @@ export class AuthService implements OnDestroy {
   }
 
   requestNewToken() {
-    console.log("get new token")
     this.subscriptions.push(this.apiService.getNewJWT().subscribe(res => {
       if (res.status === 'OK') {
         this.storeToken(res.data.token);

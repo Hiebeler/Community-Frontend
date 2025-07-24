@@ -86,7 +86,7 @@
     </form>
 
     <button type="button"
-      [disabled]="nameUpdateEditorForm.invalid || (firstname.value === user.firstname && lastname.value === user.lastname)"
+      [disabled]="nameUpdateEditorForm.invalid || (firstname.value === user?.firstname && lastname.value === user?.lastname)"
       (click)="updateName()" class="btn-large btn-primary flex-1">Updaten</button>
   </div>
 </app-popup>
