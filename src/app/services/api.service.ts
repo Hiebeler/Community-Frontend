@@ -194,7 +194,7 @@ export class ApiService {
   }
 
   getDoneShoppingItems(): Observable<ApiResponse> {
-    return this.apiGet('shoppinglist/items/getdone', true);
+    return this.apiGet('shoppinglist/done', true);
   }
 
   addShoppingItem(itemName: string): Observable<ApiResponse> {
