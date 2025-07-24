@@ -59,9 +59,9 @@ export class AuthService implements OnDestroy {
         console.log("token: " + token);
     if (token) {
       const decoded = this.helper.decodeToken(token);
-      console.log("decoded token: " + token)
+      console.log("decoded token: " + decoded)
       const isExpired = this.helper.isTokenExpired(token);
-
+      console.log(isExpired);
       if (!isExpired) {
         this.decodedUserToken = decoded;
         this.updateAuthenticationState(decoded);
