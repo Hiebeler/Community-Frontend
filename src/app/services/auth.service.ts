@@ -66,6 +66,8 @@ export class AuthService implements OnDestroy {
         this.userService.fetchUserFromApi(this.getUserFromToken().id);
         this.shoppingService.fetchShoppingItemsFromApi();
       }
+      console.log("environment jwt verison: " + environment.jwtVersion);
+      console.log("my jwt version: " + decoded.jwtVersion)
       if (decoded.version !== environment.jwtVersion) {
         this.requestNewToken();
       }
@@ -92,6 +94,7 @@ export class AuthService implements OnDestroy {
   }
 
   requestNewToken() {
+    console.log("request new token");
     this.subscriptions.push(this.apiService.getNewJWT().subscribe(res => {
       if (res.status === 'OK') {
         this.storeToken(res.data.token);
