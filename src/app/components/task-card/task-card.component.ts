@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { Task } from 'src/app/models/task';
+import { CalendarEntry } from 'src/app/models/calendarEntry';
 
 @Component({
     selector: 'app-task-card',
@@ -12,7 +12,7 @@ import { Task } from 'src/app/models/task';
 })
 export class TaskCardComponent implements OnInit {
 
-  @Input() task: Task;
+  @Input() task: CalendarEntry;
   @Output() openModal: EventEmitter<any> = new EventEmitter();
 
   constructor() { }

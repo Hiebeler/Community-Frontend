@@ -1,12 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { TaskAdapter } from 'src/app/adapter/task-adapter';
 import { TaskCardComponent } from 'src/app/components/task-card/task-card.component';
-import { TaskPage } from 'src/app/modals/task/task.page';
 import { Day } from 'src/app/models/day';
-import { Task } from 'src/app/models/task';
 import { TaskService } from 'src/app/services/task.service';
 import {
   LucideAngularModule,
@@ -17,21 +14,25 @@ import {
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { CommunityService } from 'src/app/services/community.service';
 import { Navbar } from 'src/app/components/navbar/navbar';
+import { CalendarEntry } from 'src/app/models/calendarEntry';
+import { CalendarEntryEditor } from 'src/app/components/calendar-entry-editor/calendar-entry-editor';
+import { CalendarEntryAdapter } from 'src/app/adapter/calendar-entry-adapter';
 
 @Component({
   selector: 'app-tasks',
-  templateUrl: './tasks.page.html',
+  templateUrl: './calendar.page.html',
   standalone: true,
   imports: [
     CommonModule,
+    RouterModule,
     TaskCardComponent,
     LucideAngularModule,
     PopupComponent,
-    TaskPage,
+    CalendarEntryEditor,
     Navbar
   ],
 })
-export class TasksPage implements OnInit, OnDestroy {
+export class CalendarPage implements OnInit, OnDestroy {
   readonly InfinityIcon = InfinityIcon;
   readonly ChevronRightIcon = ChevronRightIcon;
   readonly ChevronLeftIcon = ChevronLeftIcon;
@@ -47,11 +48,11 @@ export class TasksPage implements OnInit, OnDestroy {
   startDate: Date;
   endDate: Date;
 
-  taskToShow: Task = null;
+  taskToShow: CalendarEntry = null;
 
   constructor(
     private taskService: TaskService,
-    private taskAdapter: TaskAdapter,
+    private calendarEntryAdapter: CalendarEntryAdapter,
     private router: Router,
     private communityService: CommunityService
   ) {
@@ -89,8 +90,8 @@ export class TasksPage implements OnInit, OnDestroy {
             const currentDate = this.addDate(this.startDate, i);
             const currentDateString = this.formatDate(currentDate);
 
-            const openTasks: Task[] = [];
-            const doneTasks: Task[] = [];
+            const openTasks: CalendarEntry[] = [];
+            const doneTasks: CalendarEntry[] = [];
 
             tasks.forEach((task) => {
               if (this.formatDate(task.date) === currentDateString) {
@@ -140,10 +141,10 @@ export class TasksPage implements OnInit, OnDestroy {
     return num.toString().padStart(2, '0');
   }
 
-  openModal(data: Task | Date) {
-    let task: Task;
+  openModal(data: CalendarEntry | Date) {
+    let task: CalendarEntry;
     if (data instanceof Date) {
-      task = this.taskAdapter.adapt({ date: data });
+      task = this.calendarEntryAdapter.adapt({ date: data });
     } else {
       task = data;
       task.date = new Date(data.date);
@@ -168,9 +169,5 @@ export class TasksPage implements OnInit, OnDestroy {
     return (
       date.toDateString() === this.addDate(new Date(), offset).toDateString()
     );
-  }
-
-  gotoRoutines() {
-    this.router.navigate(['calendar/routines']);
   }
 }

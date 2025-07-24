@@ -1,6 +1,6 @@
 import { User } from './user';
 
-export class Task {
+export class CalendarEntry {
 
   public id: number;
   public name: string;

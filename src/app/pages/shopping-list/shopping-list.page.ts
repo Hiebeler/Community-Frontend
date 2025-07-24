@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CheckCheckIcon, LucideAngularModule, PlusIcon, XIcon } from 'lucide-angular';
+import { CheckCheckIcon, CheckIcon, LucideAngularModule, PlusIcon, XIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
@@ -23,6 +23,7 @@ export class ShoppingListPage implements OnInit, OnDestroy {
   readonly plusIcon = PlusIcon;
   readonly closeIcon = XIcon;
   readonly alldoneIcon = CheckCheckIcon;
+  readonly checkIcon = CheckIcon;
 
   subscriptions: Subscription[] = [];
 
@@ -118,9 +119,9 @@ export class ShoppingListPage implements OnInit, OnDestroy {
     }
   }
 
-  updateDone(id: number, e: any) {
+  updateDone(id: number, checked: boolean) {
     this.subscriptions.push(
-      this.shoppingService.updateShoppingItem(new ShoppingItem(id, null, e.target.checked)).subscribe((res) => {
+      this.shoppingService.updateShoppingItem(new ShoppingItem(id, null, checked)).subscribe((res) => {
         if (res.status === 'OK') {
           this.getItems();
         }

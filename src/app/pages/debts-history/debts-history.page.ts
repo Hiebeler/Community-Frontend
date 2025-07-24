@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import {
   ArrowDownIcon,
   ArrowLeftIcon,
@@ -17,8 +17,7 @@ import { DebtService } from 'src/app/services/debt.service';
 @Component({
   selector: 'app-debts-history',
   templateUrl: './debts-history.page.html',
-  standalone: true,
-  imports: [CommonModule, LucideAngularModule, Navbar],
+  imports: [CommonModule, RouterModule, LucideAngularModule, Navbar],
 })
 export class DebtsHistoryPage implements OnInit {
   readonly backIcon = ArrowLeftIcon;
@@ -34,7 +33,7 @@ export class DebtsHistoryPage implements OnInit {
 
   currentUser: User;
 
-  constructor(private router: Router, private debtService: DebtService) {}
+  constructor(private debtService: DebtService) {}
 
   ngOnInit() {
     this.getItems();
@@ -55,9 +54,5 @@ export class DebtsHistoryPage implements OnInit {
       this.loadingEvent = event;
     }
     this.debtService.fetchDebtsAndBalanceFromApi();
-  }
-
-  gotoDebts() {
-    this.router.navigate(['debts']);
   }
 }

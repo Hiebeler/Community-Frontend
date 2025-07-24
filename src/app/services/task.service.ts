@@ -1,11 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, concatMap, map, Observable, of, Subscription } from 'rxjs';
 import { RoutineAdapter } from '../adapter/routine-adapter';
-import { TaskAdapter } from '../adapter/task-adapter';
+import { CalendarEntryAdapter } from '../adapter/calendar-entry-adapter';
 import { Routine } from '../models/routine';
-import { Task } from '../models/task';
 import { ApiService } from './api.service';
-import { CommunityService } from './community.service';
+import { CalendarEntry } from '../models/calendarEntry';
 
 @Injectable({
   providedIn: 'root'
@@ -18,16 +17,15 @@ export class TaskService implements OnDestroy {
 
   constructor(
     private apiService: ApiService,
-    private taskAdapter: TaskAdapter,
-    private routineAdapter: RoutineAdapter,
-    private communityService: CommunityService
+    private calendarEntryAdapter: CalendarEntryAdapter,
+    private routineAdapter: RoutineAdapter
   ) { }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  getTasks(startDate: Date, endDate: Date): Observable<Task[]> {
+  getTasks(startDate: Date, endDate: Date): Observable<CalendarEntry[]> {
     return this.apiService.getTasks({ startDate, endDate }).pipe(
       concatMap(res => {
         if (res.status !== 'OK') {
@@ -35,7 +33,7 @@ export class TaskService implements OnDestroy {
         } else {
           return of(res);
         }
-      }), map((res: any) => res.data.map((item) => this.taskAdapter.adapt(item)))
+      }), map((res: any) => res.data.map((item) => this.calendarEntryAdapter.adapt(item)))
     );
   }
 

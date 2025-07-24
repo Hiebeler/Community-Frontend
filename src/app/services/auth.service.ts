@@ -68,7 +68,7 @@ export class AuthService implements OnDestroy {
         this.userService.fetchUserFromApi(this.getUserFromToken().id);
         this.shoppingService.fetchShoppingItemsFromApi();
       }
-      
+
     }
     else {
       this.authenticationState.next('none');
@@ -92,7 +92,6 @@ export class AuthService implements OnDestroy {
   }
 
   requestNewToken() {
-    console.log("request new token");
     this.subscriptions.push(this.apiService.getNewJWT().subscribe(res => {
       if (res.status === 'OK') {
         this.storeToken(res.data.token);

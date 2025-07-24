@@ -1,7 +1,7 @@
 <app-navbar title="Schulden">
-  <button left type="button" class="btn-small btn-primary" (click)="gotoHistory()">
+  <a left routerLink="/debts/history" class="btn-small btn-primary">
     <lucide-icon [img]="receiptIcon"></lucide-icon>
-  </button>
+  </a>
 
   <button right type="button" class="btn-small btn-primary" (click)="openEditor(true)">
     <lucide-icon [img]="plusIcon"></lucide-icon>
