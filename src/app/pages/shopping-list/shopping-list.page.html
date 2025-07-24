@@ -1,67 +1,60 @@
-<div class="flex flex-col">
+<app-navbar title="Einkaufsliste">
+  <button right type="button" class="btn-small btn-primary" (click)="openEditor(true)">
+    <lucide-icon [img]="plusIcon"></lucide-icon>
+  </button>
+</app-navbar>
 
-  <main class="flex-1 overflow-auto container mx-auto px-4 py-6 space-y-6">
-    <!-- Top Bar -->
-    <div class="flex items-center justify-between">
-      <div class="text-lg font-semibold">
-        Einkaufsliste
-      </div>
+<div class="card">
+  <!-- Open Items -->
+  @if (openItems.length) {
+  <h2 class="text-lg font-semibold">Offen:</h2>
+  }
 
-      <button type="button" class="btn-small btn-primary flex items-center justify-center" (click)="openEditor(true)"
-        aria-label="Neues Element hinzufügen">
-        <lucide-icon [img]="plusIcon"></lucide-icon>
-      </button>
+  <!-- Empty State -->
+  @if (!openItems.length && completedFirstLoad) {
+  <div class="flex flex-col items-center text-center space-y-3 py-10">
+    <lucide-icon [img]="alldoneIcon" size="42"></lucide-icon>
+    <h2 class="text-xl font-semibold mt-0">Alles Erledigt</h2>
+    <button type="button" class="btn-small btn-primary flex items-center justify-center space-x-2"
+      (click)="openEditor(true)" aria-label="Neuen Eintrag hinzufügen">
+      <lucide-icon [img]="plusIcon"></lucide-icon>
+      <span>Neuen Eintrag hinzufügen</span>
+    </button>
+  </div>
+  }
+
+  <!-- Open Items List -->
+  @for (item of openItems; track item) {
+  <div>
+    <div class="flex items-center space-x-4 py-2">
+      <input type="checkbox" [checked]="item.done" (change)="updateDone(item.id, $event)"
+        class="w-5 h-5 text-green-500 bg-gray-800 border-gray-600 rounded focus:ring-green-500" />
+      <span class="clickable text-white" (click)="openUpdateEditor(item)">
+        {{item.name}}
+      </span>
     </div>
-
-
-    <div class="card">
-      <!-- Open Items -->
-      @if (openItems.length) {
-      <h2 class="text-lg font-semibold">Offen:</h2>
-      }
-
-      <!-- Empty State -->
-      @if (!openItems.length && completedFirstLoad) {
-      <div class="flex flex-col items-center text-center space-y-2">
-        <img src="./../../../../assets/images/no-shopping-items.svg" alt="" class="rounded-md w-4/5 max-w-xs" />
-        <h2 class="text-xl font-semibold mt-0">Alles Erledigt 👍</h2>
-        <p>Klicke + um neue Elemente hinzuzufügen</p>
-      </div>
-      }
-
-      <!-- Open Items List -->
-      @for (item of openItems; track item) {
-      <div>
-        <div class="flex items-center space-x-4 py-2">
-          <input type="checkbox" [checked]="item.done" (change)="updateDone(item.id, $event)"
-            class="w-5 h-5 text-green-500 bg-gray-800 border-gray-600 rounded focus:ring-green-500" />
-          <span class="clickable text-white" (click)="openUpdateEditor(item)">
-            {{item.name}}
-          </span>
-        </div>
-      </div>
-      }
-    </div>
-
-
-    @if (doneItems.length) {
-    <div class="card">
-      <!-- Done Items -->
-
-      <h2 class="text-lg font-semibold">Heute erledigt:</h2>
-
-
-      @for (item of doneItems; track item) {
-      <div class="flex items-center space-x-4 py-2">
-        <input type="checkbox" [checked]="item.done" (change)="updateDone(item.id, $event)"
-          class="w-5 h-5 text-green-500 bg-gray-800 border-gray-600 rounded focus:ring-green-500" />
-        <span class="text-gray-400 line-through">{{item.name}}</span>
-      </div>
-      }
-    </div>
-    }
-  </main>
+  </div>
+  }
 </div>
+
+
+@if (doneItems.length) {
+<div class="card mt-6">
+  <!-- Done Items -->
+
+  <h2 class="text-lg font-semibold">Heute erledigt:</h2>
+
+
+  @for (item of doneItems; track item) {
+  <div class="flex items-center space-x-4 py-2">
+    <input type="checkbox" [checked]="item.done" (change)="updateDone(item.id, $event)"
+      class="w-5 h-5 text-green-500 bg-gray-800 border-gray-600 rounded focus:ring-green-500" />
+    <span class="text-gray-400 line-through">{{item.name}}</span>
+  </div>
+  }
+</div>
+}
+
 
 <app-popup [show]="editorIsOpen" (close)="editorIsOpen = false" title="Neuer Eintrag">
   <div class="space-y-4">

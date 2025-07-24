@@ -9,6 +9,7 @@ import {
   TrendingUpIcon,
 } from 'lucide-angular';
 import { Subscription } from 'rxjs';
+import { Navbar } from 'src/app/components/navbar/navbar';
 import { Debt } from 'src/app/models/debt';
 import { User } from 'src/app/models/user';
 import { DebtService } from 'src/app/services/debt.service';
@@ -17,7 +18,7 @@ import { DebtService } from 'src/app/services/debt.service';
   selector: 'app-debts-history',
   templateUrl: './debts-history.page.html',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, Navbar],
 })
 export class DebtsHistoryPage implements OnInit {
   readonly backIcon = ArrowLeftIcon;

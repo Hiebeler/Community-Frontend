@@ -24,6 +24,7 @@ import {
 } from 'lucide-angular';
 import { ConfirmationPopupComponent } from 'src/app/components/confirmation-popup/confirmation-popup.component';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
+import { Navbar } from 'src/app/components/navbar/navbar';
 
 @Component({
   selector: 'app-profile',
@@ -38,6 +39,7 @@ import { PopupComponent } from 'src/app/components/popup/popup.component';
     LucideAngularModule,
     ConfirmationPopupComponent,
     PopupComponent,
+    Navbar
   ],
 })
 export class ProfilePage implements OnInit, OnDestroy {

@@ -1,63 +1,51 @@
-<div class="min-h-screen flex flex-col">
-  <main class="flex-1 overflow-auto container mx-auto px-4 py-6">
-    <!-- Top Bar -->
-    <div class="flex items-center mb-6">
-      <!-- Back button -->
-      <button type="button" class="btn-small btn-neutral flex items-center justify-center mr-4" (click)="gotoTasks()"
-        aria-label="Zurück zu Kalender">
-        <lucide-icon [img]="backIcon"></lucide-icon>
-      </button>
+<app-navbar title="Routinen">
+  <button left type="button" class="btn-small btn-neutral flex items-center justify-center mr-4" (click)="gotoTasks()"
+    aria-label="Zurück zu Kalender">
+    <lucide-icon [img]="backIcon"></lucide-icon>
+  </button>
 
-      <!-- Header text -->
-      <div class="flex-1 text-center font-semibold text-lg">
-        <p>Routinen</p>
-      </div>
+  <button right type="button" class="btn-small btn-primary flex items-center justify-center ml-4"
+    (click)="openNewRoutineEditor(true)" aria-label="Neue Routine hinzufügen">
+    <lucide-icon [img]="plusIcon"></lucide-icon>
+  </button>
+</app-navbar>
 
-      <button type="button" class="btn-small btn-primary flex items-center justify-center ml-4"
-        (click)="openNewRoutineEditor(true)" aria-label="Neue Routine hinzufügen">
-        <lucide-icon [img]="plusIcon"></lucide-icon>
-      </button>
-    </div>
-
-    <!-- No Routines Message -->
-    @if (!enabledRoutines.length && !disabledRoutines.length && completedFirstLoad) {
-    <div class="flex flex-col items-center text-center p-6">
-      <img src="./../../../../assets/images/no-routines.svg" alt="Keine Routinen"
-        class="rounded-md w-4/5 max-w-xs mb-4" />
-      <h2 class="text-2xl font-semibold mb-2">Noch keine Routinen</h2>
-      <p>Klicke + um eine neue Routine anzulegen</p>
-    </div>
-    }
-
-    <!-- Active Routines Header -->
-    @if (enabledRoutines.length) {
-    <h2 class="text-xl font-semibold mb-4">Aktive Routinen</h2>
-    }
-
-    <!-- Active Routines List -->
-    @for (routine of enabledRoutines; track routine) {
-    <div class="mb-6">
-      <div (click)="openUpdateEditor(routine)">
-        <app-routine-card [routine]="routine"></app-routine-card>
-      </div>
-    </div>
-    }
-
-    <!-- Disabled Routines Header -->
-    @if (disabledRoutines.length) {
-    <h2 class="text-xl font-semibold mb-4">Deaktivierte Routinen</h2>
-    }
-
-    <!-- Disabled Routines List -->
-    @for (routine of disabledRoutines; track routine) {
-    <div class="mb-6">
-      <div (click)="openUpdateEditor(routine)">
-        <app-routine-card [routine]="routine"></app-routine-card>
-      </div>
-    </div>
-    }
-  </main>
+<!-- No Routines Message -->
+@if (!enabledRoutines.length && !disabledRoutines.length && completedFirstLoad) {
+<div class="flex flex-col items-center text-center p-6">
+  <img src="./../../../../assets/images/no-routines.svg" alt="Keine Routinen" class="rounded-md w-4/5 max-w-xs mb-4" />
+  <h2 class="text-2xl font-semibold mb-2">Noch keine Routinen</h2>
+  <p>Klicke + um eine neue Routine anzulegen</p>
 </div>
+}
+
+<!-- Active Routines Header -->
+@if (enabledRoutines.length) {
+<h2 class="text-xl font-semibold mb-4">Aktive Routinen</h2>
+}
+
+<!-- Active Routines List -->
+@for (routine of enabledRoutines; track routine) {
+<div class="mb-6">
+  <div (click)="openUpdateEditor(routine)">
+    <app-routine-card [routine]="routine"></app-routine-card>
+  </div>
+</div>
+}
+
+<!-- Disabled Routines Header -->
+@if (disabledRoutines.length) {
+<h2 class="text-xl font-semibold mb-4">Deaktivierte Routinen</h2>
+}
+
+<!-- Disabled Routines List -->
+@for (routine of disabledRoutines; track routine) {
+<div class="mb-6">
+  <div (click)="openUpdateEditor(routine)">
+    <app-routine-card [routine]="routine"></app-routine-card>
+  </div>
+</div>
+}
 
 <app-popup [show]="newRoutineEditorIsOpen" (close)="newRoutineEditorIsOpen = false" title="Neue Routine erstellen">
   <app-routine-editor (closeEditor)="openNewRoutineEditor(false)"></app-routine-editor>

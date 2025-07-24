@@ -1,74 +1,78 @@
-<div class="container mx-auto px-4 pt-4 pb-24">
+<app-navbar title="Profil">
+
   @if (user) {
-  <button type="button" class="absolute right-0 top-0 m-5 p-2" (click)="editChangeCommunityPopup(true)">
+  <button right type="button" class="btn-small btn-neutral" (click)="editChangeCommunityPopup(true)">
     <lucide-icon [img]="userPen"></lucide-icon>
   </button>
-  <div class="grid gap-4">
-    <div class="flex justify-center">
-      <img class="profile-image clickable rounded-full" [src]="user.profileimage" alt="" width="100" height="100"
-        (click)="editImage(true)" />
+  }
+</app-navbar>
+
+@if (user) {
+<div class="grid gap-4">
+  <div class="flex justify-center">
+    <img class="profile-image clickable rounded-full" [src]="user.profileimage" alt="" width="100" height="100"
+      (click)="editImage(true)" />
+  </div>
+
+
+  <div class="flex justify-center">
+    <h2 class="clickable text-xl font-semibold" (click)="toggleNameEditor()">
+      {{user.name}}
+    </h2>
+  </div>
+
+  @if (!user.communities) {
+  <div class="card p-4 text-center">
+    <p>Noch keiner Gemeinschaft beigetreten</p>
+    <div class="grid grid-cols-2 gap-4 mt-4">
+      <button class="btn-large btn-primary w-full" (click)="gotoFindCommunity()">Beitreten</button>
+      <button class="btn-large btn-outline-primary w-full" (click)="gotoCreateCommunity()">Erstellen</button>
     </div>
-
-
-    <div class="flex justify-center">
-      <h2 class="clickable text-xl font-semibold" (click)="toggleNameEditor()">
-        {{user.name}}
-      </h2>
-    </div>
-
-    @if (!user.communities) {
-    <div class="card p-4 text-center">
-      <p>Noch keiner Gemeinschaft beigetreten</p>
-      <div class="grid grid-cols-2 gap-4 mt-4">
-        <button class="btn-large btn-primary w-full" (click)="gotoFindCommunity()">Beitreten</button>
-        <button class="btn-large btn-outline-primary w-full" (click)="gotoCreateCommunity()">Erstellen</button>
-      </div>
-    </div>
-    }
-
-    @if (community) {
-    <div class="grid grid-cols-2 gap-4">
-      <div class="card text-center p-4">
-        <h2 class="text-lg font-semibold">{{community.name}}</h2>
-        <p class="text-sm">Gemeinschaft</p>
-      </div>
-      <div class="card text-center p-4">
-        <h2 class="text-lg font-semibold">{{community.code}}</h2>
-        <p class="text-sm">Beitrittscode</p>
-      </div>
-    </div>
-    }
-
-    @if (usersInCommunity.length) {
-    <div class="card p-4">
-      <p class="text-center mb-4">Mitglieder</p>
-      <div class="flex flex-wrap gap-2 justify-center">
-        @for (user of usersInCommunity; track user) {
-        <div class="card w-20 md:w-28 lg:w-32 text-center">
-          <img [src]="user.profileimage" alt="" class="rounded-full w-full aspect-square object-cover mb-2" />
-          <p class="text-sm">{{user.name}}</p>
-        </div>
-        }
-      </div>
-    </div>
-    }
-
-    <div class="grid grid-cols-2 gap-4">
-      @if (community) {
-      <div class="card flex justify-center items-center clickable p-4" (click)="editColor(true)">
-        <p class="mr-2">Meine Farbe</p>
-        <lucide-icon [ngStyle]="{'color': user.color}" [img]="paletteIcon"></lucide-icon>
-      </div>
-      }
-      <div class="card flex justify-center items-center clickable p-4" (click)="openLogoutPopup()">
-        <p class="mr-2">Abmelden</p>
-      </div>
-    </div>
-
-    <app-open-requests />
   </div>
   }
+
+  @if (community) {
+  <div class="grid grid-cols-2 gap-4">
+    <div class="card text-center p-4">
+      <h2 class="text-lg font-semibold">{{community.name}}</h2>
+      <p class="text-sm">Gemeinschaft</p>
+    </div>
+    <div class="card text-center p-4">
+      <h2 class="text-lg font-semibold">{{community.code}}</h2>
+      <p class="text-sm">Beitrittscode</p>
+    </div>
+  </div>
+  }
+
+  @if (usersInCommunity.length) {
+  <div class="card p-4">
+    <p class="text-center mb-4">Mitglieder</p>
+    <div class="flex flex-wrap gap-2 justify-center">
+      @for (user of usersInCommunity; track user) {
+      <div class="card w-20 md:w-28 lg:w-32 text-center">
+        <img [src]="user.profileimage" alt="" class="rounded-full w-full aspect-square object-cover mb-2" />
+        <p class="text-sm">{{user.name}}</p>
+      </div>
+      }
+    </div>
+  </div>
+  }
+
+  <div class="grid grid-cols-2 gap-4">
+    @if (community) {
+    <div class="card flex justify-center items-center clickable p-4" (click)="editColor(true)">
+      <p class="mr-2">Meine Farbe</p>
+      <lucide-icon [ngStyle]="{'color': user.color}" [img]="paletteIcon"></lucide-icon>
+    </div>
+    }
+    <div class="card flex justify-center items-center clickable p-4" (click)="openLogoutPopup()">
+      <p class="mr-2">Abmelden</p>
+    </div>
+  </div>
+
+  <app-open-requests />
 </div>
+}
 
 <app-popup [show]="editingColor" (close)="editingColor = false" title="Farbe auswählen">
   <app-color-editor (closeEditor)="editColor(false)" />
@@ -78,12 +82,10 @@
   <div class="p-4">
 
     <form class="flex gap-2 mb-3 w-full" [formGroup]="nameUpdateEditorForm" (ngSubmit)="updateName()">
-      <input type="text" id="name" autocomplete="off" formControlName="name" placeholder="Name"
-        class="flex-1" />
+      <input type="text" id="name" autocomplete="off" formControlName="name" placeholder="Name" class="flex-1" />
     </form>
 
-    <button type="button"
-      [disabled]="nameUpdateEditorForm.invalid || (name.value === user?.name)"
+    <button type="button" [disabled]="nameUpdateEditorForm.invalid || (name.value === user?.name)"
       (click)="updateName()" class="btn-large btn-primary flex-1">Updaten</button>
   </div>
 </app-popup>
@@ -112,7 +114,8 @@
     }
   </div>
 
-  <button class="btn-small btn-primary flex-1 w-full mt-6" (click)="gotoOnboarding()">Community erstellen / beitreten</button>
+  <button class="btn-small btn-primary flex-1 w-full mt-6" (click)="gotoOnboarding()">Community erstellen /
+    beitreten</button>
 
   }
 </app-popup>

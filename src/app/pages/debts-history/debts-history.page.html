@@ -1,53 +1,44 @@
-<div class="min-h-screen flex flex-col bg-gray-900 text-white">
-  <main class="flex-1 overflow-auto container mx-auto px-4 py-6 space-y-4">
+<app-navbar title="Verlauf">
+  <button left type="button" class="btn-small btn-neutral" (click)="gotoDebts()">
+    <lucide-icon [img]="backIcon"></lucide-icon>
+  </button>
+</app-navbar>
 
-    <!-- Topbar -->
-    <div class="flex items-center justify-between mb-6">
-      <button type="button" class="btn-small btn-neutral" (click)="gotoDebts()">
-        <lucide-icon [img]="backIcon"></lucide-icon>
-      </button>
+<!-- Debt History -->
+<div class="space-y-4">
+  @for (debt of debts; track debt) {
+  <div class="card">
 
-      <p class="text-lg font-semibold">Verlauf</p>
-    </div>
+    <!-- Date Row -->
+    <div class="flex items-center justify-between mb-4">
+      <p class="text-sm text-gray-400">
+        {{debt.timestamp.toLocaleDateString('de-AT', { year: 'numeric', month: 'short', day: 'numeric' })}}
+      </p>
 
-    <!-- Debt History -->
-    <div class="space-y-4">
-      @for (debt of debts; track debt) {
-      <div class="card">
-
-        <!-- Date Row -->
-        <div class="flex items-center justify-between mb-4">
-          <p class="text-sm text-gray-400">
-            {{debt.timestamp.toLocaleDateString('de-AT', { year: 'numeric', month: 'short', day: 'numeric' })}}
-          </p>
-
-          @if (debt.creditor.id === currentUser?.id) {
-          <lucide-icon [img]="stinksIcon" class="text-red-500"></lucide-icon>
-          }
-          @if (debt.creditor.id !== currentUser?.id) {
-          <lucide-icon [img]="stonksIcon" class="text-green-400"></lucide-icon>
-          }
-        </div>
-
-        <!-- Body Row -->
-        <div class="flex justify-around items-center">
-          <!-- Left Col -->
-          <div class="flex flex-col items-center">
-            <p class="text-base">{{debt.name}}</p>
-            <p class="text-2xl font-bold">{{debt.amount}} €</p>
-          </div>
-
-          <!-- Right Col -->
-          <div class="flex flex-col items-center">
-            <p class="text-base m-0">{{debt.creditor.name}}</p>
-            <lucide-icon [img]="arrowDown"></lucide-icon>
-            <p class="text-base m-0">{{debt.debitor.name}}</p>
-          </div>
-        </div>
-
-      </div>
+      @if (debt.creditor.id === currentUser?.id) {
+      <lucide-icon [img]="stinksIcon" class="text-red-500"></lucide-icon>
+      }
+      @if (debt.creditor.id !== currentUser?.id) {
+      <lucide-icon [img]="stonksIcon" class="text-green-400"></lucide-icon>
       }
     </div>
 
-  </main>
+    <!-- Body Row -->
+    <div class="flex justify-around items-center">
+      <!-- Left Col -->
+      <div class="flex flex-col items-center">
+        <p class="text-base">{{debt.name}}</p>
+        <p class="text-2xl font-bold">{{debt.amount}} €</p>
+      </div>
+
+      <!-- Right Col -->
+      <div class="flex flex-col items-center">
+        <p class="text-base m-0">{{debt.creditor.name}}</p>
+        <lucide-icon [img]="arrowDown"></lucide-icon>
+        <p class="text-base m-0">{{debt.debitor.name}}</p>
+      </div>
+    </div>
+
+  </div>
+  }
 </div>

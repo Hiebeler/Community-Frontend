@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LucideAngularModule, PlusIcon, XIcon } from 'lucide-angular';
+import { CheckCheckIcon, LucideAngularModule, PlusIcon, XIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
+import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { ShoppingItem } from 'src/app/models/shopping-item';
 import { ShoppingService } from 'src/app/services/shopping.service';
@@ -14,12 +15,14 @@ import { ShoppingService } from 'src/app/services/shopping.service';
       CommonModule,
       ReactiveFormsModule,
       LucideAngularModule,
-      PopupComponent
+      PopupComponent,
+      Navbar
     ]
 })
 export class ShoppingListPage implements OnInit, OnDestroy {
   readonly plusIcon = PlusIcon;
   readonly closeIcon = XIcon;
+  readonly alldoneIcon = CheckCheckIcon;
 
   subscriptions: Subscription[] = [];
 
