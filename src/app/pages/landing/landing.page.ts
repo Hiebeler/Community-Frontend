@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { ArrowLeftRightIcon, CheckIcon, LucideAngularModule } from 'lucide-angular';
 
 @Component({
     selector: 'app-landing',
@@ -8,10 +9,13 @@ import { Router, RouterModule } from '@angular/router';
     standalone: true,
     imports: [
       CommonModule,
-      RouterModule
+      RouterModule,
+      LucideAngularModule
     ]
 })
 export class LandingPage implements OnInit {
+  readonly switchIcon = ArrowLeftRightIcon;
+  readonly checkIcon = CheckIcon;
 
   constructor(private router: Router) { }
 

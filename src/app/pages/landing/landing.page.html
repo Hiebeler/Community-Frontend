@@ -9,8 +9,7 @@
     <p class="text-center text-xl mb-4">Teilt Termine, Aufgaben, Einkaufslisten und offene Beträge - ohne endlose
       Gruppenchats. Ghostbyte Together macht
       das Planen im Haushalt oder in eurer Community einfacher als je zuvor.</p>
-    <a routerLink="/calendar"
-      class="btn-primary btn-small">
+    <a routerLink="/calendar" class="btn-primary btn-small">
       Zur App
     </a>
   </section>
@@ -20,8 +19,8 @@
     <h2 class="text-center text-5xl font-semibold text-white">Unsere Features</h2>
     <p class="mb-12 text-center">Entdecke die Funktionen, die euren Alltag einfacher machen.</p>
 
-    <div class="grid grid-cols-12 gap-3">
-      <div class="col-span-7 card grid grid-cols-2">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-3">
+      <div class="col-span-1 lg:col-span-7 card grid grid-cols-2">
         <div class="col-span-1 flex flex-col justify-center">
           <h2 class="text-2xl mb-3">Gemeinsame Einkaufsliste</h2>
           <p>Mit der geteilten Einkaufsliste bleibt alles übersichtlich und aktuell.</p>
@@ -31,60 +30,84 @@
           <div class="card">
             <span class="text-lg font-semibold">Offen:</span>
 
-            <div>
-              <div class="flex items-center space-x-4 py-2">
-                <input type="checkbox" [checked]="false"
-                  class="w-5 h-5 text-green-500 bg-gray-800 border-gray-600 rounded focus:ring-green-500" />
-                <span class="clickable text-white">
-                  Test
-                </span>
-              </div>
+            <div class="flex items-center space-x-4 py-1">
+              <div class="w-5 h-5 bg-gray-700 border border-gray-400 rounded-sm"></div>
+              <span class="text-white">
+                Pizzateig
+              </span>
             </div>
 
-            <div>
-              <div class="flex items-center space-x-4 py-2">
-                <input type="checkbox" [checked]="false"
-                  class="w-5 h-5 text-green-500 bg-gray-800 border-gray-600 rounded focus:ring-green-500" />
-                <span class="clickable text-white">
-                  Test
-                </span>
-              </div>
+            <div class="flex items-center space-x-4 py-1">
+              <div class="w-5 h-5 bg-gray-700 border border-gray-400 rounded-sm"></div>
+              <span class="text-white">
+                Schinken
+              </span>
             </div>
 
-            <div>
-              <div class="flex items-center space-x-4 py-2">
-                <input type="checkbox" [checked]="false"
-                  class="w-5 h-5 text-green-500 bg-gray-800 border-gray-600 rounded focus:ring-green-500" />
-                <span class="clickable text-white">
-                  Test
-                </span>
-              </div>
+            <div class="flex items-center space-x-4 py-1 mb-3">
+              <div class="w-5 h-5 bg-gray-700 border border-gray-400 rounded-sm"></div>
+              <span class="text-white">
+                Ananans
+              </span>
             </div>
 
-            <div>
-              <div class="flex items-center space-x-4 py-2">
-                <input type="checkbox" [checked]="false"
-                  class="w-5 h-5 text-green-500 bg-gray-800 border-gray-600 rounded focus:ring-green-500" />
-                <span class="clickable text-white">
-                  Test
-                </span>
+            <span class="text-lg font-semibold">Erledigt:</span>
+
+            <div class="flex items-center space-x-4 py-1">
+              <div class="w-5 h-5 bg-primary border border-gray-400 rounded-sm flex items-center justify-center">
+                <lucide-icon [img]="checkIcon" size="16"></lucide-icon>
               </div>
+              <span class="text-white">
+                Mozzarella
+              </span>
+            </div>
+
+            <div class="flex items-center space-x-4 py-1">
+              <div class="w-5 h-5 bg-primary border border-gray-400 rounded-sm flex items-center justify-center">
+                <lucide-icon [img]="checkIcon" size="16"></lucide-icon>
+              </div>
+              <span class="text-white">
+                Tomatensauce
+              </span>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="col-span-5 card">
+      <div class="col-span-1 lg:col-span-5 card">
         <h2 class="text-center text-2xl mb-3">Mehrere Communities, ein Account</h2>
-        <p class="text-center">Wechsle mit einem Klick zwischen WG, Familie und Co - ganz ohne Chaos.</p>
+        <p class="text-center mb-5">Wechsle mit einem Klick zwischen WG, Familie und Co - ganz ohne Chaos.</p>
+
+        <div class="flex flex-col items-center px-10">
+          <div class="card p-2 w-1/2 flex justify-between items-center">
+            Haus 4B
+            <lucide-icon [img]="switchIcon" size="22"></lucide-icon>
+          </div>
+
+          <div class="flex w-full space-x-3 my-3">
+            <div class="card bg-primary/20 p-2 w-1/2">
+              Nachbarn am Park
+            </div>
+            <div class="card p-2 w-1/2 flex justify-between items-center">
+              Reisegruppe Bali
+              <lucide-icon [img]="switchIcon" size="22"></lucide-icon>
+
+            </div>
+          </div>
+
+          <div class="card p-2 w-1/2 flex justify-between items-center">
+            WG Chaos Crew
+            <lucide-icon [img]="switchIcon" size="22"></lucide-icon>
+          </div>
+        </div>
       </div>
 
-      <div class="col-span-6 card">
+      <div class="col-span-1 lg:col-span-6 card">
         <h2 class="text-center text-2xl mb-3">Planen was ansteht</h2>
         <p class="text-center">Gemeinsame Termine und wiederkehrende Aufgaben an einem Ort - für alle sichtbar.</p>
       </div>
 
-      <div class="col-span-6 card">
+      <div class="col-span-1 lg:col-span-6 card">
         <h2 class="text-center text-2xl mb-3">Klarheit bei Ausgaben</h2>
         <p class="text-center">Erfasst Ausgaben und seht auf einen Blick, wer wem wie viel schuldet.</p>
       </div>
