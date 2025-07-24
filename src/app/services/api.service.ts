@@ -190,7 +190,7 @@ export class ApiService {
   }
 
   getOpenShoppingItems(): Observable<ApiResponse> {
-    return this.apiGet('shoppinglist/items/getopen', true);
+    return this.apiGet('shoppinglist/open', true);
   }
 
   getDoneShoppingItems(): Observable<ApiResponse> {
@@ -202,7 +202,7 @@ export class ApiService {
   }
 
   updateShoppingItem(data: any): Observable<ApiResponse> {
-    return this.apiPut('shoppinglist/items/update', data);
+    return this.apiPut('shoppinglist', data);
   }
 
   getDebtBalance(): Observable<ApiResponse> {
