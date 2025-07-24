@@ -198,7 +198,7 @@ export class ApiService {
   }
 
   addShoppingItem(itemName: string): Observable<ApiResponse> {
-    return this.apiPost('shoppinglist/items/add', { name: itemName }, true);
+    return this.apiPost('shoppinglist', { name: itemName }, true);
   }
 
   updateShoppingItem(data: any): Observable<ApiResponse> {
