@@ -26,7 +26,8 @@ export class CommunityService implements OnDestroy {
   ) {
     this.subscriptions.push(
       this.userService.getCurrentUser().subscribe((user) => {
-        if (user && user?.communityId !== this.community.value?.id) {
+        console.table(user);
+        if (user && user.communities.length > 0) {
           this.fetchCurrentCommunityFromApi(user.communities);
         }
       })
@@ -55,6 +56,7 @@ export class CommunityService implements OnDestroy {
     ).subscribe(community => {
       this.community.next(community);
     }));*/
+    console.log("get current community")
     if (communities.length === 0) {
       return;
     }

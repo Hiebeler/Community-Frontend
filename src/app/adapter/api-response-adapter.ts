@@ -13,7 +13,7 @@ export class ApiResponseAdapter implements Adapter<ApiResponse> {
   adapt(item: any): ApiResponse {
 
     item.status = item?.status ?? 'Error';
-    item.error = item?.errors[0] ?? '';
+    item.error = item?.error ?? '';
     item.data = item?.data ?? {};
 
     return new ApiResponse(item.status, item.error, item.data);
