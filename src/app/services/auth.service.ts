@@ -150,7 +150,7 @@ export class AuthService implements OnDestroy {
   }
 
   public getUserFromToken() {
-    return this.decodedUserToken;
+    return this.decodedUserToken.user;
   }
 
   logout() {
