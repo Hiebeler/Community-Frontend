@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
   CalendarIcon,
+  CheckCheckIcon,
   CircleUserRoundIcon,
   LucideAngularModule,
   ShoppingCartIcon,
@@ -18,7 +19,8 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './main-layout.component.html',
 })
 export class MainLayoutComponent implements OnInit, OnDestroy {
-  readonly tasksIcon = CalendarIcon;
+  readonly calendarIcon = CalendarIcon;
+  readonly todosIcon = CheckCheckIcon;
   readonly cartIcon = ShoppingCartIcon;
   readonly debtsIcon = WalletIcon;
   readonly profileIcon = CircleUserRoundIcon;

@@ -5,7 +5,7 @@
   "background_color": "#101828",
   "display": "standalone",
   "scope": "./",
-  "start_url": "./tasks",
+  "start_url": "./calendar",
   "icons": [
     {
       "purpose": "maskable",

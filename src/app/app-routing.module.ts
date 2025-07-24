@@ -14,6 +14,7 @@ import { ShoppingListPage } from './pages/shopping-list/shopping-list.page';
 import { DebtsPage } from './pages/debts/debts.page';
 import { DebtsHistoryPage } from './pages/debts-history/debts-history.page';
 import { OnboardingComponent } from './pages/onboarding/onboarding.component';
+import { Todos } from './pages/todos/todos';
 
 const routes: Routes = [
   {
@@ -51,11 +52,15 @@ const routes: Routes = [
         component: ProfilePage,
       },
       {
-        path: 'tasks',
+        path: 'calendar',
         component: TasksPage,
       },
       {
-        path: 'tasks/routines',
+        path: 'todos',
+        component: Todos,
+      },
+      {
+        path: 'calendar/routines',
         component: RoutinesPage,
       },
       {

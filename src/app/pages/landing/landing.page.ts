@@ -30,7 +30,7 @@ export class LandingPage implements OnInit {
   }
 
   gotoApp() {
-    this.router.navigate(['tasks']);
+    this.router.navigate(['calendar']);
   }
 
 }
