@@ -1,66 +1,59 @@
-<div class="flex flex-col">
-  <main class="flex-1 overflow-auto container mx-auto px-4 py-6 space-y-6">
+<app-navbar title="Schulden">
+  <button left type="button" class="btn-small btn-primary" (click)="gotoHistory()">
+    <lucide-icon [img]="receiptIcon"></lucide-icon>
+  </button>
 
-    <!-- Topbar -->
-    <div class="flex items-center justify-between">
-      <button type="button" class="btn-small btn-primary" (click)="gotoHistory()">
-        <lucide-icon [img]="receiptIcon"></lucide-icon>
+  <button right type="button" class="btn-small btn-primary" (click)="openEditor(true)">
+    <lucide-icon [img]="plusIcon"></lucide-icon>
+  </button>
+</app-navbar>
+
+
+<!-- No Items -->
+@if (!allBalances.length) {
+<div class="flex flex-col items-center text-center space-y-3 py-10 card">
+  <lucide-icon [img]="alldoneIcon" size="42"></lucide-icon>
+  <h2 class="text-xl font-semibold mt-0">Alles Erledigt</h2>
+  <button type="button" class="btn-small btn-primary flex items-center justify-center space-x-2"
+    (click)="openEditor(true)" aria-label="Neuen Eintrag hinzufügen">
+    <lucide-icon [img]="plusIcon"></lucide-icon>
+    <span>Neuen Eintrag hinzufügen</span>
+  </button>
+</div>
+}
+
+<!-- Debt List -->
+@if (allBalances.length) {
+<div class="space-y-4">
+  @for (balance of allBalances; track balance) {
+  <div class="card">
+
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center space-x-3">
+        <img [src]="balance.debitor.profileimage" alt="" class="w-10 h-10 rounded-full object-cover">
+        <p class="font-medium">{{balance.debitor.name}}</p>
+      </div>
+
+      <button type="button" class="btn-small btn-primary" (click)="openClearOffEditor(balance)">
+        <lucide-icon [img]="scaleIcon"></lucide-icon>
       </button>
+    </div>
 
-      <p class="text-lg font-semibold">
-        Schulden
+    <div class="flex flex-col items-center">
+      <p class="text-sm text-gray-400">
+        @if (balance.amount < 0) { {{balance.debitor.name}} schuldet mir } @if (balance.amount> 0) { Ich
+          schulde {{balance.debitor.name}} }
       </p>
 
-      <button type="button" class="btn-small btn-primary" (click)="openEditor(true)">
-        <lucide-icon [img]="plusIcon"></lucide-icon>
-      </button>
-
+      <h2 [ngClass]="balance.amount < 0 ? 'text-green-400' : 'text-red-400'" class="text-3xl font-bold mt-2">
+        {{balance.amount < 0 ? (balance.amount * -1) : balance.amount}} € </h2>
     </div>
 
-
-    <!-- No Items -->
-    @if (!allBalances.length) {
-    <div class="flex flex-col items-center text-center space-y-2">
-      <img src="./../../../../assets/images/no-debts.svg" alt="" class="w-4/5 max-w-[300px] rounded-lg">
-      <h2 class="text-xl font-semibold">Alles Beglichen👍</h2>
-      <p class="text-sm text-gray-400">Klicke + um neue Schulden hinzuzufügen</p>
-    </div>
-    }
-
-    <!-- Debt List -->
-    @if (allBalances.length) {
-    <div class="space-y-4">
-      @for (balance of allBalances; track balance) {
-      <div class="card">
-
-        <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center space-x-3">
-            <img [src]="balance.debitor.profileimage" alt="" class="w-10 h-10 rounded-full object-cover">
-            <p class="font-medium">{{balance.debitor.name}}</p>
-          </div>
-
-          <button type="button" class="btn-small btn-primary" (click)="openClearOffEditor(balance)">
-            <lucide-icon [img]="scaleIcon"></lucide-icon>
-          </button>
-        </div>
-
-        <div class="flex flex-col items-center">
-          <p class="text-sm text-gray-400">
-            @if (balance.amount < 0) { {{balance.debitor.name}} schuldet mir } @if (balance.amount> 0) { Ich
-              schulde {{balance.debitor.name}} }
-          </p>
-
-          <h2 [ngClass]="balance.amount < 0 ? 'text-green-400' : 'text-red-400'" class="text-3xl font-bold mt-2">
-            {{balance.amount < 0 ? (balance.amount * -1) : balance.amount}} € </h2>
-        </div>
-
-      </div>
-      }
-    </div>
-    }
-
-  </main>
+  </div>
+  }
 </div>
+}
+
 
 <app-popup [show]="clearOffEditorBalance !== null" (close)="clearOffEditorBalance = null"
   [title]="clearOffEditorBalance?.debitor?.name">
@@ -97,7 +90,7 @@
       <p class="text-sm text-gray-300 mb-1">Schuldner:</p>
       <select formControlName="debitor" class="w-full ">
         @for (user of usersInCommunity; track user) {
-        <option [ngValue]="user">{{user.name + ' ' + user.name}}</option>
+        <option [ngValue]="user">{{user.name}}</option>
         }
       </select>
     </div>

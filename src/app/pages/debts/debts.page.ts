@@ -8,13 +8,15 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
+  CheckCheckIcon,
+  HistoryIcon,
   LucideAngularModule,
   PlusIcon,
-  ReceiptEuroIcon,
   ScaleIcon,
   XIcon,
 } from 'lucide-angular';
 import { Subscription } from 'rxjs';
+import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { Balance } from 'src/app/models/balance';
 import { Debt } from 'src/app/models/debt';
@@ -31,13 +33,15 @@ import { UserService } from 'src/app/services/user.service';
     ReactiveFormsModule,
     LucideAngularModule,
     PopupComponent,
+    Navbar
   ],
 })
 export class DebtsPage implements OnInit, OnDestroy {
   readonly plusIcon = PlusIcon;
-  readonly receiptIcon = ReceiptEuroIcon;
+  readonly receiptIcon = HistoryIcon;
   readonly closeIcon = XIcon;
   readonly scaleIcon = ScaleIcon;
+  readonly alldoneIcon = CheckCheckIcon;
 
   subscriptions: Subscription[] = [];
 

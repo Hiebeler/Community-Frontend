@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ArrowLeftIcon, LucideAngularModule, PlusIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
+import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { RoutineCardComponent } from 'src/app/components/routine-card/routine-card.component';
 import { RoutineEditorComponent } from 'src/app/components/routine-editor/routine-editor.component';
@@ -18,7 +19,8 @@ import { TaskService } from 'src/app/services/task.service';
     RoutineEditorComponent,
     RoutineCardComponent,
     LucideAngularModule,
-    PopupComponent
+    PopupComponent,
+    Navbar
   ],
 })
 export class RoutinesPage implements OnInit, OnDestroy {

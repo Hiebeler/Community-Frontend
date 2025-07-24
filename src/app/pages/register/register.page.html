@@ -1,5 +1,3 @@
-<div class="w-full max-w-md card p-8 rounded-xl shadow-lg">
-
   <h1 class="text-2xl mb-8 text-center font-semibold text-gray-900 dark:text-gray-100">Registrieren</h1>
 
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
@@ -11,7 +9,7 @@
     </div>
 
     <div class="mb-6">
-      <label for="name" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Vorname</label>
+      <label for="name" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
       <input type="text" id="name" formControlName="name" placeholder="Name"
         [ngClass]="name.value ? name.valid ? 'valid-input' : 'invalid-input' : 'empty-input'"
         class="w-full">
@@ -43,5 +41,3 @@
       Ich habe schon einen Account
     </a>
   </div>
-
-</div>

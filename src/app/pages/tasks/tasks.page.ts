@@ -16,6 +16,7 @@ import {
 } from 'lucide-angular';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { CommunityService } from 'src/app/services/community.service';
+import { Navbar } from 'src/app/components/navbar/navbar';
 
 @Component({
   selector: 'app-tasks',
@@ -27,6 +28,7 @@ import { CommunityService } from 'src/app/services/community.service';
     LucideAngularModule,
     PopupComponent,
     TaskPage,
+    Navbar
   ],
 })
 export class TasksPage implements OnInit, OnDestroy {

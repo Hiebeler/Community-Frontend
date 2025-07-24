@@ -1,0 +1,13 @@
+<div class="relative flex items-center justify-between h-12 mb-6">
+  <div class="z-10">
+    <ng-content select="[left]"></ng-content>
+  </div>
+
+  <p class="absolute left-1/2 -translate-x-1/2 text-lg font-semibold text-center">
+    {{ title }}
+  </p>
+
+  <div class="z-10">
+    <ng-content select="[right]"></ng-content>
+  </div>
+</div>

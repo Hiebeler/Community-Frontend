@@ -50,6 +50,10 @@ const routes: Routes = [
         path: 'register',
         component: RegisterPage,
       },
+      {
+        path: 'verify/:code',
+        component: VerifyPage,
+      },
     ],
     canActivate: [AuthGuard],
     data: {
@@ -100,14 +104,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       roles: ['onboarding', 'community'],
-    },
-  },
-  {
-    path: 'verify/:code',
-    component: VerifyPage,
-    canActivate: [AuthGuard],
-    data: {
-      roles: ['none'],
     },
   },
 ];
