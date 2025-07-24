@@ -27,14 +27,17 @@ const routes: Routes = [
       {
         path: '',
         component: LandingPage,
+        title: 'Together'
       },
       {
         path: 'imprint',
         component: ImprintPage,
+        title: 'Impressum - Together'
       },
       {
         path: 'privacy',
         component: PrivacyPage,
+        title: 'Datenschutzrichtlinie - Together'
       },
     ],
   },
@@ -45,14 +48,17 @@ const routes: Routes = [
       {
         path: 'login',
         component: LoginPage,
+        title: 'Anmelden - Together'
       },
       {
         path: 'register',
         component: RegisterPage,
+        title: 'Registrieren - Together'
       },
       {
         path: 'verify/:code',
         component: VerifyPage,
+        title: 'Verify - Together'
       },
     ],
     canActivate: [AuthGuard],
@@ -67,30 +73,37 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfilePage,
+        title: 'Profil - Together'
       },
       {
         path: 'calendar',
         component: CalendarPage,
+        title: 'Kalender - Together'
       },
       {
         path: 'todos',
         component: Todos,
+        title: 'Todos - Together'
       },
       {
         path: 'calendar/routines',
         component: RoutinesPage,
+        title: 'Routinen - Together'
       },
       {
         path: 'shopping-list',
         component: ShoppingListPage,
+        title: 'Einkaufsliste - Together'
       },
       {
         path: 'debts',
         component: DebtsPage,
+        title: 'Schulden - Together'
       },
       {
         path: 'debts/history',
         component: DebtsHistoryPage,
+        title: 'Schulden Verlauf - Together'
       },
     ],
     canActivate: [AuthGuard],
@@ -101,6 +114,7 @@ const routes: Routes = [
   {
     path: 'onboarding',
     component: OnboardingComponent,
+    title: 'Onboarding - Together',
     canActivate: [AuthGuard],
     data: {
       roles: ['onboarding', 'community'],
