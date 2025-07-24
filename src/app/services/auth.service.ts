@@ -59,20 +59,22 @@ export class AuthService implements OnDestroy {
         console.log("token: " + token);
     if (token) {
       const decoded = this.helper.decodeToken(token);
-      console.log("decoded token: " + decoded)
+      console.table(decoded)
       const isExpired = this.helper.isTokenExpired(token);
       console.log(isExpired);
+      console.log("environment jwt verison: " + environment.jwtVersion);
+      console.log("my jwt version: " + decoded.jwtVersion)
+      if (decoded.version !== environment.jwtVersion) {
+        this.requestNewToken();
+        return;
+      }
       if (!isExpired) {
         this.decodedUserToken = decoded;
         this.updateAuthenticationState(decoded);
         this.userService.fetchUserFromApi(this.getUserFromToken().id);
         this.shoppingService.fetchShoppingItemsFromApi();
       }
-      console.log("environment jwt verison: " + environment.jwtVersion);
-      console.log("my jwt version: " + decoded.jwtVersion)
-      if (decoded.version !== environment.jwtVersion) {
-        this.requestNewToken();
-      }
+      
     }
     else {
       this.authenticationState.next('none');
