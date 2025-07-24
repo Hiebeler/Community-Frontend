@@ -81,7 +81,7 @@ export class AuthService implements OnDestroy {
     if (!token.version) {
       this.requestNewToken();
     } else {
-      if (token.communities && token.communities.length > 0) {
+      if (token.user.communities && token.user.communities.length > 0) {
         this.authenticationState.next('community');
       } else {
         this.authenticationState.next('onboarding');
