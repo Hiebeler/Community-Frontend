@@ -153,19 +153,19 @@ export class ApiService {
   }
 
   getCommunityByCode(code: string): Observable<ApiResponse> {
-    return this.apiGet('community/getbycode/' + code, true);
+    return this.apiGet('community/code/' + code, true);
   }
 
   getCommunityById(id: number): Observable<ApiResponse> {
-    return this.apiGet('community/getbyid/' + id, true);
+    return this.apiGet('community/' + id, true);
   }
 
   joinCommunity(data: any): Observable<ApiResponse> {
-    return this.apiPost('community/sendrequest', data, true);
+    return this.apiPost('community/request', data, true);
   }
 
   createCommunity(data: any): Observable<ApiResponse> {
-    return this.apiPost('community/create', data, true);
+    return this.apiPost('community', data, true);
   }
 
   getRequests(): Observable<ApiResponse> {
@@ -173,7 +173,7 @@ export class ApiService {
   }
 
   acceptRequest(data: any, status: boolean): Observable<ApiResponse> {
-    const url: string = status ? 'community/acceptrequest' : 'community/denyrequest';
+    const url: string = status ? 'community/request/accept' : 'community/request/decline';
     return this.apiPost(url, data, true);
   }
 
