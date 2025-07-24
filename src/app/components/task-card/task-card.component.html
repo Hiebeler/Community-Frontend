@@ -11,7 +11,7 @@
         @for (user of task.assignedUsers; track user) {
           <div class="flex items-center bg-[var(--ion-color-dark)] h-6 text-xs px-1.5 rounded-md">
             <img [src]="user.profileimage" alt="" class="w-4 h-4 rounded-full mr-1" />
-            <span>{{ user.firstname }}</span>
+            <span>{{ user.name }}</span>
           </div>
         }
       </div>

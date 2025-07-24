@@ -12,15 +12,8 @@
 
     <div class="mb-6">
       <label for="name" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Vorname</label>
-      <input type="text" id="name" formControlName="firstname" placeholder="Vorname"
-        [ngClass]="firstname.value ? firstname.valid ? 'valid-input' : 'invalid-input' : 'empty-input'"
-        class="w-full">
-    </div>
-
-    <div class="mb-6">
-      <label for="lastname" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Nachname</label>
-      <input type="text" id="lastname" formControlName="lastname" placeholder="Nachname"
-        [ngClass]="lastname.value ? lastname.valid ? 'valid-input' : 'invalid-input' : 'empty-input'"
+      <input type="text" id="name" formControlName="name" placeholder="Name"
+        [ngClass]="name.value ? name.valid ? 'valid-input' : 'invalid-input' : 'empty-input'"
         class="w-full">
     </div>
 

@@ -98,12 +98,11 @@ export class AuthService implements OnDestroy {
     }));
   }
 
-  register(email, firstname, lastname, password) {
+  register(email, name, password) {
 
     const obj = {
       email,
-      firstname,
-      lastname,
+      name,
       password
     };
 
@@ -168,8 +167,7 @@ export class AuthService implements OnDestroy {
     const url: any = updatedUser.profileimage;
     const dataToUpdate = {
       id: this.getUserFromToken().id,
-      firstname: updatedUser.firstname,
-      lastname: updatedUser.lastname,
+      name: updatedUser.name,
       profilepicture: url.changingThisBreaksApplicationSecurity
     };
     return this.subscriptions.push(this.apiService.updateUser(dataToUpdate).subscribe(async res => {

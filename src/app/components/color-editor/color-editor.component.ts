@@ -73,7 +73,7 @@ export class ColorEditorComponent implements OnInit, OnDestroy {
     this.usersInCommunity.forEach(user => {
       this.colors.forEach((colorElement, index) => {
         if (colorElement === user.color) {
-          this.colorUsernames[index] = user.firstname;
+          this.colorUsernames[index] = user.name;
         }
       });
     });

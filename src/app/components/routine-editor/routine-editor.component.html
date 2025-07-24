@@ -36,7 +36,7 @@
         @for (user of assignedUsers; track user) {
         <div class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-2 rounded-md">
           <img [src]="user.profileimage" alt="" class="w-4 h-4 rounded-full mr-1" />
-          <span>{{user.firstname}}</span>
+          <span>{{user.name}}</span>
         </div>
         }
       </div>
@@ -64,7 +64,7 @@
           <div (click)="removeUser(user)"
             class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-2 rounded-md cursor-pointer hover:opacity-80">
             <img [src]="user.profileimage" alt="" class="w-4 h-4 rounded-full mr-1" />
-            <span>{{user.firstname}}</span>
+            <span>{{user.name}}</span>
 X          </div>
           }
         </div>
@@ -78,7 +78,7 @@ X          </div>
           <div (click)="addUser(user)"
             class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-2 rounded-md cursor-pointer hover:opacity-80">
             <img [src]="user.profileimage" alt="" class="w-4 h-4 rounded-full mr-1" />
-            <span>{{user.firstname}}</span>
+            <span>{{user.name}}</span>
 +          </div>
           }
         </div>

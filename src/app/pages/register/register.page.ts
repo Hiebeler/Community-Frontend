@@ -24,11 +24,7 @@ export class RegisterPage {
         Validators.required,
         Validators.email,
       ]),
-      firstname: new FormControl<string | null>('', [
-        Validators.required,
-        Validators.minLength(3),
-      ]),
-      lastname: new FormControl<string | null>('', [
+      name: new FormControl<string | null>('', [
         Validators.required,
         Validators.minLength(3),
       ]),
@@ -44,12 +40,8 @@ export class RegisterPage {
     return this.registerForm.get('email');
   }
 
-  get firstname() {
-    return this.registerForm.get('firstname');
-  }
-
-  get lastname() {
-    return this.registerForm.get('lastname');
+  get name() {
+    return this.registerForm.get('name');
   }
 
   get password() {
@@ -67,8 +59,7 @@ export class RegisterPage {
     ) {
       this.authService.register(
         this.email.value,
-        this.firstname.value,
-        this.lastname.value,
+        this.name.value,
         this.password.value
       );
     }

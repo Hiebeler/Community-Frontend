@@ -5,9 +5,7 @@ export class User {
 
   public id: number;
   public email: string;
-  public username: string;
-  public firstname: string;
-  public lastname: string;
+  public name: string;
   public profileimage: SafeResourceUrl;
   public creationDate: Date;
   public communityId: number;
@@ -17,8 +15,7 @@ export class User {
   constructor(
     id: number,
     email: string,
-    firstname: string,
-    lastname: string,
+    name: string,
     profileImage: SafeResourceUrl,
     creationDate: Date,
     communityId: number,
@@ -27,8 +24,7 @@ export class User {
   ) {
     this.id = id;
     this.email = email;
-    this.firstname = firstname;
-    this.lastname = lastname;
+    this.name = name;
     this.profileimage = profileImage;
     this.creationDate = creationDate;
     this.communityId = communityId;

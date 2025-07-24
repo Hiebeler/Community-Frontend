@@ -12,7 +12,7 @@
 
     <div class="flex justify-center">
       <h2 class="clickable text-xl font-semibold" (click)="toggleNameEditor()">
-        {{user.firstname + ' ' + user.lastname}}
+        {{user.name}}
       </h2>
     </div>
 
@@ -46,8 +46,7 @@
         @for (user of usersInCommunity; track user) {
         <div class="card w-20 md:w-28 lg:w-32 text-center">
           <img [src]="user.profileimage" alt="" class="rounded-full w-full aspect-square object-cover mb-2" />
-          <p class="text-xs">{{user.firstname}}</p>
-          <p class="text-[0.7rem]">{{user.lastname}}</p>
+          <p class="text-sm">{{user.name}}</p>
         </div>
         }
       </div>
@@ -79,14 +78,12 @@
   <div class="p-4">
 
     <form class="flex gap-2 mb-3 w-full" [formGroup]="nameUpdateEditorForm" (ngSubmit)="updateName()">
-      <input type="text" id="firstname" autocomplete="off" formControlName="firstname" placeholder="Vorname"
-        class="flex-1" />
-      <input type="text" id="lastname" autocomplete="off" formControlName="lastname" placeholder="Nachname"
+      <input type="text" id="name" autocomplete="off" formControlName="name" placeholder="Name"
         class="flex-1" />
     </form>
 
     <button type="button"
-      [disabled]="nameUpdateEditorForm.invalid || (firstname.value === user?.firstname && lastname.value === user?.lastname)"
+      [disabled]="nameUpdateEditorForm.invalid || (name.value === user?.name)"
       (click)="updateName()" class="btn-large btn-primary flex-1">Updaten</button>
   </div>
 </app-popup>

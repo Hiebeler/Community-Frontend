@@ -36,7 +36,7 @@
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center space-x-3">
             <img [src]="balance.debitor.profileimage" alt="" class="w-10 h-10 rounded-full object-cover">
-            <p class="font-medium">{{balance.debitor.firstname}} {{balance.debitor.lastname}}</p>
+            <p class="font-medium">{{balance.debitor.name}}</p>
           </div>
 
           <button type="button" class="btn-small btn-primary" (click)="openClearOffEditor(balance)">
@@ -46,8 +46,8 @@
 
         <div class="flex flex-col items-center">
           <p class="text-sm text-gray-400">
-            @if (balance.amount < 0) { {{balance.debitor.firstname}} schuldet mir } @if (balance.amount> 0) { Ich
-              schulde {{balance.debitor.firstname}} }
+            @if (balance.amount < 0) { {{balance.debitor.name}} schuldet mir } @if (balance.amount> 0) { Ich
+              schulde {{balance.debitor.name}} }
           </p>
 
           <h2 [ngClass]="balance.amount < 0 ? 'text-green-400' : 'text-red-400'" class="text-3xl font-bold mt-2">
@@ -63,7 +63,7 @@
 </div>
 
 <app-popup [show]="clearOffEditorBalance !== null" (close)="clearOffEditorBalance = null"
-  [title]="clearOffEditorBalance?.debitor?.firstname">
+  [title]="clearOffEditorBalance?.debitor?.name">
   <form [formGroup]="clearOffBalanceEditorForm" (ngSubmit)="clearOffBalance(clearOffEditorBalance)" class="space-y-4">
     <input type="number" formControlName="amount" placeholder="Amount"
       class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-white">
@@ -97,7 +97,7 @@
       <p class="text-sm text-gray-300 mb-1">Schuldner:</p>
       <select formControlName="debitor" class="w-full ">
         @for (user of usersInCommunity; track user) {
-        <option [ngValue]="user">{{user.firstname + ' ' + user.lastname}}</option>
+        <option [ngValue]="user">{{user.name + ' ' + user.name}}</option>
         }
       </select>
     </div>

@@ -12,7 +12,7 @@
               <div class="inline-flex items-center bg-opacity-70 text-sm rounded-full px-2 py-1 mr-1"
                 [ngStyle]="{'background-color': user?.color}">
                 <img [src]="user.profileimage" alt="" class="w-6 h-6 rounded-full mr-1" />
-                <span>{{user.firstname}}</span>
+                <span>{{user.name}}</span>
               </div>
             </ng-container>
           </ng-container>
@@ -52,7 +52,7 @@
       <div *ngFor="let user of task.assignedUsers; track user"
         class="flex items-center bg-gray-700 text-sm rounded-full px-2 py-1">
         <img [src]="user.profileimage" alt="" class="w-6 h-6 rounded-full mr-1" />
-        <span>{{user.firstname}}</span>
+        <span>{{user.name}}</span>
       </div>
     </div>
     <button type="button" (click)="setUpdatingResponsibleUsers(true)" class="btn-small btn-primary mt-3">Zuständige
@@ -72,7 +72,7 @@
       <div *ngFor="let user of task.assignedUsers; track user" (click)="removeUser(user)"
         class="flex items-center bg-gray-700 text-sm rounded-full px-2 py-1 cursor-pointer hover:bg-gray-600">
         <img [src]="user.profileimage" alt="" class="w-6 h-6 rounded-full mr-1" />
-        <span>{{user.firstname}}</span>
+        <span>{{user.name}}</span>
         X
       </div>
     </div>
@@ -82,7 +82,7 @@
       <div *ngFor="let user of assignableUsers; track user" (click)="addUser(user)"
         class="flex items-center bg-gray-700 text-sm rounded-full px-2 py-1 cursor-pointer hover:bg-gray-600">
         <img [src]="user.profileimage" alt="" class="w-6 h-6 rounded-full mr-1" />
-        <span>{{user.firstname}}</span>
+        <span>{{user.name}}</span>
         +
       </div>
     </div>

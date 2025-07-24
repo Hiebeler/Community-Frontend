@@ -67,23 +67,15 @@ export class ProfilePage implements OnInit, OnDestroy {
     private router: Router
   ) {
     this.nameUpdateEditorForm = new FormGroup({
-      firstname: new FormControl<string | null>('', [
-        Validators.minLength(1),
-        Validators.required,
-      ]),
-      lastname: new FormControl<string | null>('', [
+      name: new FormControl<string | null>('', [
         Validators.minLength(1),
         Validators.required,
       ]),
     });
   }
 
-  get firstname() {
-    return this.nameUpdateEditorForm.get('firstname');
-  }
-
-  get lastname() {
-    return this.nameUpdateEditorForm.get('lastname');
+  get name() {
+    return this.nameUpdateEditorForm.get('name');
   }
 
   ngOnInit() {
@@ -112,18 +104,16 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   toggleNameEditor() {
     if (!this.editingName) {
-      this.nameUpdateEditorForm.controls.firstname.setValue(
-        this.user.firstname
+      this.nameUpdateEditorForm.controls.name.setValue(
+        this.user.name
       );
-      this.nameUpdateEditorForm.controls.lastname.setValue(this.user.lastname);
     }
     this.editingName = !this.editingName;
   }
 
   updateName() {
     this.updateUser({
-      firstname: this.firstname.value,
-      lastname: this.lastname.value,
+      name: this.name.value
     });
   }
 
