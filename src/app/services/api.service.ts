@@ -110,7 +110,7 @@ export class ApiService {
 
 
   getUserById(id: number): Observable<ApiResponse> {
-    return this.apiGet('user/databyuserid/' + id, true);
+    return this.apiGet('user/' + id, true);
   }
 
   getUsersInCommunity(communityId): Observable<ApiResponse> {
@@ -118,7 +118,7 @@ export class ApiService {
   }
 
   updateUser(data: any): Observable<ApiResponse> {
-    return this.apiPut('user/update', data);
+    return this.apiPut('user', data);
   }
 
   register(data: any): Observable<ApiResponse> {
