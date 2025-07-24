@@ -54,16 +54,10 @@ export class AuthService implements OnDestroy {
   }
 
   checkToken() {
-    console.log("check token");
     const token = this.storageService.getToken();
-        console.log("token: " + token);
     if (token) {
       const decoded = this.helper.decodeToken(token);
-      console.table(decoded)
       const isExpired = this.helper.isTokenExpired(token);
-      console.log(isExpired);
-      console.log("environment jwt verison: " + environment.jwtVersion);
-      console.log("my jwt version: " + decoded.jwtVersion)
       if (decoded.version !== environment.jwtVersion) {
         this.requestNewToken();
         return;
