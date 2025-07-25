@@ -108,13 +108,12 @@ export class ApiService {
     );
   }
 
-
   getUserById(id: number): Observable<ApiResponse> {
     return this.apiGet('user/' + id, true);
   }
 
   getUsersInCommunity(communityId): Observable<ApiResponse> {
-    return this.apiGet('community/members' + communityId, true);
+    return this.apiGet('community/' + communityId + '/members', true);
   }
 
   updateUser(data: any): Observable<ApiResponse> {
@@ -130,7 +129,7 @@ export class ApiService {
   }
 
   verify(code: string): Observable<ApiResponse> {
-    return this.apiGet('registration/verify/' + code);
+    return this.apiPost('registration/verify/' + code, null);
   }
 
   resendVerificationEmail(email: string): Observable<ApiResponse> {
