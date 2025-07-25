@@ -14,23 +14,21 @@
 </app-navbar>
 
 <!-- Days Grid -->
-<div class="grid grid-cols-3 gap-1 lg:gap-3">
+<div class="grid grid-cols-3 lg:gap-2">
   @for (day of days; track day) {
-  <div [ngClass]="day.date.toDateString() === dayToday.toDateString() ? 'card p-1' : ''">
-    <!-- Weekday -->
-    @if (!isTodayDate(day.date, -1) && !isTodayDate(day.date, 0) && !isTodayDate(day.date, 1)) {
-    <p class="text-center text-sm font-medium">
-      {{day.date.toLocaleDateString('de-AT', { weekday: 'short' })}}
-    </p>
-    }
+  <div [ngClass]="day.date.toDateString() === dayToday.toDateString() ? 'card p-1' : 'p-1'">
     @if (isTodayDate(day.date, -1)) {
     <p class="text-center text-sm font-medium">Gestern</p>
     }
-    @if (isTodayDate(day.date, 0)) {
+    @else if (isTodayDate(day.date, 0)) {
     <p class="text-center text-sm font-medium">Heute</p>
     }
-    @if (isTodayDate(day.date, 1)) {
+    @else if (isTodayDate(day.date, 1)) {
     <p class="text-center text-sm font-medium">Morgen</p>
+    } @else {
+    <p class="text-center text-sm font-medium">
+      {{day.date.toLocaleDateString('de-AT', { weekday: 'long' })}}
+    </p>
     }
 
     <!-- Date -->
@@ -47,8 +45,7 @@
       }
 
       <!-- Add Task Button -->
-      <div class="card py-2 flex items-center justify-center clickable"
-        (click)="dateForNewEntry = day.date">
+      <div class="card mt-6 py-4 flex items-center justify-center clickable" (click)="dateForNewEntry = day.date">
         <lucide-icon [img]="plusIcon" size="16"></lucide-icon>
       </div>
 
