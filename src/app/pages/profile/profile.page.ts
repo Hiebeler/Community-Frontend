@@ -18,6 +18,7 @@ import { ColorEditorComponent } from 'src/app/components/color-editor/color-edit
 import { OpenRequestsComponent } from 'src/app/components/open-requests/open-requests.component';
 import {
   ArrowLeftRightIcon,
+  LogOutIcon,
   LucideAngularModule,
   PaletteIcon,
   UserPenIcon,
@@ -46,6 +47,8 @@ export class ProfilePage implements OnInit, OnDestroy {
   readonly paletteIcon = PaletteIcon;
   readonly userPen = UserPenIcon;
   readonly switchIcon = ArrowLeftRightIcon;
+  readonly logoutIcon = LogOutIcon;
+
   subscriptions: Subscription[] = [];
 
   user: User;

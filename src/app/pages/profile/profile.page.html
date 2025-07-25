@@ -1,9 +1,15 @@
 <app-navbar title="Profil">
 
   @if (user) {
-  <button right type="button" class="btn-small btn-neutral" (click)="editChangeCommunityPopup(true)">
-    <lucide-icon [img]="userPen"></lucide-icon>
-  </button>
+  <div right class="space-x-3">
+    <button type="button" class="btn-small btn-neutral" (click)="editChangeCommunityPopup(true)">
+      <lucide-icon [img]="switchIcon"></lucide-icon>
+    </button>
+
+    <button type="button" class="btn-small btn-danger" (click)="openLogoutPopup()">
+      <lucide-icon [img]="logoutIcon"></lucide-icon>
+    </button>
+  </div>
   }
 </app-navbar>
 
@@ -68,9 +74,6 @@
       <lucide-icon [ngStyle]="{'color': user.color}" [img]="paletteIcon"></lucide-icon>
     </div>
     }
-    <div class="card flex justify-center items-center clickable p-4" (click)="openLogoutPopup()">
-      <p class="mr-2">Abmelden</p>
-    </div>
   </div>
 
   @if (user.isAdmin) {

@@ -56,6 +56,7 @@ export class AuthService implements OnDestroy {
       if (!isExpired) {
         const isInCommunity =
           this.storageService.getCurrentCommunity() !== null;
+          console.log(isInCommunity)
         if (isInCommunity) {
           this.authenticationState.next('community');
         } else {
@@ -101,6 +102,7 @@ export class AuthService implements OnDestroy {
       this.apiService.login(email, password).subscribe(async (res) => {
         if (res.status === 'OK') {
           this.storageService.setToken(res.data.token);
+          this.decodedUserToken = this.helper.decodeToken(res.data.token);
           this.updateAuthenticationState(res.data.token);
           this.userService.fetchUserFromApi(this.getUserIdFromToken());
           this.router.navigate(['profile']);
