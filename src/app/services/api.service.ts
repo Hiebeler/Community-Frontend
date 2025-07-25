@@ -213,7 +213,7 @@ export class ApiService {
   }
 
   addDebt(data: any): Observable<ApiResponse> {
-    return this.apiPost('debt/create', data, true);
+    return this.apiPost('debt', data, true);
   }
 
   getRoutines(): Observable<ApiResponse> {
