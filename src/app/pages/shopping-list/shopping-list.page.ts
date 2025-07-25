@@ -182,7 +182,6 @@ export class ShoppingListPage implements OnInit, OnDestroy {
   }
 
   askToDeleteTask(id: number) {
-    console.log("Fief")
     this.alertService.showAlert(
       'Löschen?',
       'Element löschen?',

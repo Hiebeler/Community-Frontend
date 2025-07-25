@@ -3,7 +3,6 @@ import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
 import { UserAdapter } from '../adapter/user-adapter';
 import { User } from '../models/user';
 import { ApiService } from './api.service';
-import { CommunityService } from './community.service';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +32,6 @@ export class UserService implements OnDestroy {
       map(data => this.userAdapter.adapt(data.data))
     ).subscribe(user => {
       this.user.next(user);
-      //this.fetchUsersInCommunityFromApi(user.communityId);
     }));
   }
 

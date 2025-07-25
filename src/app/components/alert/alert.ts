@@ -13,7 +13,6 @@ export class Alert {
 
   ngOnInit() {
     this.alertService.alert.subscribe((alert) => {
-      console.log('fieffff');
       this.alert = alert;
     });
   }

@@ -53,7 +53,7 @@
         <img [src]="user.profileimage" alt="" class="rounded-full w-full aspect-square object-cover mb-2" />
         <p class="text-sm lg:text-lg">{{user?.name}}</p>
         @if(user.isAdmin) {
-          <span class="text-xs text-primary">Admin</span>
+        <span class="text-xs text-primary">Admin</span>
         }
       </div>
       }
@@ -73,7 +73,9 @@
     </div>
   </div>
 
+  @if (user.isAdmin) {
   <app-open-requests />
+  }
 </div>
 }
 

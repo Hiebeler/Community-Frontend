@@ -3,9 +3,7 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AlertService } from 'src/app/services/alert.service';
-import { AuthService } from 'src/app/services/auth.service';
 import { CommunityService } from 'src/app/services/community.service';
-import { StorageService } from 'src/app/services/storage.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -25,7 +23,6 @@ export class CreateCommunityComponent  implements OnInit {
   constructor(
     private alertService: AlertService,
     private userService: UserService,
-    private authService: AuthService,
     private communityService: CommunityService,
     private router: Router
   ) {
@@ -50,7 +47,6 @@ export class CreateCommunityComponent  implements OnInit {
         if (!wasSuccessful) {
           this.alertService.showAlert('Error', 'Beim Erstellen der Community ist ein Fehler aufgetreten.');
         } else {
-          this.authService.requestNewToken()
           this.alertService.showAlert('Community erstellt', '', 'Okay', () => {
             this.userService.fetchUserFromApi();
             this.router.navigate(['profile']);
@@ -59,9 +55,4 @@ export class CreateCommunityComponent  implements OnInit {
       }));
     }
   }
-
-  gotoProfile() {
-    this.router.navigate(['profile']);
-  }
-
 }

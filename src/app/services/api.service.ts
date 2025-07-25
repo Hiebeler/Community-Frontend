@@ -136,10 +136,6 @@ export class ApiService {
     return this.apiPost('registration/resendVerificationEmail', { email });
   }
 
-  getNewJWT(): Observable<ApiResponse> {
-    return this.apiGet('registration/getnewtoken', true);
-  }
-
   checkCode(code: string): Observable<ApiResponse> {
     return this.apiGet('registration/checkresetcode/' + code);
   }
