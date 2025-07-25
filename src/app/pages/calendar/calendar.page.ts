@@ -48,7 +48,8 @@ export class CalendarPage implements OnInit, OnDestroy {
   startDate: Date;
   endDate: Date;
 
-  taskToShow: CalendarEntry = null;
+  entryToEdit: CalendarEntry = null;
+  dateForNewEntry: Date = null;
 
   constructor(
     private taskService: TaskService,
@@ -139,18 +140,6 @@ export class CalendarPage implements OnInit, OnDestroy {
 
   padTo2Digits(num: number): string {
     return num.toString().padStart(2, '0');
-  }
-
-  openModal(data: CalendarEntry | Date) {
-    let task: CalendarEntry;
-    if (data instanceof Date) {
-      task = this.calendarEntryAdapter.adapt({ date: data });
-    } else {
-      task = data;
-      task.date = new Date(data.date);
-    }
-
-    this.taskToShow = task;
   }
 
   changeSelectedDays(direction: 'previous' | 'next') {

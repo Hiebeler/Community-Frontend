@@ -21,6 +21,7 @@ import { TaskService } from 'src/app/services/task.service';
 export class CalendarEntryEditor {
 
   @Input() calendarEntry: CalendarEntry;
+  @Input() date: Date;
 
   calendarEntryForm: FormGroup;
 

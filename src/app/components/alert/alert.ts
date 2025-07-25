@@ -5,7 +5,6 @@ import { AlertService } from 'src/app/services/alert.service';
   selector: 'app-alert',
   imports: [],
   templateUrl: './alert.html',
-  styleUrl: './alert.css'
 })
 export class Alert {
   alert = null;
@@ -14,6 +13,7 @@ export class Alert {
 
   ngOnInit() {
     this.alertService.alert.subscribe((alert) => {
+      console.log('fieffff');
       this.alert = alert;
     });
   }
@@ -31,5 +31,4 @@ export class Alert {
     }
     this.alertService.closeAlert();
   }
-
 }
