@@ -14,9 +14,9 @@
 </app-navbar>
 
 <!-- Days Grid -->
-<div class="grid grid-cols-3 gap-4">
+<div class="grid grid-cols-3 gap-1 lg:gap-3">
   @for (day of days; track day) {
-  <div [ngClass]="day.date.toDateString() === dayToday.toDateString() ? 'bg-gray-800 rounded-xl p-3' : 'p-3'">
+  <div [ngClass]="day.date.toDateString() === dayToday.toDateString() ? 'card p-1' : ''">
     <!-- Weekday -->
     @if (!isTodayDate(day.date, -1) && !isTodayDate(day.date, 0) && !isTodayDate(day.date, 1)) {
     <p class="text-center text-sm font-medium">
@@ -47,9 +47,9 @@
       }
 
       <!-- Add Task Button -->
-      <div class="bg-gray-700 hover:bg-gray-600 rounded-md text-center text-lg cursor-pointer py-1"
+      <div class="card py-2 flex items-center justify-center clickable"
         (click)="dateForNewEntry = day.date">
-        +
+        <lucide-icon [img]="plusIcon" size="16"></lucide-icon>
       </div>
 
       <!-- Done Tasks -->

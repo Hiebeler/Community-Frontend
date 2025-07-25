@@ -10,6 +10,7 @@ import {
   InfinityIcon,
   ChevronRightIcon,
   ChevronLeftIcon,
+  PlusIcon,
 } from 'lucide-angular';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { CommunityService } from 'src/app/services/community.service';
@@ -36,6 +37,7 @@ export class CalendarPage implements OnInit, OnDestroy {
   readonly InfinityIcon = InfinityIcon;
   readonly ChevronRightIcon = ChevronRightIcon;
   readonly ChevronLeftIcon = ChevronLeftIcon;
+  readonly plusIcon = PlusIcon;
 
   subscriptions: Subscription[] = [];
 

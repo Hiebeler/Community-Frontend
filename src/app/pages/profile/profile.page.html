@@ -17,7 +17,7 @@
 
   <div class="flex justify-center">
     <h2 class="clickable text-xl font-semibold" (click)="toggleNameEditor()">
-      {{user.name}}
+      {{user?.name}}
     </h2>
   </div>
 
@@ -34,11 +34,11 @@
   @if (community) {
   <div class="grid grid-cols-2 gap-4">
     <div class="card text-center p-4">
-      <h2 class="text-lg font-semibold">{{community.name}}</h2>
+      <h2 class="text-lg font-semibold">{{community?.name}}</h2>
       <p class="text-sm">Gemeinschaft</p>
     </div>
     <div class="card text-center p-4">
-      <h2 class="text-lg font-semibold">{{community.code}}</h2>
+      <h2 class="text-lg font-semibold">{{community?.code}}</h2>
       <p class="text-sm">Beitrittscode</p>
     </div>
   </div>
@@ -47,11 +47,14 @@
   @if (usersInCommunity.length) {
   <div class="card p-4">
     <p class="text-center mb-4">Mitglieder</p>
-    <div class="flex flex-wrap gap-2 justify-center">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-9 gap-2 justify-items-center">
       @for (user of usersInCommunity; track user) {
-      <div class="card w-20 md:w-28 lg:w-32 text-center">
+      <div class="card w-full text-center">
         <img [src]="user.profileimage" alt="" class="rounded-full w-full aspect-square object-cover mb-2" />
-        <p class="text-sm">{{user.name}}</p>
+        <p class="text-sm lg:text-lg">{{user?.name}}</p>
+        @if(user.isAdmin) {
+          <span class="text-xs text-primary">Admin</span>
+        }
       </div>
       }
     </div>
@@ -101,11 +104,11 @@
     @for (community of user.communities; track community) {
     @if (community.id == this.community.id) {
     <div class="card px-6 py-3 flex flex-row justify-between bg-primary/20">
-      {{community.name}}
+      {{community?.name}}
     </div>
     } @else {
     <div class="card px-6 py-3 flex flex-row justify-between clickable" (click)="selectCommunity(community.id)">
-      {{community.name}}
+      {{community?.name}}
       <lucide-icon [img]="switchIcon"></lucide-icon>
     </div>
     }

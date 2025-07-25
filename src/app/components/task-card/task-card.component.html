@@ -4,7 +4,7 @@
     [ngStyle]="{ 'background-color': task.assignedUsers[0]?.color || 'var(--ion-color-medium)' }"
     (click)="cardClicked()"
   >
-    <p class="m-0">{{ task.name }}</p>
+    <p class="m-0 text-sm">{{ task.name }}</p>
 
     @if (task.assignedUsers) {
       <div class="flex flex-wrap gap-1 mt-1">
