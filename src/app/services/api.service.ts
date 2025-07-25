@@ -121,27 +121,27 @@ export class ApiService {
   }
 
   register(data: any): Observable<ApiResponse> {
-    return this.apiPost('registration/register', data);
+    return this.apiPost('auth/register', data);
   }
 
   login(email: string, password: string): Observable<ApiResponse> {
-    return this.apiPost('registration/login', { email, password });
+    return this.apiPost('auth/login', { email, password });
   }
 
   verify(code: string): Observable<ApiResponse> {
-    return this.apiPost('registration/verify/' + code, null);
+    return this.apiPost('auth/verify/' + code, null);
   }
 
   resendVerificationEmail(email: string): Observable<ApiResponse> {
-    return this.apiPost('registration/resendVerificationEmail', { email });
+    return this.apiPost('auth/resendVerificationEmail', { email });
   }
 
   getNewJWT(): Observable<ApiResponse> {
-    return this.apiGet('registration/getnewtoken', true);
+    return this.apiGet('auth/getnewtoken', true);
   }
 
   checkCode(code: string): Observable<ApiResponse> {
-    return this.apiGet('registration/checkresetcode/' + code);
+    return this.apiGet('auth/checkresetcode/' + code);
   }
 
   uploadImage(file: File): Observable<any> {
