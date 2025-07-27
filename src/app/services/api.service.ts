@@ -173,7 +173,7 @@ export class ApiService {
   }
 
   getTasks(data: any): Observable<ApiResponse> {
-    return this.apiPost('calendar/interval', data, true);
+    return this.apiGet('calendar/interval?startDate=' + data.startDate.toISOString() + "&endDate=" + data.endDate.toISOString(), true);
   }
 
   updateTask(data: any): Observable<ApiResponse> {
