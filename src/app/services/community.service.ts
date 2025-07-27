@@ -1,15 +1,12 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import {
   BehaviorSubject,
-  concatMap,
   map,
   Observable,
-  of,
   Subscription,
 } from 'rxjs';
 import { Community } from '../models/community';
 import { ApiService } from './api.service';
-import { UserService } from './user.service';
 import { CommunityAdapter } from '../adapter/community-adapter';
 import { StorageService } from './storage.service';
 import { User } from '../models/user';
@@ -31,11 +28,10 @@ export class CommunityService implements OnDestroy {
     private communityAdapter: CommunityAdapter,
     private storageService: StorageService,
     private userAdapter: UserAdapter,
-    private userService: UserService
   ) {
     this.subscriptions.push(
       this.authService.activeCommunityId.subscribe((id) => {
-        if (id === null) {
+        if (!id) {
           this.community.next(null);
         } else {
           this.fetchCurrentCommunityFromApi(id)
@@ -144,6 +140,5 @@ export class CommunityService implements OnDestroy {
   setCurrentCommunity(communityId: number): void {
     this.storageService.setCurrentCommunity(communityId);
     this.authService.activeCommunityId.next(communityId)
-    this.authService.updateAuthenticationState();
   }
 }

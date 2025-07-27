@@ -12,8 +12,6 @@ import { StorageService } from './storage.service';
 export class AuthService implements OnDestroy {
   subscriptions: Subscription[] = [];
 
-  authenticationState = new BehaviorSubject<string>(null);
-
   activeUserId = new BehaviorSubject<number>(null);
   activeCommunityId = new BehaviorSubject<number>(null);
 
@@ -23,49 +21,24 @@ export class AuthService implements OnDestroy {
     private router: Router,
     private apiService: ApiService,
     private alertService: AlertService,
-    private storageService: StorageService,
+    private storageService: StorageService
   ) {
     this.helper = new JwtHelperService();
-    this.checkToken();
-
-    this.subscriptions.push(this.authenticationState.subscribe((state) => {}));
+    this.initializeValues();
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  checkToken() {
-    const token = this.storageService.getToken();
-    this.updateAuthenticationState();
-    if (token) {
-      const decoded = this.helper.decodeToken(token);
-      const isExpired = this.helper.isTokenExpired(token);
-      if (!isExpired) {
-        this.activeUserId.next(this.getUserIdFromToken())
-        this.activeCommunityId.next(this.storageService.getCurrentCommunity())
-      }
-    }
-  }
-
-  updateAuthenticationState() {
+  initializeValues() {
     const token = this.storageService.getToken();
     if (token) {
       const isExpired = this.helper.isTokenExpired(token);
       if (!isExpired) {
-        const isInCommunity =
-          this.storageService.getCurrentCommunity() !== null;
-        if (isInCommunity) {
-          this.authenticationState.next('community');
-        } else {
-          this.authenticationState.next('onboarding');
-        }
-      } else {
-        this.storageService.removeToken();
-        this.authenticationState.next('none');
+        this.activeUserId.next(this.getUserIdFromToken());
+        this.activeCommunityId.next(this.storageService.getCurrentCommunity());
       }
-    } else {
-      this.authenticationState.next('none');
     }
   }
 
@@ -100,8 +73,7 @@ export class AuthService implements OnDestroy {
       this.apiService.login(email, password).subscribe(async (res) => {
         if (res.status === 'OK') {
           this.storageService.setToken(res.data.token);
-          this.updateAuthenticationState();
-          this.activeUserId.next(this.getUserIdFromToken())
+          this.activeUserId.next(this.getUserIdFromToken());
           this.router.navigate(['/onboarding']);
         } else {
           if (res.data.verified === false) {
@@ -123,9 +95,15 @@ export class AuthService implements OnDestroy {
   }
 
   public getUserIdFromToken(): number | null {
-    const token = this.storageService.getToken()
-    const id = this.helper.decodeToken(token)?.user.id
-    return id;
+    const token = this.storageService.getToken();
+    const isExpired = this.helper.isTokenExpired(token);
+    if (!isExpired) {
+      const id = this.helper.decodeToken(token)?.user.id;
+      return id;
+    } else {
+      this.storageService.removeToken();
+      return null
+    }
   }
 
   logout() {
@@ -133,7 +111,6 @@ export class AuthService implements OnDestroy {
     this.storageService.removeCurrentCommunity();
     this.activeCommunityId.next(null);
     this.activeUserId.next(null);
-    this.authenticationState.next('none');
     this.router.navigate(['login']);
   }
 
