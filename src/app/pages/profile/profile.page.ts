@@ -23,9 +23,9 @@ import {
   PaletteIcon,
   UserPenIcon,
 } from 'lucide-angular';
-import { ConfirmationPopupComponent } from 'src/app/components/confirmation-popup/confirmation-popup.component';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { Navbar } from 'src/app/components/navbar/navbar';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-profile',
@@ -39,7 +39,6 @@ import { Navbar } from 'src/app/components/navbar/navbar';
     ProfileImageEditorComponent,
     OpenRequestsComponent,
     LucideAngularModule,
-    ConfirmationPopupComponent,
     PopupComponent,
     Navbar
   ],
@@ -61,12 +60,11 @@ export class ProfilePage implements OnInit, OnDestroy {
   editingColor = false;
   editingName = false;
 
-  showLogoutPopup = false;
-
   nameUpdateEditorForm: FormGroup;
 
   constructor(
     private authService: AuthService,
+    private alertService: AlertService,
     private userService: UserService,
     private communityService: CommunityService,
     private router: Router
@@ -132,13 +130,16 @@ export class ProfilePage implements OnInit, OnDestroy {
     );
   }
 
-  openLogoutPopup() {
-    this.showLogoutPopup = true;
-  }
-
   logout() {
-    this.authService.logout();
-    this.showLogoutPopup = false;
+    this.alertService.showAlert(
+      'Abmelden?',
+      'Sicher dass du dich abmelden willst?',
+      'Abmelden',
+      () => {
+        this.authService.logout();
+      },
+      'Cancel'
+    );
   }
 
   editImage(state: boolean) {

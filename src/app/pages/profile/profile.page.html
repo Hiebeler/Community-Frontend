@@ -6,7 +6,7 @@
       <lucide-icon [img]="switchIcon"></lucide-icon>
     </a>
 
-    <button type="button" class="btn-small btn-danger" (click)="openLogoutPopup()">
+    <button type="button" class="btn-small btn-danger" (click)="logout()">
       <lucide-icon [img]="logoutIcon"></lucide-icon>
     </button>
   </div>
@@ -38,14 +38,10 @@
   }
 
   @if (community) {
-  <div class="grid grid-cols-2 gap-4">
+  <div class="grid grid-cols-1 gap-4">
     <div class="card text-center p-4">
       <h2 class="text-lg font-semibold">{{community?.name}}</h2>
       <p class="text-sm">Gemeinschaft</p>
-    </div>
-    <div class="card text-center p-4">
-      <h2 class="text-lg font-semibold">{{community?.code}}</h2>
-      <p class="text-sm">Beitrittscode</p>
     </div>
   </div>
   }
@@ -101,7 +97,3 @@
 <app-popup [show]="editingImage" (close)="editingImage = false" title="Bild auswählen">
   <app-profile-image-editor (closeEditor)="editImage(false)" />
 </app-popup>
-
-<app-confirmation-popup *ngIf="showLogoutPopup" title="Abmelden" content="Bist du dir sicher?" submitText="Abmelden"
-  [isDanger]="true" [hasAbortButton]="true" (abort)="showLogoutPopup = false"
-  (submit)="logout()"></app-confirmation-popup>

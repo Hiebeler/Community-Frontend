@@ -1,6 +1,6 @@
 <div class="container mx-auto px-4 pt-6 pb-24">
 
-  <app-navbar title="Deine Gemeinschaften">
+  <app-navbar title="Gemeinschaften verwalten">
 
     @if (activeCommunity) {
     <a left type="button" class="btn-small btn-neutral" routerLink="/profile">
@@ -14,16 +14,17 @@
   </app-navbar>
 
   @if (user) {
-  <div class="grid gap-4">
-    <div class="flex justify-center">
-      <img class="profile-image rounded-full" [src]="user.profileimage" alt="" width="100" height="100" />
-    </div>
-    <div class="flex justify-center">
-      <h2 class="text-xl font-semibold">
+  <div class="space-y-4">
+
+    <div class="card flex space-x-3 items-center">
+      <span>Angemeldet als:</span>
+      <img class="h-10 w-10 ml-4 rounded-full" [src]="user.profileimage" alt="" width="40px" height="40px" />
+      <span class="text-lg bold">
         {{user.name}}
-      </h2>
+      </span>
     </div>
-    <div class="card p-4 text-center space-y-3">
+
+    <div class="card space-y-3">
       <p>Deine Gemeinschaften:</p>
 
       @if (this.user.communities.length === 0) {
@@ -32,19 +33,32 @@
       @for (community of user?.communities; track community.id) {
       @if (community.id == this.activeCommunity?.id) {
       <div class="card px-6 py-3 flex flex-row justify-between bg-primary/20">
-        {{community?.name}}
+        <div class="flex flex-col items-start">
+          <span class="bold text-lg">{{community?.name}}</span>
+          <span class="text-xs text-gray-400">Beitrittscode: {{community?.code}}</span>
+        </div>
       </div>
       } @else {
-      <div class="card px-6 py-3 flex flex-row justify-between clickable" (click)="selectCommunity(community.id)">
-        {{community?.name}}
+      <div class="card px-6 py-3 flex flex-row justify-between items-center clickable"
+        (click)="selectCommunity(community.id)">
+        <div class="flex flex-col items-start">
+          <span class="bold text-lg">{{community?.name}}</span>
+          <span class="text-xs text-gray-400">Beitrittscode: {{community?.code}}</span>
+        </div>
+
         <lucide-icon [img]="switchIcon"></lucide-icon>
       </div>
       }
       }
       }
+
+    </div>
+
+    <div class="card">
+      <p>Neue Gemeinschaft erstellen / beitreten</p>
       <div class="grid grid-cols-2 gap-4 mt-4">
-        <button class="btn-large btn-primary w-full" (click)="changeJoinCommunityPopup(true)">Beitreten</button>
-        <button class="btn-large btn-outline-primary w-full"
+        <button class="btn-small btn-primary w-full" (click)="changeJoinCommunityPopup(true)">Beitreten</button>
+        <button class="btn-small btn-neutral w-full"
           (click)="changeCreateCommunityPopup(true)">Erstellen</button>
       </div>
     </div>

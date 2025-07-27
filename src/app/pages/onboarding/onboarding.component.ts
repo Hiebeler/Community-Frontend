@@ -80,9 +80,9 @@ export class OnboardingComponent implements OnInit {
 
   openLogoutPopup() {
     this.alertService.showAlert(
-      'Löschen?',
-      'Element löschen?',
-      'Okay',
+      'Abmelden?',
+      'Sicher dass du dich abmelden willst?',
+      'Abmelden',
       () => {
         this.authService.logout();
       },
