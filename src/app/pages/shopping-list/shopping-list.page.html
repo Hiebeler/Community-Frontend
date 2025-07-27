@@ -24,7 +24,7 @@
   }
 
   <!-- Open Items List -->
-  @for (item of openItems; track item) {
+  @for (item of openItems; track item.id) {
   <div>
     <div class="flex items-center space-x-4 py-2">
       <div class="w-5 h-5 bg-gray-700 border border-gray-400 rounded-sm clickable" (click)="updateDone(item.id, true)">
@@ -44,7 +44,7 @@
 
   <h2 class="text-lg font-semibold">Heute erledigt:</h2>
 
-  @for (item of doneItems; track item) {
+  @for (item of doneItems; track item.id) {
   <div class="flex items-center space-x-4 py-2">
     <div class="w-5 h-5 bg-primary border border-gray-400 rounded-sm flex items-center justify-center clickable"
       (click)="updateDone(item.id, false)">
