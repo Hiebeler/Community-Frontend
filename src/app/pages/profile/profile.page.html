@@ -1,10 +1,10 @@
 <app-navbar title="Profil">
 
   @if (user) {
-  <div right class="space-x-3">
-    <button type="button" class="btn-small btn-neutral" (click)="editChangeCommunityPopup(true)">
+  <div right class="space-x-3 flex">
+    <a routerLink="/onboarding" class="btn-small btn-neutral">
       <lucide-icon [img]="switchIcon"></lucide-icon>
-    </button>
+    </a>
 
     <button type="button" class="btn-small btn-danger" (click)="openLogoutPopup()">
       <lucide-icon [img]="logoutIcon"></lucide-icon>
@@ -100,30 +100,6 @@
 
 <app-popup [show]="editingImage" (close)="editingImage = false" title="Bild auswählen">
   <app-profile-image-editor (closeEditor)="editImage(false)" />
-</app-popup>
-
-<app-popup [show]="changeCommunityPopup" (close)="changeCommunityPopup = false" title="Deine Communities">
-  @if (user) {
-  <div class="flex flex-col gap-2">
-
-    @for (community of user.communities; track community) {
-    @if (community.id == this.community.id) {
-    <div class="card px-6 py-3 flex flex-row justify-between bg-primary/20">
-      {{community?.name}}
-    </div>
-    } @else {
-    <div class="card px-6 py-3 flex flex-row justify-between clickable" (click)="selectCommunity(community.id)">
-      {{community?.name}}
-      <lucide-icon [img]="switchIcon"></lucide-icon>
-    </div>
-    }
-    }
-  </div>
-
-  <button class="btn-small btn-primary flex-1 w-full mt-6" (click)="gotoOnboarding()">Community erstellen /
-    beitreten</button>
-
-  }
 </app-popup>
 
 <app-confirmation-popup *ngIf="showLogoutPopup" title="Abmelden" content="Bist du dir sicher?" submitText="Abmelden"

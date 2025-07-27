@@ -1,4 +1,18 @@
-<div class="container mx-auto px-4 pt-4 pb-24">
+<div class="container mx-auto px-4 pt-6 pb-24">
+
+  <app-navbar title="Deine Gemeinschaften">
+
+    @if (activeCommunity) {
+    <a left type="button" class="btn-small btn-neutral" routerLink="/profile">
+      <lucide-icon [img]="backIcon"></lucide-icon>
+    </a>
+    }
+
+    <button right type="button" class="btn-small btn-danger" (click)="openLogoutPopup()">
+      <lucide-icon [img]="logoutIcon"></lucide-icon>
+    </button>
+  </app-navbar>
+
   @if (user) {
   <div class="grid gap-4">
     <div class="flex justify-center">
@@ -9,12 +23,13 @@
         {{user.name}}
       </h2>
     </div>
-    <div class="card p-4 text-center">
+    <div class="card p-4 text-center space-y-3">
+      <p>Deine Gemeinschaften:</p>
 
-      @if (this.communities.length === 0) {
+      @if (this.user.communities.length === 0) {
       <p>Noch keiner Gemeinschaft beigetreten</p>
       } @else {
-      @for (community of user.communities; track community) {
+      @for (community of user?.communities; track community.id) {
       @if (community.id == this.activeCommunity?.id) {
       <div class="card px-6 py-3 flex flex-row justify-between bg-primary/20">
         {{community?.name}}

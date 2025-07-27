@@ -7,26 +7,36 @@ import { UserService } from 'src/app/services/user.service';
 import { CreateCommunityComponent } from 'src/app/components/create-community/create-community.component';
 import { Community } from 'src/app/models/community';
 import { CommunityService } from 'src/app/services/community.service';
-import { ArrowLeftRightIcon, LucideAngularModule } from 'lucide-angular';
+import { ArrowLeftIcon, ArrowLeftRightIcon, LogOutIcon, LucideAngularModule } from 'lucide-angular';
+import { Router, RouterModule } from '@angular/router';
+import { Navbar } from 'src/app/components/navbar/navbar';
+import { AuthService } from 'src/app/services/auth.service';
+import { AlertService } from 'src/app/services/alert.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-onboarding',
   templateUrl: './onboarding.component.html',
   imports: [
+    CommonModule,
     PopupComponent,
     JoinCommunityComponent,
     CreateCommunityComponent,
     LucideAngularModule,
+    RouterModule,
+    Navbar
   ],
 })
+
 export class OnboardingComponent implements OnInit {
   readonly switchIcon = ArrowLeftRightIcon;
+  readonly backIcon = ArrowLeftIcon;
+    readonly logoutIcon = LogOutIcon;
 
   subscriptions: Subscription[] = [];
 
   user: User;
 
-  communities: Community[] = [];
   activeCommunity: Community | null;
 
   joinCommunityPopup = false;
@@ -34,19 +44,17 @@ export class OnboardingComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private communityService: CommunityService
+    private communityService: CommunityService,
+    private authService: AuthService,
+    private alertService: AlertService,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.subscriptions.push(
       this.userService.getCurrentUser().subscribe((user) => {
         this.user = user;
-      })
-    );
-
-    this.subscriptions.push(
-      this.communityService.getOwnCommunities().subscribe((communities) => {
-        this.communities = communities;
+        console.log(user)
       })
     );
 
@@ -67,5 +75,18 @@ export class OnboardingComponent implements OnInit {
 
   selectCommunity(communityId: number) {
     this.communityService.setCurrentCommunity(communityId);
+    this.router.navigate(['/profile'])
+  }
+
+  openLogoutPopup() {
+    this.alertService.showAlert(
+      'Löschen?',
+      'Element löschen?',
+      'Okay',
+      () => {
+        this.authService.logout();
+      },
+      'Cancel'
+    );
   }
 }

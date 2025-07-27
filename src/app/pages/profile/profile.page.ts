@@ -10,7 +10,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommunityService } from 'src/app/services/community.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ProfileImageEditorComponent } from 'src/app/components/profile-image-editor/profile-image-editor.component';
 import { CommonModule } from '@angular/common';
@@ -33,6 +33,7 @@ import { Navbar } from 'src/app/components/navbar/navbar';
   standalone: true,
   imports: [
     CommonModule,
+    RouterModule,
     ReactiveFormsModule,
     ColorEditorComponent,
     ProfileImageEditorComponent,
@@ -59,7 +60,6 @@ export class ProfilePage implements OnInit, OnDestroy {
   editingImage = false;
   editingColor = false;
   editingName = false;
-  changeCommunityPopup = false;
 
   showLogoutPopup = false;
 
@@ -149,10 +149,6 @@ export class ProfilePage implements OnInit, OnDestroy {
     this.editingColor = state;
   }
 
-  editChangeCommunityPopup(state: boolean) {
-    this.changeCommunityPopup = state;
-  }
-
   gotoCreateCommunity() {
     this.router.navigate(['create-community']);
   }
@@ -163,10 +159,5 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   gotoOnboarding() {
     this.router.navigate(['onboarding']);
-  }
-
-  selectCommunity(communityId: number) {
-    this.communityService.setCurrentCommunity(communityId);
-    this.changeCommunityPopup = false;
   }
 }
