@@ -57,17 +57,19 @@ export class Todos implements OnInit, OnDestroy {
     this.itemEditorForm = new FormGroup({
       createname: new FormControl<string | null>('', [
         Validators.minLength(1),
+        Validators.maxLength(100),
         Validators.required,
       ]),
-      createdescription: new FormControl<string | null>('', []),
+      createdescription: new FormControl<string | null>('', [Validators.maxLength(500)]),
     });
 
     this.itemUpdateEditorForm = new FormGroup({
       updatename: new FormControl<string | null>('', [
         Validators.minLength(1),
+        Validators.maxLength(100),
         Validators.required,
       ]),
-      updatedescription: new FormControl<string | null>('', []),
+      updatedescription: new FormControl<string | null>('', [Validators.maxLength(500)]),
     });
   }
 
@@ -144,6 +146,7 @@ export class Todos implements OnInit, OnDestroy {
           })
       );
       this.itemEditorForm.controls.createname.setValue('');
+      this.itemEditorForm.controls.createdescription.setValue('');
     }
   }
 
