@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TaskCardComponent } from 'src/app/components/task-card/task-card.component';
 import { Day } from 'src/app/models/day';
@@ -13,11 +13,9 @@ import {
   PlusIcon,
 } from 'lucide-angular';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
-import { CommunityService } from 'src/app/services/community.service';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { CalendarEntry } from 'src/app/models/calendarEntry';
 import { CalendarEntryEditor } from 'src/app/components/calendar-entry-editor/calendar-entry-editor';
-import { CalendarEntryAdapter } from 'src/app/adapter/calendar-entry-adapter';
 
 @Component({
   selector: 'app-tasks',
@@ -30,7 +28,7 @@ import { CalendarEntryAdapter } from 'src/app/adapter/calendar-entry-adapter';
     LucideAngularModule,
     PopupComponent,
     CalendarEntryEditor,
-    Navbar
+    Navbar,
   ],
 })
 export class CalendarPage implements OnInit, OnDestroy {
@@ -53,16 +51,7 @@ export class CalendarPage implements OnInit, OnDestroy {
   entryToEdit: CalendarEntry = null;
   dateForNewEntry: Date = null;
 
-  constructor(
-    private taskService: TaskService,
-    private calendarEntryAdapter: CalendarEntryAdapter,
-    private router: Router,
-    private communityService: CommunityService
-  ) {
-    this.subscriptions.push(this.communityService.getCurrentCommunity().subscribe(community => {
-      this.getTasks();
-    }));
-  }
+  constructor(private taskService: TaskService) {}
 
   ngOnInit() {
     this.dayToday = new Date();
