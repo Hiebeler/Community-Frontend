@@ -55,11 +55,11 @@ export class ApiService {
     return this.postWithoutHeader(url, body);
   }
 
-  apiPut(url: string, body: any): Observable<ApiResponse> {
+  apiPatch(url: string, body: any): Observable<ApiResponse> {
     const token = this.getHeader();
     if (token) {
       return this.httpClient
-        .put<any>(environment.api + url, body, { headers: token })
+        .patch<any>(environment.api + url, body, { headers: token })
         .pipe(map((data) => this.apiResponseAdapter.adapt(data)));
     }
 
@@ -122,7 +122,7 @@ export class ApiService {
   }
 
   updateUser(data: any): Observable<ApiResponse> {
-    return this.apiPut('user', data);
+    return this.apiPatch('user', data);
   }
 
   register(data: any): Observable<ApiResponse> {
@@ -226,7 +226,7 @@ export class ApiService {
   }
 
   updateShoppingItem(data: any): Observable<ApiResponse> {
-    return this.apiPut('shoppinglist', data);
+    return this.apiPatch('shoppinglist', data);
   }
 
   deleteShoppingItem(id: number): Observable<ApiResponse> {
@@ -248,7 +248,7 @@ export class ApiService {
   }
 
   updateTodo(data: any): Observable<ApiResponse> {
-    return this.apiPut('todos/', data);
+    return this.apiPatch('todos/', data);
   }
 
   deleteTodo(id: number): Observable<ApiResponse> {

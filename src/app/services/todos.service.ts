@@ -88,6 +88,7 @@ export class TodosService implements OnDestroy {
       id: todo.id,
       name: todo.name,
       description: todo.description,
+      done: todo.done
     });
   }
 

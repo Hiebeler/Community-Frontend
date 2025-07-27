@@ -211,7 +211,8 @@
 /* ------------------------------------------- */
 @layer utilities {
 
-  .clickable:hover {
+  .clickable,
+  .clickable * {
     @apply cursor-pointer;
   }
 

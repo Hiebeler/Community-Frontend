@@ -29,9 +29,17 @@
     <div class="flex items-center space-x-4 py-2">
       <div class="w-5 h-5 bg-gray-700 border border-gray-400 rounded-sm clickable" (click)="updateDone(item.id, true)">
       </div>
-      <span class="clickable text-white" (click)="openUpdateEditor(item)">
-        {{item.name}}
-      </span>
+
+      <div class="clickable text-white" (click)="openUpdateEditor(item)">
+        <p>
+          {{item.name}}
+        </p>
+
+        <p>
+          {{item.description}}
+        </p>
+      </div>
+
     </div>
   </div>
   }
@@ -55,7 +63,6 @@
   }
 </div>
 }
-
 
 <app-popup [show]="editorIsOpen" (close)="editorIsOpen = false" title="Neues Todo">
   <div class="space-y-4">
@@ -86,7 +93,7 @@
       </button>
 
       <button
-        [disabled]="itemUpdateEditorForm.invalid || updateNameField.value === todoToUpdate?.name || updateDescriptionField.value === todoToUpdate?.description"
+        [disabled]="itemUpdateEditorForm.invalid || (updateNameField.value === todoToUpdate?.name && updateDescriptionField.value === todoToUpdate?.description)"
         type="button" (click)="updateName(todoToUpdate.id)" class="btn-small btn-primary w-1/2">
         Updaten
       </button>
