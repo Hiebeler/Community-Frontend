@@ -109,8 +109,6 @@ export class CalendarPage implements OnInit, OnDestroy {
             this.days.push(
               new Day(i.toString(), openTasks, doneTasks, new Date(currentDate))
             );
-
-            console.log(this.days)
           }
 
           if (event) {

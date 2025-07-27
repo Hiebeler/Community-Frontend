@@ -54,7 +54,6 @@ export class ProfilePage implements OnInit, OnDestroy {
   user: User;
   community: Community;
   usersInCommunity: User[];
-  communitiesOfUser: Community[];
 
   editingImage = false;
   editingColor = false;

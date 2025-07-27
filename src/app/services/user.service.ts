@@ -3,20 +3,29 @@ import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
 import { UserAdapter } from '../adapter/user-adapter';
 import { User } from '../models/user';
 import { ApiService } from './api.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService implements OnDestroy {
-
   subscriptions: Subscription[] = [];
   private user = new BehaviorSubject<User>(null);
 
   constructor(
     private apiService: ApiService,
     private userAdapter: UserAdapter,
+    private authService: AuthService
   ) {
-    this.subscriptions.push(this.getCurrentUser().subscribe());
+    this.subscriptions.push(
+      this.authService.activeUserId.subscribe((id) => {
+        if (!id) {
+          this.user.next(null);
+        } else {
+          this.fetchUserFromApi(id);
+        }
+      })
+    );
   }
 
   ngOnDestroy(): void {
@@ -28,25 +37,25 @@ export class UserService implements OnDestroy {
   }
 
   fetchUserFromApi(id?: number): void {
-    this.subscriptions.push(this.apiService.getUserById(id ?? this.user.value.id ?? -1).pipe(
-      map(data => this.userAdapter.adapt(data.data))
-    ).subscribe(user => {
-      this.user.next(user);
-    }));
+    this.subscriptions.push(
+      this.apiService
+        .getUserById(id ?? this.user?.value?.id ?? -1)
+        .pipe(map((data) => this.userAdapter.adapt(data.data)))
+        .subscribe((user) => {
+          this.user.next(user);
+        })
+    );
   }
 
   updateUser(data: any): Observable<boolean> {
     return this.apiService.updateUser(data).pipe(
-      map(res => {
+      map((res) => {
         if (res.status === 'OK') {
           return true;
         } else {
           return false;
         }
-      }));
-  }
-
-  clearData(): void {
-    this.user.next(null);
+      })
+    );
   }
 }

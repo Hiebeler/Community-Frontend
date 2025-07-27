@@ -155,10 +155,6 @@ export class ApiService {
     return this.apiGet('community/' + id, true);
   }
 
-  getOwnCommunities(): Observable<ApiResponse> {
-    return this.apiGet('communities/self', true);
-  }
-
   joinCommunity(data: any): Observable<ApiResponse> {
     return this.apiPost('community/request', data, true);
   }

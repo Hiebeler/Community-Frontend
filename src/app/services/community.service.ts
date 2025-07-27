@@ -14,6 +14,7 @@ import { CommunityAdapter } from '../adapter/community-adapter';
 import { StorageService } from './storage.service';
 import { User } from '../models/user';
 import { UserAdapter } from '../adapter/user-adapter';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -26,15 +27,18 @@ export class CommunityService implements OnDestroy {
 
   constructor(
     private apiService: ApiService,
+    private authService: AuthService,
     private communityAdapter: CommunityAdapter,
     private storageService: StorageService,
     private userAdapter: UserAdapter,
     private userService: UserService
   ) {
     this.subscriptions.push(
-      this.userService.getCurrentUser().subscribe((user) => {
-        if (user && user.communities.length > 0) {
-          this.fetchCurrentCommunityFromApi(user.communities);
+      this.authService.activeCommunityId.subscribe((id) => {
+        if (id === null) {
+          this.community.next(null);
+        } else {
+          this.fetchCurrentCommunityFromApi(id)
         }
       })
     );
@@ -56,47 +60,18 @@ export class CommunityService implements OnDestroy {
     return this.community;
   }
 
-  fetchCurrentCommunityFromApi(communities: Community[]): void {
-    /*this.subscriptions.push(this.apiService.getCommunityById(id ?? this.community?.value?.id ?? -1).pipe(
+  fetchCurrentCommunityFromApi(id: number): void {
+    this.subscriptions.push(this.apiService.getCommunityById(id).pipe(
       map(res => this.communityAdapter.adapt(res.data))
     ).subscribe(community => {
       this.community.next(community);
-    }));*/
-    if (communities.length === 0) {
-      return;
-    }
-    let currentCommunityId = this.storageService.getCurrentCommunity();
-    if (!currentCommunityId) {
-      const firstCommunityId = communities[0].id;
-      this.storageService.setCurrentCommunity(firstCommunityId);
-      currentCommunityId = firstCommunityId;
-    }
-    const currentCommunity = communities.find(
-      (community: Community) => community.id === currentCommunityId
-    );
-    this.fetchUsersInCommunityFromApi(currentCommunity.id);
-    this.community.next(currentCommunity);
+    }));
   }
 
   getCommunity(code: string): Observable<Community> {
     return this.apiService
       .getCommunityByCode(code)
       .pipe(map((res) => this.communityAdapter.adapt(res.data)));
-  }
-
-  getOwnCommunities(): Observable<Community[]> {
-    return this.apiService.getOwnCommunities().pipe(
-      concatMap((res) => {
-        if (res.status !== 'OK') {
-          return [];
-        } else {
-          return of(res);
-        }
-      }),
-      map((res: any) =>
-        res.data.map((item) => this.communityAdapter.adapt(item))
-      )
-    );
   }
 
   createCommunity(name: string): Observable<boolean> {
@@ -166,16 +141,9 @@ export class CommunityService implements OnDestroy {
       );
   }
 
-  clearData(): void {
-    this.community.next(null);
-  }
-
   setCurrentCommunity(communityId: number): void {
     this.storageService.setCurrentCommunity(communityId);
-    this.userService.getCurrentUser().subscribe((user) => {
-      if (user) {
-        this.fetchCurrentCommunityFromApi(user.communities);
-      }
-    });
+    this.authService.activeCommunityId.next(communityId)
+    this.authService.updateAuthenticationState();
   }
 }

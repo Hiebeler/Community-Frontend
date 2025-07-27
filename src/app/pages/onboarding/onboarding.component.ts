@@ -7,7 +7,12 @@ import { UserService } from 'src/app/services/user.service';
 import { CreateCommunityComponent } from 'src/app/components/create-community/create-community.component';
 import { Community } from 'src/app/models/community';
 import { CommunityService } from 'src/app/services/community.service';
-import { ArrowLeftIcon, ArrowLeftRightIcon, LogOutIcon, LucideAngularModule } from 'lucide-angular';
+import {
+  ArrowLeftIcon,
+  ArrowLeftRightIcon,
+  LogOutIcon,
+  LucideAngularModule,
+} from 'lucide-angular';
 import { Router, RouterModule } from '@angular/router';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { AuthService } from 'src/app/services/auth.service';
@@ -24,14 +29,13 @@ import { CommonModule } from '@angular/common';
     CreateCommunityComponent,
     LucideAngularModule,
     RouterModule,
-    Navbar
+    Navbar,
   ],
 })
-
 export class OnboardingComponent implements OnInit {
   readonly switchIcon = ArrowLeftRightIcon;
   readonly backIcon = ArrowLeftIcon;
-    readonly logoutIcon = LogOutIcon;
+  readonly logoutIcon = LogOutIcon;
 
   subscriptions: Subscription[] = [];
 
@@ -54,7 +58,6 @@ export class OnboardingComponent implements OnInit {
     this.subscriptions.push(
       this.userService.getCurrentUser().subscribe((user) => {
         this.user = user;
-        console.log(user)
       })
     );
 
@@ -75,7 +78,7 @@ export class OnboardingComponent implements OnInit {
 
   selectCommunity(communityId: number) {
     this.communityService.setCurrentCommunity(communityId);
-    this.router.navigate(['/profile'])
+    this.router.navigate(['/profile']);
   }
 
   openLogoutPopup() {

@@ -5,8 +5,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { ApiService } from './api.service';
 import { AlertService } from './alert.service';
 import { StorageService } from './storage.service';
-import { UserService } from './user.service';
-import { CommunityService } from './community.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +13,9 @@ export class AuthService implements OnDestroy {
   subscriptions: Subscription[] = [];
 
   authenticationState = new BehaviorSubject<string>(null);
-  private decodedUserToken = null;
+
+  activeUserId = new BehaviorSubject<number>(null);
+  activeCommunityId = new BehaviorSubject<number>(null);
 
   private helper: JwtHelperService;
 
@@ -24,8 +24,6 @@ export class AuthService implements OnDestroy {
     private apiService: ApiService,
     private alertService: AlertService,
     private storageService: StorageService,
-    private userService: UserService,
-    private communityService: CommunityService
   ) {
     this.helper = new JwtHelperService();
     this.checkToken();
@@ -39,24 +37,24 @@ export class AuthService implements OnDestroy {
 
   checkToken() {
     const token = this.storageService.getToken();
-    this.updateAuthenticationState(token);
+    this.updateAuthenticationState();
     if (token) {
       const decoded = this.helper.decodeToken(token);
       const isExpired = this.helper.isTokenExpired(token);
       if (!isExpired) {
-        this.decodedUserToken = decoded;
-        this.userService.fetchUserFromApi(this.getUserIdFromToken());
+        this.activeUserId.next(this.getUserIdFromToken())
+        this.activeCommunityId.next(this.storageService.getCurrentCommunity())
       }
     }
   }
 
-  updateAuthenticationState(token: string | null) {
+  updateAuthenticationState() {
+    const token = this.storageService.getToken();
     if (token) {
       const isExpired = this.helper.isTokenExpired(token);
       if (!isExpired) {
         const isInCommunity =
           this.storageService.getCurrentCommunity() !== null;
-          console.log(isInCommunity)
         if (isInCommunity) {
           this.authenticationState.next('community');
         } else {
@@ -102,9 +100,8 @@ export class AuthService implements OnDestroy {
       this.apiService.login(email, password).subscribe(async (res) => {
         if (res.status === 'OK') {
           this.storageService.setToken(res.data.token);
-          this.decodedUserToken = this.helper.decodeToken(res.data.token);
-          this.updateAuthenticationState(res.data.token);
-          this.userService.fetchUserFromApi(this.getUserIdFromToken());
+          this.updateAuthenticationState();
+          this.activeUserId.next(this.getUserIdFromToken())
           this.router.navigate(['/onboarding']);
         } else {
           if (res.data.verified === false) {
@@ -126,15 +123,16 @@ export class AuthService implements OnDestroy {
   }
 
   public getUserIdFromToken(): number | null {
-    return this.decodedUserToken?.user?.id;
+    const token = this.storageService.getToken()
+    const id = this.helper.decodeToken(token)?.user.id
+    return id;
   }
 
   logout() {
     this.storageService.removeToken();
     this.storageService.removeCurrentCommunity();
-    this.userService.clearData();
-    this.communityService.clearData();
-    this.decodedUserToken = null;
+    this.activeCommunityId.next(null);
+    this.activeUserId.next(null);
     this.authenticationState.next('none');
     this.router.navigate(['login']);
   }
