@@ -8,12 +8,13 @@ import { Adapter } from './adapter';
 
 export class DebtAdapter implements Adapter<Debt> {
   adapt(item: any): Debt {
+    console.log(item)
     return new Debt(
       item.id,
       item.name,
       item.amount,
-      item.user,
-      item.user_debt_fk_user_creditor_idTouser,
+      item.debitor,
+      item.creditor,
       new Date(item.timestamp)
     );
   }

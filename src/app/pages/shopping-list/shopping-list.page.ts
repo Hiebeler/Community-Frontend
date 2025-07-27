@@ -50,8 +50,6 @@ export class ShoppingListPage implements OnInit, OnDestroy {
   openItems: ShoppingItem[] = [];
   doneItems: ShoppingItem[] = [];
 
-  loadingEvent: any;
-
   constructor(
     private shoppingService: ShoppingService,
     private alertService: AlertService
@@ -87,20 +85,12 @@ export class ShoppingListPage implements OnInit, OnDestroy {
         this.openItems = items;
 
         this.completedFirstLoad = true;
-
-        if (this.loadingEvent) {
-          this.loadingEvent.target.complete();
-        }
       })
     );
 
     this.subscriptions.push(
       this.shoppingService.getDoneShoppingItems().subscribe((items) => {
         this.doneItems = items;
-
-        if (this.loadingEvent) {
-          this.loadingEvent.target.complete();
-        }
       })
     );
   }
@@ -123,10 +113,7 @@ export class ShoppingListPage implements OnInit, OnDestroy {
     }
   }
 
-  getItems(event?) {
-    if (event) {
-      this.loadingEvent = event;
-    }
+  getItems() {
     this.shoppingService.fetchShoppingItemsFromApi();
   }
 
@@ -161,10 +148,6 @@ export class ShoppingListPage implements OnInit, OnDestroy {
   updateName(id: number) {
     if (this.updateNameField.value) {
       this.itemToUpdate = null;
-      const data = {
-        id,
-        name: this.updateNameField.value,
-      };
 
       this.subscriptions.push(
         this.shoppingService
@@ -195,8 +178,9 @@ export class ShoppingListPage implements OnInit, OnDestroy {
 
   deleteItem(id: number) {
     this.subscriptions.push(
-      this.shoppingService.deleteShoppingItem(id).subscribe((res) => {
+      this.shoppingService.deleteShoppingItem(id).subscribe(() => {
         this.getItems();
+        this.itemToUpdate = null;
       })
     );
   }

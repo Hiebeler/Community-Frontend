@@ -27,8 +27,6 @@ export class DebtsHistoryPage implements OnInit {
 
   subscriptions: Subscription[] = [];
 
-  loadingEvent: any;
-
   debts: Debt[] = [];
 
   currentUser: User;
@@ -41,18 +39,11 @@ export class DebtsHistoryPage implements OnInit {
     this.subscriptions.push(
       this.debtService.getMyDebts().subscribe((debts) => {
         this.debts = debts;
-
-        if (this.loadingEvent) {
-          this.loadingEvent.target.complete();
-        }
       })
     );
   }
 
-  getItems(event?) {
-    if (event) {
-      this.loadingEvent = event;
-    }
+  getItems() {
     this.debtService.fetchDebtsAndBalanceFromApi();
   }
 }

@@ -33,8 +33,6 @@ export class RoutinesPage implements OnInit, OnDestroy {
   enabledRoutines: Routine[] = [];
   disabledRoutines: Routine[] = [];
 
-  loadingEvent: any;
-
   completedFirstLoad = false;
 
   newRoutineEditorIsOpen = false;
@@ -58,10 +56,6 @@ export class RoutinesPage implements OnInit, OnDestroy {
             this.disabledRoutines.push(routine);
           }
         });
-
-        if (this.loadingEvent) {
-          this.loadingEvent.target.complete();
-        }
       })
     );
 
@@ -72,11 +66,7 @@ export class RoutinesPage implements OnInit, OnDestroy {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  getRoutines(event?) {
-    if (event) {
-      this.loadingEvent = event;
-    }
-
+  getRoutines() {
     this.taskService.fetchRoutinesFromApi();
   }
 

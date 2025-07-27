@@ -56,7 +56,7 @@
 
   * {
     font-family: "custom-medium", sans-serif;
-    @apply text-gray-100;
+    @apply text-gray-100 cursor-default;
   }
 
   p {
@@ -72,7 +72,8 @@
     font-family: "custom-bold", sans-serif;
   }
 
-  button:enabled:hover {
+  button:enabled:hover,
+  button:enabled:hover * {
     cursor: pointer;
   }
 
@@ -81,18 +82,15 @@
     outline: none;
   }
 
-  a {
-    @apply no-underline;
-  }
-
-  a:hover {
-    @apply cursor-pointer;
+  a,
+  a * {
+    @apply no-underline cursor-pointer;
   }
 
   input,
   textarea,
   select {
-    @apply px-3 py-2 bg-surface/50 border border-gray-700 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition;
+    @apply px-3 py-2 bg-surface/50 border border-gray-700 rounded-md cursor-text focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition;
   }
 
   input::placeholder,
@@ -101,8 +99,10 @@
   }
 
   input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 50px #1f2937 inset; /* Tailwind gray-800 */
-    -webkit-text-fill-color: #f3f4f6; /* Tailwind gray-100 */
+    -webkit-box-shadow: 0 0 0 50px #1f2937 inset;
+    /* Tailwind gray-800 */
+    -webkit-text-fill-color: #f3f4f6;
+    /* Tailwind gray-100 */
   }
 
   .empty-input:focus {
@@ -130,6 +130,7 @@
 /* Components: Buttons, Cards, Fields, Alerts */
 /* ------------------------------------------- */
 @layer components {
+
   /* Fonts */
   .regular {
     font-family: "custom-regular";
@@ -157,7 +158,7 @@
   }
 
   .btn-primary {
-    @apply text-gray-900 bg-primary enabled:hover:bg-green-600 transition disabled:opacity-50 disabled:cursor-not-allowed;
+    @apply text-gray-900 bg-primary enabled:hover:bg-green-600 transition disabled:opacity-50 disabled:cursor-default;
   }
 
   .btn-primary * {

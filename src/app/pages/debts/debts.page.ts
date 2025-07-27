@@ -53,13 +53,9 @@ export class DebtsPage implements OnInit, OnDestroy {
   itemEditorForm: FormGroup;
   clearOffBalanceEditorForm: FormGroup;
 
-  loadingEvent: any;
-
   usersInCommunity: User[] = [];
 
   allBalances: Balance[] = [];
-  positiveBalances: Balance[] = [];
-  negativeBalances: Balance[] = [];
 
   iOwe = false;
 
@@ -111,16 +107,6 @@ export class DebtsPage implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.debtService.getBalance().subscribe((balances) => {
         this.allBalances = balances;
-        this.positiveBalances = balances.filter(
-          (balance) => balance.amount > 0
-        );
-        this.negativeBalances = balances.filter(
-          (balance) => balance.amount < 0
-        );
-
-        if (this.loadingEvent) {
-          this.loadingEvent.target.complete();
-        }
       })
     );
 
@@ -129,10 +115,6 @@ export class DebtsPage implements OnInit, OnDestroy {
         this.currentUser = user;
 
         this.filterCurrentUser();
-
-        if (this.loadingEvent) {
-          this.loadingEvent.target.complete();
-        }
       })
     );
 
@@ -169,10 +151,7 @@ export class DebtsPage implements OnInit, OnDestroy {
     }
   }
 
-  getItems(event?) {
-    if (event) {
-      this.loadingEvent = event;
-    }
+  getItems() {
     this.debtService.fetchDebtsAndBalanceFromApi();
   }
 
