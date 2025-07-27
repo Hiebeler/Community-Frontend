@@ -11,6 +11,7 @@ import { ShoppingItemAdapter } from '../adapter/shopping-item-adapter';
 import { ShoppingItem } from '../models/shopping-item';
 import { ApiService } from './api.service';
 import { CommunityService } from './community.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -24,10 +25,10 @@ export class ShoppingService implements OnDestroy {
   constructor(
     private apiService: ApiService,
     private shoppingItemAdapter: ShoppingItemAdapter,
-    private communityService: CommunityService
+    private authService: AuthService
   ) {
     this.subscriptions.push(
-      this.communityService.getCurrentCommunity().subscribe((community) => {
+      this.authService.activeCommunityId.subscribe(() => {
         this.fetchShoppingItemsFromApi();
       })
     );

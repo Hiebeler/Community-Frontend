@@ -21,6 +21,11 @@
       <a routerLink="/todos" routerLinkActive="active-tab" class="flex flex-col items-center relative w-20 py-2">
         <lucide-icon [img]="todosIcon"></lucide-icon>
         <span class="text-xs mt-1">Todo's</span>
+        @if (numberOfOpenTodos !== 0) {
+        <span class="absolute top-0 right-0 bg-red-500 text-xs rounded-full px-1">
+          {{numberOfOpenTodos}}
+        </span>
+        }
       </a>
 
       <a routerLink="/shopping-list" routerLinkActive="active-tab"

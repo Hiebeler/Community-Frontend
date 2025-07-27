@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { ShoppingService } from 'src/app/services/shopping.service';
 import { TaskService } from 'src/app/services/task.service';
+import { TodosService } from 'src/app/services/todos.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -29,11 +30,13 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
 
   numberOfOpenShoppingItems = 0;
+  numberOfOpenTodos = 0;
   tasksForTodayExists = false;
 
   constructor(
     private authService: AuthService,
     private shoppingService: ShoppingService,
+    private todosService: TodosService,
     private taskService: TaskService
   ) {}
 
@@ -53,6 +56,12 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
               })
           );
         }
+      })
+    );
+
+    this.subscriptions.push(
+      this.todosService.getOpenTodos().subscribe((openItems) => {
+        this.numberOfOpenTodos = openItems.length;
       })
     );
 

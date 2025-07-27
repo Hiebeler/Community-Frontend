@@ -10,6 +10,7 @@ import {
 import { ApiService } from './api.service';
 import { Todo } from '../models/todo';
 import { TodoAdapter } from '../adapter/todo-adapter';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,8 +23,15 @@ export class TodosService implements OnDestroy {
 
   constructor(
     private apiService: ApiService,
+    private authService: AuthService,
     private todoAdapter: TodoAdapter
-  ) {}
+  ) {
+    this.subscriptions.push(
+      this.authService.activeCommunityId.subscribe(() => {
+        this.fetchTodosFromApi();
+      })
+    );
+  }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
