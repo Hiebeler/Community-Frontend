@@ -14,8 +14,8 @@ export class CalendarEntryAdapter implements Adapter<CalendarEntry> {
   adapt(item: any): CalendarEntry {
     item.date = new Date(item.date);
     const users = [];
-    item.calendar_entry_user?.forEach(element => {
-      users.push(this.userAdapter.adapt(element.user));
+    item.assignedUsers?.forEach(element => {
+      users.push(this.userAdapter.adapt(element));
     });
 
     item.assignedUsers = users;
