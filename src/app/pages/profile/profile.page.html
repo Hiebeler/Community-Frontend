@@ -83,15 +83,13 @@
 </app-popup>
 
 <app-popup [show]="editingName" (close)="editingName = false" title="Name ändern">
-  <div class="p-4">
 
     <form class="flex gap-2 mb-3 w-full" [formGroup]="nameUpdateEditorForm" (ngSubmit)="updateName()">
       <input type="text" id="name" autocomplete="off" formControlName="name" placeholder="Name" class="flex-1" />
     </form>
 
     <button type="button" [disabled]="nameUpdateEditorForm.invalid || (name.value === user?.name)"
-      (click)="updateName()" class="btn-large btn-primary flex-1">Updaten</button>
-  </div>
+      (click)="updateName()" class="btn-small btn-primary w-full">Updaten</button>
 </app-popup>
 
 <app-popup [show]="editingImage" (close)="editingImage = false" title="Bild auswählen">

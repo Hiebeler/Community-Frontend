@@ -8,15 +8,14 @@ import { ApiResponseAdapter } from '../adapter/api-response-adapter';
 import { ApiResponse } from '../models/api-response';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
-
   constructor(
     private httpClient: HttpClient,
     private storageService: StorageService,
-    private apiResponseAdapter: ApiResponseAdapter,
-  ) { }
+    private apiResponseAdapter: ApiResponseAdapter
+  ) {}
 
   getHeader(): HttpHeaders {
     const headers = new HttpHeaders({
@@ -25,7 +24,7 @@ export class ApiService {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       Authorization: 'Bearer ' + this.storageService.getToken(),
       // eslint-disable-next-line @typescript-eslint/naming-convention
-      communityId: this.storageService.getCurrentCommunity() ?? -1
+      communityId: this.storageService.getCurrentCommunity() ?? -1,
     });
     return headers;
   }
@@ -59,9 +58,9 @@ export class ApiService {
   apiPut(url: string, body: any): Observable<ApiResponse> {
     const token = this.getHeader();
     if (token) {
-      return this.httpClient.put<any>(environment.api + url, body, { headers: token }).pipe(
-        map(data => this.apiResponseAdapter.adapt(data))
-      );
+      return this.httpClient
+        .put<any>(environment.api + url, body, { headers: token })
+        .pipe(map((data) => this.apiResponseAdapter.adapt(data)));
     }
 
     this.returnUnauthorizedObservable();
@@ -70,9 +69,9 @@ export class ApiService {
   apiDelete(url: string): Observable<ApiResponse> {
     const token = this.getHeader();
     if (token) {
-      return this.httpClient.delete<any>(environment.api + url, { headers: token }).pipe(
-        map(data => this.apiResponseAdapter.adapt(data))
-      );
+      return this.httpClient
+        .delete<any>(environment.api + url, { headers: token })
+        .pipe(map((data) => this.apiResponseAdapter.adapt(data)));
     }
 
     this.returnUnauthorizedObservable();
@@ -80,32 +79,38 @@ export class ApiService {
 
   returnUnauthorizedObservable(): Observable<ApiResponse> {
     return new Observable((observer) => {
-      observer.next(this.apiResponseAdapter.adapt({ status: 'Error', error: 'Missing JWT' }));
+      observer.next(
+        this.apiResponseAdapter.adapt({ status: 'Error', error: 'Missing JWT' })
+      );
     });
   }
 
   getWithHeader(url: string, headers: HttpHeaders): Observable<ApiResponse> {
-    return this.httpClient.get<any>(environment.api + url, { headers }).pipe(
-      map(data => this.apiResponseAdapter.adapt(data))
-    );
+    return this.httpClient
+      .get<any>(environment.api + url, { headers })
+      .pipe(map((data) => this.apiResponseAdapter.adapt(data)));
   }
 
   getWithoutHeader(url: string): Observable<ApiResponse> {
-    return this.httpClient.get<any>(environment.api + url).pipe(
-      map(data => this.apiResponseAdapter.adapt(data))
-    );
+    return this.httpClient
+      .get<any>(environment.api + url)
+      .pipe(map((data) => this.apiResponseAdapter.adapt(data)));
   }
 
-  postWithHeader(url: string, body: any, headers: HttpHeaders): Observable<ApiResponse> {
-    return this.httpClient.post<any>(environment.api + url, body, { headers }).pipe(
-      map(data => this.apiResponseAdapter.adapt(data))
-    );
+  postWithHeader(
+    url: string,
+    body: any,
+    headers: HttpHeaders
+  ): Observable<ApiResponse> {
+    return this.httpClient
+      .post<any>(environment.api + url, body, { headers })
+      .pipe(map((data) => this.apiResponseAdapter.adapt(data)));
   }
 
   postWithoutHeader(url: string, body: any): Observable<ApiResponse> {
-    return this.httpClient.post<any>(environment.api + url, body).pipe(
-      map(data => this.apiResponseAdapter.adapt(data))
-    );
+    return this.httpClient
+      .post<any>(environment.api + url, body)
+      .pipe(map((data) => this.apiResponseAdapter.adapt(data)));
   }
 
   getUserById(id: number): Observable<ApiResponse> {
@@ -143,8 +148,12 @@ export class ApiService {
   uploadImage(file: File): Observable<any> {
     const dataFile = new FormData();
     dataFile.append('image', file);
-    const headers = new HttpHeaders({ authorization: 'Client-ID c0df3b4f744766f' });
-    return this.httpClient.post('https://api.imgur.com/3/image/', dataFile, { headers });
+    const headers = new HttpHeaders({
+      authorization: 'Client-ID c0df3b4f744766f',
+    });
+    return this.httpClient.post('https://api.imgur.com/3/image/', dataFile, {
+      headers,
+    });
   }
 
   getCommunityByCode(code: string): Observable<ApiResponse> {
@@ -168,12 +177,22 @@ export class ApiService {
   }
 
   acceptRequest(data: any, status: boolean): Observable<ApiResponse> {
-    const url: string = status ? 'community/request/accept' : 'community/request/decline';
+    const url: string = status
+      ? 'community/request/accept'
+      : 'community/request/decline';
     return this.apiPost(url, data, true);
   }
 
+  // Calendar
+
   getTasks(data: any): Observable<ApiResponse> {
-    return this.apiGet('calendar/interval?startDate=' + data.startDate.toISOString() + "&endDate=" + data.endDate.toISOString(), true);
+    return this.apiGet(
+      'calendar/interval?startDate=' +
+        data.startDate.toISOString() +
+        '&endDate=' +
+        data.endDate.toISOString(),
+      true
+    );
   }
 
   updateTask(data: any): Observable<ApiResponse> {
@@ -183,6 +202,16 @@ export class ApiService {
   deleteTask(id: number): Observable<ApiResponse> {
     return this.apiDelete('calendar/delete/' + id);
   }
+
+  getRoutines(): Observable<ApiResponse> {
+    return this.apiGet('calendar/routine/all', true);
+  }
+
+  modifyRoutine(data: any): Observable<ApiResponse> {
+    return this.apiPost('calendar/routine/modify', data, true);
+  }
+
+  // Shopping list
 
   getOpenShoppingItems(): Observable<ApiResponse> {
     return this.apiGet('shoppinglist/open', true);
@@ -200,9 +229,33 @@ export class ApiService {
     return this.apiPut('shoppinglist', data);
   }
 
-   deleteShoppingItem(id: number): Observable<ApiResponse> {
+  deleteShoppingItem(id: number): Observable<ApiResponse> {
     return this.apiDelete('shoppinglist/' + id);
   }
+
+  // Todos
+
+  getOpenTodos(): Observable<ApiResponse> {
+    return this.apiGet('todos/open', true);
+  }
+
+  getDoneTodos(): Observable<ApiResponse> {
+    return this.apiGet('todos/done', true);
+  }
+
+  createTodo(data: any): Observable<ApiResponse> {
+    return this.apiPost('todo', data, true);
+  }
+
+  updateTodo(data: any): Observable<ApiResponse> {
+    return this.apiPut('todos/', data);
+  }
+
+  deleteTodo(id: number): Observable<ApiResponse> {
+    return this.apiDelete('todos/' + id);
+  }
+
+  // Debts
 
   getDebtBalance(): Observable<ApiResponse> {
     return this.apiGet('debt/balance', true);
@@ -214,13 +267,5 @@ export class ApiService {
 
   addDebt(data: any): Observable<ApiResponse> {
     return this.apiPost('debt', data, true);
-  }
-
-  getRoutines(): Observable<ApiResponse> {
-    return this.apiGet('calendar/routine/all', true);
-  }
-
-  modifyRoutine(data: any): Observable<ApiResponse> {
-    return this.apiPost('calendar/routine/modify', data, true);
   }
 }
