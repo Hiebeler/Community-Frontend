@@ -16,10 +16,8 @@ import {
 import { Subscription } from 'rxjs';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
-import { ShoppingItem } from 'src/app/models/shopping-item';
 import { Todo } from 'src/app/models/todo';
 import { AlertService } from 'src/app/services/alert.service';
-import { ShoppingService } from 'src/app/services/shopping.service';
 import { TodosService } from 'src/app/services/todos.service';
 
 @Component({
@@ -119,6 +117,9 @@ export class Todos implements OnInit, OnDestroy {
   openUpdateEditor(item?: Todo) {
     if (item) {
       this.itemUpdateEditorForm.controls.updatename.setValue(item.name);
+      this.itemUpdateEditorForm.controls.updatedescription.setValue(
+        item.description
+      );
       this.todoToUpdate = item;
     } else {
       this.todoToUpdate = null;
@@ -180,6 +181,7 @@ export class Todos implements OnInit, OnDestroy {
           })
       );
       this.itemUpdateEditorForm.controls.updatename.setValue('');
+      this.itemUpdateEditorForm.controls.updatedescription.setValue('');
     }
   }
 

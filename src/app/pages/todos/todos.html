@@ -62,7 +62,8 @@
 
     <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()" class="space-y-3">
       <input type="text" formControlName="createname" placeholder="Name" autocomplete="off" class="w-full" />
-      <input type="text" formControlName="createdescription" placeholder="Beschreibung" autocomplete="off" class="w-full" />
+      <input type="text" formControlName="createdescription" placeholder="Beschreibung" autocomplete="off"
+        class="w-full" />
 
     </form>
 
@@ -74,17 +75,19 @@
 
 <app-popup [show]="todoToUpdate !== null" (close)="openUpdateEditor()" title="Eintrag bearbeiten">
   <div class="space-y-4">
-    <form [formGroup]="itemUpdateEditorForm" (ngSubmit)="updateName(todoToUpdate.id)">
-      <input type="text" formControlName="updatename" placeholder="Name" autocomplete="off" />
-      <input type="text" formControlName="updatedescription" placeholder="Name" autocomplete="off" />
+    <form [formGroup]="itemUpdateEditorForm" (ngSubmit)="updateName(todoToUpdate.id)" class="space-y-3">
+      <input type="text" formControlName="updatename" placeholder="Name" autocomplete="off" class="w-full" />
+      <input type="text" formControlName="updatedescription" placeholder="Beschreibung" autocomplete="off"
+        class="w-full" />
     </form>
     <div class="flex gap-3">
       <button type="button" (click)="askToDeleteTask(todoToUpdate.id)" class="btn-small btn-danger w-1/2">
         Löschen
       </button>
 
-      <button [disabled]="itemUpdateEditorForm.invalid || updateNameField.value === todoToUpdate?.name" type="button"
-        (click)="updateName(todoToUpdate.id)" class="btn-small btn-primary w-1/2">
+      <button
+        [disabled]="itemUpdateEditorForm.invalid || updateNameField.value === todoToUpdate?.name || updateDescriptionField.value === todoToUpdate?.description"
+        type="button" (click)="updateName(todoToUpdate.id)" class="btn-small btn-primary w-1/2">
         Updaten
       </button>
     </div>

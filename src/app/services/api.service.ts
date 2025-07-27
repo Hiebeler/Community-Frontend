@@ -244,7 +244,7 @@ export class ApiService {
   }
 
   createTodo(data: any): Observable<ApiResponse> {
-    return this.apiPost('todo', data, true);
+    return this.apiPost('todos/', data, true);
   }
 
   updateTodo(data: any): Observable<ApiResponse> {
