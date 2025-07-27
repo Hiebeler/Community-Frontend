@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
-const TOKEN_KEY = 'community_token_1';
-const COMMUNITY_KEY = 'active_community_id_1';
+const TOKEN_KEY = 'community_token_12';
+const COMMUNITY_KEY = 'active_community_id_12';
 @Injectable({
   providedIn: 'root',
 })

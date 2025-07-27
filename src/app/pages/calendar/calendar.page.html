@@ -15,7 +15,7 @@
 
 <!-- Days Grid -->
 <div class="grid grid-cols-3 lg:gap-2">
-  @for (day of days; track day) {
+  @for (day of days; track day.date) {
   <div [ngClass]="day.date.toDateString() === dayToday.toDateString() ? 'card p-1' : 'p-1'">
     @if (isTodayDate(day.date, -1)) {
     <p class="text-center text-sm font-medium">Gestern</p>
@@ -38,7 +38,7 @@
 
     <!-- Open Tasks -->
     <div class="mt-2 space-y-2">
-      @for (task of day.openTasks; track task) {
+      @for (task of day.openTasks; track task.id) {
       <div>
         <app-task-card [task]="task" (openModal)="entryToEdit = task"></app-task-card>
       </div>

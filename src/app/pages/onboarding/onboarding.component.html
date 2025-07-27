@@ -10,10 +10,27 @@
       </h2>
     </div>
     <div class="card p-4 text-center">
+
+      @if (this.communities.length === 0) {
       <p>Noch keiner Gemeinschaft beigetreten</p>
+      } @else {
+      @for (community of user.communities; track community) {
+      @if (community.id == this.activeCommunity?.id) {
+      <div class="card px-6 py-3 flex flex-row justify-between bg-primary/20">
+        {{community?.name}}
+      </div>
+      } @else {
+      <div class="card px-6 py-3 flex flex-row justify-between clickable" (click)="selectCommunity(community.id)">
+        {{community?.name}}
+        <lucide-icon [img]="switchIcon"></lucide-icon>
+      </div>
+      }
+      }
+      }
       <div class="grid grid-cols-2 gap-4 mt-4">
         <button class="btn-large btn-primary w-full" (click)="changeJoinCommunityPopup(true)">Beitreten</button>
-        <button class="btn-large btn-outline-primary w-full"  (click)="changeCreateCommunityPopup(true)">Erstellen</button>
+        <button class="btn-large btn-outline-primary w-full"
+          (click)="changeCreateCommunityPopup(true)">Erstellen</button>
       </div>
     </div>
   </div>
@@ -21,7 +38,7 @@
 </div>
 
 <app-popup [show]="joinCommunityPopup" (close)="joinCommunityPopup = false" title="Join Community">
-  <app-join-community (closePopup)="changeJoinCommunityPopup(false)"/>
+  <app-join-community (closePopup)="changeJoinCommunityPopup(false)" />
 </app-popup>
 
 <app-popup [show]="createCommunityPopup" (close)="createCommunityPopup = false" title="Create Community">

@@ -1,5 +1,12 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  concatMap,
+  map,
+  Observable,
+  of,
+  Subscription,
+} from 'rxjs';
 import { Community } from '../models/community';
 import { ApiService } from './api.service';
 import { UserService } from './user.service';
@@ -75,6 +82,21 @@ export class CommunityService implements OnDestroy {
     return this.apiService
       .getCommunityByCode(code)
       .pipe(map((res) => this.communityAdapter.adapt(res.data)));
+  }
+
+  getOwnCommunities(): Observable<Community[]> {
+    return this.apiService.getOwnCommunities().pipe(
+      concatMap((res) => {
+        if (res.status !== 'OK') {
+          return [];
+        } else {
+          return of(res);
+        }
+      }),
+      map((res: any) =>
+        res.data.map((item) => this.communityAdapter.adapt(item))
+      )
+    );
   }
 
   createCommunity(name: string): Observable<boolean> {
