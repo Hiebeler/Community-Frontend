@@ -39,7 +39,7 @@ export class ResetPassword implements OnInit {
   onSubmit() {
     if (this.resetForm.valid) {
       this.authService
-        .resetPassword(this.password.value)
+        .resetPassword(this.password.value, this.code)
         .subscribe((res) => {
           if (res.status === 'OK') {
           }

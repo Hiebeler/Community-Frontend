@@ -99,8 +99,8 @@ export class AuthService implements OnDestroy {
     return this.apiService.requestPasswordReset(email);
   }
 
-  public resetPassword(newPassword: string): Observable<ApiResponse> {
-    return this.apiService.resetPassword(newPassword);
+  public resetPassword(newPassword: string, code: string): Observable<ApiResponse> {
+    return this.apiService.resetPassword(newPassword, code);
   }
 
   public getUserIdFromToken(): number | null {
