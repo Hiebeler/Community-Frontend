@@ -3,12 +3,6 @@ import { Community } from 'src/app/models/community';
 import { User } from 'src/app/models/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
 import { CommunityService } from 'src/app/services/community.service';
 import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -34,7 +28,6 @@ import { AlertService } from 'src/app/services/alert.service';
   imports: [
     CommonModule,
     RouterModule,
-    ReactiveFormsModule,
     ColorEditorComponent,
     ProfileImageEditorComponent,
     OpenRequestsComponent,
@@ -59,8 +52,6 @@ export class ProfilePage implements OnInit, OnDestroy {
   editingColor = false;
   editingName = false;
 
-  nameUpdateEditorForm: FormGroup;
-
   constructor(
     private authService: AuthService,
     private alertService: AlertService,
@@ -68,16 +59,6 @@ export class ProfilePage implements OnInit, OnDestroy {
     private communityService: CommunityService,
     private router: Router
   ) {
-    this.nameUpdateEditorForm = new FormGroup({
-      name: new FormControl<string | null>('', [
-        Validators.minLength(1),
-        Validators.required,
-      ]),
-    });
-  }
-
-  get name() {
-    return this.nameUpdateEditorForm.get('name');
   }
 
   ngOnInit() {
@@ -102,21 +83,6 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
-
-  toggleNameEditor() {
-    if (!this.editingName) {
-      this.nameUpdateEditorForm.controls.name.setValue(
-        this.user.name
-      );
-    }
-    this.editingName = !this.editingName;
-  }
-
-  updateName() {
-    this.updateUser({
-      name: this.name.value
-    });
   }
 
   updateUser(data: any) {

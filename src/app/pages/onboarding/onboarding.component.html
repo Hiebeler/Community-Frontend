@@ -58,9 +58,19 @@
       <p>Neue Gemeinschaft erstellen / beitreten</p>
       <div class="grid grid-cols-2 gap-4 mt-4">
         <button class="btn-small btn-primary w-full" (click)="changeJoinCommunityPopup(true)">Beitreten</button>
-        <button class="btn-small btn-neutral w-full"
-          (click)="changeCreateCommunityPopup(true)">Erstellen</button>
+        <button class="btn-small btn-neutral w-full" (click)="changeCreateCommunityPopup(true)">Erstellen</button>
       </div>
+    </div>
+
+    <div class="card">
+      <p class="pb-3">Benutzer bearbeiten</p>
+
+      <form class="flex gap-2 mb-3 w-full" [formGroup]="nameUpdateEditorForm" (ngSubmit)="updateName()">
+        <input type="text" id="name" autocomplete="off" formControlName="name" placeholder="Name" class="flex-1" />
+      </form>
+
+      <button type="button" [disabled]="nameUpdateEditorForm.invalid || (name.value === user?.name)" (click)="updateName()"
+    class="btn-small btn-primary w-full">Updaten</button>
     </div>
   </div>
   }

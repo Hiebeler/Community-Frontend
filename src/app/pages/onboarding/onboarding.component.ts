@@ -18,6 +18,12 @@ import { Navbar } from 'src/app/components/navbar/navbar';
 import { AuthService } from 'src/app/services/auth.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { CommonModule } from '@angular/common';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-onboarding',
@@ -27,6 +33,7 @@ import { CommonModule } from '@angular/common';
     PopupComponent,
     JoinCommunityComponent,
     CreateCommunityComponent,
+    ReactiveFormsModule,
     LucideAngularModule,
     RouterModule,
     Navbar,
@@ -43,6 +50,8 @@ export class OnboardingComponent implements OnInit {
 
   activeCommunity: Community | null;
 
+  nameUpdateEditorForm: FormGroup;
+
   joinCommunityPopup = false;
   createCommunityPopup = false;
 
@@ -52,12 +61,24 @@ export class OnboardingComponent implements OnInit {
     private authService: AuthService,
     private alertService: AlertService,
     private router: Router
-  ) {}
+  ) {
+    this.nameUpdateEditorForm = new FormGroup({
+      name: new FormControl<string | null>('', [
+        Validators.minLength(1),
+        Validators.required,
+      ]),
+    });
+  }
+
+  get name() {
+    return this.nameUpdateEditorForm.get('name');
+  }
 
   ngOnInit() {
     this.subscriptions.push(
       this.userService.getCurrentUser().subscribe((user) => {
         this.user = user;
+        this.nameUpdateEditorForm.controls.name.setValue(this.user?.name);
       })
     );
 
@@ -79,6 +100,22 @@ export class OnboardingComponent implements OnInit {
   selectCommunity(communityId: number) {
     this.communityService.setCurrentCommunity(communityId);
     this.router.navigate(['/profile']);
+  }
+
+  updateName() {
+    this.updateUser({
+      name: this.name.value,
+    });
+  }
+
+  updateUser(data: any) {
+    this.subscriptions.push(
+      this.userService.updateUser(data).subscribe((wasSuccessful) => {
+        if (wasSuccessful) {
+          this.userService.fetchUserFromApi();
+        }
+      })
+    );
   }
 
   openLogoutPopup() {
