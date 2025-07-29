@@ -1,10 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ApiService } from './api.service';
 import { AlertService } from './alert.service';
 import { StorageService } from './storage.service';
+import { ApiResponse } from '../models/api-response';
 
 @Injectable({
   providedIn: 'root',
@@ -94,6 +95,14 @@ export class AuthService implements OnDestroy {
     );
   }
 
+  public requestPasswordReset(email: string): Observable<ApiResponse> {
+    return this.apiService.requestPasswordReset(email);
+  }
+
+  public resetPassword(newPassword: string): Observable<ApiResponse> {
+    return this.apiService.resetPassword(newPassword);
+  }
+
   public getUserIdFromToken(): number | null {
     const token = this.storageService.getToken();
     const isExpired = this.helper.isTokenExpired(token);
@@ -102,7 +111,7 @@ export class AuthService implements OnDestroy {
       return id;
     } else {
       this.storageService.removeToken();
-      return null
+      return null;
     }
   }
 

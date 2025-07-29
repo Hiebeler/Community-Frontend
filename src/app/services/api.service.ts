@@ -141,6 +141,14 @@ export class ApiService {
     return this.apiPost('auth/resendVerificationEmail', { email });
   }
 
+  requestPasswordReset(email: string): Observable<ApiResponse> {
+    return this.apiPost('auth/password-reset/request', { email });
+  }
+
+  resetPassword(newPassword: string): Observable<ApiResponse> {
+    return this.apiPost('auth/password-reset/reset', { newPassword });
+  }
+
   checkCode(code: string): Observable<ApiResponse> {
     return this.apiGet('auth/checkresetcode/' + code);
   }

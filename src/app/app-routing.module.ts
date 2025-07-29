@@ -18,6 +18,8 @@ import { PrivacyPage } from './pages/privacy-page/privacy-page';
 import { ImprintPage } from './pages/imprint-page/imprint-page';
 import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout.component';
 import { CalendarPage } from './pages/calendar/calendar.page';
+import { ResetPassword } from './pages/reset-password/reset-password';
+import { RequestPasswordReset } from './pages/request-password-reset/request-password-reset';
 
 const routes: Routes = [
   {
@@ -27,17 +29,17 @@ const routes: Routes = [
       {
         path: '',
         component: LandingPage,
-        title: 'Together'
+        title: 'Together',
       },
       {
         path: 'imprint',
         component: ImprintPage,
-        title: 'Impressum - Together'
+        title: 'Impressum - Together',
       },
       {
         path: 'privacy',
         component: PrivacyPage,
-        title: 'Datenschutzrichtlinie - Together'
+        title: 'Datenschutzrichtlinie - Together',
       },
     ],
   },
@@ -48,17 +50,27 @@ const routes: Routes = [
       {
         path: 'login',
         component: LoginPage,
-        title: 'Anmelden - Together'
+        title: 'Anmelden - Together',
       },
       {
         path: 'register',
         component: RegisterPage,
-        title: 'Registrieren - Together'
+        title: 'Registrieren - Together',
       },
       {
         path: 'verify/:code',
         component: VerifyPage,
-        title: 'Verify - Together'
+        title: 'Verify - Together',
+      },
+      {
+        path: 'reset',
+        component: RequestPasswordReset,
+        title: 'Password zurücksetzen - Together',
+      },
+      {
+        path: 'reset/:code',
+        component: ResetPassword,
+        title: 'Password zurücksetzen - Together',
       },
     ],
     canActivate: [AuthGuard],
@@ -73,37 +85,37 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfilePage,
-        title: 'Profil - Together'
+        title: 'Profil - Together',
       },
       {
         path: 'calendar',
         component: CalendarPage,
-        title: 'Kalender - Together'
+        title: 'Kalender - Together',
       },
       {
         path: 'todos',
         component: Todos,
-        title: 'Todos - Together'
+        title: 'Todos - Together',
       },
       {
         path: 'calendar/routines',
         component: RoutinesPage,
-        title: 'Routinen - Together'
+        title: 'Routinen - Together',
       },
       {
         path: 'shopping-list',
         component: ShoppingListPage,
-        title: 'Einkaufsliste - Together'
+        title: 'Einkaufsliste - Together',
       },
       {
         path: 'debts',
         component: DebtsPage,
-        title: 'Schulden - Together'
+        title: 'Schulden - Together',
       },
       {
         path: 'debts/history',
         component: DebtsHistoryPage,
-        title: 'Schulden Verlauf - Together'
+        title: 'Schulden Verlauf - Together',
       },
     ],
     canActivate: [AuthGuard],
