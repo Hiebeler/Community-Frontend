@@ -52,10 +52,7 @@
       }
       }
 
-    </div>
-
-    <div class="card">
-      <p>Neue Gemeinschaft erstellen / beitreten</p>
+      <p class="mt-10">Neue Gemeinschaft erstellen / beitreten</p>
       <div class="grid grid-cols-2 gap-4 mt-4">
         <button class="btn-small btn-primary w-full" (click)="changeJoinCommunityPopup(true)">Beitreten</button>
         <button class="btn-small btn-neutral w-full" (click)="changeCreateCommunityPopup(true)">Erstellen</button>
@@ -69,8 +66,25 @@
         <input type="text" id="name" autocomplete="off" formControlName="name" placeholder="Name" class="flex-1" />
       </form>
 
-      <button type="button" [disabled]="nameUpdateEditorForm.invalid || (name.value === user?.name)" (click)="updateName()"
-    class="btn-small btn-primary w-full">Updaten</button>
+      <button type="button" [disabled]="nameUpdateEditorForm.invalid || (name.value === user?.name)"
+        (click)="updateName()" class="btn-small btn-primary w-full">Updaten</button>
+    </div>
+
+    <div class="card">
+      <p class="pb-3">Passwort ändern</p>
+      <form class="flex flex-col mb-3 w-full" [formGroup]="changePasswordForm" (ngSubmit)="updateName()">
+        <label class="text-sm text-gray-300 mb-1">Altes Passwort:</label>
+        <input type="password" id="oldPassword" autocomplete="off" formControlName="oldPassword"
+          placeholder="Altes Passwort" class="flex-1 mb-3" />
+
+        <label class="text-sm text-gray-300 mb-1">Neues Passwort:</label>
+        <input type="password" id="newPassword" autocomplete="off" formControlName="newPassword"
+          placeholder="Neues Passwort" class="flex-1" />
+
+      </form>
+
+      <button type="button" [disabled]="changePasswordForm.invalid"
+        (click)="changePassword()" class="btn-small btn-primary w-full">Ändern</button>
     </div>
   </div>
   }

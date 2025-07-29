@@ -15,17 +15,14 @@
 
 @if (user) {
 <div class="grid gap-4">
-  <div class="flex justify-center">
-    <img class="profile-image clickable rounded-full" [src]="user.profileimage" alt="" width="100" height="100"
-      (click)="editImage(true)" />
-  </div>
 
-
-  <div class="flex justify-center">
-    <h2 class="text-xl font-semibold">
-      {{user?.name}}
-    </h2>
-  </div>
+  <div class="card flex space-x-3 items-center">
+      <span>Angemeldet als:</span>
+      <img class="h-10 w-10 ml-4 rounded-full" [src]="user.profileimage" alt="" width="40px" height="40px" />
+      <span class="text-lg bold">
+        {{user.name}}
+      </span>
+    </div>
 
   @if (!user.communities) {
   <div class="card p-4 text-center">

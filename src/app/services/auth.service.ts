@@ -103,6 +103,10 @@ export class AuthService implements OnDestroy {
     return this.apiService.resetPassword(newPassword, code);
   }
 
+  public changePassword(oldPassword: string, newPassword: string): Observable<ApiResponse> {
+    return this.apiService.changePassword(oldPassword, newPassword);
+  }
+
   public getUserIdFromToken(): number | null {
     const token = this.storageService.getToken();
     const isExpired = this.helper.isTokenExpired(token);

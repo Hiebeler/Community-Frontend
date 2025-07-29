@@ -146,11 +146,21 @@ export class ApiService {
   }
 
   resetPassword(newPassword: string, code: string): Observable<ApiResponse> {
-    return this.apiPost('auth/password-reset', { password: newPassword, token: code });
+    return this.apiPost('auth/password-reset', {
+      password: newPassword,
+      token: code,
+    });
   }
 
   checkCode(code: string): Observable<ApiResponse> {
     return this.apiGet('auth/checkresetcode/' + code);
+  }
+
+  changePassword(
+    oldPassword: string,
+    newPassword: string
+  ): Observable<ApiResponse> {
+    return this.apiPost('auth/password-change', { oldPassword, newPassword });
   }
 
   uploadImage(file: File): Observable<any> {

@@ -4,8 +4,5 @@ import { Component } from '@angular/core';
   selector: 'app-privacy-page',
   imports: [],
   templateUrl: './privacy-page.html',
-  styleUrl: './privacy-page.css'
 })
-export class PrivacyPage {
-
-}
+export class PrivacyPage {}

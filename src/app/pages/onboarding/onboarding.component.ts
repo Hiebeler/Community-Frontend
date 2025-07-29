@@ -51,6 +51,7 @@ export class OnboardingComponent implements OnInit {
   activeCommunity: Community | null;
 
   nameUpdateEditorForm: FormGroup;
+  changePasswordForm: FormGroup;
 
   joinCommunityPopup = false;
   createCommunityPopup = false;
@@ -68,10 +69,29 @@ export class OnboardingComponent implements OnInit {
         Validators.required,
       ]),
     });
+
+    this.changePasswordForm = new FormGroup({
+      oldPassword: new FormControl<string | null>('', [
+        Validators.minLength(1),
+        Validators.required,
+      ]),
+      newPassword: new FormControl<string | null>('', [
+        Validators.minLength(1),
+        Validators.required,
+      ]),
+    });
   }
 
   get name() {
     return this.nameUpdateEditorForm.get('name');
+  }
+
+  get oldPassword() {
+    return this.changePasswordForm.get('oldPassword');
+  }
+
+  get newPassword() {
+    return this.changePasswordForm.get('newPassword');
   }
 
   ngOnInit() {
@@ -116,6 +136,20 @@ export class OnboardingComponent implements OnInit {
         }
       })
     );
+  }
+
+  changePassword() {
+    if (this.changePasswordForm.valid) {
+      this.authService
+        .changePassword(
+          this.changePasswordForm.value.oldPassword,
+          this.changePasswordForm.value.newPassword
+        )
+        .subscribe((res) => {
+          if (res.status == 'OK') {
+          }
+        });
+    }
   }
 
   openLogoutPopup() {
