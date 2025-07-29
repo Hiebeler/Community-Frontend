@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { Todo } from 'src/app/models/todo';
+import { TimeAgoPipe } from 'src/app/pipes/time-ago.pipe';
 import { AlertService } from 'src/app/services/alert.service';
 import { TodosService } from 'src/app/services/todos.service';
 
@@ -29,6 +30,7 @@ import { TodosService } from 'src/app/services/todos.service';
     LucideAngularModule,
     PopupComponent,
     Navbar,
+    TimeAgoPipe
   ],
 })
 export class Todos implements OnInit, OnDestroy {
@@ -153,7 +155,7 @@ export class Todos implements OnInit, OnDestroy {
   updateDone(id: number, done: boolean) {
     this.subscriptions.push(
       this.todosService
-        .updateTodo(new Todo(id, undefined, undefined, done, undefined))
+        .updateTodo(new Todo(id, undefined, undefined, done, undefined, undefined))
         .subscribe((res) => {
           if (res.status === 'OK') {
             this.getItems();
@@ -173,6 +175,7 @@ export class Todos implements OnInit, OnDestroy {
               id,
               this.updateNameField.value,
               this.updateDescriptionField.value,
+              undefined,
               undefined,
               undefined
             )

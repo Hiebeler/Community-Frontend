@@ -15,6 +15,7 @@ export class TodoAdapter implements Adapter<Todo> {
       item.name,
       item.description,
       item.done,
+      item.doneDate ?? new Date(item.doneDate),
       this.userAdapter.adapt(item.creator)
     );
   }
