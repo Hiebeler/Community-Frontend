@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { StorageService } from './storage.service';
 import { ApiResponseAdapter } from '../adapter/api-response-adapter';
@@ -15,7 +15,7 @@ export class ApiService {
     private httpClient: HttpClient,
     private storageService: StorageService,
     private apiResponseAdapter: ApiResponseAdapter
-  ) {}
+  ) { }
 
   getHeader(): HttpHeaders {
     const headers = new HttpHeaders({
@@ -53,6 +53,25 @@ export class ApiService {
     }
 
     return this.postWithoutHeader(url, body);
+  }
+
+  apiPut(url: string, body: any): Observable<ApiResponse> {
+    const token = this.getHeader();
+    if (token) {
+      return this.httpClient
+        .put<any>(environment.api + url, body, { headers: token })
+        .pipe(map((data) => this.apiResponseAdapter.adapt(data)),
+       catchError((error) => {
+          // Optionally adapt the error as well
+          const adaptedError = this.apiResponseAdapter.adapt
+            ? this.apiResponseAdapter.adapt(error)
+            : error;
+
+          return throwError(() => adaptedError);
+        }));
+    }
+
+    this.returnUnauthorizedObservable();
   }
 
   apiPatch(url: string, body: any): Observable<ApiResponse> {
@@ -160,7 +179,7 @@ export class ApiService {
     oldPassword: string,
     newPassword: string
   ): Observable<ApiResponse> {
-    return this.apiPost('auth/password-change', { oldPassword, newPassword });
+    return this.apiPut('user/password-change', { oldPassword, newPassword });
   }
 
   uploadImage(file: File): Observable<any> {
@@ -206,9 +225,9 @@ export class ApiService {
   getTasks(data: any): Observable<ApiResponse> {
     return this.apiGet(
       'calendar/interval?startDate=' +
-        data.startDate.toISOString() +
-        '&endDate=' +
-        data.endDate.toISOString(),
+      data.startDate.toISOString() +
+      '&endDate=' +
+      data.endDate.toISOString(),
       true
     );
   }

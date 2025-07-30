@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api: 'https://api.community.daniebeler.com/'
+  api: 'http://localhost:3000/'
 };
 
 /*

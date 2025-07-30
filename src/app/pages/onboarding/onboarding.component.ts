@@ -149,8 +149,17 @@ export class OnboardingComponent implements OnInit {
           this.changePasswordForm.value.oldPassword,
           this.changePasswordForm.value.newPassword
         )
-        .subscribe((res) => {
-          if (res.status == 'OK') {
+        .subscribe({
+          next: (res) => {
+            console.table(res);
+            if (res.status == 'OK') {
+              this.toastr.success('Passwort wurde geändert')
+            } else {
+              this.toastr.error(res.error);
+            }
+          }, error: (error) => {
+            console.table(error);
+            this.toastr.error(error.error.error)
           }
         });
     }

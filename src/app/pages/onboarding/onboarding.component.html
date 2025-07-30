@@ -73,7 +73,7 @@
 
     <div class="card">
       <p class="pb-3">Passwort ändern</p>
-      <form class="flex flex-col mb-3 w-full" [formGroup]="changePasswordForm" (ngSubmit)="updateName()">
+      <form class="flex flex-col mb-3 w-full" [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
         <label>Altes Passwort:</label>
         <input type="password" id="oldPassword" autocomplete="off" formControlName="oldPassword"
           placeholder="Altes Passwort" class="flex-1 mb-3" />
