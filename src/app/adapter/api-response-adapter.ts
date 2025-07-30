@@ -11,7 +11,7 @@ export class ApiResponseAdapter implements Adapter<ApiResponse> {
   constructor(){}
 
   adapt(item: any): ApiResponse {
-
+    console.table(item);
     item.status = item?.status ?? 'Error';
     item.error = item?.error ?? '';
     item.data = item?.data ?? {};
