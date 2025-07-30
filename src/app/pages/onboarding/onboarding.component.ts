@@ -25,6 +25,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { ProfileImageEditorComponent } from 'src/app/components/profile-image-editor/profile-image-editor.component';
 
 @Component({
   selector: 'app-onboarding',
@@ -34,6 +35,7 @@ import { ToastrService } from 'ngx-toastr';
     PopupComponent,
     JoinCommunityComponent,
     CreateCommunityComponent,
+    ProfileImageEditorComponent,
     ReactiveFormsModule,
     LucideAngularModule,
     RouterModule,
@@ -56,6 +58,8 @@ export class OnboardingComponent implements OnInit {
 
   joinCommunityPopup = false;
   createCommunityPopup = false;
+
+  showImageUploadPopup = false;
 
   constructor(
     private userService: UserService,
