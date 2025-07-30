@@ -105,6 +105,10 @@
     /* Tailwind gray-100 */
   }
 
+  label {
+    @apply text-sm text-gray-300 mb-1;
+  }
+
   .empty-input:focus {
     @apply outline-green-500;
   }
