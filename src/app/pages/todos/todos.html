@@ -35,8 +35,8 @@
           {{item.name}}
         </p>
 
-        <p class="text-sm">
-          {{item.description}}
+        <p class="text-sm"  style="white-space: pre-line;">
+          {{shortenDescription(item.description)}}
         </p>
       </div>
 
@@ -75,9 +75,8 @@
       <input type="text" id="name" formControlName="createname" placeholder="Name" autocomplete="off" class="w-full" />
 
       <label for="description">Name</label>
-      <input type="text" id="description" formControlName="createdescription" placeholder="Beschreibung" autocomplete="off"
-        class="w-full" />
-
+      <textarea type="text" id="description" formControlName="createdescription" placeholder="Beschreibung" autocomplete="off"
+        class="w-full" ></textarea>
     </form>
 
     <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveItem()" class="btn-small btn-primary w-full">
@@ -93,8 +92,8 @@
       <input type="text" id="name" formControlName="updatename" placeholder="Name" autocomplete="off" class="w-full" />
 
       <label for="description">Beschreibung</label>
-      <input type="text" id="description" formControlName="updatedescription" placeholder="Beschreibung" autocomplete="off"
-        class="w-full" />
+      <textarea type="text" id="description" formControlName="updatedescription" placeholder="Beschreibung" autocomplete="off"
+        class="w-full"></textarea>
     </form>
     <div class="flex gap-3">
       <button type="button" (click)="askToDeleteTask(todoToUpdate.id)" class="btn-small btn-danger w-1/2">

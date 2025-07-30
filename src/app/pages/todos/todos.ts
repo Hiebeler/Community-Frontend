@@ -239,4 +239,12 @@ export class Todos implements OnInit, OnDestroy {
       })
     );
   }
+
+  shortenDescription(description: string): string {
+    const splittedDescription = description.split('\n')
+    if (splittedDescription.length > 1) {
+      return splittedDescription[0] + '\n...'
+    }
+    return description;
+  }
 }
