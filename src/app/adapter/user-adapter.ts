@@ -14,7 +14,7 @@ export class UserAdapter implements Adapter<User> {
 
 
     item.profile_image = this.domSanitizer.bypassSecurityTrustResourceUrl(
-      item.profile_image ?? "/assets/images/defaultavatar.png"
+      item.profile_image ?? "/assets/images/defaultavatar.svg"
     );
     return new User(
       item.id,
