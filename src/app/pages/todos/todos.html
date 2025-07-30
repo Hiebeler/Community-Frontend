@@ -71,8 +71,11 @@
   <div class="space-y-4">
 
     <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()" class="space-y-3">
-      <input type="text" formControlName="createname" placeholder="Name" autocomplete="off" class="w-full" />
-      <input type="text" formControlName="createdescription" placeholder="Beschreibung" autocomplete="off"
+      <label for="name">Name</label>
+      <input type="text" id="name" formControlName="createname" placeholder="Name" autocomplete="off" class="w-full" />
+
+      <label for="description">Name</label>
+      <input type="text" id="description" formControlName="createdescription" placeholder="Beschreibung" autocomplete="off"
         class="w-full" />
 
     </form>
@@ -86,8 +89,11 @@
 <app-popup [show]="todoToUpdate !== null" (close)="openUpdateEditor()" title="Eintrag bearbeiten">
   <div class="space-y-4">
     <form [formGroup]="itemUpdateEditorForm" (ngSubmit)="updateName(todoToUpdate.id)" class="space-y-3">
-      <input type="text" formControlName="updatename" placeholder="Name" autocomplete="off" class="w-full" />
-      <input type="text" formControlName="updatedescription" placeholder="Beschreibung" autocomplete="off"
+      <label for="name">Name</label>
+      <input type="text" id="name" formControlName="updatename" placeholder="Name" autocomplete="off" class="w-full" />
+
+      <label for="description">Beschreibung</label>
+      <input type="text" id="description" formControlName="updatedescription" placeholder="Beschreibung" autocomplete="off"
         class="w-full" />
     </form>
     <div class="flex gap-3">

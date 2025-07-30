@@ -205,6 +205,10 @@
     @apply backdrop-blur-lg bg-surface/50 border border-gray-700 rounded-lg p-4;
   }
 
+  .card.clickable {
+    @apply hover:bg-surface/70
+  }
+
   .active-tab {
     @apply bg-surface/50 rounded-lg border border-gray-700;
   }
