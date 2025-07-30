@@ -13,6 +13,7 @@ import {
   PlusIcon,
   XIcon,
 } from 'lucide-angular';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
@@ -30,7 +31,7 @@ import { TodosService } from 'src/app/services/todos.service';
     LucideAngularModule,
     PopupComponent,
     Navbar,
-    TimeAgoPipe
+    TimeAgoPipe,
   ],
 })
 export class Todos implements OnInit, OnDestroy {
@@ -54,7 +55,8 @@ export class Todos implements OnInit, OnDestroy {
 
   constructor(
     private todosService: TodosService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private toastr: ToastrService
   ) {
     this.itemEditorForm = new FormGroup({
       createname: new FormControl<string | null>('', [
@@ -62,7 +64,9 @@ export class Todos implements OnInit, OnDestroy {
         Validators.maxLength(100),
         Validators.required,
       ]),
-      createdescription: new FormControl<string | null>('', [Validators.maxLength(500)]),
+      createdescription: new FormControl<string | null>('', [
+        Validators.maxLength(500),
+      ]),
     });
 
     this.itemUpdateEditorForm = new FormGroup({
@@ -71,7 +75,9 @@ export class Todos implements OnInit, OnDestroy {
         Validators.maxLength(100),
         Validators.required,
       ]),
-      updatedescription: new FormControl<string | null>('', [Validators.maxLength(500)]),
+      updatedescription: new FormControl<string | null>('', [
+        Validators.maxLength(500),
+      ]),
     });
   }
 
@@ -144,7 +150,12 @@ export class Todos implements OnInit, OnDestroy {
             this.createDescriptionField.value
           )
           .subscribe((res) => {
-            this.getItems();
+            if (res.status === 'OK') {
+              this.toastr.success('Todo wurde erstellt');
+              this.getItems();
+            } else {
+              this.toastr.error('Ein Fehler ist aufgetreten');
+            }
           })
       );
       this.itemEditorForm.controls.createname.setValue('');
@@ -155,10 +166,19 @@ export class Todos implements OnInit, OnDestroy {
   updateDone(id: number, done: boolean) {
     this.subscriptions.push(
       this.todosService
-        .updateTodo(new Todo(id, undefined, undefined, done, undefined, undefined))
+        .updateTodo(
+          new Todo(id, undefined, undefined, done, undefined, undefined)
+        )
         .subscribe((res) => {
           if (res.status === 'OK') {
             this.getItems();
+            if (done) {
+              this.toastr.success('Todo wurde als erledigt markiert');
+            } else {
+              this.toastr.success('Todo wurde als offen markiert');
+            }
+          } else {
+            this.toastr.error('Ein Fehler ist aufgetreten');
           }
         })
     );
@@ -182,7 +202,10 @@ export class Todos implements OnInit, OnDestroy {
           )
           .subscribe((res) => {
             if (res.status === 'OK') {
+              this.toastr.success('Todo wurde geupdated');
               this.getItems();
+            } else {
+              this.toastr.error('Ein Fehler ist aufgetreten');
             }
           })
       );
@@ -205,9 +228,14 @@ export class Todos implements OnInit, OnDestroy {
 
   deleteTodo(id: number) {
     this.subscriptions.push(
-      this.todosService.deleteTodo(id).subscribe(() => {
-        this.getItems();
-        this.todoToUpdate = null;
+      this.todosService.deleteTodo(id).subscribe((res) => {
+        if (res.status === 'OK') {
+          this.toastr.success('Todo wurde gelöscht');
+          this.getItems();
+          this.todoToUpdate = null;
+        } else {
+          this.toastr.error('Ein Fehler ist aufgetreten');
+        }
       })
     );
   }

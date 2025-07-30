@@ -24,6 +24,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-onboarding',
@@ -61,7 +62,8 @@ export class OnboardingComponent implements OnInit {
     private communityService: CommunityService,
     private authService: AuthService,
     private alertService: AlertService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.nameUpdateEditorForm = new FormGroup({
       name: new FormControl<string | null>('', [
@@ -133,6 +135,7 @@ export class OnboardingComponent implements OnInit {
       this.userService.updateUser(data).subscribe((wasSuccessful) => {
         if (wasSuccessful) {
           this.userService.fetchUserFromApi();
+          this.toastr.success('Name geändert');
         }
       })
     );

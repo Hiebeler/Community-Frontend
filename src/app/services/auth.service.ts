@@ -6,6 +6,7 @@ import { ApiService } from './api.service';
 import { AlertService } from './alert.service';
 import { StorageService } from './storage.service';
 import { ApiResponse } from '../models/api-response';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +23,8 @@ export class AuthService implements OnDestroy {
     private router: Router,
     private apiService: ApiService,
     private alertService: AlertService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private toastr: ToastrService
   ) {
     this.helper = new JwtHelperService();
     this.initializeValues();
@@ -76,6 +78,7 @@ export class AuthService implements OnDestroy {
           this.storageService.setToken(res.data.token);
           this.activeUserId.next(this.getUserIdFromToken());
           this.router.navigate(['/onboarding']);
+          this.toastr.success("Erfolgreich eingeloggt", "Willkommen zurück!")
         } else {
           if (res.data.verified === false) {
             this.alertService.showAlert(
@@ -125,6 +128,7 @@ export class AuthService implements OnDestroy {
     this.activeCommunityId.next(null);
     this.activeUserId.next(null);
     this.router.navigate(['login']);
+    this.toastr.success("Du bist jetzt ausgeloggt")
   }
 
   verify(code: string) {

@@ -11,6 +11,7 @@ import { ApiService } from './api.service';
 import { Todo } from '../models/todo';
 import { TodoAdapter } from '../adapter/todo-adapter';
 import { AuthService } from './auth.service';
+import { ApiResponse } from '../models/api-response';
 
 @Injectable({
   providedIn: 'root',
@@ -87,7 +88,7 @@ export class TodosService implements OnDestroy {
     );
   }
 
-  createTodo(name: string, description: string): Observable<any> {
+  createTodo(name: string, description: string): Observable<ApiResponse> {
     return this.apiService.createTodo({ name, description });
   }
 
@@ -100,7 +101,7 @@ export class TodosService implements OnDestroy {
     });
   }
 
-  deleteTodo(id: number): Observable<any> {
+  deleteTodo(id: number): Observable<ApiResponse> {
     return this.apiService.deleteTodo(id);
   }
 }

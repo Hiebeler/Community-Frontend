@@ -10,8 +10,8 @@ import {
 import { ShoppingItemAdapter } from '../adapter/shopping-item-adapter';
 import { ShoppingItem } from '../models/shopping-item';
 import { ApiService } from './api.service';
-import { CommunityService } from './community.service';
 import { AuthService } from './auth.service';
+import { ApiResponse } from '../models/api-response';
 
 @Injectable({
   providedIn: 'root',
@@ -88,11 +88,11 @@ export class ShoppingService implements OnDestroy {
     );
   }
 
-  addShoppingItem(shoppingItem: ShoppingItem): Observable<any> {
+  addShoppingItem(shoppingItem: ShoppingItem): Observable<ApiResponse> {
     return this.apiService.addShoppingItem(shoppingItem.name);
   }
 
-  updateShoppingItem(shoppingItem: ShoppingItem): Observable<any> {
+  updateShoppingItem(shoppingItem: ShoppingItem): Observable<ApiResponse> {
     return this.apiService.updateShoppingItem({
       id: shoppingItem.id,
       done: shoppingItem.done,
@@ -100,7 +100,7 @@ export class ShoppingService implements OnDestroy {
     });
   }
 
-  deleteShoppingItem(id: number): Observable<any> {
+  deleteShoppingItem(id: number): Observable<ApiResponse> {
     return this.apiService.deleteShoppingItem(id);
   }
 }

@@ -8,9 +8,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import {
+  BrowserAnimationsModule,
+  provideAnimations,
+} from '@angular/platform-browser/animations';
 import { Alert } from './components/alert/alert';
 import { environment } from 'src/environments/environment';
+import { provideToastr } from 'ngx-toastr';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,6 +30,8 @@ import { environment } from 'src/environments/environment';
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
+    provideAnimations(),
+    provideToastr({ toastClass: 'custom-toast' }),
   ],
 })
 export class AppModule {}

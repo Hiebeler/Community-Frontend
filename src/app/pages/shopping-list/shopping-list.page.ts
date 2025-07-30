@@ -13,6 +13,7 @@ import {
   PlusIcon,
   XIcon,
 } from 'lucide-angular';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
@@ -52,7 +53,8 @@ export class ShoppingListPage implements OnInit, OnDestroy {
 
   constructor(
     private shoppingService: ShoppingService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private toastr: ToastrService
   ) {
     this.itemEditorForm = new FormGroup({
       createname: new FormControl<string | null>('', [
@@ -126,7 +128,14 @@ export class ShoppingListPage implements OnInit, OnDestroy {
             new ShoppingItem(undefined, this.createNameField.value, undefined)
           )
           .subscribe((res) => {
-            this.getItems();
+            if (res.status === 'OK') {
+              this.toastr.success(
+                'Element wurde zur Einkaufsliste hinzugefügt'
+              );
+              this.getItems();
+            } else {
+              this.toastr.error('Ein Fehler ist aufgetreten');
+            }
           })
       );
       this.itemEditorForm.controls.createname.setValue('');
@@ -139,7 +148,14 @@ export class ShoppingListPage implements OnInit, OnDestroy {
         .updateShoppingItem(new ShoppingItem(id, undefined, checked))
         .subscribe((res) => {
           if (res.status === 'OK') {
+            if (checked) {
+              this.toastr.success('Element wurde als erledigt markiert');
+            } else {
+              this.toastr.success('Element wurde als offen markiert');
+            }
             this.getItems();
+          } else {
+            this.toastr.error('Ein Fehler ist augetreten');
           }
         })
     );
@@ -156,7 +172,10 @@ export class ShoppingListPage implements OnInit, OnDestroy {
           )
           .subscribe((res) => {
             if (res.status === 'OK') {
+              this.toastr.success('Element wurde geupdated');
               this.getItems();
+            } else {
+              this.toastr.error('Ein Fehler ist aufgetreten');
             }
           })
       );
