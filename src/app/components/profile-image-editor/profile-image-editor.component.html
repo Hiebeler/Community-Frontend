@@ -6,31 +6,23 @@
     <!-- File Input -->
     <div class="flex flex-col items-center space-y-2">
       <label>Bild auswählen</label>
-      <input type="file" (change)="onFileChange($event)"
-        class="text-white bg-[var(--ion-color-dark)] p-2 rounded-md cursor-pointer w-48" />
+      <input type="file" (change)="fileChangeEvent($event)" />
     </div>
 
     <!-- Image Cropper -->
-    <div class="flex flex-col items-center">
-      <image-cropper
-        [imageChangedEvent]="imgChangeEvt"
-        [maintainAspectRatio]="true"
-        [aspectRatio]="4 / 4"
-        [resizeToWidth]="256"
-        format="jpeg"
-        (imageCropped)="cropImg($event)"
-        (imageLoaded)="imgLoad()"
-        (cropperReady)="initCropper()"
-        (loadImageFailed)="imgFailed()"
-        [roundCropper]="true">
-      </image-cropper>
+    <div class="flex flex-col items-center max-h-96">
+      <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 4"
+        format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded($event)"
+        (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+
+      <img [src]="croppedImage" />
     </div>
 
   </div>
 
-   <button type="button" (click)="saveImage()" [disabled]="!cropImgPreview"
-      class="btn-small btn-primary w-full max-w-xs">
-      Speichern
-    </button>
+  <button type="button" (click)="saveImage()" [disabled]="!croppedImage"
+    class="btn-small btn-primary w-full max-w-xs">
+    Speichern
+  </button>
 
 </div>

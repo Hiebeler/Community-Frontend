@@ -1,85 +1,100 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { ImageCroppedEvent, ImageCropperComponent } from 'ngx-image-cropper';
+import {
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import {
+  ImageCroppedEvent,
+  ImageCropperComponent,
+  LoadedImage,
+} from 'ngx-image-cropper';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
-    selector: 'app-profile-image-editor',
-    templateUrl: './profile-image-editor.component.html',
-    standalone: true,
-    imports: [
-      CommonModule,
-      ImageCropperComponent
-    ]
-
+  selector: 'app-profile-image-editor',
+  templateUrl: './profile-image-editor.component.html',
+  imports: [CommonModule, ImageCropperComponent],
 })
 export class ProfileImageEditorComponent implements OnInit, OnDestroy {
-
   @Output() closeEditor: EventEmitter<any> = new EventEmitter();
 
   subscriptions: Subscription[] = [];
 
   user: User;
 
-  imgChangeEvt: any = '';
+  imageChangedEvent: Event | null = null;
+  croppedImage: SafeUrl = '';
+
   cropImgPreview: any = '';
-  croppedImg: any = '';
 
   constructor(
     private apiService: ApiService,
     private domSanitizer: DomSanitizer,
     private userService: UserService
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.subscriptions.push(this.userService.getCurrentUser().subscribe(user => {
-      this.user = user;
-    }));
+    this.subscriptions.push(
+      this.userService.getCurrentUser().subscribe((user) => {
+        this.user = user;
+      })
+    );
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-    }
+  }
 
   saveImage() {
-    this.croppedImg = this.dataURLtoFile(this.cropImgPreview, 'hello.png');
-    this.subscriptions.push(this.apiService.uploadImage(this.croppedImg).subscribe((res: any) => {
-      if (res.data.link) {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        this.subscriptions.push(this.userService.updateUser({ profile_image: res.data.link }).subscribe(wasSuccessful => {
-          if (wasSuccessful) {
-            this.user.profileimage = this.domSanitizer.bypassSecurityTrustResourceUrl(res.data.link);
-            this.parentCloseEditor();
-          }
-        }));
-      }
-    }));
+    const croppedImg: File = this.dataURLtoFile(this.croppedImage, 'hello.png');
+    this.subscriptions.push(
+      this.apiService.uploadImage(croppedImg).subscribe((res: any) => {
+        if (res.data.link) {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          this.subscriptions.push(
+            this.userService
+              .updateUser({ profile_image: res.data.link })
+              .subscribe((wasSuccessful) => {
+                if (wasSuccessful) {
+                  this.user.profileimage =
+                    this.domSanitizer.bypassSecurityTrustResourceUrl(
+                      res.data.link
+                    );
+                  this.parentCloseEditor();
+                }
+              })
+          );
+        }
+      })
+    );
   }
 
-  onFileChange(event: any): void {
-    this.imgChangeEvt = event;
+  fileChangeEvent(event: Event): void {
+    this.imageChangedEvent = event;
   }
-  cropImg(e: ImageCroppedEvent) {
-    this.cropImgPreview = e.base64;
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = event.base64
+    // event.blob can be used to upload the cropped image
   }
-  imgLoad() {
-    // display cropper tool
+  imageLoaded(image: LoadedImage) {
+    // show cropper
   }
-  initCropper() {
-    // init cropper
+  cropperReady() {
+    // cropper ready
   }
-
-  imgFailed() {
-    // error msg
+  loadImageFailed() {
+    // show message
   }
-
 
   dataURLtoFile(dataurl, filename) {
-
+    console.log(dataurl)
     const arr = dataurl.split(',');
     const mime = arr[0].match(/:(.*?);/)[1];
     const bstr = atob(arr[1]);
@@ -96,5 +111,4 @@ export class ProfileImageEditorComponent implements OnInit, OnDestroy {
   parentCloseEditor() {
     this.closeEditor.emit();
   }
-
 }

@@ -6,7 +6,6 @@ import { UserService } from 'src/app/services/user.service';
 import { CommunityService } from 'src/app/services/community.service';
 import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ProfileImageEditorComponent } from 'src/app/components/profile-image-editor/profile-image-editor.component';
 import { CommonModule } from '@angular/common';
 import { ColorEditorComponent } from 'src/app/components/color-editor/color-editor.component';
 import { OpenRequestsComponent } from 'src/app/components/open-requests/open-requests.component';
@@ -29,7 +28,6 @@ import { AlertService } from 'src/app/services/alert.service';
     CommonModule,
     RouterModule,
     ColorEditorComponent,
-    ProfileImageEditorComponent,
     OpenRequestsComponent,
     LucideAngularModule,
     PopupComponent,
@@ -48,7 +46,6 @@ export class ProfilePage implements OnInit, OnDestroy {
   community: Community;
   usersInCommunity: User[];
 
-  editingImage = false;
   editingColor = false;
   editingName = false;
 
@@ -105,10 +102,6 @@ export class ProfilePage implements OnInit, OnDestroy {
       },
       'Cancel'
     );
-  }
-
-  editImage(state: boolean) {
-    this.editingImage = state;
   }
 
   editColor(state: boolean) {

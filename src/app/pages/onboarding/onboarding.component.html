@@ -70,8 +70,8 @@
       <button type="button" [disabled]="nameUpdateEditorForm.invalid || (name.value === user?.name)"
         (click)="updateName()" class="btn-small btn-primary w-full">Updaten</button>
 
-
-        <img [src]="user?.profileimage" class="w-12 h-12">
+        <p class="text-sm mt-6 mb-4">Avatar</p>
+        <img [src]="user?.profileimage" class="w-20 h-20 rounded-full border border-gray-700 clickable" (click)="showImageUploadPopup = true">
     </div>
 
     <div class="card">
@@ -102,6 +102,6 @@
   <app-create-community />
 </app-popup>
 
-<app-popup [show]="showImageUploadPopup" (close)="showImageUploadPopup = false" title="">
+<app-popup [show]="showImageUploadPopup" (close)="showImageUploadPopup = false" title="Avatar hochladen">
   <app-profile-image-editor />
 </app-popup>
