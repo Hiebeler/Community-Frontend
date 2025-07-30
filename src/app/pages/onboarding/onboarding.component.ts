@@ -119,8 +119,9 @@ export class OnboardingComponent implements OnInit {
     this.createCommunityPopup = state;
   }
 
-  selectCommunity(communityId: number) {
-    this.communityService.setCurrentCommunity(communityId);
+  selectCommunity(community: Community) {
+    this.communityService.setCurrentCommunity(community.id);
+    this.toastr.success(`Gemeinschaft "` + community.name + `" wurde ausgewählt`)
     this.router.navigate(['/profile']);
   }
 

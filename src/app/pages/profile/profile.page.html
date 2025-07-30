@@ -16,40 +16,32 @@
 @if (user) {
 <div class="grid gap-4">
 
-  <div class="card flex space-x-3 items-center">
-      <span>Angemeldet als:</span>
-      <img class="h-10 w-10 ml-4 rounded-full" [src]="user.profileimage" alt="" width="40px" height="40px" />
-      <span class="text-lg bold">
-        {{user.name}}
+  <div class="card space-y-6 flex justify-evenly items-center">
+    <div class="flex flex-col items-center">
+      <div class="flex space-x-3 items-center">
+        <img class="h-10 w-10 ml-4 rounded-full" [src]="user.profileimage" alt="" width="40px" height="40px" />
+        <span class="text-lg bold">
+          {{user.name}}
+        </span>
+      </div>
+      <span class="text-sm">User</span>
+    </div>
+
+    <div class="flex flex-col items-center">
+      <span class="text-xl bold">
+        {{community?.name}}
       </span>
-    </div>
-
-  @if (!user.communities) {
-  <div class="card p-4 text-center">
-    <p>Noch keiner Gemeinschaft beigetreten</p>
-    <div class="grid grid-cols-2 gap-4 mt-4">
-      <button class="btn-large btn-primary w-full" (click)="gotoFindCommunity()">Beitreten</button>
-      <button class="btn-large btn-outline-primary w-full" (click)="gotoCreateCommunity()">Erstellen</button>
+      <span class="text-sm">Aktive Gemeinschaft</span>
     </div>
   </div>
-  }
-
-  @if (community) {
-  <div class="grid grid-cols-1 gap-4">
-    <div class="card text-center p-4">
-      <h2 class="text-lg font-semibold">{{community?.name}}</h2>
-      <p class="text-sm">Gemeinschaft</p>
-    </div>
-  </div>
-  }
 
   @if (usersInCommunity.length) {
-  <div class="card p-4">
+  <div class="card">
     <p class="text-center mb-4">Mitglieder</p>
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-9 gap-2 justify-items-center">
       @for (user of usersInCommunity; track user) {
       <div class="card w-full text-center">
-        <img [src]="user.profileimage" alt="" class="rounded-full w-full aspect-square object-cover mb-2" />
+        <img [src]="user.profileimage" alt="" class="rounded-full w-full aspect-square object-cover mb-2 border-3 border-red-500" />
         <p class="text-sm lg:text-lg">{{user?.name}}</p>
         @if(user.isAdmin) {
         <span class="text-xs text-primary">Admin</span>
