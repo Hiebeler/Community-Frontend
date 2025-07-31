@@ -15,7 +15,7 @@ export class ApiService {
     private httpClient: HttpClient,
     private storageService: StorageService,
     private apiResponseAdapter: ApiResponseAdapter
-  ) { }
+  ) {}
 
   getHeader(): HttpHeaders {
     const headers = new HttpHeaders({
@@ -60,15 +60,17 @@ export class ApiService {
     if (token) {
       return this.httpClient
         .put<any>(environment.api + url, body, { headers: token })
-        .pipe(map((data) => this.apiResponseAdapter.adapt(data)),
-       catchError((error) => {
-          // Optionally adapt the error as well
-          const adaptedError = this.apiResponseAdapter.adapt
-            ? this.apiResponseAdapter.adapt(error)
-            : error;
+        .pipe(
+          map((data) => this.apiResponseAdapter.adapt(data)),
+          catchError((error) => {
+            // Optionally adapt the error as well
+            const adaptedError = this.apiResponseAdapter.adapt
+              ? this.apiResponseAdapter.adapt(error)
+              : error;
 
-          return throwError(() => adaptedError);
-        }));
+            return throwError(() => adaptedError);
+          })
+        );
     }
 
     this.returnUnauthorizedObservable();
@@ -184,11 +186,17 @@ export class ApiService {
 
   uploadImage(file: File): Observable<any> {
     const dataFile = new FormData();
-    dataFile.append('image', file);
+    dataFile.append('file', file);
+
     const headers = new HttpHeaders({
-      authorization: 'Client-ID c0df3b4f744766f',
+      'Content-Type': 'multipart/form-data; charset=utf-8',
+      Authorization: 'Bearer ' + this.storageService.getToken(),
+      communityId: this.storageService.getCurrentCommunity() ?? -1,
     });
-    return this.httpClient.post('https://api.imgur.com/3/image/', dataFile, {
+
+    console.log(headers)
+
+    return this.httpClient.put(environment.api + 'users/avatar', dataFile, {
       headers,
     });
   }
@@ -225,9 +233,9 @@ export class ApiService {
   getTasks(data: any): Observable<ApiResponse> {
     return this.apiGet(
       'calendar/interval?startDate=' +
-      data.startDate.toISOString() +
-      '&endDate=' +
-      data.endDate.toISOString(),
+        data.startDate.toISOString() +
+        '&endDate=' +
+        data.endDate.toISOString(),
       true
     );
   }

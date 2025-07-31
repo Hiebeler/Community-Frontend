@@ -12,6 +12,7 @@ import {
   ImageCropperComponent,
   LoadedImage,
 } from 'ngx-image-cropper';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { ApiService } from 'src/app/services/api.service';
@@ -37,7 +38,8 @@ export class ProfileImageEditorComponent implements OnInit, OnDestroy {
   constructor(
     private apiService: ApiService,
     private domSanitizer: DomSanitizer,
-    private userService: UserService
+    private userService: UserService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -55,22 +57,12 @@ export class ProfileImageEditorComponent implements OnInit, OnDestroy {
   saveImage() {
     const croppedImg: File = this.dataURLtoFile(this.croppedImage, 'hello.png');
     this.subscriptions.push(
-      this.apiService.uploadImage(croppedImg).subscribe((res: any) => {
-        if (res.data.link) {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          this.subscriptions.push(
-            this.userService
-              .updateUser({ profile_image: res.data.link })
-              .subscribe((wasSuccessful) => {
-                if (wasSuccessful) {
-                  this.user.profileimage =
-                    this.domSanitizer.bypassSecurityTrustResourceUrl(
-                      res.data.link
-                    );
-                  this.parentCloseEditor();
-                }
-              })
-          );
+      this.apiService.uploadImage(croppedImg).subscribe((res) => {
+        if (res.status === "OK") {
+          this.parentCloseEditor();
+          this.toastr.success("Avatar geändert")
+        } else {
+          this.toastr.error("Ein Fehler ist aufgetreten")
         }
       })
     );
@@ -80,6 +72,7 @@ export class ProfileImageEditorComponent implements OnInit, OnDestroy {
     this.imageChangedEvent = event;
   }
   imageCropped(event: ImageCroppedEvent) {
+    console.log(event)
     this.croppedImage = event.base64
     // event.blob can be used to upload the cropped image
   }

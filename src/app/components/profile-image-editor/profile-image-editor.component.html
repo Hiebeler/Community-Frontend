@@ -11,9 +11,9 @@
 
     <!-- Image Cropper -->
     <div class="flex flex-col items-center max-h-96">
-      <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 4"
+      <image-cropper [imageChangedEvent]="imageChangedEvent" output="base64" [maintainAspectRatio]="true" [aspectRatio]="4 / 4"
         format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded($event)"
-        (cropperReady)="cropperReady()" (loadImageFailed)="loadImageFailed()"></image-cropper>
+        (cropperReady)="cropperReady()" [resizeToWidth]="512" [resizeToHeight]="512" (loadImageFailed)="loadImageFailed()"></image-cropper>
 
       <img [src]="croppedImage" />
     </div>
