@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
+  SecurityContext,
 } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import {
@@ -54,27 +55,48 @@ export class ProfileImageEditorComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  saveImage() {
-    const croppedImg: File = this.dataURLtoFile(this.croppedImage, 'hello.png');
-    this.subscriptions.push(
-      this.apiService.uploadImage(croppedImg).subscribe((res) => {
-        if (res.status === "OK") {
-          this.parentCloseEditor();
-          this.toastr.success("Avatar geändert")
-        } else {
-          this.toastr.error("Ein Fehler ist aufgetreten")
-        }
-      })
+  async saveImage() {
+    const url = this.domSanitizer.sanitize(
+      SecurityContext.URL,
+      this.croppedImage
     );
+    if (!url) {
+      this.toastr.error('Fehler beim Verarbeiten des Bildes.');
+      return;
+    }
+
+    try {
+      const blob = await fetch(url).then((res) => res.blob());
+
+      const croppedImg = new File([blob], 'avatar.png', {
+        type: blob.type,
+        lastModified: Date.now(),
+      });
+
+      this.subscriptions.push(
+        this.apiService.uploadImage(croppedImg).subscribe((res) => {
+          if (res.status === 'OK') {
+            this.parentCloseEditor();
+            this.toastr.success('Avatar geändert');
+          } else {
+            this.toastr.error('Ein Fehler ist aufgetreten');
+          }
+        })
+      );
+    } catch (error) {
+      this.toastr.error('Bild konnte nicht verarbeitet werden.');
+      console.error(error);
+    }
   }
 
   fileChangeEvent(event: Event): void {
     this.imageChangedEvent = event;
   }
   imageCropped(event: ImageCroppedEvent) {
-    console.log(event)
-    this.croppedImage = event.base64
-    // event.blob can be used to upload the cropped image
+    console.log(event);
+    this.croppedImage = this.domSanitizer.bypassSecurityTrustUrl(
+      event.objectUrl
+    );
   }
   imageLoaded(image: LoadedImage) {
     // show cropper
@@ -84,21 +106,6 @@ export class ProfileImageEditorComponent implements OnInit, OnDestroy {
   }
   loadImageFailed() {
     // show message
-  }
-
-  dataURLtoFile(dataurl, filename) {
-    console.log(dataurl)
-    const arr = dataurl.split(',');
-    const mime = arr[0].match(/:(.*?);/)[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
-    }
-
-    return new File([u8arr], filename, { type: mime });
   }
 
   parentCloseEditor() {

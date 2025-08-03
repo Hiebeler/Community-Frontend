@@ -47,7 +47,6 @@ export class ProfilePage implements OnInit, OnDestroy {
   usersInCommunity: User[];
 
   editingColor = false;
-  editingName = false;
 
   constructor(
     private authService: AuthService,
