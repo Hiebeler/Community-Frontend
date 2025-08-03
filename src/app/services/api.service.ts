@@ -196,7 +196,7 @@ export class ApiService {
 
     console.log(headers)
 
-    return this.httpClient.put(environment.api + 'users/avatar', dataFile, {
+    return this.httpClient.put(environment.api + 'user/avatar', dataFile, {
       headers,
     });
   }
