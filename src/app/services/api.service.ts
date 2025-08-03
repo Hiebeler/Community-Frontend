@@ -189,7 +189,6 @@ export class ApiService {
     dataFile.append('file', file);
 
     const headers = new HttpHeaders({
-      'Content-Type': 'multipart/form-data; charset=utf-8',
       Authorization: 'Bearer ' + this.storageService.getToken(),
       communityId: this.storageService.getCurrentCommunity() ?? -1,
     });
