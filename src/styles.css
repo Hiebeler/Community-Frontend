@@ -18,8 +18,8 @@
   --color-warning: #ff6900;
   --color-success: #4caf50;
   --radius-main: .75rem;
-}
 
+}
 
 @layer base {
   ::selection {

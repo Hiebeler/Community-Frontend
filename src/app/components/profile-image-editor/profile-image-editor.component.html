@@ -1,27 +1,28 @@
 <div class="w-full bg-surface rounded-xl p-4 shadow-md space-y-4">
 
   <!-- File Input & Cropper -->
-  <div class="flex flex-wrap gap-4 items-center justify-center">
+  <div class="flex flex-col gap-4 py-4 items-center justify-center">
 
     <!-- File Input -->
-    <div class="flex flex-col items-center space-y-2">
-      <label>Bild auswählen</label>
-      <input type="file" (change)="fileChangeEvent($event)" />
+    <div class=" ">
+      <label for="fileInput"
+        class="btn-primary btn-small clickable">
+        Bild auswählen
+      </label>
+      <input id="fileInput" type="file" class="hidden" (change)="fileChangeEvent($event)" />
     </div>
 
     <!-- Image Cropper -->
-    <div class="flex flex-col items-center max-h-96">
-      <image-cropper [imageChangedEvent]="imageChangedEvent" output="blob" [maintainAspectRatio]="true" [aspectRatio]="4 / 4"
-        format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded($event)"
-        (cropperReady)="cropperReady()" [resizeToWidth]="512" [resizeToHeight]="512" (loadImageFailed)="loadImageFailed()"></image-cropper>
-
-      <img [src]="croppedImage" />
+    <div class="flex flex-col max-h-96">
+      <image-cropper [imageChangedEvent]="imageChangedEvent" [roundCropper]="true" [maintainAspectRatio]="true"
+        [aspectRatio]="4 / 4" format="png" (imageCropped)="imageCropped($event)" (imageLoaded)="imageLoaded($event)"
+        (cropperReady)="cropperReady()" [resizeToWidth]="512" [resizeToHeight]="512"
+        (loadImageFailed)="loadImageFailed()"></image-cropper>
     </div>
 
   </div>
 
-  <button type="button" (click)="saveImage()" [disabled]="!croppedImage"
-    class="btn-small btn-primary w-full max-w-xs">
+  <button type="button" (click)="saveImage()" [disabled]="!croppedImage" class="btn-small btn-primary w-full max-w-xs">
     Speichern
   </button>
 

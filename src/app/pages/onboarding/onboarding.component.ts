@@ -12,6 +12,7 @@ import {
   ArrowLeftRightIcon,
   LogOutIcon,
   LucideAngularModule,
+  PenIcon,
 } from 'lucide-angular';
 import { Router, RouterModule } from '@angular/router';
 import { Navbar } from 'src/app/components/navbar/navbar';
@@ -46,6 +47,7 @@ export class OnboardingComponent implements OnInit {
   readonly switchIcon = ArrowLeftRightIcon;
   readonly backIcon = ArrowLeftIcon;
   readonly logoutIcon = LogOutIcon;
+  readonly penIcon = PenIcon;
 
   subscriptions: Subscription[] = [];
 

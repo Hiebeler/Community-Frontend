@@ -76,6 +76,7 @@ export class ProfileImageEditorComponent implements OnInit, OnDestroy {
       this.subscriptions.push(
         this.apiService.uploadImage(croppedImg).subscribe((res) => {
           if (res.status === 'OK') {
+            this.userService.fetchUserFromApi();
             this.parentCloseEditor();
             this.toastr.success('Avatar geändert');
           } else {
@@ -93,7 +94,6 @@ export class ProfileImageEditorComponent implements OnInit, OnDestroy {
     this.imageChangedEvent = event;
   }
   imageCropped(event: ImageCroppedEvent) {
-    console.log(event);
     this.croppedImage = this.domSanitizer.bypassSecurityTrustUrl(
       event.objectUrl
     );

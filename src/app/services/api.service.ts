@@ -193,8 +193,6 @@ export class ApiService {
       communityId: this.storageService.getCurrentCommunity() ?? -1,
     });
 
-    console.log(headers)
-
     return this.httpClient.put(environment.api + 'user/avatar', dataFile, {
       headers,
     });

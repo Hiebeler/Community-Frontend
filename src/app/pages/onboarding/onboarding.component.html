@@ -70,8 +70,16 @@
       <button type="button" [disabled]="nameUpdateEditorForm.invalid || (name.value === user?.name)"
         (click)="updateName()" class="btn-small btn-primary w-full">Updaten</button>
 
-        <p class="text-sm mt-6 mb-4">Avatar</p>
-        <img [src]="user?.profileimage" class="w-20 h-20 rounded-full border border-gray-700 clickable" (click)="showImageUploadPopup = true">
+      <p class="text-sm mt-6 mb-4">Avatar</p>
+      <div class="relative w-20 h-20 group clickable" (click)="showImageUploadPopup = true">
+        <img [src]="user?.profileimage" class="w-20 h-20 rounded-full border border-gray-700 object-cover"
+          alt="Profile Image" />
+
+        <div
+          class="absolute inset-0 rounded-full bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+          <lucide-icon [img]="penIcon"></lucide-icon>
+        </div>
+      </div>
     </div>
 
     <div class="card">
@@ -87,8 +95,8 @@
 
       </form>
 
-      <button type="button" [disabled]="changePasswordForm.invalid"
-        (click)="changePassword()" class="btn-small btn-primary w-full">Ändern</button>
+      <button type="button" [disabled]="changePasswordForm.invalid" (click)="changePassword()"
+        class="btn-small btn-primary w-full">Ändern</button>
     </div>
   </div>
   }
@@ -103,5 +111,5 @@
 </app-popup>
 
 <app-popup [show]="showImageUploadPopup" (close)="showImageUploadPopup = false" title="Avatar hochladen">
-  <app-profile-image-editor />
+  <app-profile-image-editor (closeEditor)="showImageUploadPopup = false" />
 </app-popup>
