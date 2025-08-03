@@ -10,7 +10,6 @@ import { Subscription } from 'rxjs';
 import { CalendarEntry } from 'src/app/models/calendarEntry';
 import { User } from 'src/app/models/user';
 import { AlertService } from 'src/app/services/alert.service';
-import { CommunityService } from 'src/app/services/community.service';
 import { TaskService } from 'src/app/services/task.service';
 
 @Component({
@@ -19,14 +18,12 @@ import { TaskService } from 'src/app/services/task.service';
   templateUrl: './calendar-entry-editor.html',
 })
 export class CalendarEntryEditor {
-
-  @Input() calendarEntry: CalendarEntry;
-  @Input() date: Date;
+  @Input() calendarEntry?: CalendarEntry;
+  @Input() date?: Date;
 
   calendarEntryForm: FormGroup;
 
   subscriptions: Subscription[] = [];
-
 
   taskDone = false;
 
@@ -37,8 +34,7 @@ export class CalendarEntryEditor {
 
   constructor(
     private taskService: TaskService,
-    private alertService: AlertService,
-    private communityService: CommunityService
+    private alertService: AlertService
   ) {
     this.calendarEntryForm = new FormGroup({
       name: new FormControl<string | null>('', [
@@ -47,6 +43,8 @@ export class CalendarEntryEditor {
       ]),
       notes: new FormControl<string | null>('', []),
     });
+
+    console.log(this.calendarEntry)
   }
 
   get name() {
@@ -61,21 +59,30 @@ export class CalendarEntryEditor {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  askToDeleteTask() {
+  askToDeleteCalendarEntry() {
     this.alertService.showAlert(
       'Löschen?',
-      'Aufgabe löschen?',
+      'Eintrag löschen?',
       'Okay',
-      this.deleteTask.bind(this),
+      this.deleteCalendarEntry.bind(this),
       'Cancel'
     );
   }
 
-  deleteTask() {
+  createCalendarEntry() {
+
+  }
+
+  updateCalendarEntry() {
+
+  }
+
+  deleteCalendarEntry() {
     this.subscriptions.push(
-      this.taskService.deleteTask(this.calendarEntry.id).subscribe(() => {
-        //this.getTasks();
-        //this.modalController.dismiss();
+      this.taskService.deleteTask(this.calendarEntry.id).subscribe((res) => {
+        if(res.status === "OK") {
+
+        }
       })
     );
   }

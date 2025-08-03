@@ -5,6 +5,7 @@ import { CalendarEntryAdapter } from '../adapter/calendar-entry-adapter';
 import { Routine } from '../models/routine';
 import { ApiService } from './api.service';
 import { CalendarEntry } from '../models/calendarEntry';
+import { ApiResponse } from '../models/api-response';
 
 @Injectable({
   providedIn: 'root'
@@ -37,11 +38,11 @@ export class TaskService implements OnDestroy {
     );
   }
 
-  updateTask(data: any): Observable<any> {
-    return this.apiService.updateTask(data);
+  updateTask(data: any): Observable<ApiResponse> {
+    return this.apiService.updateCalendarEntry(data);
   }
 
-  deleteTask(id: number): Observable<any> {
+  deleteTask(id: number): Observable<ApiResponse> {
     return this.apiService.deleteTask(id);
   }
 

@@ -237,8 +237,12 @@ export class ApiService {
     );
   }
 
-  updateTask(data: any): Observable<ApiResponse> {
-    return this.apiPost('calendar/create', data, true);
+  createCalendarEntry(data: any): Observable<ApiResponse> {
+    return this.apiPost('calendar', data, true);
+  }
+
+  updateCalendarEntry(data: any): Observable<ApiResponse> {
+    return this.apiPut('calendar/update', data);
   }
 
   deleteTask(id: number): Observable<ApiResponse> {

@@ -8,62 +8,23 @@
   </div>
 </form>
 
-<!-- Done Toggle -->
-<div class="flex items-center mt-4">
-  <span class="mr-2 text-sm">Erledigt:</span>
 
-  <!-- <input type="checkbox" [checked]="calendarEntry.done" (change)="toggleChanged($event)"
-      class="w-6 h-6 text-primary-500 bg-background border-white rounded focus:ring-0 focus:outline-none checked:bg-primary-500 checked:border-primary-500" />
-  -->
+@if(date !== undefined) {
+<div class="mt-4">
+  <button type="button" class="btn-small btn-primary w-full" [disabled]="calendarEntryForm.invalid" (click)="createCalendarEntry()">Eintrag erstellen</button>
 </div>
+}
 
+@if (calendarEntry !== undefined) {
+<div class="flex gap-3 mt-4">
+  <button type="button" (click)="askToDeleteCalendarEntry()" class="btn-small btn-danger w-1/2">
+    Löschen
+  </button>
 
-<!-- Responsible Users -->
-<div *ngIf="!updatingResponsibleUsers" class="mt-4">
-  <p class="mb-2 text-sm font-medium">Zuständig:</p>
-  <div class="flex flex-wrap gap-2">
-    <div *ngFor="let user of calendarEntry?.assignedUsers ?? []; track user"
-      class="flex items-center bg-gray-700 text-sm rounded-full px-2 py-1">
-      <img [src]="user.profileimage" alt="" class="w-6 h-6 rounded-full mr-1" />
-      <span>{{user.name}}</span>
-    </div>
-  </div>
-  <!-- <button type="button" (click)="setUpdatingResponsibleUsers(true)" class="btn-small btn-primary mt-3">Zuständige
-      ändern</button> -->
-</div>
-
-<!-- Edit Responsible Users -->
-<div *ngIf="updatingResponsibleUsers" class="mt-4 bg-gray-800 p-4 rounded-lg">
-  <div class="flex justify-center mb-2">
-    <!-- <button type="button" (click)="setUpdatingResponsibleUsers(false)"
-        class="w-8 h-8 flex items-center justify-center rounded-full border border-red-500 hover:bg-red-700">
-        X </button> -->
-  </div>
-
-  <p class="text-sm mb-2">Zuständig:</p>
-  <div class="flex flex-wrap gap-2 mb-4">
-    <div *ngFor="let user of calendarEntry?.assignedUsers ?? []; track user" (click)="removeUser(user)"
-      class="flex items-center bg-gray-700 text-sm rounded-full px-2 py-1 cursor-pointer hover:bg-gray-600">
-      <img [src]="user.profileimage" alt="" class="w-6 h-6 rounded-full mr-1" />
-      <span>{{user.name}}</span>
-      X
-    </div>
-  </div>
-
-  <p class="text-sm mb-2">Nicht zuständig:</p>
-  <div class="flex flex-wrap gap-2">
-    <div *ngFor="let user of assignableUsers ?? []; track user" (click)="addUser(user)"
-      class="flex items-center bg-gray-700 text-sm rounded-full px-2 py-1 cursor-pointer hover:bg-gray-600">
-      <img [src]="user.profileimage" alt="" class="w-6 h-6 rounded-full mr-1" />
-      <span>{{user.name}}</span>
-      +
-    </div>
-  </div>
-</div>
-
-<!-- Delete Button -->
-@if(calendarEntry !== null) {
-<div class="mt-10">
-  <button type="button" class="btn-small btn-danger" (click)="askToDeleteTask()">Aufgabe löschen</button>
+  <button
+    [disabled]="calendarEntryForm.invalid || (name.value === calendarEntry?.name && notes.value === calendarEntry?.notes)"
+    type="button" (click)="updateCalendarEntry()" class="btn-small btn-primary w-1/2">
+    Updaten
+  </button>
 </div>
 }
