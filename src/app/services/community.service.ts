@@ -5,12 +5,12 @@ import {
   Observable,
   Subscription,
 } from 'rxjs';
-import { Community } from '../models/community';
+import { Community } from '../models/community.model';
 import { ApiService } from './api.service';
-import { CommunityAdapter } from '../adapter/community-adapter';
+import { CommunityAdapter } from '../models/community.adapter';
 import { StorageService } from './storage.service';
-import { User } from '../models/user';
-import { UserAdapter } from '../adapter/user-adapter';
+import { User } from '../models/user.model';
+import { UserAdapter } from '../models/user.adapter';
 import { AuthService } from './auth.service';
 
 @Injectable({

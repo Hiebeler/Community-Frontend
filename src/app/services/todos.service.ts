@@ -8,8 +8,8 @@ import {
   Subscription,
 } from 'rxjs';
 import { ApiService } from './api.service';
-import { Todo } from '../models/todo';
-import { TodoAdapter } from '../adapter/todo-adapter';
+import { ApiTodo, Todo } from '../models/todo.model';
+import { TodoAdapter } from '../models/todo.adapter';
 import { AuthService } from './auth.service';
 import { ApiResponse } from '../models/api-response';
 
@@ -88,7 +88,7 @@ export class TodosService implements OnDestroy {
     );
   }
 
-  createTodo(name: string, description: string): Observable<ApiResponse> {
+  createTodo(name: string, description: string): Observable<ApiResponse<ApiTodo>> {
     return this.apiService.createTodo({ name, description });
   }
 
@@ -101,7 +101,7 @@ export class TodosService implements OnDestroy {
     });
   }
 
-  deleteTodo(id: number): Observable<ApiResponse> {
+  deleteTodo(id: number): Observable<ApiResponse<any>> {
     return this.apiService.deleteTodo(id);
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, tap } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ApiService } from './api.service';
 import { AlertService } from './alert.service';
@@ -71,42 +71,32 @@ export class AuthService implements OnDestroy {
     );
   }
 
-  login(email, password) {
-    return this.subscriptions.push(
-      this.apiService.login(email, password).subscribe(async (res) => {
+  login(email, password): Observable<ApiResponse<any>> {
+    return this.apiService.login(email, password).pipe(
+      tap((res) => {
         if (res.status === 'OK') {
           this.storageService.setToken(res.data.token);
           this.activeUserId.next(this.getUserIdFromToken());
-          this.router.navigate(['/onboarding']);
-          this.toastr.success("Willkommen zurück!")
-        } else {
-          if (res.data.verified === false) {
-            this.alertService.showAlert(
-              'not verified',
-              res.error,
-              'Resend Verification Email',
-              () => {
-                this.resendVerificationEmail(email);
-              },
-              'Okay'
-            );
-          } else {
-            this.alertService.showAlert('Ooops', res.error);
-          }
         }
       })
     );
   }
 
-  public requestPasswordReset(email: string): Observable<ApiResponse> {
+  public requestPasswordReset(email: string): Observable<ApiResponse<any>> {
     return this.apiService.requestPasswordReset(email);
   }
 
-  public resetPassword(newPassword: string, code: string): Observable<ApiResponse> {
+  public resetPassword(
+    newPassword: string,
+    code: string
+  ): Observable<ApiResponse<any>> {
     return this.apiService.resetPassword(newPassword, code);
   }
 
-  public changePassword(oldPassword: string, newPassword: string): Observable<ApiResponse> {
+  public changePassword(
+    oldPassword: string,
+    newPassword: string
+  ): Observable<ApiResponse<any>> {
     return this.apiService.changePassword(oldPassword, newPassword);
   }
 
@@ -128,7 +118,7 @@ export class AuthService implements OnDestroy {
     this.activeCommunityId.next(null);
     this.activeUserId.next(null);
     this.router.navigate(['login']);
-    this.toastr.success("Du bist jetzt ausgeloggt")
+    this.toastr.success('Du bist jetzt ausgeloggt');
   }
 
   verify(code: string) {
@@ -152,19 +142,7 @@ export class AuthService implements OnDestroy {
     );
   }
 
-  resendVerificationEmail(email: string) {
-    return this.subscriptions.push(
-      this.apiService.resendVerificationEmail(email).subscribe(async (res) => {
-        if (res.status === 'OK') {
-          this.alertService.showAlert(
-            'Resent Verification Email',
-            'You Received an email with an link to verify your account',
-            'Okay'
-          );
-        } else {
-          this.alertService.showAlert('Ooops', res.error);
-        }
-      })
-    );
+  resendVerificationEmail(email: string): Observable<ApiResponse<any>> {
+    return this.apiService.resendVerificationEmail(email);
   }
 }

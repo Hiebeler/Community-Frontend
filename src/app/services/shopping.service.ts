@@ -7,8 +7,8 @@ import {
   of,
   Subscription,
 } from 'rxjs';
-import { ShoppingItemAdapter } from '../adapter/shopping-item-adapter';
-import { ShoppingItem } from '../models/shopping-item';
+import { ShoppingItemAdapter } from '../models/shopping-item.adapter';
+import { ShoppingItem } from '../models/shopping-item.model';
 import { ApiService } from './api.service';
 import { AuthService } from './auth.service';
 import { ApiResponse } from '../models/api-response';
@@ -88,11 +88,11 @@ export class ShoppingService implements OnDestroy {
     );
   }
 
-  addShoppingItem(shoppingItem: ShoppingItem): Observable<ApiResponse> {
+  addShoppingItem(shoppingItem: ShoppingItem): Observable<ApiResponse<ShoppingItem>> {
     return this.apiService.addShoppingItem(shoppingItem.name);
   }
 
-  updateShoppingItem(shoppingItem: ShoppingItem): Observable<ApiResponse> {
+  updateShoppingItem(shoppingItem: ShoppingItem): Observable<ApiResponse<ShoppingItem>> {
     return this.apiService.updateShoppingItem({
       id: shoppingItem.id,
       done: shoppingItem.done,
@@ -100,7 +100,7 @@ export class ShoppingService implements OnDestroy {
     });
   }
 
-  deleteShoppingItem(id: number): Observable<ApiResponse> {
+  deleteShoppingItem(id: number): Observable<ApiResponse<ShoppingItem>> {
     return this.apiService.deleteShoppingItem(id);
   }
 }

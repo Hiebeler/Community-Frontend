@@ -1,4 +1,14 @@
-import { User } from './user';
+import { ApiUser, User } from './user.model';
+
+export interface ApiRoutine {
+  id: number;
+  name: string;
+  notes: string;
+  startDate: string;
+  interval: number;
+  active: boolean;
+  routine_users: ApiUser[];
+}
 
 export class Routine {
 

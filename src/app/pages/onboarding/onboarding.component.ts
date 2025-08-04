@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { JoinCommunityComponent } from 'src/app/components/join-community/join-community.component';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user.service';
 import { CreateCommunityComponent } from 'src/app/components/create-community/create-community.component';
-import { Community } from 'src/app/models/community';
+import { Community } from 'src/app/models/community.model';
 import { CommunityService } from 'src/app/services/community.service';
 import {
   ArrowLeftIcon,

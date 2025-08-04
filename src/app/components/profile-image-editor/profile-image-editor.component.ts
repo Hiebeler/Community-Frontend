@@ -15,7 +15,7 @@ import {
 } from 'ngx-image-cropper';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/models/user.model';
 import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
 

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Community } from 'src/app/models/community';
+import { Community } from 'src/app/models/community.model';
 import { AlertService } from 'src/app/services/alert.service';
 import { CommunityService } from 'src/app/services/community.service';
 

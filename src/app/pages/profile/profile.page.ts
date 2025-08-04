@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Community } from 'src/app/models/community';
-import { User } from 'src/app/models/user';
+import { Community } from 'src/app/models/community.model';
+import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { CommunityService } from 'src/app/services/community.service';
@@ -40,8 +40,6 @@ export class ProfilePage implements OnInit, OnDestroy {
   user: User;
   community: Community;
   usersInCommunity: User[];
-
-  editingColor = false;
 
   constructor(
     private authService: AuthService,
@@ -96,10 +94,6 @@ export class ProfilePage implements OnInit, OnDestroy {
       },
       'Cancel'
     );
-  }
-
-  editColor(state: boolean) {
-    this.editingColor = state;
   }
 
   gotoCreateCommunity() {

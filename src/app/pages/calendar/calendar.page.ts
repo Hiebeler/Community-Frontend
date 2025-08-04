@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TaskCardComponent } from 'src/app/components/task-card/task-card.component';
-import { Day } from 'src/app/models/day';
+import { Day } from 'src/app/models/day.model';
 import {
   LucideAngularModule,
   InfinityIcon,
@@ -13,7 +13,7 @@ import {
 } from 'lucide-angular';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { Navbar } from 'src/app/components/navbar/navbar';
-import { CalendarEntry } from 'src/app/models/calendarEntry';
+import { CalendarEntry } from 'src/app/models/calendarEntry.model';
 import { CalendarEntryEditor } from 'src/app/components/calendar-entry-editor/calendar-entry-editor';
 import { CalendarService } from 'src/app/services/calendar.service';
 
@@ -95,7 +95,7 @@ export class CalendarPage implements OnInit, OnDestroy {
             });
 
             this.days.push(
-              new Day(i.toString(), openTasks, doneTasks, new Date(currentDate))
+              new Day(i.toString(), openTasks, new Date(currentDate))
             );
           }
         })

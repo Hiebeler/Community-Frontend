@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { RequestAdapter } from 'src/app/adapter/request-adapter';
-import { Request } from 'src/app/models/request';
+import { RequestAdapter } from 'src/app/models/request.adapter';
+import { Request } from 'src/app/models/request.model';
 import { CommunityService } from 'src/app/services/community.service';
 import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';

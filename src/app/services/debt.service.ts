@@ -1,11 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
-import { Debt } from '../models/debt';
+import { Debt } from '../models/debt.model';
 import { ApiService } from './api.service';
-import { Balance } from '../models/balance';
-import { BalanceAdapter } from '../adapter/balance-adapter';
-import { DebtAdapter } from '../adapter/debt-adapter';
-import { StorageService } from './storage.service';
+import { Balance } from '../models/balance.model';
+import { BalanceAdapter } from '../models/balance.adapter';
+import { DebtAdapter } from '../models/debt.adapter';
 import { CommunityService } from './community.service';
 
 @Injectable({

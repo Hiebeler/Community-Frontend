@@ -1,10 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, concatMap, map, Observable, of, Subscription } from 'rxjs';
-import { RoutineAdapter } from '../adapter/routine-adapter';
-import { CalendarEntryAdapter } from '../adapter/calendar-entry-adapter';
-import { Routine } from '../models/routine';
+import { RoutineAdapter } from '../models/routine.adapter';
+import { CalendarEntryAdapter } from '../models/calendar-entry.adapter';
+import { Routine } from '../models/routine.model';
 import { ApiService } from './api.service';
-import { CalendarEntry } from '../models/calendarEntry';
+import { ApiCalendarEntry, CalendarEntry } from '../models/calendarEntry.model';
 import { ApiResponse } from '../models/api-response';
 
 @Injectable({
@@ -38,15 +38,15 @@ export class CalendarService implements OnDestroy {
     );
   }
 
-  createCalendarEntry(data: any): Observable<ApiResponse> {
+  createCalendarEntry(data: any): Observable<ApiResponse<ApiCalendarEntry>> {
     return this.apiService.createCalendarEntry(data);
   }
 
-  updateCalendarEntry(data: any): Observable<ApiResponse> {
+  updateCalendarEntry(data: any): Observable<ApiResponse<ApiCalendarEntry>> {
     return this.apiService.updateCalendarEntry(data);
   }
 
-  deleteCalendarEntry(id: number): Observable<ApiResponse> {
+  deleteCalendarEntry(id: number): Observable<ApiResponse<ApiCalendarEntry>> {
     return this.apiService.deleteCalendarEntry(id);
   }
 

@@ -1,8 +1,6 @@
 @if (task) {
   <div
     class="p-1.5 md:p-3 mb-2 text-sm transition clickable card"
-    [ngStyle]="{ 'background-color': task.assignedUsers[0]?.color }"
-    [ngClass]="task.assignedUsers.length === 0 ? 'card' : 'border-none'"
     (click)="cardClicked()"
   >
     <p class="m-0 text-sm">{{ task.name }}</p>

@@ -1,4 +1,12 @@
-import { User } from './user';
+import { ApiUser, User } from './user.model';
+
+export interface ApiRequest {
+  id: number;
+  date: string;
+  fk_user_id: number;
+  fk_community_id: number;
+  user: ApiUser;
+}
 
 export class Request {
 

@@ -1,4 +1,13 @@
-import { User } from './user';
+import { ApiUser, User } from './user.model';
+
+export interface ApiTodo {
+  id: number;
+  name: string;
+  description: string;
+  done: boolean;
+  doneDate?: string | null;
+  creator: ApiUser;
+}
 
 export class Todo {
   public id: number;

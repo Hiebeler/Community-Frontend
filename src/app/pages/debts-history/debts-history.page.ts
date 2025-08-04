@@ -10,8 +10,8 @@ import {
 } from 'lucide-angular';
 import { Subscription } from 'rxjs';
 import { Navbar } from 'src/app/components/navbar/navbar';
-import { Debt } from 'src/app/models/debt';
-import { User } from 'src/app/models/user';
+import { Debt } from 'src/app/models/debt.model';
+import { User } from 'src/app/models/user.model';
 import { DebtService } from 'src/app/services/debt.service';
 
 @Component({

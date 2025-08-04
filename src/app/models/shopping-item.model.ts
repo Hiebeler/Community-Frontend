@@ -1,5 +1,10 @@
-export class ShoppingItem {
+export interface ApiShoppingItem {
+  id: number;
+  name: string;
+  done: boolean;
+}
 
+export class ShoppingItem {
   public id: number;
   public name: string;
   public done: boolean;

@@ -17,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
-import { Todo } from 'src/app/models/todo';
+import { Todo } from 'src/app/models/todo.model';
 import { TimeAgoPipe } from 'src/app/pipes/time-ago.pipe';
 import { AlertService } from 'src/app/services/alert.service';
 import { TodosService } from 'src/app/services/todos.service';

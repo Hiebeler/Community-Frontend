@@ -17,7 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
-import { ShoppingItem } from 'src/app/models/shopping-item';
+import { ShoppingItem } from 'src/app/models/shopping-item.model';
 import { AlertService } from 'src/app/services/alert.service';
 import { ShoppingService } from 'src/app/services/shopping.service';
 

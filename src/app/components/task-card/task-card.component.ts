@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { CalendarEntry } from 'src/app/models/calendarEntry';
+import { CalendarEntry } from 'src/app/models/calendarEntry.model';
 
 @Component({
     selector: 'app-task-card',

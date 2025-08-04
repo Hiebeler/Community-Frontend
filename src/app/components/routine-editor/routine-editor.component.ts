@@ -3,8 +3,8 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LucideAngularModule, XIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
-import { Routine } from 'src/app/models/routine';
-import { User } from 'src/app/models/user';
+import { Routine } from 'src/app/models/routine.model';
+import { User } from 'src/app/models/user.model';
 import { CalendarService } from 'src/app/services/calendar.service';
 import { CommunityService } from 'src/app/services/community.service';
 

@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
-import { UserAdapter } from '../adapter/user-adapter';
-import { User } from '../models/user';
+import { UserAdapter } from '../models/user.adapter';
+import { User } from '../models/user.model';
 import { ApiService } from './api.service';
 import { AuthService } from './auth.service';
 

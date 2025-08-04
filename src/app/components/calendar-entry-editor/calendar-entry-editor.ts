@@ -8,8 +8,8 @@ import {
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
-import { CalendarEntry } from 'src/app/models/calendarEntry';
-import { User } from 'src/app/models/user';
+import { CalendarEntry } from 'src/app/models/calendarEntry.model';
+import { User } from 'src/app/models/user.model';
 import { AlertService } from 'src/app/services/alert.service';
 import { CalendarService } from 'src/app/services/calendar.service';
 
