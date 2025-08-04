@@ -21,23 +21,23 @@ export class CalendarEntry {
   public communityId: number;
   public assignedUsers: User[];
 
-  constructor(
-    id: number,
-    name: string,
-    notes: string,
-    date: Date,
-    done: boolean,
-    routineId: number,
-    communityId: number,
-    assignedUsers: User[]
-  ) {
-    this.id = id;
-    this.name = name;
-    this.notes = notes;
-    this.date = date;
-    this.done = done ?? false;
-    this.fkRoutineId = routineId;
-    this.communityId = communityId;
-    this.assignedUsers = assignedUsers ?? [];
+  constructor(params: {
+    id: number;
+    name: string;
+    notes: string;
+    date: Date;
+    done: boolean;
+    routineId: number;
+    communityId: number;
+    assignedUsers: User[];
+  }) {
+    this.id = params.id;
+    this.name = params.name;
+    this.notes = params.notes;
+    this.date = params.date;
+    this.done = params.done ?? false;
+    this.fkRoutineId = params.routineId;
+    this.communityId = params.communityId;
+    this.assignedUsers = params.assignedUsers ?? [];
   }
 }

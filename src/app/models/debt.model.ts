@@ -17,19 +17,19 @@ export class Debt {
   public debitor: User;
   public creditor: User;
 
-  constructor(
-    id: number,
-    name: string,
-    amount: number,
-    debitor: User,
-    creditor: User,
-    timestamp?: Date
-  ) {
-    this.id = id;
-    this.name = name;
-    this.amount = amount;
-    this.debitor = debitor;
-    this.creditor = creditor;
-    this.timestamp = timestamp;
+  constructor(params: {
+    id: number;
+    name: string;
+    amount: number;
+    debitor: User;
+    creditor: User;
+    timestamp?: Date;
+  }) {
+    this.id = params.id;
+    this.name = params.name;
+    this.amount = params.amount;
+    this.debitor = params.debitor;
+    this.creditor = params.creditor;
+    this.timestamp = params.timestamp;
   }
 }

@@ -10,6 +10,6 @@ export class ApiResponseAdapter implements Adapter<any, ApiResponse<any>> {
     const status = item?.status ?? 'Error';
     const error = item?.error ?? '';
     const data = item?.data ?? ({} as T);
-    return new ApiResponse<T>(status, error, data);
+    return new ApiResponse<T>({ status, error, data });
   }
 }

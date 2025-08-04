@@ -11,13 +11,13 @@ export class Day {
   public calendarEntries: CalendarEntry[];
   public date: Date;
 
-  constructor(
-    name: string,
-    calendarEntries: CalendarEntry[],
-    date: Date
-  ) {
-    this.name = name;
-    this.calendarEntries = calendarEntries;
-    this.date = date;
+  constructor(params: {
+    name: string;
+    calendarEntries: CalendarEntry[];
+    date: Date;
+  }) {
+    this.name = params.name;
+    this.calendarEntries = params.calendarEntries;
+    this.date = params.date;
   }
 }

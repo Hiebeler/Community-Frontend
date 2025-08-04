@@ -10,6 +10,9 @@ export class BalanceAdapter implements Adapter<ApiBalance, Balance> {
   constructor(private userAdapter: UserAdapter) {}
 
   adapt(item: ApiBalance): Balance {
-    return new Balance(item.amount, this.userAdapter.adapt(item.debitor));
+    return new Balance({
+      amount: item.amount,
+      debitor: this.userAdapter.adapt(item.debitor),
+    });
   }
 }

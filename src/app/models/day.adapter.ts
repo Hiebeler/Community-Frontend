@@ -14,8 +14,8 @@ export class DayAdapter implements Adapter<ApiDay, Day> {
       this.calendarAdapter.adapt(it)
     );
 
-    const date = new Date(item.date)
+    const date = new Date(item.date);
 
-    return new Day(item.name, calendarEntries, date);
+    return new Day({ name: item.name, calendarEntries, date });
   }
 }

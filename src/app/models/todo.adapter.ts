@@ -10,13 +10,13 @@ export class TodoAdapter implements Adapter<ApiTodo, Todo> {
   constructor(private userAdapter: UserAdapter) {}
 
   adapt(item: ApiTodo): Todo {
-    return new Todo(
-      item.id,
-      item.name,
-      item.description,
-      item.done,
-      item.doneDate ? new Date(item.doneDate) : undefined,
-      this.userAdapter.adapt(item.creator)
-    );
+    return new Todo({
+      id: item.id,
+      name: item.name,
+      description: item.description,
+      done: item.done,
+      doneDate: item.doneDate ? new Date(item.doneDate) : undefined,
+      creator: this.userAdapter.adapt(item.creator),
+    });
   }
 }

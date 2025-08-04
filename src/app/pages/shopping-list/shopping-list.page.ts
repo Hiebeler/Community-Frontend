@@ -125,7 +125,11 @@ export class ShoppingListPage implements OnInit, OnDestroy {
       this.subscriptions.push(
         this.shoppingService
           .addShoppingItem(
-            new ShoppingItem(undefined, this.createNameField.value, undefined)
+            new ShoppingItem({
+              id: undefined,
+              name: this.createNameField.value,
+              done: undefined,
+            })
           )
           .subscribe((res) => {
             if (res.status === 'OK') {
@@ -145,7 +149,9 @@ export class ShoppingListPage implements OnInit, OnDestroy {
   updateDone(id: number, checked: boolean) {
     this.subscriptions.push(
       this.shoppingService
-        .updateShoppingItem(new ShoppingItem(id, undefined, checked))
+        .updateShoppingItem(
+          new ShoppingItem({ id, name: undefined, done: checked })
+        )
         .subscribe((res) => {
           if (res.status === 'OK') {
             if (checked) {
@@ -168,7 +174,11 @@ export class ShoppingListPage implements OnInit, OnDestroy {
       this.subscriptions.push(
         this.shoppingService
           .updateShoppingItem(
-            new ShoppingItem(id, this.updateNameField.value, undefined)
+            new ShoppingItem({
+              id,
+              name: this.updateNameField.value,
+              done: undefined,
+            })
           )
           .subscribe((res) => {
             if (res.status === 'OK') {

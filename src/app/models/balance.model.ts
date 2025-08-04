@@ -9,8 +9,8 @@ export class Balance {
   public amount: number;
   public debitor: User;
 
-  constructor(amount: number, debitor: User) {
-    this.amount = amount;
-    this.debitor = debitor;
+  constructor(params: { amount: number; debitor: User }) {
+    this.amount = params.amount;
+    this.debitor = params.debitor;
   }
 }

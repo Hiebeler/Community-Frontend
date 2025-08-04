@@ -11,7 +11,6 @@ export interface ApiRoutine {
 }
 
 export class Routine {
-
   public id: number;
   public name: string;
   public notes: string;
@@ -20,21 +19,21 @@ export class Routine {
   public active: boolean;
   public assignedUsers: User[];
 
-  constructor(
-    id: number,
-    name: string,
-    notes: string,
-    startDate: Date,
-    interval: number,
-    active: boolean,
-    assignedUsers: User[]
-  ) {
-    this.id = id;
-    this.name = name;
-    this.notes = notes;
-    this.startDate = startDate;
-    this.interval = interval;
-    this.active = active;
-    this.assignedUsers = assignedUsers ?? [];
+  constructor(params: {
+    id: number;
+    name: string;
+    notes: string;
+    startDate: Date;
+    interval: number;
+    active: boolean;
+    assignedUsers: User[];
+  }) {
+    this.id = params.id;
+    this.name = params.name;
+    this.notes = params.notes;
+    this.startDate = params.startDate;
+    this.interval = params.interval;
+    this.active = params.active;
+    this.assignedUsers = params.assignedUsers ?? [];
   }
 }

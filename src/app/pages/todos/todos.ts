@@ -168,7 +168,14 @@ export class Todos implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.todosService
         .updateTodo(
-          new Todo(id, undefined, undefined, done, undefined, undefined)
+          new Todo({
+            id,
+            name: undefined,
+            description: undefined,
+            done,
+            doneDate: undefined,
+            creator: undefined,
+          })
         )
         .subscribe((res) => {
           if (res.status === 'OK') {
@@ -192,14 +199,14 @@ export class Todos implements OnInit, OnDestroy {
       this.subscriptions.push(
         this.todosService
           .updateTodo(
-            new Todo(
+            new Todo({
               id,
-              this.updateNameField.value,
-              this.updateDescriptionField.value,
-              undefined,
-              undefined,
-              undefined
-            )
+              name: this.updateNameField.value,
+              description: this.updateDescriptionField.value,
+              done: undefined,
+              doneDate: undefined,
+              creator: undefined,
+            })
           )
           .subscribe((res) => {
             if (res.status === 'OK') {

@@ -17,19 +17,19 @@ export class Todo {
   public doneDate: Date;
   public creator: User;
 
-  constructor(
-    id: number,
-    name: string,
-    description: string,
-    done: boolean,
-    doneDate: Date,
-    creator: User
-  ) {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.done = done;
-    this.doneDate = doneDate;
-    this.creator = creator;
+  constructor(params: {
+    id: number;
+    name: string;
+    description: string;
+    done: boolean;
+    doneDate: Date;
+    creator: User;
+  }) {
+    this.id = params.id;
+    this.name = params.name;
+    this.description = params.description;
+    this.done = params.done;
+    this.doneDate = params.doneDate;
+    this.creator = params.creator;
   }
 }

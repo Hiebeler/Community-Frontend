@@ -9,6 +9,6 @@ export class ShoppingItemAdapter
   implements Adapter<ApiShoppingItem, ShoppingItem>
 {
   adapt(item: ApiShoppingItem): ShoppingItem {
-    return new ShoppingItem(item.id, item.name, item.done);
+    return new ShoppingItem({ id: item.id, name: item.name, done: item.done });
   }
 }

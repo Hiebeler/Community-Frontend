@@ -6,23 +6,20 @@ import { UserAdapter } from './user.adapter';
 @Injectable({
   providedIn: 'root',
 })
-
 export class DebtAdapter implements Adapter<ApiDebt, Debt> {
-
   constructor(private userAdapter: UserAdapter) {}
 
   adapt(item: ApiDebt): Debt {
+    const debitor = this.userAdapter.adapt(item.debitor);
+    const creditor = this.userAdapter.adapt(item.creditor);
 
-    const debitor = this.userAdapter.adapt(item.debitor)
-    const creditor = this.userAdapter.adapt(item.creditor)
-
-    return new Debt(
-      item.id,
-      item.name,
-      item.amount,
+    return new Debt({
+      id: item.id,
+      name: item.name,
+      amount: item.amount,
       debitor,
       creditor,
-      new Date(item.timestamp)
-    );
+      timestamp: new Date(item.timestamp),
+    });
   }
 }

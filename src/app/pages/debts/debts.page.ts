@@ -158,21 +158,21 @@ export class DebtsPage implements OnInit, OnDestroy {
     this.clearOffEditorBalance = null;
     let debt: Debt;
     if (balance.amount < 0) {
-      debt = new Debt(
-        -1,
-        'debt ausgeglichen',
-        this.clearOffBalanceEditorForm.controls.amount.value,
-        balance.debitor,
-        this.currentUser
-      );
+      debt = new Debt({
+        id: undefined,
+        name: 'debt ausgeglichen',
+        amount: this.clearOffBalanceEditorForm.controls.amount.value,
+        debitor: balance.debitor,
+        creditor: this.currentUser,
+      });
     } else {
-      debt = new Debt(
-        -1,
-        'debt ausgeglichen',
-        this.clearOffBalanceEditorForm.controls.amount.value,
-        this.currentUser,
-        balance.debitor
-      );
+      debt = new Debt({
+        id: undefined,
+        name: 'debt ausgeglichen',
+        amount: this.clearOffBalanceEditorForm.controls.amount.value,
+        debitor: this.currentUser,
+        creditor: balance.debitor,
+      });
     }
 
     this.subscriptions.push(
@@ -186,21 +186,21 @@ export class DebtsPage implements OnInit, OnDestroy {
     this.editorIsOpen = false;
     let debt: Debt;
     if (this.iOwe) {
-      debt = new Debt(
-        -1,
-        this.nameControl.value,
-        this.amountControl.value,
-        this.debitorControl.value,
-        this.currentUser
-      );
+      debt = new Debt({
+        id: undefined,
+        name: this.nameControl.value,
+        amount: this.amountControl.value,
+        debitor: this.debitorControl.value,
+        creditor: this.currentUser,
+      });
     } else {
-      debt = new Debt(
-        -1,
-        this.nameControl.value,
-        this.amountControl.value,
-        this.currentUser,
-        this.debitorControl.value
-      );
+      debt = new Debt({
+        id: undefined,
+        name: this.nameControl.value,
+        amount: this.amountControl.value,
+        debitor: this.currentUser,
+        creditor: this.debitorControl.value,
+      });
     }
 
     this.subscriptions.push(

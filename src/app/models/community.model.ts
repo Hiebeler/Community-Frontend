@@ -17,19 +17,19 @@ export class Community {
   public admin: User;
   public memberCount: number;
 
-  constructor(
-    id: number,
-    name: string,
-    code: string,
-    adminId: number,
-    admin: User,
-    memberCount: number
-  ) {
-    this.id = id;
-    this.name = name;
-    this.code = code;
-    this.adminId = adminId;
-    this.admin = admin;
-    this.memberCount = memberCount;
+  constructor(params: {
+    id: number;
+    name: string;
+    code: string;
+    adminId: number;
+    admin: User;
+    memberCount: number;
+  }) {
+    this.id = params.id;
+    this.name = params.name;
+    this.code = params.code;
+    this.adminId = params.adminId;
+    this.admin = params.admin;
+    this.memberCount = params.memberCount;
   }
 }

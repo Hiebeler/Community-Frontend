@@ -6,19 +6,27 @@ import { UserAdapter } from './user.adapter';
 @Injectable({
   providedIn: 'root',
 })
-
-export class CalendarEntryAdapter implements Adapter<ApiCalendarEntry, CalendarEntry> {
-
-  constructor(private userAdapter: UserAdapter) { }
+export class CalendarEntryAdapter
+  implements Adapter<ApiCalendarEntry, CalendarEntry>
+{
+  constructor(private userAdapter: UserAdapter) {}
 
   adapt(item: ApiCalendarEntry): CalendarEntry {
     const date = new Date(item.date);
     const users = [];
-    item.assigned_users?.forEach(element => {
+    item.assigned_users?.forEach((element) => {
       users.push(this.userAdapter.adapt(element));
     });
 
-    return new CalendarEntry(item.id, item.name, item.notes, date,
-      item.done, item.fk_routine_id, item.community_id, users);
+    return new CalendarEntry({
+      id: item.id,
+      name: item.name,
+      notes: item.notes,
+      date,
+      done: item.done,
+      routineId: item.fk_routine_id,
+      communityId: item.community_id,
+      assignedUsers: users,
+    });
   }
 }

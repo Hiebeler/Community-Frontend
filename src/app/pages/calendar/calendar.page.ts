@@ -95,7 +95,11 @@ export class CalendarPage implements OnInit, OnDestroy {
             });
 
             this.days.push(
-              new Day(i.toString(), openTasks, new Date(currentDate))
+              new Day({
+                name: i.toString(),
+                calendarEntries: openTasks,
+                date: new Date(currentDate),
+              })
             );
           }
         })
