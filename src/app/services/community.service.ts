@@ -1,11 +1,6 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import {
-  BehaviorSubject,
-  map,
-  Observable,
-  Subscription,
-} from 'rxjs';
-import { Community } from '../models/community.model';
+import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
+import { ApiCommunity, Community } from '../models/community.model';
 import { ApiService } from './api.service';
 import { CommunityAdapter } from '../models/community.adapter';
 import { StorageService } from './storage.service';
@@ -29,14 +24,14 @@ export class CommunityService implements OnDestroy {
     private authService: AuthService,
     private communityAdapter: CommunityAdapter,
     private storageService: StorageService,
-    private userAdapter: UserAdapter,
+    private userAdapter: UserAdapter
   ) {
     this.subscriptions.push(
       this.authService.activeCommunityId.subscribe((id) => {
         if (!id) {
           this.community.next(null);
         } else {
-          this.fetchCurrentCommunityFromApi(id)
+          this.fetchCurrentCommunityFromApi(id);
         }
       })
     );
@@ -59,17 +54,24 @@ export class CommunityService implements OnDestroy {
   }
 
   fetchCurrentCommunityFromApi(id: number): void {
-    this.subscriptions.push(this.apiService.getCommunityById(id).pipe(
-      map(res => this.communityAdapter.adapt(res.data))
-    ).subscribe(community => {
-      this.community.next(community);
-    }));
+    this.subscriptions.push(
+      this.apiService
+        .getCommunityById(id)
+        .pipe(map((res) => this.communityAdapter.adapt(res.data)))
+        .subscribe((community) => {
+          this.community.next(community);
+        })
+    );
   }
 
   getCommunity(code: string): Observable<Community> {
     return this.apiService
       .getCommunityByCode(code)
       .pipe(map((res) => this.communityAdapter.adapt(res.data)));
+  }
+
+  getOwnCommunities(): Observable<ApiResponse<ApiCommunity[]>> {
+    return this.apiService.getOwnCommunities();
   }
 
   createCommunity(name: string): Observable<boolean> {
@@ -107,9 +109,7 @@ export class CommunityService implements OnDestroy {
         this.apiService
           .getUsersInCommunity(id)
           .pipe(
-            map((data) =>
-              data.data.map((item) => this.userAdapter.adapt(item))
-            )
+            map((data) => data.data.map((item) => this.userAdapter.adapt(item)))
           )
           .subscribe((users) => {
             this.usersInCommunity.next(users);
@@ -141,6 +141,6 @@ export class CommunityService implements OnDestroy {
 
   setCurrentCommunity(communityId: number): void {
     this.storageService.setCurrentCommunity(communityId);
-    this.authService.activeCommunityId.next(communityId)
+    this.authService.activeCommunityId.next(communityId);
   }
 }

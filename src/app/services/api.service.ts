@@ -170,6 +170,10 @@ export class ApiService {
     return this.apiGet('community/' + id);
   }
 
+  getOwnCommunities(): Observable<ApiResponse<ApiCommunity[]>> {
+    return this.apiGet('community/mine')
+  }
+
   joinCommunity(data: any): Observable<ApiResponse<any>> {
     return this.apiPost('community/request', data);
   }

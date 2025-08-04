@@ -27,6 +27,7 @@ import {
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ProfileImageEditorComponent } from 'src/app/components/profile-image-editor/profile-image-editor.component';
+import { CommunityAdapter } from 'src/app/models/community.adapter';
 
 @Component({
   selector: 'app-onboarding',
@@ -55,6 +56,8 @@ export class OnboardingComponent implements OnInit {
 
   activeCommunity: Community | null;
 
+  ownCommunities: Community[] = [];
+
   nameUpdateEditorForm: FormGroup;
   changePasswordForm: FormGroup;
 
@@ -68,6 +71,7 @@ export class OnboardingComponent implements OnInit {
     private communityService: CommunityService,
     private authService: AuthService,
     private alertService: AlertService,
+    private communityAdapter: CommunityAdapter,
     private router: Router,
     private toastr: ToastrService
   ) {
@@ -115,6 +119,16 @@ export class OnboardingComponent implements OnInit {
         this.activeCommunity = community;
       })
     );
+
+    this.subscriptions.push(
+      this.communityService.getOwnCommunities().subscribe((res) => {
+        if (res.success) {
+          this.ownCommunities = res.data.map((it) =>
+            this.communityAdapter.adapt(it)
+          );
+        }
+      })
+    );
   }
 
   changeJoinCommunityPopup(state: boolean) {
@@ -127,7 +141,9 @@ export class OnboardingComponent implements OnInit {
 
   selectCommunity(community: Community) {
     this.communityService.setCurrentCommunity(community.id);
-    this.toastr.success(`Gemeinschaft "` + community.name + `" wurde ausgewählt`)
+    this.toastr.success(
+      `Gemeinschaft "` + community.name + `" wurde ausgewählt`
+    );
     this.router.navigate(['/profile']);
   }
 
@@ -158,13 +174,14 @@ export class OnboardingComponent implements OnInit {
         .subscribe({
           next: (res) => {
             if (res.success) {
-              this.toastr.success('Passwort wurde geändert')
+              this.toastr.success('Passwort wurde geändert');
             } else {
               this.toastr.error(res.error);
             }
-          }, error: (error) => {
-            this.toastr.error(error.error.error)
-          }
+          },
+          error: (error) => {
+            this.toastr.error(error.error.error);
+          },
         });
     }
   }

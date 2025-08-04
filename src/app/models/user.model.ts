@@ -9,7 +9,6 @@ export interface ApiUser {
   creationdate: string;
   isAdmin?: boolean;
   fk_community_id: number;
-  communities: ApiCommunity[];
 }
 
 export class User {
@@ -20,7 +19,6 @@ export class User {
   readonly creationDate: Date;
   readonly isAdmin: boolean;
   readonly communityId: number;
-  readonly communities: Community[];
 
   constructor(params: {
     id: number;

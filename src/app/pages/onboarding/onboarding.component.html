@@ -27,10 +27,10 @@
     <div class="card space-y-3">
       <p>Deine Gemeinschaften:</p>
 
-      @if (this.user.communities.length === 0) {
+      @if (ownCommunities.length === 0) {
       <p>Noch keiner Gemeinschaft beigetreten</p>
       } @else {
-      @for (community of user?.communities; track community.id) {
+      @for (community of ownCommunities; track community.id) {
       @if (community.id == this.activeCommunity?.id) {
       <div class="card px-6 py-3 flex flex-row justify-between bg-primary/20">
         <div class="flex flex-col items-start">
