@@ -157,7 +157,7 @@ export class OnboardingComponent implements OnInit {
         )
         .subscribe({
           next: (res) => {
-            if (res.status == 'OK') {
+            if (res.success) {
               this.toastr.success('Passwort wurde geändert')
             } else {
               this.toastr.error(res.error);

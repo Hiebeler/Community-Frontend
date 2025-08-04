@@ -83,7 +83,7 @@ export class CalendarEntryEditor implements OnInit {
           date: this.date.toISOString(),
         })
         .subscribe((res) => {
-          if (res.status === 'OK') {
+          if (res.success) {
             this.toastrService.success('Kalendereintrag erstellt');
             this.closeEditor.emit();
           } else {
@@ -100,7 +100,7 @@ export class CalendarEntryEditor implements OnInit {
       this.calendarService
         .deleteCalendarEntry(this.calendarEntry.id)
         .subscribe((res) => {
-          if (res.status === 'OK') {
+          if (res.success) {
             this.toastrService.success('Eintrag gelöscht');
             this.closeEditor.emit();
           } else {

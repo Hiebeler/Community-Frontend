@@ -36,7 +36,7 @@ export class RequestPasswordReset {
       this.authService
         .requestPasswordReset(this.email.value)
         .subscribe((res) => {
-          if (res.status === 'OK') {
+          if (res.success) {
             this.sent = true;
           } else {
             this.error = 'Ein Fehler ist aufgetreten';

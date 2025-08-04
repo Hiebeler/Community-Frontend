@@ -63,7 +63,7 @@ export class AuthService implements OnDestroy {
         }
 
         this.alertService.showAlert(head, msg, 'Okay', async () => {
-          if (res.status === 'OK') {
+          if (res.success) {
             this.router.navigate(['login']);
           }
         });
@@ -74,7 +74,7 @@ export class AuthService implements OnDestroy {
   login(email, password): Observable<ApiResponse<any>> {
     return this.apiService.login(email, password).pipe(
       tap((res) => {
-        if (res.status === 'OK') {
+        if (res.success) {
           this.storageService.setToken(res.data.token);
           this.activeUserId.next(this.getUserIdFromToken());
         }
@@ -124,13 +124,13 @@ export class AuthService implements OnDestroy {
   verify(code: string) {
     return this.subscriptions.push(
       this.apiService.verify(code).subscribe(async (res) => {
-        if (res.status === 'OK') {
+        if (res.success) {
           this.alertService.showAlert(
             'Verified',
             'Your Account is now verified, you can now login to your account',
             'Okay',
             async () => {
-              if (res.status === 'OK') {
+              if (res.success) {
                 this.router.navigate(['login']);
               }
             }

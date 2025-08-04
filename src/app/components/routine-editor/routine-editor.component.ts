@@ -138,7 +138,7 @@ export class RoutineEditorComponent implements OnInit, OnDestroy {
     });
     this.subscriptions.push(
       this.calendarService.modifyRoutine(routine).subscribe((res) => {
-        if (res.status === 'OK') {
+        if (res.success) {
           this.parentCloseEditor();
           this.routineForm.reset();
           this.calendarService.fetchRoutinesFromApi();

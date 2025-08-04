@@ -7,7 +7,7 @@ import { Adapter } from './adapter';
   providedIn: 'root',
 })
 export class UserAdapter implements Adapter<ApiUser, User> {
-    constructor(private domSanitizer: DomSanitizer) {}
+  constructor(private domSanitizer: DomSanitizer) {}
 
   adapt(item: ApiUser): User {
     const creationDate = new Date(item.creationdate);

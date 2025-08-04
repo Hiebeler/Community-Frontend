@@ -44,7 +44,7 @@ export class LoginPage {
       this.authService
         .login(this.email.value, this.password.value)
         .subscribe((res) => {
-          if (res.status === 'OK') {
+          if (res.success) {
             this.router.navigate(['/onboarding']);
             this.toastr.success('Willkommen zurück!');
           } else if (res.data?.verified === false) {
@@ -56,7 +56,7 @@ export class LoginPage {
                 this.authService
                   .resendVerificationEmail(this.email.value)
                   .subscribe(async (res) => {
-        if (res.status === 'OK') {
+        if (res.success) {
           this.alertService.showAlert(
             'Resent Verification Email',
             'You Received an email with an link to verify your account',

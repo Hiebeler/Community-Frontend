@@ -151,7 +151,7 @@ export class Todos implements OnInit, OnDestroy {
             this.createDescriptionField.value
           )
           .subscribe((res) => {
-            if (res.status === 'OK') {
+            if (res.success) {
               this.toastr.success('Todo wurde erstellt');
               this.getItems();
             } else {
@@ -178,7 +178,7 @@ export class Todos implements OnInit, OnDestroy {
           })
         )
         .subscribe((res) => {
-          if (res.status === 'OK') {
+          if (res.success) {
             this.getItems();
             if (done) {
               this.toastr.success('Todo wurde als erledigt markiert');
@@ -209,7 +209,7 @@ export class Todos implements OnInit, OnDestroy {
             })
           )
           .subscribe((res) => {
-            if (res.status === 'OK') {
+            if (res.success) {
               this.toastr.success('Todo wurde geupdated');
               this.getItems();
             } else {
@@ -237,7 +237,7 @@ export class Todos implements OnInit, OnDestroy {
   deleteTodo(id: number) {
     this.subscriptions.push(
       this.todosService.deleteTodo(id).subscribe((res) => {
-        if (res.status === 'OK') {
+        if (res.success) {
           this.toastr.success('Todo wurde gelöscht');
           this.getItems();
           this.todoToUpdate = null;

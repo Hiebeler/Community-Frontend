@@ -50,7 +50,7 @@ export class UserService implements OnDestroy {
   updateUser(data: any): Observable<boolean> {
     return this.apiService.updateUser(data).pipe(
       map((res) => {
-        if (res.status === 'OK') {
+        if (res.success) {
           return true;
         } else {
           return false;

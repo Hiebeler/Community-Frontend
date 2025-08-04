@@ -54,6 +54,7 @@ export class ProfilePage implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.userService.getCurrentUser().subscribe((user) => {
         this.user = user;
+        console.log(user)
       })
     );
 

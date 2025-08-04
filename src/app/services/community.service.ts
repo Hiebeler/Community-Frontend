@@ -73,7 +73,7 @@ export class CommunityService implements OnDestroy {
   createCommunity(name: string): Observable<boolean> {
     return this.apiService.createCommunity({ name }).pipe(
       map((res) => {
-        if (res.status === 'OK') {
+        if (res.success) {
           this.setCurrentCommunity(res.data.id);
           return true;
         } else {
@@ -86,7 +86,7 @@ export class CommunityService implements OnDestroy {
   joinCommunity(code: string): Observable<boolean> {
     return this.apiService.joinCommunity({ code }).pipe(
       map((res) => {
-        if (res.status === 'OK') {
+        if (res.success) {
           return true;
         } else {
           return false;
@@ -105,7 +105,7 @@ export class CommunityService implements OnDestroy {
         this.apiService
           .getUsersInCommunity(id)
           .pipe(
-            map((data: any) =>
+            map((data) =>
               data.data.map((item) => this.userAdapter.adapt(item))
             )
           )
@@ -128,7 +128,7 @@ export class CommunityService implements OnDestroy {
       .acceptRequest({ id: requestId }, acceptionStatus)
       .pipe(
         map((res) => {
-          if (res.status === 'OK') {
+          if (res.success) {
             return true;
           } else {
             return false;

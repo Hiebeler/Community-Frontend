@@ -41,7 +41,7 @@ export class ResetPassword implements OnInit {
       this.authService
         .resetPassword(this.password.value, this.code)
         .subscribe((res) => {
-          if (res.status === 'OK') {
+          if (res.success) {
           }
         });
     }

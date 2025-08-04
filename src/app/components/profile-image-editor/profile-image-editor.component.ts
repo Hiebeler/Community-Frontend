@@ -75,7 +75,7 @@ export class ProfileImageEditorComponent implements OnInit, OnDestroy {
 
       this.subscriptions.push(
         this.apiService.uploadImage(croppedImg).subscribe((res) => {
-          if (res.status === 'OK') {
+          if (res.success) {
             this.userService.fetchUserFromApi();
             this.parentCloseEditor();
             this.toastr.success('Avatar geändert');

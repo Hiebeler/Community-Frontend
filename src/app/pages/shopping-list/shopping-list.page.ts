@@ -132,7 +132,7 @@ export class ShoppingListPage implements OnInit, OnDestroy {
             })
           )
           .subscribe((res) => {
-            if (res.status === 'OK') {
+            if (res.success) {
               this.toastr.success(
                 'Element wurde zur Einkaufsliste hinzugefügt'
               );
@@ -153,7 +153,7 @@ export class ShoppingListPage implements OnInit, OnDestroy {
           new ShoppingItem({ id, name: undefined, done: checked })
         )
         .subscribe((res) => {
-          if (res.status === 'OK') {
+          if (res.success) {
             if (checked) {
               this.toastr.success('Element wurde als erledigt markiert');
             } else {
@@ -181,7 +181,7 @@ export class ShoppingListPage implements OnInit, OnDestroy {
             })
           )
           .subscribe((res) => {
-            if (res.status === 'OK') {
+            if (res.success) {
               this.toastr.success('Element wurde geupdated');
               this.getItems();
             } else {
