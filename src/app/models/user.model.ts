@@ -30,7 +30,6 @@ export class User {
     creationDate: Date;
     isAdmin?: boolean;
     communityId: number;
-    communities?: Community[];
   }) {
     this.id = params.id;
     this.email = params.email;
@@ -39,6 +38,5 @@ export class User {
     this.creationDate = params.creationDate;
     this.isAdmin = params.isAdmin ?? false;
     this.communityId = params.communityId;
-    this.communities = params.communities ?? [];
   }
 }
