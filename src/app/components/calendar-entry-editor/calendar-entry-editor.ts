@@ -112,15 +112,15 @@ export class CalendarEntryEditor implements OnInit {
 
   addUser(user: User) {
     this.calendarEntry.assignedUsers.push(user);
-    this.assignableUsers = this.assignableUsers.filter(
+    /* this.assignableUsers = this.assignableUsers.filter(
       (el) => el.id !== user.id
-    );
+    ); */
   }
 
   removeUser(user: User) {
     this.assignableUsers.push(user);
-    this.calendarEntry.assignedUsers = this.calendarEntry.assignedUsers.filter(
+    /* this.calendarEntry.assignedUsers = this.calendarEntry.assignedUsers.filter(
       (el) => el.id !== user.id
-    );
+    ); */
   }
 }
