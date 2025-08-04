@@ -86,7 +86,6 @@ export class ProfileImageEditorComponent implements OnInit, OnDestroy {
       );
     } catch (error) {
       this.toastr.error('Bild konnte nicht verarbeitet werden.');
-      console.error(error);
     }
   }
 

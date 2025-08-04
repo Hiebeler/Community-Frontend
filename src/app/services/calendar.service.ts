@@ -36,7 +36,7 @@ export class CalendarService implements OnDestroy {
     startDate: Date,
     endDate: Date
   ): Observable<CalendarEntry[]> {
-    return this.apiService.getTasks({ startDate, endDate }).pipe(
+    return this.apiService.getCalendarEntries({ startDate, endDate }).pipe(
       concatMap((res) => {
         if (res.success) {
           return of(res);

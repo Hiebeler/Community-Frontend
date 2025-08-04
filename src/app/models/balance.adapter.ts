@@ -12,7 +12,7 @@ export class BalanceAdapter implements Adapter<ApiBalance, Balance> {
   adapt(item: ApiBalance): Balance {
     return new Balance({
       amount: item.amount,
-      debitor: this.userAdapter.adapt(item.debitor),
+      debitor: this.userAdapter.adapt(item.otherUser),
     });
   }
 }

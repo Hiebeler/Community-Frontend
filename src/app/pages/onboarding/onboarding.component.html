@@ -25,7 +25,7 @@
     </div>
 
     <div class="card space-y-3">
-      <p>Deine Gemeinschaften:</p>
+      <h2>Deine Gemeinschaften:</h2>
 
       @if (ownCommunities.length === 0) {
       <p>Noch keiner Gemeinschaft beigetreten</p>
@@ -60,7 +60,7 @@
     </div>
 
     <div class="card">
-      <p class="pb-3">Benutzer bearbeiten</p>
+      <h2 class="pb-3">Benutzer bearbeiten</h2>
 
       <form class="flex flex-col mb-3 w-full" [formGroup]="nameUpdateEditorForm" (ngSubmit)="updateName()">
         <label for="name">Name</label>
@@ -83,7 +83,7 @@
     </div>
 
     <div class="card">
-      <p class="pb-3">Passwort ändern</p>
+      <h2 class="pb-3">Passwort ändern</h2>
       <form class="flex flex-col mb-3 w-full" [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
         <label>Altes Passwort:</label>
         <input type="password" id="oldPassword" autocomplete="off" formControlName="oldPassword"
@@ -97,6 +97,14 @@
 
       <button type="button" [disabled]="changePasswordForm.invalid" (click)="changePassword()"
         class="btn-primary w-full">Ändern</button>
+    </div>
+
+    <div class="card">
+      <h2 class="pb-3">Gefahrenzone</h2>
+      <p class="pb-3">Die folgenden Änderungen können nicht rückgängig gemacht werden.</p>
+
+      <button type="button" [disabled]="changePasswordForm.invalid" (click)="changePassword()"
+        class="btn-danger">Account löschen</button>
     </div>
   </div>
   }

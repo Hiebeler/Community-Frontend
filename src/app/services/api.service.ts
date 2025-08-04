@@ -1,6 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { StorageService } from './storage.service';
@@ -42,56 +46,79 @@ export class ApiService {
     return new HttpHeaders(headers);
   }
 
-  private handleError = (error: any): Observable<never> => {
-    const adaptedError = this.apiResponseAdapter.adapt
-      ? this.apiResponseAdapter.adapt(error)
-      : error;
-    return throwError(() => adaptedError);
-  };
+  private handleResponse<T>(obs: Observable<any>): Observable<ApiResponse<T>> {
+    return obs.pipe(
+      map((data) =>
+        this.apiResponseAdapter.adapt<T>({
+          status: 'OK',
+          data: data.data,
+          error: '',
+        })
+      ),
+      catchError((error: HttpErrorResponse) => {
+        console.error('API error:', error);
+
+        let normalizedError: string;
+
+        if (error.status === 0) {
+          // Network or CORS error
+          normalizedError =
+            'Backend is not reachable. Please check your connection.';
+        } else if (error.error.error) {
+          normalizedError = error.error.error;
+        } else {
+          normalizedError = 'An unknown error occurred.';
+        }
+
+        return of(
+          this.apiResponseAdapter.adapt<T>({
+            status: 'Error',
+            error: normalizedError,
+            data: error.error?.data || {},
+          })
+        );
+      })
+    );
+  }
 
   apiGet<T>(url: string): Observable<ApiResponse<T>> {
-    return this.httpClient
-      .get<any>(environment.api + url, { headers: this.getHeader() })
-      .pipe(
-        map((data) => this.apiResponseAdapter.adapt<T>(data)),
-        catchError(this.handleError)
-      );
+    return this.handleResponse<T>(
+      this.httpClient.get<any>(environment.api + url, {
+        headers: this.getHeader(),
+      })
+    );
   }
 
   apiPost<T>(url: string, body: any): Observable<ApiResponse<T>> {
-    return this.httpClient
-      .post<any>(environment.api + url, body, { headers: this.getHeader() })
-      .pipe(
-        map((data) => this.apiResponseAdapter.adapt<T>(data)),
-        catchError(this.handleError)
-      );
+    return this.handleResponse(
+      this.httpClient.post<any>(environment.api + url, body, {
+        headers: this.getHeader(),
+      })
+    );
   }
 
   apiPut<T>(url: string, body: any): Observable<ApiResponse<T>> {
-    return this.httpClient
-      .put<any>(environment.api + url, body, { headers: this.getHeader() })
-      .pipe(
-        map((data) => this.apiResponseAdapter.adapt<T>(data)),
-        catchError(this.handleError)
-      );
+    return this.handleResponse(
+      this.httpClient.put<any>(environment.api + url, body, {
+        headers: this.getHeader(),
+      })
+    );
   }
 
   apiPatch<T>(url: string, body: any): Observable<ApiResponse<T>> {
-    return this.httpClient
-      .patch<any>(environment.api + url, body, { headers: this.getHeader() })
-      .pipe(
-        map((data) => this.apiResponseAdapter.adapt<T>(data)),
-        catchError(this.handleError)
-      );
+    return this.handleResponse(
+      this.httpClient.patch<any>(environment.api + url, body, {
+        headers: this.getHeader(),
+      })
+    );
   }
 
   apiDelete<T>(url: string): Observable<ApiResponse<T>> {
-    return this.httpClient
-      .delete<any>(environment.api + url, { headers: this.getHeader() })
-      .pipe(
-        map((data) => this.apiResponseAdapter.adapt<T>(data)),
-        catchError(this.handleError)
-      );
+    return this.handleResponse(
+      this.httpClient.delete<any>(environment.api + url, {
+        headers: this.getHeader(),
+      })
+    );
   }
 
   getUserById(id: number): Observable<ApiResponse<ApiUser>> {
@@ -171,7 +198,7 @@ export class ApiService {
   }
 
   getOwnCommunities(): Observable<ApiResponse<ApiCommunity[]>> {
-    return this.apiGet('community/mine')
+    return this.apiGet('community/mine');
   }
 
   joinCommunity(data: any): Observable<ApiResponse<any>> {
@@ -195,7 +222,10 @@ export class ApiService {
 
   // Calendar
 
-  getTasks(data: any): Observable<ApiResponse<ApiCalendarEntry>> {
+  getCalendarEntries(data: {
+    startDate: Date;
+    endDate: Date;
+  }): Observable<ApiResponse<ApiCalendarEntry>> {
     return this.apiGet(
       'calendar/interval?startDate=' +
         data.startDate.toISOString() +

@@ -122,6 +122,7 @@ export class OnboardingComponent implements OnInit {
 
     this.subscriptions.push(
       this.communityService.getOwnCommunities().subscribe((res) => {
+        console.log(res)
         if (res.success) {
           this.ownCommunities = res.data.map((it) =>
             this.communityAdapter.adapt(it)
@@ -171,17 +172,12 @@ export class OnboardingComponent implements OnInit {
           this.changePasswordForm.value.oldPassword,
           this.changePasswordForm.value.newPassword
         )
-        .subscribe({
-          next: (res) => {
-            if (res.success) {
-              this.toastr.success('Passwort wurde geändert');
-            } else {
-              this.toastr.error(res.error);
-            }
-          },
-          error: (error) => {
-            this.toastr.error(error.error.error);
-          },
+        .subscribe((res) => {
+          if (res.success) {
+            this.toastr.success('Passwort wurde geändert');
+          } else {
+            this.toastr.error(res.error);
+          }
         });
     }
   }

@@ -2,10 +2,11 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
 import { Debt } from '../models/debt.model';
 import { ApiService } from './api.service';
-import { Balance } from '../models/balance.model';
+import { ApiBalance, Balance } from '../models/balance.model';
 import { BalanceAdapter } from '../models/balance.adapter';
 import { DebtAdapter } from '../models/debt.adapter';
 import { CommunityService } from './community.service';
+import { ApiResponse } from '../models/api-response';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +43,7 @@ export class DebtService implements OnDestroy {
 
   fetchDebtsAndBalanceFromApi(): void {
     this.subscriptions.push(this.apiService.getDebtBalance().pipe(
-      map((data: any) => data.data.map((item) => this.balanceAdapter.adapt(item)))
+      map((data: ApiResponse<ApiBalance[]>) => data.data.map((item: ApiBalance) => this.balanceAdapter.adapt(item)))
     ).subscribe(balances => {
       this.balances.next(balances);
     }));

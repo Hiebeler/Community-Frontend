@@ -7,7 +7,7 @@
 <div class="card">
   <!-- Open Items -->
   @if (openTodos.length) {
-  <h2 class="text-lg font-semibold">{{openTodos.length}} Todos offen:</h2>
+  <h2>{{openTodos.length}} Todos offen:</h2>
   }
 
   <!-- Empty State -->
@@ -50,7 +50,7 @@
 <div class="card mt-6">
   <!-- Done Items -->
 
-  <h2 class="text-lg font-semibold">{{doneTodos.length}} Todos erledigt:</h2>
+  <h2>{{doneTodos.length}} Todos erledigt:</h2>
 
   @for (item of doneTodos; track item.id) {
   <div class="flex items-center space-x-4 py-2">

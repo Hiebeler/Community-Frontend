@@ -163,7 +163,7 @@
   }
 
   .btn-danger {
-    @apply py-3 px-3 rounded-lg text-sm leading-normal bg-red-500 hover:bg-red-400 text-white transition;
+    @apply py-3 px-3 rounded-lg text-sm leading-normal bg-red-500 hover:bg-red-400 text-white transition hover:cursor-pointer;
   }
 
   .btn-neutral {
@@ -176,6 +176,10 @@
 
   .card.clickable {
     @apply hover:bg-surface/70
+  }
+
+  .card h2 {
+    @apply text-xl
   }
 
   .active-tab {

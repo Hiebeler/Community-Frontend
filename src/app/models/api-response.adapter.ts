@@ -6,10 +6,10 @@ import { Adapter } from './adapter';
   providedIn: 'root',
 })
 export class ApiResponseAdapter implements Adapter<any, ApiResponse<any>> {
-  adapt<T>(item: any): ApiResponse<T> {
-    const status = item?.status ?? 'Error';
-    const error = item?.error ?? '';
-    const data = item?.data ?? ({} as T);
+  adapt<T>(item: {status: "OK" | "Error", error: string, data: T}): ApiResponse<T> {
+    const status = item.status ?? 'Error';
+    const error = item.error ?? '';
+    const data = item.data ?? ({} as T);
     return new ApiResponse<T>({ status, error, data });
   }
 }
