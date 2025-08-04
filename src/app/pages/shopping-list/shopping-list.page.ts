@@ -17,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
+import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
 import { ShoppingItem } from 'src/app/models/shopping-item.model';
 import { AlertService } from 'src/app/services/alert.service';
 import { ShoppingService } from 'src/app/services/shopping.service';
@@ -30,6 +31,7 @@ import { ShoppingService } from 'src/app/services/shopping.service';
     LucideAngularModule,
     PopupComponent,
     Navbar,
+    PrimaryButton,
   ],
 })
 export class ShoppingListPage implements OnInit, OnDestroy {
@@ -44,6 +46,10 @@ export class ShoppingListPage implements OnInit, OnDestroy {
   itemToUpdate: ShoppingItem = null;
 
   completedFirstLoad = false;
+
+  isLoadingSave = false;
+  isLoadingUpdate = false;
+  isLoadingDelete = false;
 
   itemEditorForm: FormGroup;
   itemUpdateEditorForm: FormGroup;
@@ -121,7 +127,7 @@ export class ShoppingListPage implements OnInit, OnDestroy {
 
   saveItem() {
     if (this.createNameField.value) {
-      this.editorIsOpen = false;
+      this.isLoadingSave = true;
       this.subscriptions.push(
         this.shoppingService
           .addShoppingItem(
@@ -132,13 +138,15 @@ export class ShoppingListPage implements OnInit, OnDestroy {
             })
           )
           .subscribe((res) => {
+            this.isLoadingSave = false;
+            this.editorIsOpen = false;
             if (res.success) {
               this.toastr.success(
                 'Element wurde zur Einkaufsliste hinzugefügt'
               );
               this.getItems();
             } else {
-              this.toastr.error('Ein Fehler ist aufgetreten');
+              this.toastr.error(res.error);
             }
           })
       );
@@ -161,7 +169,7 @@ export class ShoppingListPage implements OnInit, OnDestroy {
             }
             this.getItems();
           } else {
-            this.toastr.error('Ein Fehler ist augetreten');
+            this.toastr.error(res.error);
           }
         })
     );
@@ -169,8 +177,7 @@ export class ShoppingListPage implements OnInit, OnDestroy {
 
   updateName(id: number) {
     if (this.updateNameField.value) {
-      this.itemToUpdate = null;
-
+      this.isLoadingUpdate = true;
       this.subscriptions.push(
         this.shoppingService
           .updateShoppingItem(
@@ -181,11 +188,13 @@ export class ShoppingListPage implements OnInit, OnDestroy {
             })
           )
           .subscribe((res) => {
+            this.isLoadingUpdate = false;
+            this.itemToUpdate = null;
             if (res.success) {
               this.toastr.success('Element wurde geupdated');
               this.getItems();
             } else {
-              this.toastr.error('Ein Fehler ist aufgetreten');
+              this.toastr.error(res.error);
             }
           })
       );
@@ -206,8 +215,10 @@ export class ShoppingListPage implements OnInit, OnDestroy {
   }
 
   deleteItem(id: number) {
+    this.isLoadingDelete = true;
     this.subscriptions.push(
       this.shoppingService.deleteShoppingItem(id).subscribe(() => {
+        this.isLoadingDelete = false;
         this.getItems();
         this.itemToUpdate = null;
       })

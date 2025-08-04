@@ -87,7 +87,7 @@ export class CalendarEntryEditor implements OnInit {
             this.toastrService.success('Kalendereintrag erstellt');
             this.closeEditor.emit();
           } else {
-            this.toastrService.error('Ein Fehler ist aufgetreten');
+            this.toastrService.error(res.error);
           }
         })
     );

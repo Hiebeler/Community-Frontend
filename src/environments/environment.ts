@@ -4,5 +4,5 @@
 
 export const environment = {
   production: false,
-  api: 'https://api.community.daniebeler.com/'
+  api: 'https://api.community.daniebeler.co/'
 };

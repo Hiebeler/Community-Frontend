@@ -17,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
+import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
 import { Todo } from 'src/app/models/todo.model';
 import { TimeAgoPipe } from 'src/app/pipes/time-ago.pipe';
 import { AlertService } from 'src/app/services/alert.service';
@@ -29,6 +30,7 @@ import { TodosService } from 'src/app/services/todos.service';
     CommonModule,
     ReactiveFormsModule,
     LucideAngularModule,
+    PrimaryButton,
     PopupComponent,
     Navbar,
     TimeAgoPipe,
@@ -52,6 +54,10 @@ export class Todos implements OnInit, OnDestroy {
   doneTodos: Todo[] = [];
 
   isLoadingTodos = false;
+
+  isLoadingSave = false;
+  isLoadingUpdate = false;
+  isLoadingDelete = false;
 
   constructor(
     private todosService: TodosService,
@@ -143,7 +149,7 @@ export class Todos implements OnInit, OnDestroy {
 
   saveItem() {
     if (this.createNameField.value) {
-      this.editorIsOpen = false;
+      this.isLoadingSave = true;
       this.subscriptions.push(
         this.todosService
           .createTodo(
@@ -151,11 +157,13 @@ export class Todos implements OnInit, OnDestroy {
             this.createDescriptionField.value
           )
           .subscribe((res) => {
+            this.editorIsOpen = false;
+            this.isLoadingSave = false;
             if (res.success) {
               this.toastr.success('Todo wurde erstellt');
               this.getItems();
             } else {
-              this.toastr.error('Ein Fehler ist aufgetreten');
+              this.toastr.error(res.error);
             }
           })
       );
@@ -186,7 +194,7 @@ export class Todos implements OnInit, OnDestroy {
               this.toastr.success('Todo wurde als offen markiert');
             }
           } else {
-            this.toastr.error('Ein Fehler ist aufgetreten');
+            this.toastr.error(res.error);
           }
         })
     );
@@ -194,8 +202,7 @@ export class Todos implements OnInit, OnDestroy {
 
   updateName(id: number) {
     if (this.updateNameField.value) {
-      this.todoToUpdate = null;
-
+      this.isLoadingUpdate = true;
       this.subscriptions.push(
         this.todosService
           .updateTodo(
@@ -209,11 +216,13 @@ export class Todos implements OnInit, OnDestroy {
             })
           )
           .subscribe((res) => {
+            this.todoToUpdate = null;
+            this.isLoadingUpdate = false;
             if (res.success) {
               this.toastr.success('Todo wurde geupdated');
               this.getItems();
             } else {
-              this.toastr.error('Ein Fehler ist aufgetreten');
+              this.toastr.error(res.error);
             }
           })
       );
@@ -235,14 +244,16 @@ export class Todos implements OnInit, OnDestroy {
   }
 
   deleteTodo(id: number) {
+    this.isLoadingDelete = true;
     this.subscriptions.push(
       this.todosService.deleteTodo(id).subscribe((res) => {
+        this.isLoadingDelete = false;
         if (res.success) {
           this.toastr.success('Todo wurde gelöscht');
           this.getItems();
           this.todoToUpdate = null;
         } else {
-          this.toastr.error('Ein Fehler ist aufgetreten');
+          this.toastr.error(res.error);
         }
       })
     );

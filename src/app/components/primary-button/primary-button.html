@@ -1,4 +1,4 @@
-<button [type]="type" (click)="onClick()" [disabled]="disabled || isLoading" class="btn-primary w-full">
+<button [type]="type" (click)="onClick()" [disabled]="disabled || isLoading" [class]="customClasses">
   @if (isLoading) {
   <lucide-icon [img]="loaderIcon" class="animate-spin" size="16"></lucide-icon>
   } @else {

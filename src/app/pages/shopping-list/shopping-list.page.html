@@ -15,8 +15,8 @@
   <div class="flex flex-col items-center text-center space-y-3 py-10">
     <lucide-icon [img]="alldoneIcon" size="42"></lucide-icon>
     <h2 class="text-xl font-semibold mt-0">Alles Erledigt</h2>
-    <button type="button" class="btn-primary flex items-center justify-center space-x-2"
-      (click)="openEditor(true)" aria-label="Neuen Eintrag hinzufügen">
+    <button type="button" class="btn-primary flex items-center justify-center space-x-2" (click)="openEditor(true)"
+      aria-label="Neuen Eintrag hinzufügen">
       <lucide-icon [img]="plusIcon"></lucide-icon>
       <span>Neuen Eintrag hinzufügen</span>
     </button>
@@ -60,14 +60,15 @@
 <app-popup [show]="editorIsOpen" (close)="editorIsOpen = false" title="Neuer Eintrag">
   <div class="space-y-4">
 
-    <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()">
-      <label for="name" id="name">Name</label>
-      <input type="text" formControlName="createname" placeholder="Name" autocomplete="off" class="w-full" />
-    </form>
+    <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()" class="space-y-3">
+      <div>
+        <label for="name" id="name">Name</label>
+        <input type="text" formControlName="createname" placeholder="Name" autocomplete="off" class="w-full" />
+      </div>
 
-    <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveItem()" class="btn-primary w-full">
-      Speichern
-    </button>
+      <app-primary-button type="submit" [isLoading]="isLoadingSave" [disabled]="itemEditorForm.invalid"
+        label="Speichern"></app-primary-button>
+    </form>
   </div>
 </app-popup>
 
@@ -75,18 +76,20 @@
   <div class="space-y-4">
     <form [formGroup]="itemUpdateEditorForm" (ngSubmit)="updateName(itemToUpdate.id)">
       <label for="name">Name</label>
-      <input type="text" id="name" formControlName="updatename" placeholder="Name" autocomplete="off"
-        class="w-full" />
+      <input type="text" id="name" formControlName="updatename" placeholder="Name" autocomplete="off" class="w-full" />
     </form>
-    <div class="flex gap-3">
-      <button type="button" (click)="askToDeleteTask(itemToUpdate.id)" class="btn-danger w-1/2">
-        Löschen
-      </button>
 
-      <button [disabled]="itemUpdateEditorForm.invalid || updateNameField.value === itemToUpdate?.name" type="button"
-        (click)="updateName(itemToUpdate.id)" class="btn-primary w-1/2">
-        Updaten
-      </button>
+    <div class="flex gap-3">
+      <div class="w-1/2">
+        <app-primary-button type="button" (clicked)="askToDeleteTask(itemToUpdate.id)" customClasses="btn-danger w-full"
+          [isLoading]="isLoadingDelete" label="Löschen"></app-primary-button>
+
+      </div>
+      <div class="w-1/2">
+        <app-primary-button type="button" (clicked)="updateName(itemToUpdate.id)" [isLoading]="isLoadingUpdate"
+          [disabled]="itemUpdateEditorForm.invalid || updateNameField.value === itemToUpdate?.name"
+          label="Updaten"></app-primary-button>
+      </div>
     </div>
 
   </div>

@@ -80,7 +80,7 @@ export class ProfileImageEditorComponent implements OnInit, OnDestroy {
             this.parentCloseEditor();
             this.toastr.success('Avatar geändert');
           } else {
-            this.toastr.error('Ein Fehler ist aufgetreten');
+            this.toastr.error(res.error);
           }
         })
       );

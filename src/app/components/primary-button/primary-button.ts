@@ -12,7 +12,7 @@ export class PrimaryButton {
   @Input() disabled = false;
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
   @Input() label!: string;
-  @Input() class = 'btn-primary w-full';
+  @Input() customClasses = 'btn-primary w-full';
   @Output() clicked = new EventEmitter<void>();
 
   readonly loaderIcon = Loader2Icon;

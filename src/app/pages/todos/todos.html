@@ -15,8 +15,8 @@
   <div class="flex flex-col items-center text-center space-y-3 py-10">
     <lucide-icon [img]="alldoneIcon" size="42"></lucide-icon>
     <h2 class="text-xl font-semibold mt-0">Alles Erledigt</h2>
-    <button type="button" class="btn-primary flex items-center justify-center space-x-2"
-      (click)="openEditor(true)" aria-label="Neuen Eintrag hinzufügen">
+    <button type="button" class="btn-primary flex items-center justify-center space-x-2" (click)="openEditor(true)"
+      aria-label="Neuen Eintrag hinzufügen">
       <lucide-icon [img]="plusIcon"></lucide-icon>
       <span>Neues Todo erstellen</span>
     </button>
@@ -77,11 +77,10 @@
       <label for="description">Name</label>
       <textarea type="text" id="description" formControlName="createdescription" placeholder="Beschreibung"
         autocomplete="off" class="w-full h-50"></textarea>
-    </form>
 
-    <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveItem()" class="btn-primary w-full">
-      Speichern
-    </button>
+      <app-primary-button type="submit" [isLoading]="isLoadingSave" [disabled]="itemEditorForm.invalid"
+        label="Speichern"></app-primary-button>
+    </form>
   </div>
 </app-popup>
 
@@ -96,15 +95,16 @@
         autocomplete="off" class="w-full h-50"></textarea>
     </form>
     <div class="flex gap-3">
-      <button type="button" (click)="askToDeleteTask(todoToUpdate.id)" class="btn-danger w-1/2">
-        Löschen
-      </button>
+      <div class="w-1/2">
+        <app-primary-button type="button" (clicked)="askToDeleteTask(todoToUpdate.id)" customClasses="btn-danger w-full"
+          [isLoading]="isLoadingDelete" label="Löschen"></app-primary-button>
 
-      <button
-        [disabled]="itemUpdateEditorForm.invalid || (updateNameField.value === todoToUpdate?.name && updateDescriptionField.value === todoToUpdate?.description)"
-        type="button" (click)="updateName(todoToUpdate.id)" class="btn-primary w-1/2">
-        Updaten
-      </button>
+      </div>
+      <div class="w-1/2">
+        <app-primary-button type="button" (clicked)="updateName(todoToUpdate.id)" [isLoading]="isLoadingUpdate"
+          [disabled]="itemUpdateEditorForm.invalid || (updateNameField.value === todoToUpdate?.name && updateDescriptionField.value === todoToUpdate?.description)"
+          label="Updaten"></app-primary-button>
+      </div>
     </div>
 
   </div>

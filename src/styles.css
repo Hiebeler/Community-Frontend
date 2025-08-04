@@ -163,11 +163,11 @@
   }
 
   .btn-danger {
-    @apply py-3 px-3 rounded-lg text-sm leading-normal bg-red-500 hover:bg-red-400 text-white transition hover:cursor-pointer;
+    @apply h-11 px-3 rounded-lg text-sm leading-normal flex items-center justify-center bg-red-500 hover:bg-red-400 text-white transition hover:cursor-pointer;
   }
 
   .btn-neutral {
-    @apply py-3 px-3 rounded-lg text-sm leading-normal text-gray-100 backdrop-blur-lg bg-surface/50 border border-gray-700 hover:bg-surface/90 transition;
+    @apply h-11 px-3 rounded-lg text-sm leading-normal flex items-center justify-center text-gray-100 backdrop-blur-lg bg-surface/50 border border-gray-700 hover:bg-surface/90 transition;
   }
 
   .card {
