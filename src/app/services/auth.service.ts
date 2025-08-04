@@ -78,7 +78,7 @@ export class AuthService implements OnDestroy {
           this.storageService.setToken(res.data.token);
           this.activeUserId.next(this.getUserIdFromToken());
           this.router.navigate(['/onboarding']);
-          this.toastr.success("Erfolgreich eingeloggt", "Willkommen zurück!")
+          this.toastr.success("Willkommen zurück!")
         } else {
           if (res.data.verified === false) {
             this.alertService.showAlert(

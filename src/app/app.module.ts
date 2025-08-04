@@ -31,7 +31,7 @@ import { provideToastr } from 'ngx-toastr';
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
     provideAnimations(),
-    provideToastr({ toastClass: 'custom-toast' }),
+    provideToastr({ toastClass: 'custom-toast', positionClass: "toast-top-left" }),
   ],
 })
 export class AppModule {}
