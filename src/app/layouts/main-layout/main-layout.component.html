@@ -14,7 +14,7 @@
         <lucide-icon [img]="calendarIcon"></lucide-icon>
         <span class="text-xs mt-1">Kalender</span>
         @if (tasksForTodayExists) {
-        <span class="absolute top-0 right-0 bg-red-500 text-xs rounded-full px-1">!</span>
+        <span class="absolute top-0 right-0 bg-primary text-black text-xs rounded-full px-1">!</span>
         }
       </a>
 
@@ -22,7 +22,7 @@
         <lucide-icon [img]="todosIcon"></lucide-icon>
         <span class="text-xs mt-1">Todo's</span>
         @if (numberOfOpenTodos !== 0) {
-        <span class="absolute top-0 right-0 bg-red-500 text-xs rounded-full px-1">
+        <span class="absolute top-0 right-0 bg-primary text-black text-xs rounded-full px-1">
           {{numberOfOpenTodos}}
         </span>
         }
@@ -33,7 +33,7 @@
         <lucide-icon [img]="cartIcon"></lucide-icon>
         <span class="text-xs mt-1">Einkaufsliste</span>
         @if (numberOfOpenShoppingItems !== 0) {
-        <span class="absolute top-0 right-0 bg-red-500 text-xs rounded-full px-1">
+        <span class="absolute top-0 right-0 bg-primary text-black text-xs rounded-full px-1">
           {{numberOfOpenShoppingItems}}
         </span>
         }

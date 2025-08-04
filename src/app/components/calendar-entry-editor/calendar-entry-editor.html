@@ -1,17 +1,28 @@
-<form [formGroup]="calendarEntryForm" class="flex flex-col gap-4">
-  <input type="text" formControlName="name" placeholder="Name"
-    class="w-full bg-gray-800 text-white p-2 rounded-md outline-none" />
+@if (date != undefined){
+<p class="text-gray-400">{{date.toLocaleDateString('de-AT', { year: 'numeric', month: 'long', day: 'numeric' })}}</p>
+}
+
+@if (calendarEntry?.date != undefined){
+<p class="text-gray-400">{{calendarEntry.date.toLocaleDateString('de-AT', { year: 'numeric', month: 'long', day:
+  'numeric' })}}</p>
+}
+
+<form [formGroup]="calendarEntryForm" class="flex flex-col gap-4 mt-6">
   <div>
-    <label class="block text-sm font-medium mb-1">Notizen:</label>
-    <input type="text" formControlName="notes" placeholder="Notizen"
-      class="w-full bg-gray-800 text-white p-2 rounded-md outline-none" />
+    <label for="calendarName">Name</label>
+    <input type="text" id="calendarName" formControlName="name" placeholder="Name" class="w-full" />
+  </div>
+
+  <div>
+    <label>Notizen:</label>
+    <input type="text" formControlName="notes" placeholder="Notizen" class="w-full" />
   </div>
 </form>
 
-
 @if(date !== undefined) {
 <div class="mt-4">
-  <button type="button" class="btn-primary w-full" [disabled]="calendarEntryForm.invalid" (click)="createCalendarEntry()">Eintrag erstellen</button>
+  <button type="button" class="btn-primary w-full" [disabled]="calendarEntryForm.invalid"
+    (click)="createCalendarEntry()">Eintrag erstellen</button>
 </div>
 }
 

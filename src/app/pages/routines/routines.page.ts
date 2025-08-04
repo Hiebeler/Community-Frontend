@@ -8,12 +8,11 @@ import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { RoutineCardComponent } from 'src/app/components/routine-card/routine-card.component';
 import { RoutineEditorComponent } from 'src/app/components/routine-editor/routine-editor.component';
 import { Routine } from 'src/app/models/routine';
-import { TaskService } from 'src/app/services/task.service';
+import { CalendarService } from 'src/app/services/calendar.service';
 
 @Component({
   selector: 'app-routines',
   templateUrl: './routines.page.html',
-  standalone: true,
   imports: [
     CommonModule,
     RouterModule,
@@ -39,11 +38,11 @@ export class RoutinesPage implements OnInit, OnDestroy {
 
   openRoutineEditor: Routine = null;
 
-  constructor(private taskService: TaskService) {}
+  constructor(private calendarService: CalendarService) {}
 
   ngOnInit() {
     this.subscriptions.push(
-      this.taskService.getRoutines().subscribe((routines) => {
+      this.calendarService.getRoutines().subscribe((routines) => {
         this.enabledRoutines = [];
         this.disabledRoutines = [];
 
@@ -67,7 +66,7 @@ export class RoutinesPage implements OnInit, OnDestroy {
   }
 
   getRoutines() {
-    this.taskService.fetchRoutinesFromApi();
+    this.calendarService.fetchRoutinesFromApi();
   }
 
   openNewRoutineEditor(state: boolean) {

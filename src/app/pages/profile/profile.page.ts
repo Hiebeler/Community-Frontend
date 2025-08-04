@@ -7,7 +7,6 @@ import { CommunityService } from 'src/app/services/community.service';
 import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
-import { ColorEditorComponent } from 'src/app/components/color-editor/color-editor.component';
 import { OpenRequestsComponent } from 'src/app/components/open-requests/open-requests.component';
 import {
   ArrowLeftRightIcon,
@@ -16,21 +15,17 @@ import {
   PaletteIcon,
   UserPenIcon,
 } from 'lucide-angular';
-import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
-  standalone: true,
   imports: [
     CommonModule,
     RouterModule,
-    ColorEditorComponent,
     OpenRequestsComponent,
     LucideAngularModule,
-    PopupComponent,
     Navbar
   ],
 })

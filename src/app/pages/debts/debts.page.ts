@@ -27,7 +27,6 @@ import { UserService } from 'src/app/services/user.service';
 @Component({
   selector: 'app-debts',
   templateUrl: './debts.page.html',
-  standalone: true,
   imports: [
     CommonModule,
     RouterModule,

@@ -5,7 +5,6 @@ import { Routine } from 'src/app/models/routine';
 @Component({
     selector: 'app-routine-card',
     templateUrl: './routine-card.component.html',
-    standalone: true,
     imports: [
       CommonModule,
     ]

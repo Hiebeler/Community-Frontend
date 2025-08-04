@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TaskCardComponent } from 'src/app/components/task-card/task-card.component';
 import { Day } from 'src/app/models/day';
-import { TaskService } from 'src/app/services/task.service';
 import {
   LucideAngularModule,
   InfinityIcon,
@@ -16,11 +15,11 @@ import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { CalendarEntry } from 'src/app/models/calendarEntry';
 import { CalendarEntryEditor } from 'src/app/components/calendar-entry-editor/calendar-entry-editor';
+import { CalendarService } from 'src/app/services/calendar.service';
 
 @Component({
   selector: 'app-tasks',
   templateUrl: './calendar.page.html',
-  standalone: true,
   imports: [
     CommonModule,
     RouterModule,
@@ -51,7 +50,7 @@ export class CalendarPage implements OnInit, OnDestroy {
   entryToEdit: CalendarEntry = null;
   dateForNewEntry: Date = null;
 
-  constructor(private taskService: TaskService) {}
+  constructor(private calendarService: CalendarService) {}
 
   ngOnInit() {
     this.dayToday = new Date();
@@ -71,10 +70,10 @@ export class CalendarPage implements OnInit, OnDestroy {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  getTasks(event?) {
+  getTasks() {
     this.subscriptions.push(
-      this.taskService
-        .getTasks(this.startDate, this.endDate)
+      this.calendarService
+        .getCalendarEntries(this.startDate, this.endDate)
         .subscribe((tasks) => {
           this.days = [];
 
@@ -98,10 +97,6 @@ export class CalendarPage implements OnInit, OnDestroy {
             this.days.push(
               new Day(i.toString(), openTasks, doneTasks, new Date(currentDate))
             );
-          }
-
-          if (event) {
-            event.target.complete();
           }
         })
     );
@@ -149,5 +144,10 @@ export class CalendarPage implements OnInit, OnDestroy {
     return (
       date.toDateString() === this.addDate(new Date(), offset).toDateString()
     );
+  }
+
+  public reloadTasksAndCloseEditor() {
+    this.getTasks();
+    this.dateForNewEntry = null;
   }
 }

@@ -71,5 +71,5 @@
 </app-popup>
 
 <app-popup [show]="dateForNewEntry != null" (close)="dateForNewEntry = null" title="Neuen Eintrag erstellen">
-  <app-calendar-entry-editor [date]="dateForNewEntry" />
+  <app-calendar-entry-editor [date]="dateForNewEntry" (closeEditor)="reloadTasksAndCloseEditor()" />
 </app-popup>

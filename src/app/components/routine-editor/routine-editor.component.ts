@@ -5,8 +5,8 @@ import { LucideAngularModule, XIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
 import { Routine } from 'src/app/models/routine';
 import { User } from 'src/app/models/user';
+import { CalendarService } from 'src/app/services/calendar.service';
 import { CommunityService } from 'src/app/services/community.service';
-import { TaskService } from 'src/app/services/task.service';
 
 @Component({
     selector: 'app-routine-editor',
@@ -38,7 +38,7 @@ export class RoutineEditorComponent implements OnInit, OnDestroy {
   updateRoutineEditorOpenId = -1;
 
   constructor(
-    private taskService: TaskService,
+    private calendarService: CalendarService,
     private communityService: CommunityService
   ) {
     this.routineForm = new FormGroup({
@@ -111,11 +111,11 @@ export class RoutineEditorComponent implements OnInit, OnDestroy {
       this.doneControl.value,
       this.assignedUsers
     );
-    this.subscriptions.push(this.taskService.modifyRoutine(routine).subscribe(res => {
+    this.subscriptions.push(this.calendarService.modifyRoutine(routine).subscribe(res => {
       if (res.status === 'OK') {
         this.parentCloseEditor();
         this.routineForm.reset();
-        this.taskService.fetchRoutinesFromApi();
+        this.calendarService.fetchRoutinesFromApi();
       }
     }));
   }

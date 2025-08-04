@@ -10,7 +10,7 @@ import { ApiResponse } from '../models/api-response';
 @Injectable({
   providedIn: 'root'
 })
-export class TaskService implements OnDestroy {
+export class CalendarService implements OnDestroy {
 
   subscriptions: Subscription[] = [];
 
@@ -26,7 +26,7 @@ export class TaskService implements OnDestroy {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  getTasks(startDate: Date, endDate: Date): Observable<CalendarEntry[]> {
+  getCalendarEntries(startDate: Date, endDate: Date): Observable<CalendarEntry[]> {
     return this.apiService.getTasks({ startDate, endDate }).pipe(
       concatMap(res => {
         if (res.status !== 'OK') {
@@ -38,12 +38,16 @@ export class TaskService implements OnDestroy {
     );
   }
 
-  updateTask(data: any): Observable<ApiResponse> {
+  createCalendarEntry(data: any): Observable<ApiResponse> {
+    return this.apiService.createCalendarEntry(data);
+  }
+
+  updateCalendarEntry(data: any): Observable<ApiResponse> {
     return this.apiService.updateCalendarEntry(data);
   }
 
-  deleteTask(id: number): Observable<ApiResponse> {
-    return this.apiService.deleteTask(id);
+  deleteCalendarEntry(id: number): Observable<ApiResponse> {
+    return this.apiService.deleteCalendarEntry(id);
   }
 
   getRoutines(): Observable<Routine[]> {

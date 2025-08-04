@@ -1,25 +1,27 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { CalendarEntry } from 'src/app/models/calendarEntry';
 import { User } from 'src/app/models/user';
 import { AlertService } from 'src/app/services/alert.service';
-import { TaskService } from 'src/app/services/task.service';
+import { CalendarService } from 'src/app/services/calendar.service';
 
 @Component({
   selector: 'app-calendar-entry-editor',
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './calendar-entry-editor.html',
 })
-export class CalendarEntryEditor {
+export class CalendarEntryEditor implements OnInit {
   @Input() calendarEntry?: CalendarEntry;
   @Input() date?: Date;
+  @Output() closeEditor: EventEmitter<any> = new EventEmitter();
 
   calendarEntryForm: FormGroup;
 
@@ -33,8 +35,9 @@ export class CalendarEntryEditor {
   assignedUsers: User[] = [];
 
   constructor(
-    private taskService: TaskService,
-    private alertService: AlertService
+    private calendarService: CalendarService,
+    private alertService: AlertService,
+    private toastrService: ToastrService
   ) {
     this.calendarEntryForm = new FormGroup({
       name: new FormControl<string | null>('', [
@@ -43,8 +46,11 @@ export class CalendarEntryEditor {
       ]),
       notes: new FormControl<string | null>('', []),
     });
-
-    console.log(this.calendarEntry)
+  }
+  ngOnInit(): void {
+    if (this.calendarEntry != null) {
+      this.calendarEntryForm.controls.name.setValue(this.calendarEntry.name);
+    }
   }
 
   get name() {
@@ -70,20 +76,37 @@ export class CalendarEntryEditor {
   }
 
   createCalendarEntry() {
-
+    this.subscriptions.push(
+      this.calendarService
+        .createCalendarEntry({
+          name: this.name.value,
+          date: this.date.toISOString(),
+        })
+        .subscribe((res) => {
+          if (res.status === 'OK') {
+            this.toastrService.success('Kalendereintrag erstellt');
+            this.closeEditor.emit();
+          } else {
+            this.toastrService.error('Ein Fehler ist aufgetreten');
+          }
+        })
+    );
   }
 
-  updateCalendarEntry() {
-
-  }
+  updateCalendarEntry() {}
 
   deleteCalendarEntry() {
     this.subscriptions.push(
-      this.taskService.deleteTask(this.calendarEntry.id).subscribe((res) => {
-        if(res.status === "OK") {
-
-        }
-      })
+      this.calendarService
+        .deleteCalendarEntry(this.calendarEntry.id)
+        .subscribe((res) => {
+          if (res.status === 'OK') {
+            this.toastrService.success('Eintrag gelöscht');
+            this.closeEditor.emit();
+          } else {
+            this.toastrService.error('Fehler beim löschen');
+          }
+        })
     );
   }
 

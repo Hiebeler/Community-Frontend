@@ -242,11 +242,11 @@ export class ApiService {
   }
 
   updateCalendarEntry(data: any): Observable<ApiResponse> {
-    return this.apiPut('calendar/update', data);
+    return this.apiPatch('calendar', data);
   }
 
-  deleteTask(id: number): Observable<ApiResponse> {
-    return this.apiDelete('calendar/delete/' + id);
+  deleteCalendarEntry(id: number): Observable<ApiResponse> {
+    return this.apiDelete('calendar/' + id);
   }
 
   getRoutines(): Observable<ApiResponse> {

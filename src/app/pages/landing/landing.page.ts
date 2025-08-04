@@ -6,7 +6,6 @@ import { ArrowLeftRightIcon, CheckIcon, LucideAngularModule } from 'lucide-angul
 @Component({
     selector: 'app-landing',
     templateUrl: './landing.page.html',
-    standalone: true,
     imports: [
       CommonModule,
       RouterModule,

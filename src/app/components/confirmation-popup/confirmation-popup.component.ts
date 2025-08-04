@@ -4,7 +4,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-confirmation-popup',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './confirmation-popup.component.html',
   animations: [

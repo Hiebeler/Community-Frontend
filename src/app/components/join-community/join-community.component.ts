@@ -8,7 +8,6 @@ import { CommunityService } from 'src/app/services/community.service';
 @Component({
   selector: 'app-join-community',
   templateUrl: './join-community.component.html',
-  standalone: true,
   imports: [
     ReactiveFormsModule,
   ]

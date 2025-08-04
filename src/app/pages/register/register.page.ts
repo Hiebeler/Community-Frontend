@@ -12,7 +12,6 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
-  standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterModule],
 })
 export class RegisterPage {
