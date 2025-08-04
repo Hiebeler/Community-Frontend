@@ -49,18 +49,6 @@
       <div class="card mt-6 py-4 flex items-center justify-center clickable" (click)="dateForNewEntry = day.date">
         <lucide-icon [img]="plusIcon" size="16"></lucide-icon>
       </div>
-
-      <!-- Done Tasks -->
-      @if (day.doneTasks[0]) {
-      <div class="mt-4 mb-2 pt-2 border-t border-gray-600 text-xs text-gray-400">
-        Erledigt:
-      </div>
-      }
-      @for (task of day.doneTasks; track task.date.toISOString() + task.communityId + task.fkRoutineId + task.id) {
-      <div>
-        <app-task-card [task]="task" (openModal)="entryToEdit = task"></app-task-card>
-      </div>
-      }
     </div>
   </div>
   }

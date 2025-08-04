@@ -82,15 +82,10 @@ export class CalendarPage implements OnInit, OnDestroy {
             const currentDateString = this.formatDate(currentDate);
 
             const openTasks: CalendarEntry[] = [];
-            const doneTasks: CalendarEntry[] = [];
 
             tasks.forEach((task) => {
               if (this.formatDate(task.date) === currentDateString) {
-                if (task.done) {
-                  doneTasks.push(task);
-                } else {
-                  openTasks.push(task);
-                }
+                openTasks.push(task)
               }
             });
 
