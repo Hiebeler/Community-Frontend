@@ -6,7 +6,7 @@
     <!-- File Input -->
     <div class=" ">
       <label for="fileInput"
-        class="btn-primary btn-small clickable">
+        class="btn-primary clickable">
         Bild auswählen
       </label>
       <input id="fileInput" type="file" class="hidden" (change)="fileChangeEvent($event)" />
@@ -22,7 +22,7 @@
 
   </div>
 
-  <button type="button" (click)="saveImage()" [disabled]="!croppedImage" class="btn-small btn-primary w-full max-w-xs">
+  <button type="button" (click)="saveImage()" [disabled]="!croppedImage" class="btn-primary w-full max-w-xs">
     Speichern
   </button>
 

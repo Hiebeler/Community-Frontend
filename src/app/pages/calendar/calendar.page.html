@@ -1,13 +1,13 @@
 <app-navbar title="Kalender">
-  <a left routerLink="/calendar/routines" class="btn-small btn-primary">
+  <a left routerLink="/calendar/routines" class="btn-primary">
     <lucide-icon [img]="InfinityIcon"></lucide-icon>
   </a>
 
   <div right class="flex items-center space-x-2">
-    <button type="button" class="btn-small btn-neutral" (click)="changeSelectedDays('previous')">
+    <button type="button" class="btn-neutral" (click)="changeSelectedDays('previous')">
       <lucide-icon [img]="ChevronLeftIcon"></lucide-icon>
     </button>
-    <button type="button" class="btn-small btn-neutral" (click)="changeSelectedDays('next')">
+    <button type="button" class="btn-neutral" (click)="changeSelectedDays('next')">
       <lucide-icon [img]="ChevronRightIcon"></lucide-icon>
     </button>
   </div>

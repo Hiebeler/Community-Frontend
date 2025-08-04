@@ -2,11 +2,11 @@
 
   @if (user) {
   <div right class="space-x-3 flex">
-    <a routerLink="/onboarding" class="btn-small btn-neutral">
+    <a routerLink="/onboarding" class="btn-neutral">
       <lucide-icon [img]="switchIcon"></lucide-icon>
     </a>
 
-    <button type="button" class="btn-small btn-danger" (click)="logout()">
+    <button type="button" class="btn-danger" (click)="logout()">
       <lucide-icon [img]="logoutIcon"></lucide-icon>
     </button>
   </div>
@@ -34,7 +34,7 @@
 
   @if (usersInCommunity.length) {
   <div class="card">
-    <p class="text-center mb-4">Mitglieder</p>
+    <p class="mb-4">Mitglieder:</p>
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-9 gap-2 justify-items-center">
       @for (user of usersInCommunity; track user) {
       <div class="card w-full text-center">

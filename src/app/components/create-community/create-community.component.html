@@ -1,21 +1,21 @@
 <form [formGroup]="communityForm" (ngSubmit)="createCommunity()" class="space-y-4">
 
     <div class="flex flex-col space-y-2">
-      <label for="name">Name der Gemeinschaft</label>
+      <label for="communityname">Name der Gemeinschaft</label>
       <input
         type="text"
-        id="name"
+        id="communityname"
         autocomplete="off"
         formControlName="name"
         placeholder="Name der Gemeinschaft"
-        class="bg-[var(--ion-color-dark)] text-white px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-primary w-full"
+        class="w-full"
       >
     </div>
 
     <button
       type="submit"
       [disabled]="communityForm.invalid"
-      class="btn-large btn-primary w-full"
+      class="btn-primary w-full"
     >
       Erstellen
     </button>

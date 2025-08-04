@@ -4,10 +4,10 @@
     <p class="mb-6 text-gray-300">{{ content }}</p>
     <div class="flex justify-end gap-4">
       <button *ngIf="hasAbortButton" (click)="abort.emit()"
-        class="btn-neutral btn-small">
+        class="btn-neutral">
         Cancel
       </button>
-      <button (click)="submit.emit()" class="btn-small" [ngClass]="
+      <button (click)="submit.emit()" [ngClass]="
         isDanger
           ? 'btn-danger'
           : 'btn-primary'

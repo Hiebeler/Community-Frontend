@@ -1,5 +1,5 @@
 <app-navbar title="Todos">
-  <button right type="button" class="btn-small btn-primary" (click)="openEditor(true)">
+  <button right type="button" class="btn-primary" (click)="openEditor(true)">
     <lucide-icon [img]="plusIcon"></lucide-icon>
   </button>
 </app-navbar>
@@ -7,15 +7,15 @@
 <div class="card">
   <!-- Open Items -->
   @if (openTodos.length) {
-  <h2 class="text-lg font-semibold">Offen:</h2>
+  <h2 class="text-lg font-semibold">{{openTodos.length}} Todos offen:</h2>
   }
 
   <!-- Empty State -->
-  @if (!openTodos.length && completedFirstLoad) {
+  @if (!openTodos.length && !isLoadingTodos) {
   <div class="flex flex-col items-center text-center space-y-3 py-10">
     <lucide-icon [img]="alldoneIcon" size="42"></lucide-icon>
     <h2 class="text-xl font-semibold mt-0">Alles Erledigt</h2>
-    <button type="button" class="btn-small btn-primary flex items-center justify-center space-x-2"
+    <button type="button" class="btn-primary flex items-center justify-center space-x-2"
       (click)="openEditor(true)" aria-label="Neuen Eintrag hinzufügen">
       <lucide-icon [img]="plusIcon"></lucide-icon>
       <span>Neues Todo erstellen</span>
@@ -30,12 +30,12 @@
       <div class="w-5 h-5 bg-gray-700 border border-gray-400 rounded-sm clickable" (click)="updateDone(item.id, true)">
       </div>
 
-      <div class="clickable text-white" (click)="openUpdateEditor(item)">
+      <div class="clickable text-white w-full" (click)="openUpdateEditor(item)">
         <p>
           {{item.name}}
         </p>
 
-        <p class="text-sm"  style="white-space: pre-line;">
+        <p class="text-xs text-gray-300" style="white-space: pre-line;">
           {{shortenDescription(item.description)}}
         </p>
       </div>
@@ -50,7 +50,7 @@
 <div class="card mt-6">
   <!-- Done Items -->
 
-  <h2 class="text-lg font-semibold">Erledigt:</h2>
+  <h2 class="text-lg font-semibold">{{doneTodos.length}} Todos erledigt:</h2>
 
   @for (item of doneTodos; track item.id) {
   <div class="flex items-center space-x-4 py-2">
@@ -59,8 +59,8 @@
       <lucide-icon [img]="checkIcon" size="16"></lucide-icon>
     </div>
     <div>
-      <p class="text-gray-400 line-through">{{item.name}}</p>
-    <p class="text-sm text-gray-400">Erledigt {{item.doneDate | timeAgo}}</p>
+      <p class="text-gray-300 line-through">{{item.name}}</p>
+      <p class="text-xs text-gray-300">Erledigt {{item.doneDate | timeAgo}}</p>
     </div>
   </div>
   }
@@ -75,11 +75,11 @@
       <input type="text" id="name" formControlName="createname" placeholder="Name" autocomplete="off" class="w-full" />
 
       <label for="description">Name</label>
-      <textarea type="text" id="description" formControlName="createdescription" placeholder="Beschreibung" autocomplete="off"
-        class="w-full h-50" ></textarea>
+      <textarea type="text" id="description" formControlName="createdescription" placeholder="Beschreibung"
+        autocomplete="off" class="w-full h-50"></textarea>
     </form>
 
-    <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveItem()" class="btn-small btn-primary w-full">
+    <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveItem()" class="btn-primary w-full">
       Speichern
     </button>
   </div>
@@ -92,17 +92,17 @@
       <input type="text" id="name" formControlName="updatename" placeholder="Name" autocomplete="off" class="w-full" />
 
       <label for="description">Beschreibung</label>
-      <textarea type="text" id="description" formControlName="updatedescription" placeholder="Beschreibung" autocomplete="off"
-        class="w-full h-50"></textarea>
+      <textarea type="text" id="description" formControlName="updatedescription" placeholder="Beschreibung"
+        autocomplete="off" class="w-full h-50"></textarea>
     </form>
     <div class="flex gap-3">
-      <button type="button" (click)="askToDeleteTask(todoToUpdate.id)" class="btn-small btn-danger w-1/2">
+      <button type="button" (click)="askToDeleteTask(todoToUpdate.id)" class="btn-danger w-1/2">
         Löschen
       </button>
 
       <button
         [disabled]="itemUpdateEditorForm.invalid || (updateNameField.value === todoToUpdate?.name && updateDescriptionField.value === todoToUpdate?.description)"
-        type="button" (click)="updateName(todoToUpdate.id)" class="btn-small btn-primary w-1/2">
+        type="button" (click)="updateName(todoToUpdate.id)" class="btn-primary w-1/2">
         Updaten
       </button>
     </div>

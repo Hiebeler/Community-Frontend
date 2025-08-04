@@ -8,14 +8,14 @@
                 @if(alert.cancelButtonText) {
                     <button
                     (click)="onCancel()"
-                    class="btn-neutral btn-small"
+                    class="btn-neutral"
                     >
                     {{ alert.cancelButtonText }}
                 </button>
             }
             <button
             (click)="onSubmit()"
-            class="btn-small btn-primary"
+            class="btn-primary"
             >
             {{ alert.submitButtonText || 'Okay' }}
         </button>

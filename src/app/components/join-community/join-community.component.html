@@ -1,25 +1,27 @@
-<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-  <div class="field-box">
-    <label for="search">Gemeinschaftscode</label>
-    <input type="text" id="search" autocomplete="off" formControlName="search" placeholder="123456">
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="space-y-3">
+  <div class="flex">
+    <div class="flex flex-col w-full">
+      <label for="search">Gemeinschaftscode</label>
+      <input type="text" class="w-full" id="search" autocomplete="off" formControlName="search" placeholder="123456">
+    </div>
   </div>
-  <button [disabled]="searchForm.invalid || loading" type="submit" class="btn-large btn-primary">Suchen</button>
+  <button [disabled]="searchForm.invalid || loading" type="submit" class="btn-primary w-full">Suchen</button>
 </form>
 
 @if(loading) {
 
-  <div class="flex justify-center py-4">
-    <div class="animate-spin h-8 w-8 border-4 border-t-transparent border-blue-500 rounded-full"></div>
-  </div>
+<div class="flex justify-center py-4">
+  <div class="animate-spin h-8 w-8 border-4 border-t-transparent border-blue-500 rounded-full"></div>
+</div>
 }
 
 @if(didntFoundCommunity) {
-  <div class="flex justify-center py-4">
-    <div class="text-center text-red-600">
-      <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-8 w-8 text-red-600" fill="none"
-      viewBox="0 0 24 24" stroke="currentColor">
+<div class="flex justify-center py-4">
+  <div class="text-center text-red-600">
+    <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-8 w-8 text-red-600" fill="none" viewBox="0 0 24 24"
+      stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-      d="M12 9v2m0 4h.01m-.01-10a9 9 0 110 18 9 9 0 010-18z"/>
+        d="M12 9v2m0 4h.01m-.01-10a9 9 0 110 18 9 9 0 010-18z" />
     </svg>
     <p>Es existiert keine Gemeinschaft mit diesem Code</p>
   </div>
@@ -27,23 +29,22 @@
 }
 
 @if(foundCommunity) {
-  <div class="flex justify-center py-4">
-    <div class="w-full max-w-md bg-white shadow-md rounded-lg p-4">
-      <h2 class="text-center text-lg font-semibold mb-4">{{ foundCommunity.name }}</h2>
+<div class="flex justify-center py-4">
+  <div class="w-full max-w-md bg-white shadow-md rounded-lg p-4">
+    <h2 class="text-center text-lg font-semibold mb-4">{{ foundCommunity.name }}</h2>
 
-      <div class="flex justify-between text-center mb-4">
-        <div>
-          <h2 class="text-lg font-medium">{{ foundCommunity.admin.name }}</h2>
-          <p class="text-sm text-gray-500">Admin</p>
-        </div>
-        <div>
-          <h2 class="text-lg font-medium">{{ foundCommunity.memberCount }}</h2>
-          <p class="text-sm text-gray-500">Mitglieder</p>
-        </div>
+    <div class="flex justify-between text-center mb-4">
+      <div>
+        <h2 class="text-lg font-medium">{{ foundCommunity.admin.name }}</h2>
+        <p class="text-sm text-gray-500">Admin</p>
       </div>
+      <div>
+        <h2 class="text-lg font-medium">{{ foundCommunity.memberCount }}</h2>
+        <p class="text-sm text-gray-500">Mitglieder</p>
+      </div>
+    </div>
 
-      <button type="button"
-      class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded text-sm"
+    <button type="button" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded text-sm"
       (click)="join()">
       Beitrittsanfrage senden
     </button>

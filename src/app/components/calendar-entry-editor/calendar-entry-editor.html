@@ -11,19 +11,19 @@
 
 @if(date !== undefined) {
 <div class="mt-4">
-  <button type="button" class="btn-small btn-primary w-full" [disabled]="calendarEntryForm.invalid" (click)="createCalendarEntry()">Eintrag erstellen</button>
+  <button type="button" class="btn-primary w-full" [disabled]="calendarEntryForm.invalid" (click)="createCalendarEntry()">Eintrag erstellen</button>
 </div>
 }
 
 @if (calendarEntry !== undefined) {
 <div class="flex gap-3 mt-4">
-  <button type="button" (click)="askToDeleteCalendarEntry()" class="btn-small btn-danger w-1/2">
+  <button type="button" (click)="askToDeleteCalendarEntry()" class="btn-danger w-1/2">
     Löschen
   </button>
 
   <button
     [disabled]="calendarEntryForm.invalid || (name.value === calendarEntry?.name && notes.value === calendarEntry?.notes)"
-    type="button" (click)="updateCalendarEntry()" class="btn-small btn-primary w-1/2">
+    type="button" (click)="updateCalendarEntry()" class="btn-primary w-1/2">
     Updaten
   </button>
 </div>

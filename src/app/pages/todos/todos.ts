@@ -45,13 +45,13 @@ export class Todos implements OnInit, OnDestroy {
   editorIsOpen = false;
   todoToUpdate: Todo = null;
 
-  completedFirstLoad = false;
-
   itemEditorForm: FormGroup;
   itemUpdateEditorForm: FormGroup;
 
   openTodos: Todo[] = [];
   doneTodos: Todo[] = [];
+
+  isLoadingTodos = false;
 
   constructor(
     private todosService: TodosService,
@@ -100,11 +100,12 @@ export class Todos implements OnInit, OnDestroy {
   ngOnInit() {
     this.getItems();
 
+    this.isLoadingTodos = true;
+
     this.subscriptions.push(
       this.todosService.getOpenTodos().subscribe((items) => {
         this.openTodos = items;
-
-        this.completedFirstLoad = true;
+        this.isLoadingTodos = false;
       })
     );
 
@@ -241,9 +242,9 @@ export class Todos implements OnInit, OnDestroy {
   }
 
   shortenDescription(description: string): string {
-    const splittedDescription = description.split('\n')
-    if (splittedDescription.length > 1) {
-      return splittedDescription[0] + '\n...'
+    const splittedDescription = description.split('\n');
+    if (splittedDescription.length > 2) {
+      return splittedDescription[0] + '\n' + splittedDescription[1];
     }
     return description;
   }

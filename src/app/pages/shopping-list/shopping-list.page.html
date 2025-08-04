@@ -1,5 +1,5 @@
 <app-navbar title="Einkaufsliste">
-  <button right type="button" class="btn-small btn-primary" (click)="openEditor(true)">
+  <button right type="button" class="btn-primary" (click)="openEditor(true)">
     <lucide-icon [img]="plusIcon"></lucide-icon>
   </button>
 </app-navbar>
@@ -15,7 +15,7 @@
   <div class="flex flex-col items-center text-center space-y-3 py-10">
     <lucide-icon [img]="alldoneIcon" size="42"></lucide-icon>
     <h2 class="text-xl font-semibold mt-0">Alles Erledigt</h2>
-    <button type="button" class="btn-small btn-primary flex items-center justify-center space-x-2"
+    <button type="button" class="btn-primary flex items-center justify-center space-x-2"
       (click)="openEditor(true)" aria-label="Neuen Eintrag hinzufügen">
       <lucide-icon [img]="plusIcon"></lucide-icon>
       <span>Neuen Eintrag hinzufügen</span>
@@ -65,7 +65,7 @@
       <input type="text" formControlName="createname" placeholder="Name" autocomplete="off" class="w-full" />
     </form>
 
-    <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveItem()" class="btn-small btn-primary w-full">
+    <button [disabled]="itemEditorForm.invalid" type="button" (click)="saveItem()" class="btn-primary w-full">
       Speichern
     </button>
   </div>
@@ -76,15 +76,15 @@
     <form [formGroup]="itemUpdateEditorForm" (ngSubmit)="updateName(itemToUpdate.id)">
       <label for="name">Name</label>
       <input type="text" id="name" formControlName="updatename" placeholder="Name" autocomplete="off"
-        class="w-full bg-gray-800 border border-gray-600 rounded px-4 py-2 text-white" />
+        class="w-full" />
     </form>
     <div class="flex gap-3">
-      <button type="button" (click)="askToDeleteTask(itemToUpdate.id)" class="btn-small btn-danger w-1/2">
+      <button type="button" (click)="askToDeleteTask(itemToUpdate.id)" class="btn-danger w-1/2">
         Löschen
       </button>
 
       <button [disabled]="itemUpdateEditorForm.invalid || updateNameField.value === itemToUpdate?.name" type="button"
-        (click)="updateName(itemToUpdate.id)" class="btn-small btn-primary w-1/2">
+        (click)="updateName(itemToUpdate.id)" class="btn-primary w-1/2">
         Updaten
       </button>
     </div>

@@ -41,7 +41,7 @@
         }
       </div>
 
-      <button type="button" class="btn-small btn-primary mt-3" (click)="setUpdatingResponsibleUsers(true)">
+      <button type="button" class="btn-primary mt-3" (click)="setUpdatingResponsibleUsers(true)">
         Zuständige ändern
       </button>
     </div>
@@ -51,7 +51,7 @@
 
       <!-- Close Button -->
       <div class="flex justify-center">
-        <button type="button" (click)="setUpdatingResponsibleUsers(false)" class="btn-small btn-outline-danger">
+        <button type="button" (click)="setUpdatingResponsibleUsers(false)" class="btn-danger">
           <lucide-icon [img]="closeIcon"></lucide-icon>
         </button>
       </div>
@@ -94,7 +94,7 @@ X          </div>
     </div>
 
     <button [disabled]="routineForm.invalid" (click)="saveRoutine()" type="submit"
-        class="btn-small btn-primary w-full">
+        class="btn-primary w-full">
         Speichern
       </button>
   </div>

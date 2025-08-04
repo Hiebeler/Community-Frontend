@@ -3,12 +3,12 @@
   <app-navbar title="Gemeinschaften verwalten">
 
     @if (activeCommunity) {
-    <a left type="button" class="btn-small btn-neutral" routerLink="/profile">
+    <a left type="button" class="btn-neutral" routerLink="/profile">
       <lucide-icon [img]="backIcon"></lucide-icon>
     </a>
     }
 
-    <button right type="button" class="btn-small btn-danger" (click)="openLogoutPopup()">
+    <button right type="button" class="btn-danger" (click)="openLogoutPopup()">
       <lucide-icon [img]="logoutIcon"></lucide-icon>
     </button>
   </app-navbar>
@@ -54,8 +54,8 @@
 
       <p class="mt-10">Neue Gemeinschaft erstellen / beitreten</p>
       <div class="grid grid-cols-2 gap-4 mt-4">
-        <button class="btn-small btn-primary w-full" (click)="changeJoinCommunityPopup(true)">Beitreten</button>
-        <button class="btn-small btn-neutral w-full" (click)="changeCreateCommunityPopup(true)">Erstellen</button>
+        <button class="btn-primary w-full" (click)="changeJoinCommunityPopup(true)">Beitreten</button>
+        <button class="btn-neutral w-full" (click)="changeCreateCommunityPopup(true)">Erstellen</button>
       </div>
     </div>
 
@@ -68,7 +68,7 @@
       </form>
 
       <button type="button" [disabled]="nameUpdateEditorForm.invalid || (name.value === user?.name)"
-        (click)="updateName()" class="btn-small btn-primary w-full">Updaten</button>
+        (click)="updateName()" class="btn-primary w-full">Updaten</button>
 
       <p class="text-sm mt-6 mb-4">Avatar</p>
       <div class="relative w-20 h-20 group clickable" (click)="showImageUploadPopup = true">
@@ -96,7 +96,7 @@
       </form>
 
       <button type="button" [disabled]="changePasswordForm.invalid" (click)="changePassword()"
-        class="btn-small btn-primary w-full">Ändern</button>
+        class="btn-primary w-full">Ändern</button>
     </div>
   </div>
   }

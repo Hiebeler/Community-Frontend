@@ -1,9 +1,9 @@
 <app-navbar title="Schulden">
-  <a left routerLink="/debts/history" class="btn-small btn-primary">
+  <a left routerLink="/debts/history" class="btn-primary">
     <lucide-icon [img]="receiptIcon"></lucide-icon>
   </a>
 
-  <button right type="button" class="btn-small btn-primary" (click)="openEditor(true)">
+  <button right type="button" class="btn-primary" (click)="openEditor(true)">
     <lucide-icon [img]="plusIcon"></lucide-icon>
   </button>
 </app-navbar>
@@ -11,10 +11,10 @@
 
 <!-- No Items -->
 @if (!allBalances.length) {
-<div class="flex flex-col items-center text-center space-y-3 py-10 card">
+<div class="flex flex-col items-center text-center space-y-3 py-14 card">
   <lucide-icon [img]="alldoneIcon" size="42"></lucide-icon>
-  <h2 class="text-xl font-semibold mt-0">Alles Erledigt</h2>
-  <button type="button" class="btn-small btn-primary flex items-center justify-center space-x-2"
+  <h2 class="text-xl font-semibold mt-0">Alle Schulden beglichen</h2>
+  <button type="button" class="btn-primary flex items-center justify-center space-x-2"
     (click)="openEditor(true)" aria-label="Neuen Eintrag hinzufügen">
     <lucide-icon [img]="plusIcon"></lucide-icon>
     <span>Neuen Eintrag hinzufügen</span>
@@ -34,7 +34,7 @@
         <p class="font-medium">{{balance.debitor.name}}</p>
       </div>
 
-      <button type="button" class="btn-small btn-primary" (click)="openClearOffEditor(balance)">
+      <button type="button" class="btn-primary" (click)="openClearOffEditor(balance)">
         <lucide-icon [img]="scaleIcon"></lucide-icon>
       </button>
     </div>
@@ -61,7 +61,7 @@
     <input type="number" formControlName="amount" placeholder="Amount"
       class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-white">
 
-    <button type="button" class="btn-small btn-primary w-full" [disabled]="clearOffBalanceEditorForm.invalid"
+    <button type="button" class="btn-primary w-full" [disabled]="clearOffBalanceEditorForm.invalid"
       (click)="clearOffBalance(clearOffEditorBalance)">
       Begleichen
     </button>
@@ -75,11 +75,11 @@
 
     <!-- Schuld Type Toggle -->
     <div class="flex space-x-2">
-      <button type="button" class="btn-small w-1/2" [ngClass]="iOwe ? 'btn-primary' : 'bg-gray-700'"
+      <button type="button" class="w-1/2" [ngClass]="iOwe ? 'btn-primary' : 'btn-neutral'"
         (click)="changeIOwe(true)">
         Ich Schulde
       </button>
-      <button type="button" class="btn-small w-1/2" [ngClass]="!iOwe ? 'btn-primary' : 'bg-gray-700'"
+      <button type="button" class="w-1/2" [ngClass]="!iOwe ? 'btn-primary' : 'btn-neutral'"
         (click)="changeIOwe(false)">
         Ich Bekomme
       </button>
@@ -107,7 +107,7 @@
       <input type="text" formControlName="name" placeholder="Grund" class="w-full">
     </div>
 
-    <button type="button" class="btn-small btn-primary w-full" [disabled]="itemEditorForm.invalid" (click)="saveDebt()">
+    <button type="button" class="btn-primary w-full" [disabled]="itemEditorForm.invalid" (click)="saveDebt()">
       Speichern
     </button>
 

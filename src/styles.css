@@ -126,7 +126,7 @@
   }
 
   .valid-input:focus {
-    @apply outline-green-500 outline outline-2;
+    @apply outline-green-500 outline-2;
   }
 }
 
@@ -153,16 +153,9 @@
   }
 
   /* Buttons */
-  .btn-small {
-    @apply py-3 px-3 rounded-lg text-sm leading-normal;
-  }
-
-  .btn-large {
-    @apply py-4 px-5 rounded-lg text-base leading-normal;
-  }
 
   .btn-primary {
-    @apply text-gray-900 bg-primary enabled:hover:bg-green-600 transition disabled:opacity-50 disabled:cursor-default;
+    @apply py-3 px-3 rounded-lg text-sm leading-normal text-gray-900 bg-primary enabled:hover:bg-green-600 transition disabled:opacity-50 disabled:cursor-default;
   }
 
   .btn-primary * {
@@ -170,35 +163,11 @@
   }
 
   .btn-danger {
-    @apply bg-red-500 hover:bg-red-400 text-white transition;
+    @apply py-3 px-3 rounded-lg text-sm leading-normal bg-red-500 hover:bg-red-400 text-white transition;
   }
 
   .btn-neutral {
-    @apply text-gray-100 backdrop-blur-lg bg-surface/50 border border-gray-700 hover:bg-surface/90 transition;
-  }
-
-  .btn-dark {
-    @apply text-gray-100 bg-gray-800 hover:bg-gray-900 transition;
-  }
-
-  .btn-outline-primary {
-    @apply text-green-500 bg-transparent border-2 border-green-500 hover:text-green-600 hover:border-green-600 transition;
-  }
-
-  .btn-outline-danger {
-    @apply text-red-500 bg-transparent border-2 border-red-500 hover:text-red-600 hover:border-red-600 transition;
-  }
-
-  .btn-circle {
-    @apply text-white p-2.5 rounded-full inline-flex items-center justify-center transition-all duration-300 bg-green-500 hover:bg-green-600;
-  }
-
-  .btn-link {
-    @apply text-green-400 hover:text-green-300 bg-transparent;
-  }
-
-  .btn-center {
-    @apply flex items-center justify-center;
+    @apply py-3 px-3 rounded-lg text-sm leading-normal text-gray-100 backdrop-blur-lg bg-surface/50 border border-gray-700 hover:bg-surface/90 transition;
   }
 
   .card {
