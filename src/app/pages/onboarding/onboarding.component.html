@@ -67,8 +67,9 @@
         <input type="text" id="name" autocomplete="off" formControlName="name" placeholder="Name" class="flex-1" />
       </form>
 
-      <button type="button" [disabled]="nameUpdateEditorForm.invalid || (name.value === user?.name)"
-        (click)="updateName()" class="btn-primary w-full">Updaten</button>
+      <app-primary-button [isLoading]="isLoadingNameChange"
+        [disabled]="nameUpdateEditorForm.invalid || (name.value === user?.name)" (clicked)="updateName()"
+        label="Name ändern"></app-primary-button>
 
       <p class="text-sm mt-6 mb-4">Avatar</p>
       <div class="relative w-20 h-20 group clickable" (click)="showImageUploadPopup = true">
@@ -95,8 +96,8 @@
 
       </form>
 
-      <button type="button" [disabled]="changePasswordForm.invalid" (click)="changePassword()"
-        class="btn-primary w-full">Ändern</button>
+      <app-primary-button [isLoading]="isLoadingPasswordChange" [disabled]="changePasswordForm.invalid"
+        (clicked)="changePassword()" label="Passwort ändern"></app-primary-button>
     </div>
 
     <div class="card">

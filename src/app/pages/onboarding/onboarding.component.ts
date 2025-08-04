@@ -28,6 +28,7 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { ProfileImageEditorComponent } from 'src/app/components/profile-image-editor/profile-image-editor.component';
 import { CommunityAdapter } from 'src/app/models/community.adapter';
+import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
 
 @Component({
   selector: 'app-onboarding',
@@ -42,6 +43,7 @@ import { CommunityAdapter } from 'src/app/models/community.adapter';
     LucideAngularModule,
     RouterModule,
     Navbar,
+    PrimaryButton,
   ],
 })
 export class OnboardingComponent implements OnInit {
@@ -65,6 +67,9 @@ export class OnboardingComponent implements OnInit {
   createCommunityPopup = false;
 
   showImageUploadPopup = false;
+
+  isLoadingPasswordChange = false;
+  isLoadingNameChange = false;
 
   constructor(
     private userService: UserService,
@@ -122,7 +127,7 @@ export class OnboardingComponent implements OnInit {
 
     this.subscriptions.push(
       this.communityService.getOwnCommunities().subscribe((res) => {
-        console.log(res)
+        console.log(res);
         if (res.success) {
           this.ownCommunities = res.data.map((it) =>
             this.communityAdapter.adapt(it)
@@ -155,11 +160,15 @@ export class OnboardingComponent implements OnInit {
   }
 
   updateUser(data: any) {
+    this.isLoadingNameChange = true;
     this.subscriptions.push(
       this.userService.updateUser(data).subscribe((wasSuccessful) => {
+        this.isLoadingNameChange = false;
         if (wasSuccessful) {
           this.userService.fetchUserFromApi();
           this.toastr.success('Name geändert');
+        } else {
+          this.toastr.error("Ein Fehler ist aufgetreten")
         }
       })
     );
@@ -167,12 +176,14 @@ export class OnboardingComponent implements OnInit {
 
   changePassword() {
     if (this.changePasswordForm.valid) {
+      this.isLoadingPasswordChange = true;
       this.authService
         .changePassword(
           this.changePasswordForm.value.oldPassword,
           this.changePasswordForm.value.newPassword
         )
         .subscribe((res) => {
+          this.isLoadingPasswordChange = false;
           if (res.success) {
             this.toastr.success('Passwort wurde geändert');
           } else {

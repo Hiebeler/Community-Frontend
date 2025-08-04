@@ -8,16 +8,20 @@ import {
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, PrimaryButton],
 })
 export class LoginPage {
+
   loginForm: FormGroup;
+
+  isLoading = false;
 
   constructor(
     private authService: AuthService,
@@ -41,9 +45,11 @@ export class LoginPage {
 
   onSubmit() {
     if (this.loginForm.valid) {
+      this.isLoading = true;
       this.authService
         .login(this.email.value, this.password.value)
         .subscribe((res) => {
+          this.isLoading = false;
           if (res.success) {
             this.router.navigate(['/onboarding']);
             this.toastr.success('Willkommen zurück!');
@@ -56,16 +62,16 @@ export class LoginPage {
                 this.authService
                   .resendVerificationEmail(this.email.value)
                   .subscribe(async (res) => {
-        if (res.success) {
-          this.alertService.showAlert(
-            'Resent Verification Email',
-            'You Received an email with an link to verify your account',
-            'Okay'
-          );
-        } else {
-          this.alertService.showAlert('Ooops', res.error);
-        }
-      })
+                    if (res.success) {
+                      this.alertService.showAlert(
+                        'Resent Verification Email',
+                        'You Received an email with an link to verify your account',
+                        'Okay'
+                      );
+                    } else {
+                      this.alertService.showAlert('Ooops', res.error);
+                    }
+                  })
             );
           } else {
             this.alertService.showAlert('Oops', res.error);

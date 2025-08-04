@@ -45,24 +45,8 @@ export class AuthService implements OnDestroy {
     }
   }
 
-  register(data: {email: string, name: string, password: string}) {
-    return this.subscriptions.push(
-      this.apiService.register(data).subscribe(async (res) => {
-        let head = 'Gratuliere';
-        let msg =
-          'Registrierung erfolgreich, Ihnen wurde eine Email zugesended, um ihren account zu verifizieren';
-        if (res.status === 'Error') {
-          head = 'Error!';
-          msg = res.error;
-        }
-
-        this.alertService.showAlert(head, msg, 'Okay', async () => {
-          if (res.success) {
-            this.router.navigate(['login']);
-          }
-        });
-      })
-    );
+  register(data: {email: string, name: string, password: string}): Observable<ApiResponse<any>> {
+      return this.apiService.register(data)
   }
 
   login(email, password): Observable<ApiResponse<any>> {

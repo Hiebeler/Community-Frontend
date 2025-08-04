@@ -30,10 +30,8 @@
         class="w-full">
     </div>
 
-    <button type="submit" [disabled]="registerForm.invalid"
-      class="w-full btn-primary">
-      Registrieren
-    </button>
+    <app-primary-button [isLoading]="isLoading" [disabled]="registerForm.invalid" type="submit"
+    label="Registrieren"></app-primary-button>
   </form>
 
   <div class="flex justify-center mt-6">

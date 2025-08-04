@@ -155,7 +155,7 @@
   /* Buttons */
 
   .btn-primary {
-    @apply py-3 px-3 rounded-lg text-sm leading-normal text-gray-900 bg-primary enabled:hover:bg-green-600 transition disabled:opacity-50 disabled:cursor-default;
+    @apply h-11 px-3 rounded-lg text-sm leading-normal flex items-center justify-center text-gray-900 bg-primary enabled:hover:bg-green-600 transition disabled:opacity-50 disabled:cursor-default;
   }
 
   .btn-primary * {
