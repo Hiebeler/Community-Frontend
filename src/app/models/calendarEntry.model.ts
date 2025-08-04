@@ -12,14 +12,14 @@ export interface ApiCalendarEntry {
 }
 
 export class CalendarEntry {
-  public id: number;
-  public name: string;
-  public notes: string;
-  public date: Date;
-  public done: boolean;
-  public fkRoutineId: number;
-  public communityId: number;
-  public assignedUsers: User[];
+  readonly id: number;
+  readonly name: string;
+  readonly notes: string;
+  readonly date: Date;
+  readonly done: boolean;
+  readonly fkRoutineId: number;
+  readonly communityId: number;
+  readonly assignedUsers: User[];
 
   constructor(params: {
     id: number;

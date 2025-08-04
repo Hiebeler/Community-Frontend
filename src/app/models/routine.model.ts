@@ -11,13 +11,13 @@ export interface ApiRoutine {
 }
 
 export class Routine {
-  public id: number;
-  public name: string;
-  public notes: string;
-  public startDate: Date;
-  public interval: number;
-  public active: boolean;
-  public assignedUsers: User[];
+  readonly id: number;
+  readonly name: string;
+  readonly notes: string;
+  readonly startDate: Date;
+  readonly interval: number;
+  readonly active: boolean;
+  readonly assignedUsers: User[];
 
   constructor(params: {
     id: number;

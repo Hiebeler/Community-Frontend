@@ -8,13 +8,10 @@ import { CommonModule } from '@angular/common';
 import { CheckIcon, LucideAngularModule, XIcon } from 'lucide-angular';
 
 @Component({
-    selector: 'app-open-requests',
-    templateUrl: './open-requests.component.html',
-    imports: [
-      CommonModule,
-      LucideAngularModule
-    ],
-    standalone: true
+  selector: 'app-open-requests',
+  templateUrl: './open-requests.component.html',
+  imports: [CommonModule, LucideAngularModule],
+  standalone: true,
 })
 export class OpenRequestsComponent implements OnInit, OnDestroy {
   readonly closeIcon = XIcon;
@@ -28,14 +25,16 @@ export class OpenRequestsComponent implements OnInit, OnDestroy {
     private communityService: CommunityService,
     private requestAdapter: RequestAdapter,
     private userService: UserService
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.subscriptions.push(this.communityService.getCurrentCommunity().subscribe(community => {
-      if (community) {
-        this.getAllRequests();
-      }
-    }));
+    this.subscriptions.push(
+      this.communityService.getCurrentCommunity().subscribe((community) => {
+        if (community) {
+          this.getAllRequests();
+        }
+      })
+    );
   }
 
   ngOnDestroy(): void {
@@ -43,22 +42,29 @@ export class OpenRequestsComponent implements OnInit, OnDestroy {
   }
 
   getAllRequests() {
-    this.subscriptions.push(this.communityService.getRequests().subscribe((requests) => {
-      if (requests.status === 'OK') {
-        requests = requests.data.map((data: any) => this.requestAdapter.adapt(data));
-        this.requests = requests;
-      }
-    }));
+    this.subscriptions.push(
+      this.communityService.getRequests().subscribe((requests) => {
+        if (requests.success) {
+          this.requests = requests.data.map((data) =>
+            this.requestAdapter.adapt(data)
+          );
+        }
+      })
+    );
   }
 
   accept(id: number, status: boolean) {
-    this.subscriptions.push(this.communityService.acceptRequest(id, status).subscribe(wasSuccessful => {
-      if (wasSuccessful) {
-        this.getAllRequests();
-        if (status) {
-          this.userService.fetchUserFromApi();
-        }
-      }
-    }));
+    this.subscriptions.push(
+      this.communityService
+        .acceptRequest(id, status)
+        .subscribe((wasSuccessful) => {
+          if (wasSuccessful) {
+            this.getAllRequests();
+            if (status) {
+              this.userService.fetchUserFromApi();
+            }
+          }
+        })
+    );
   }
 }

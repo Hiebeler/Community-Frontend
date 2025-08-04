@@ -56,11 +56,11 @@ export class RegisterPage {
       this.registerForm.valid &&
       this.password.value === this.password2.value
     ) {
-      this.authService.register(
-        this.email.value,
-        this.name.value,
-        this.password.value
-      );
+      this.authService.register({
+        email: this.email.value,
+        name: this.name.value,
+        password: this.password.value,
+      });
     }
   }
 }

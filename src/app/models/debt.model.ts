@@ -10,12 +10,12 @@ export interface ApiDebt {
 }
 
 export class Debt {
-  public id: number;
-  public name: string;
-  public amount: number;
-  public timestamp: Date;
-  public debitor: User;
-  public creditor: User;
+  readonly id: number;
+  readonly name: string;
+  readonly amount: number;
+  readonly timestamp: Date;
+  readonly debitor: User;
+  readonly creditor: User;
 
   constructor(params: {
     id: number;

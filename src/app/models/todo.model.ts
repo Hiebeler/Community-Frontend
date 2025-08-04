@@ -10,12 +10,12 @@ export interface ApiTodo {
 }
 
 export class Todo {
-  public id: number;
-  public name: string;
-  public description: string;
-  public done: boolean;
-  public doneDate: Date;
-  public creator: User;
+  readonly id: number;
+  readonly name: string;
+  readonly description: string;
+  readonly done: boolean;
+  readonly doneDate: Date;
+  readonly creator: User;
 
   constructor(params: {
     id: number;

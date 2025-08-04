@@ -45,15 +45,9 @@ export class AuthService implements OnDestroy {
     }
   }
 
-  register(email, name, password) {
-    const obj = {
-      email,
-      name,
-      password,
-    };
-
+  register(data: {email: string, name: string, password: string}) {
     return this.subscriptions.push(
-      this.apiService.register(obj).subscribe(async (res) => {
+      this.apiService.register(data).subscribe(async (res) => {
         let head = 'Gratuliere';
         let msg =
           'Registrierung erfolgreich, Ihnen wurde eine Email zugesended, um ihren account zu verifizieren';

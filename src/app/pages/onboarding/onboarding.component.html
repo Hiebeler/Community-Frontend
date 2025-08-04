@@ -18,7 +18,7 @@
 
     <div class="card flex space-x-3 items-center">
       <span>Angemeldet als:</span>
-      <img class="h-10 w-10 ml-4 rounded-full" [src]="user.profileimage" alt="" width="40px" height="40px" />
+      <img class="h-10 w-10 ml-4 rounded-full" [src]="user.avatar" alt="" width="40px" height="40px" />
       <span class="text-lg bold">
         {{user.name}}
       </span>
@@ -72,7 +72,7 @@
 
       <p class="text-sm mt-6 mb-4">Avatar</p>
       <div class="relative w-20 h-20 group clickable" (click)="showImageUploadPopup = true">
-        <img [src]="user?.profileimage" class="w-20 h-20 rounded-full border border-gray-700 object-cover"
+        <img [src]="user?.avatar" class="w-20 h-20 rounded-full border border-gray-700 object-cover"
           alt="Profile Image" />
 
         <div

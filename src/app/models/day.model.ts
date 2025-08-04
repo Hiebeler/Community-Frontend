@@ -7,9 +7,9 @@ export interface ApiDay {
 }
 
 export class Day {
-  public name: string;
-  public calendarEntries: CalendarEntry[];
-  public date: Date;
+  readonly name: string;
+  readonly calendarEntries: CalendarEntry[];
+  readonly date: Date;
 
   constructor(params: {
     name: string;

@@ -10,12 +10,12 @@ export interface ApiCommunity {
 }
 
 export class Community {
-  public id: number;
-  public name: string;
-  public code: string;
-  public adminId: number;
-  public admin: User;
-  public memberCount: number;
+  readonly id: number;
+  readonly name: string;
+  readonly code: string;
+  readonly adminId: number;
+  readonly admin: User;
+  readonly memberCount: number;
 
   constructor(params: {
     id: number;

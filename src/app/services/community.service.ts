@@ -12,6 +12,8 @@ import { StorageService } from './storage.service';
 import { User } from '../models/user.model';
 import { UserAdapter } from '../models/user.adapter';
 import { AuthService } from './auth.service';
+import { ApiResponse } from '../models/api-response';
+import { ApiRequest } from '../models/request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -116,7 +118,7 @@ export class CommunityService implements OnDestroy {
     }
   }
 
-  getRequests(): Observable<any> {
+  getRequests(): Observable<ApiResponse<ApiRequest[]>> {
     return this.apiService.getRequests();
   }
 

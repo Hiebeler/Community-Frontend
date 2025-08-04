@@ -38,7 +38,7 @@
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-9 gap-2 justify-items-center">
       @for (user of usersInCommunity; track user) {
       <div class="card w-full text-center">
-        <img [src]="user.profileimage" alt="" class="rounded-full w-full aspect-square object-cover mb-2" />
+        <img [src]="user.avatar" alt="" class="rounded-full w-full aspect-square object-cover mb-2" />
         <p class="text-sm lg:text-lg">{{user?.name}}</p>
         @if(user.isAdmin) {
         <span class="text-xs text-primary">Admin</span>

@@ -1,17 +1,23 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, concatMap, map, Observable, of, Subscription } from 'rxjs';
+import {
+  BehaviorSubject,
+  concatMap,
+  map,
+  Observable,
+  of,
+  Subscription,
+} from 'rxjs';
 import { RoutineAdapter } from '../models/routine.adapter';
 import { CalendarEntryAdapter } from '../models/calendar-entry.adapter';
-import { Routine } from '../models/routine.model';
+import { ApiRoutine, Routine } from '../models/routine.model';
 import { ApiService } from './api.service';
 import { ApiCalendarEntry, CalendarEntry } from '../models/calendarEntry.model';
 import { ApiResponse } from '../models/api-response';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CalendarService implements OnDestroy {
-
   subscriptions: Subscription[] = [];
 
   private routines = new BehaviorSubject<Routine[]>([]);
@@ -20,21 +26,27 @@ export class CalendarService implements OnDestroy {
     private apiService: ApiService,
     private calendarEntryAdapter: CalendarEntryAdapter,
     private routineAdapter: RoutineAdapter
-  ) { }
+  ) {}
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((subscription) => subscription.unsubscribe());
   }
 
-  getCalendarEntries(startDate: Date, endDate: Date): Observable<CalendarEntry[]> {
+  getCalendarEntries(
+    startDate: Date,
+    endDate: Date
+  ): Observable<CalendarEntry[]> {
     return this.apiService.getTasks({ startDate, endDate }).pipe(
-      concatMap(res => {
+      concatMap((res) => {
         if (res.status !== 'OK') {
           return [];
         } else {
           return of(res);
         }
-      }), map((res: any) => res.data.map((item) => this.calendarEntryAdapter.adapt(item)))
+      }),
+      map((res: any) =>
+        res.data.map((item) => this.calendarEntryAdapter.adapt(item))
+      )
     );
   }
 
@@ -55,11 +67,18 @@ export class CalendarService implements OnDestroy {
   }
 
   fetchRoutinesFromApi(): void {
-    this.subscriptions.push(this.apiService.getRoutines().pipe(
-      map((data: any) => data.data.map((item) => this.routineAdapter.adapt(item)))
-    ).subscribe(routines => {
-      this.routines.next(routines);
-    }));
+    this.subscriptions.push(
+      this.apiService
+        .getRoutines()
+        .pipe(
+          map((data: ApiResponse<ApiRoutine[]>) =>
+            data.data.map((item: ApiRoutine) => this.routineAdapter.adapt(item))
+          )
+        )
+        .subscribe((routines) => {
+          this.routines.next(routines);
+        })
+    );
   }
 
   modifyRoutine(routine: Routine): Observable<any> {
@@ -71,7 +90,7 @@ export class CalendarService implements OnDestroy {
       startDate: routine.startDate,
       interval: routine.interval,
       active: routine.active,
-      assignedUser: idArray
+      assignedUser: idArray,
     };
     return this.apiService.modifyRoutine(data);
   }

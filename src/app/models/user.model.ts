@@ -1,5 +1,5 @@
 import { SafeResourceUrl } from '@angular/platform-browser';
-import { Community } from './community.model';
+import { ApiCommunity, Community } from './community.model';
 
 export interface ApiUser {
   id: number;
@@ -9,14 +9,14 @@ export interface ApiUser {
   creationdate: string;
   isAdmin?: boolean;
   fk_community_id: number;
-  communities: any[];
+  communities: ApiCommunity[];
 }
 
 export class User {
   readonly id: number;
   readonly email: string;
   readonly name: string;
-  readonly profileImage: SafeResourceUrl;
+  readonly avatar: SafeResourceUrl;
   readonly creationDate: Date;
   readonly isAdmin: boolean;
   readonly communityId: number;
@@ -35,7 +35,7 @@ export class User {
     this.id = params.id;
     this.email = params.email;
     this.name = params.name;
-    this.profileImage = params.profileImage;
+    this.avatar = params.profileImage;
     this.creationDate = params.creationDate;
     this.isAdmin = params.isAdmin ?? false;
     this.communityId = params.communityId;

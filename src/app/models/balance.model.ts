@@ -6,8 +6,8 @@ export interface ApiBalance {
 }
 
 export class Balance {
-  public amount: number;
-  public debitor: User;
+  readonly amount: number;
+  readonly debitor: User;
 
   constructor(params: { amount: number; debitor: User }) {
     this.amount = params.amount;

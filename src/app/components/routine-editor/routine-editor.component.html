@@ -35,7 +35,7 @@
       <div class="flex flex-wrap gap-2">
         @for (user of assignedUsers; track user) {
         <div class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-2 rounded-md">
-          <img [src]="user.profileimage" alt="" class="w-4 h-4 rounded-full mr-1" />
+          <img [src]="user.avatar" alt="" class="w-4 h-4 rounded-full mr-1" />
           <span>{{user.name}}</span>
         </div>
         }
@@ -63,7 +63,7 @@
           @for (user of assignedUsers; track user) {
           <div (click)="removeUser(user)"
             class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-2 rounded-md cursor-pointer hover:opacity-80">
-            <img [src]="user.profileimage" alt="" class="w-4 h-4 rounded-full mr-1" />
+            <img [src]="user.avatar" alt="" class="w-4 h-4 rounded-full mr-1" />
             <span>{{user.name}}</span>
 X          </div>
           }
@@ -77,7 +77,7 @@ X          </div>
           @for (user of assignableUsers; track user) {
           <div (click)="addUser(user)"
             class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-2 rounded-md cursor-pointer hover:opacity-80">
-            <img [src]="user.profileimage" alt="" class="w-4 h-4 rounded-full mr-1" />
+            <img [src]="user.avatar" alt="" class="w-4 h-4 rounded-full mr-1" />
             <span>{{user.name}}</span>
 +          </div>
           }

@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'timeAgo',
 })
 export class TimeAgoPipe implements PipeTransform {
-  transform(value: any, args?: any): any {
+  transform(value: any): any {
     if (value) {
       const temp = new Date(value);
       const seconds = Math.floor((+new Date() - +temp) / 1000);

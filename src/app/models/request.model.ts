@@ -9,11 +9,11 @@ export interface ApiRequest {
 }
 
 export class Request {
-  public id: number;
-  public date: Date;
-  public userId: number;
-  public communityId: number;
-  public user: User;
+  readonly id: number;
+  readonly date: Date;
+  readonly userId: number;
+  readonly communityId: number;
+  readonly user: User;
 
   constructor(params: {
     id: number;

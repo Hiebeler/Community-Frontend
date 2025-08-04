@@ -106,7 +106,11 @@ export class ApiService {
     return this.apiPatch('user', data);
   }
 
-  register(data: any): Observable<ApiResponse<any>> {
+  register(data: {
+    email: string;
+    name: string;
+    password: string;
+  }): Observable<ApiResponse<any>> {
     return this.apiPost('auth/register', data);
   }
 
@@ -126,7 +130,10 @@ export class ApiService {
     return this.apiPost('auth/password-reset/request', { email });
   }
 
-  resetPassword(newPassword: string, code: string): Observable<ApiResponse<any>> {
+  resetPassword(
+    newPassword: string,
+    code: string
+  ): Observable<ApiResponse<any>> {
     return this.apiPost('auth/password-reset', {
       password: newPassword,
       token: code,
@@ -249,7 +256,12 @@ export class ApiService {
     return this.apiPost('todos/', data);
   }
 
-  updateTodo(data: any): Observable<ApiResponse<ApiTodo>> {
+  updateTodo(data: {
+    id: number;
+    name?: string;
+    description?: string;
+    done?: boolean;
+  }): Observable<ApiResponse<ApiTodo>> {
     return this.apiPatch('todos/', data);
   }
 
