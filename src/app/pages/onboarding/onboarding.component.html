@@ -3,12 +3,12 @@
   <app-navbar title="Gemeinschaften verwalten">
 
     @if (activeCommunity) {
-    <a left type="button" class="btn-neutral" routerLink="/profile">
+    <a left type="button" class="btn-neutral aspect-square px-0" routerLink="/profile">
       <lucide-icon [img]="backIcon"></lucide-icon>
     </a>
     }
 
-    <button right type="button" class="btn-danger" (click)="openLogoutPopup()">
+    <button right type="button" class="btn-danger aspect-square px-0" (click)="openLogoutPopup()">
       <lucide-icon [img]="logoutIcon"></lucide-icon>
     </button>
   </app-navbar>

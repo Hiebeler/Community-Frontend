@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { ArrowLeftRightIcon, CheckIcon, LucideAngularModule } from 'lucide-angular';
+import { FeatureCard } from 'src/app/components/feature-card/feature-card';
 
 @Component({
     selector: 'app-landing',
@@ -9,7 +10,8 @@ import { ArrowLeftRightIcon, CheckIcon, LucideAngularModule } from 'lucide-angul
     imports: [
       CommonModule,
       RouterModule,
-      LucideAngularModule
+      LucideAngularModule,
+      FeatureCard
     ]
 })
 export class LandingPage implements OnInit {

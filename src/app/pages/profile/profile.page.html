@@ -2,11 +2,11 @@
 
   @if (user) {
   <div right class="space-x-3 flex">
-    <a routerLink="/onboarding" class="btn-neutral">
+    <a routerLink="/onboarding" class="btn-neutral aspect-square px-0">
       <lucide-icon [img]="switchIcon"></lucide-icon>
     </a>
 
-    <button type="button" class="btn-danger" (click)="logout()">
+    <button type="button" class="btn-danger aspect-square px-0" (click)="logout()">
       <lucide-icon [img]="logoutIcon"></lucide-icon>
     </button>
   </div>

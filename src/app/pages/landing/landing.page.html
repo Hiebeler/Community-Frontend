@@ -1,121 +1,116 @@
-<main class="flex-1 overflow-auto container mx-auto px-4 py-6 space-y-6">
+<main>
 
   <!-- Hero Section -->
-  <section class="flex flex-col items-center justify-between py-20">
-    <h1 class="text-5xl md:text-6xl font- text-white text-center mb-8 flex flex-col items-center space-y-2">
-      <span>Das ultimative Tool für</span>
-      <span>Haushalt und Community</span>
-    </h1>
-    <p class="text-center text-xl mb-4">Teilt Termine, Aufgaben, Einkaufslisten und offene Beträge - ohne endlose
-      Gruppenchats. Ghostbyte Together macht
-      das Planen im Haushalt oder in eurer Community einfacher als je zuvor.</p>
-    <a routerLink="/calendar" class="btn-primary">
-      Zur App
-    </a>
+  <section class="container mx-auto py-20">
+    <div class="grid lg:grid-cols-2">
+
+      <div class="flex flex-col items-start">
+        <div
+          class="bg-[#143830] text-[#7de0a1] border border-[#7de0a1] rounded-full px-3 py-2 text-xs flex items-center justify-center">
+          <lucide-icon [img]="checkIcon" size="16" class="text-primary"></lucide-icon>
+
+          Kostenlos & Einfach
+        </div>
+
+        <h1 className="text-5xl lg:text-7xl font-bold">
+          Bringt Euren
+          <span className="bg-gradient-to-r from-green-400 via-green-300 to-green-500 bg-clip-text text-transparent">
+            Haushalt
+          </span>
+          Zusammen
+        </h1>
+        <p class="text-xl mb-4">Verwaltet eure Familie, WG oder Gemeinschaft mit geteilten To-Do-Listen, Einkaufslisten,
+          Kalendern und mehr. Direkt im Browser - komplett <span class="text-primary">kostenlos</span> und ohne Installation.</p>
+        <a routerLink="/calendar" class="btn-primary">
+          Zur App
+        </a>
+      </div>
+
+    </div>
+
   </section>
 
-  <!-- Features Section -->
-  <section class="mt-32 pb-24">
-    <h2 class="text-center text-5xl font-semibold text-white">Unsere Features</h2>
-    <p class="mb-12 text-center">Entdecke die Funktionen, die euren Alltag einfacher machen.</p>
+  <section class="container mx-auto">
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-3">
-      <div class="col-span-1 lg:col-span-7 card grid grid-cols-2">
-        <div class="col-span-1 flex flex-col justify-center">
-          <h2 class="text-2xl mb-3">Gemeinsame Einkaufsliste</h2>
-          <p>Mit der geteilten Einkaufsliste bleibt alles übersichtlich und aktuell.</p>
-        </div>
+    <div class="w-full flex flex-col items-center justify-center text-center space-y-3">
+      <span class="bg-[#143830] text-[#7de0a1] border border-[#7de0a1] rounded-full px-3 py-2 text-xs">Funktionen</span>
+      <h2 class="text-5xl">Alles was euer Haushalt braucht</h2>
+      <p class="text-gray-400">Von täglichen Aufgaben bis zur langfristigen Planung - Together hat alle Tools, um euren
+        Haushalt reibungslos
+        zu
+        organisieren.</p>
+    </div>
 
-        <div class="col-span-1 py-6">
-          <div class="card">
-            <span class="text-lg font-semibold">Offen:</span>
+    <div class="grid grid-cols-3 gap-5 mt-5">
+      <app-feature-card title="Geteilte To-Do-Listen" [icon]="checkIcon" description="Erstellt und verteilt Aufgaben an Haushaltsmitglieder. Verfolgt den Fortschritt
+          und vergesst nie wieder
+          wichtige Erledigungen."></app-feature-card>
 
-            <div class="flex items-center space-x-4 py-1">
-              <div class="w-5 h-5 bg-gray-700 border border-gray-400 rounded-sm"></div>
-              <span class="text-white">
-                Pizzateig
-              </span>
-            </div>
+      <app-feature-card title="Geteilte To-Do-Listen" [icon]="checkIcon" description="Erstellt und verteilt Aufgaben an Haushaltsmitglieder. Verfolgt den Fortschritt
+          und vergesst nie wieder
+          wichtige Erledigungen."></app-feature-card>
 
-            <div class="flex items-center space-x-4 py-1">
-              <div class="w-5 h-5 bg-gray-700 border border-gray-400 rounded-sm"></div>
-              <span class="text-white">
-                Schinken
-              </span>
-            </div>
+      <app-feature-card title="Geteilte To-Do-Listen" [icon]="checkIcon" description="Erstellt und verteilt Aufgaben an Haushaltsmitglieder. Verfolgt den Fortschritt
+          und vergesst nie wieder
+          wichtige Erledigungen."></app-feature-card>
 
-            <div class="flex items-center space-x-4 py-1 mb-3">
-              <div class="w-5 h-5 bg-gray-700 border border-gray-400 rounded-sm"></div>
-              <span class="text-white">
-                Ananans
-              </span>
-            </div>
+      <app-feature-card title="Geteilte To-Do-Listen" [icon]="checkIcon" description="Erstellt und verteilt Aufgaben an Haushaltsmitglieder. Verfolgt den Fortschritt
+          und vergesst nie wieder
+          wichtige Erledigungen."></app-feature-card>
 
-            <span class="text-lg font-semibold">Erledigt:</span>
-
-            <div class="flex items-center space-x-4 py-1">
-              <div class="w-5 h-5 bg-primary border border-gray-400 rounded-sm flex items-center justify-center">
-                <lucide-icon [img]="checkIcon" size="16"></lucide-icon>
-              </div>
-              <span class="text-white">
-                Mozzarella
-              </span>
-            </div>
-
-            <div class="flex items-center space-x-4 py-1">
-              <div class="w-5 h-5 bg-primary border border-gray-400 rounded-sm flex items-center justify-center">
-                <lucide-icon [img]="checkIcon" size="16"></lucide-icon>
-              </div>
-              <span class="text-white">
-                Tomatensauce
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-span-1 lg:col-span-5 card">
-        <h2 class="text-center text-2xl mb-3">Mehrere Communities, ein Account</h2>
-        <p class="text-center mb-5">Wechsle mit einem Klick zwischen WG, Familie und Co - ganz ohne Chaos.</p>
-
-        <div class="flex flex-col items-center px-10 text-sm">
-          <div class="card p-2 w-1/2 flex justify-between items-center">
-            Haus 4B
-            <lucide-icon [img]="switchIcon" size="22"></lucide-icon>
-          </div>
-
-          <div class="flex w-full space-x-3 my-3">
-            <div class="card bg-primary/20 p-2 w-1/2 flex items-center">
-              Nachbarn am Park
-            </div>
-            <div class="card p-2 w-1/2 flex justify-between items-center">
-              Reisegruppe Bali
-              <lucide-icon [img]="switchIcon" size="22"></lucide-icon>
-
-            </div>
-          </div>
-
-          <div class="card p-2 w-1/2 flex justify-between items-center">
-            WG Chaos Crew
-            <lucide-icon [img]="switchIcon" size="22"></lucide-icon>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-span-1 lg:col-span-6 card">
-        <h2 class="text-center text-2xl mb-3">Planen was ansteht</h2>
-        <p class="text-center">Gemeinsame Termine und wiederkehrende Aufgaben an einem Ort - für alle sichtbar.</p>
-      </div>
-
-      <div class="col-span-1 lg:col-span-6 card">
-        <h2 class="text-center text-2xl mb-3">Klarheit bei Ausgaben</h2>
-        <p class="text-center">Erfasst Ausgaben und seht auf einen Blick, wer wem wie viel schuldet.</p>
-      </div>
     </div>
 
 
   </section>
 
+  <section class="container mx-auto">
+    <div class="w-full flex flex-col items-center justify-center text-center space-y-3">
+      <span class="bg-[#143830] text-[#7de0a1] border border-[#7de0a1] rounded-full px-3 py-2 text-xs">Funktionen</span>
+      <h2 class="text-5xl">Warum Together?</h2>
+      <p class="text-gray-400">Together macht Haushaltsorganisation einfach und zugänglich. Keine komplizierte Software,
+        keine Kosten.</p>
+    </div>
+
+    <div class="grid grid-cols-3 gap-5 mt-5">
+
+      <div class="card flex flex-col text-center items-center justify-center space-y-4">
+
+        <div
+          class="bg-[#173d3a] w-16 h-16 rounded-2xl border border-primary text-primary flex items-center justify-center">
+          <lucide-icon [img]="checkIcon" size="24" class="text-primary"></lucide-icon>
+        </div>
+
+        <span class="font-bold text-xl">Direkt im Browser</span>
+        <p>Keine Installation nötig. Öffnet einfach den Browser und legt sofort los - auf jedem Gerät.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="bg-gradient-to-br from-green-500/10 via-blue-500/10 to-purple-500/10 px-6 py-20">
+    <div class="container mx-auto flex flex-col items-center justify-center text-center space-y-3">
+      <h2 class="text-5xl">Bereit, euren Haushalt zu organisieren?</h2>
+      <p class="text-gray-400">Together macht Haushaltsorganisation einfach und zugänglich. Keine komplizierte Software,
+        keine Kosten.</p>
+
+      <a routerLink="/login" class="btn-primary">Jetzt starten</a>
+
+      <div class="flex justify-between space-x-6 text-sm text-gray-500">
+        <div>
+          100% kostenlos
+        </div>
+
+        <div>
+          100% kostenlos
+        </div>
+
+        <div>
+          100% kostenlos
+        </div>
+
+      </div>
+    </div>
+  </section>
 
 
 </main>
