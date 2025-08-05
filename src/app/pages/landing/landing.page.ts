@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { ArrowLeftRightIcon, CheckIcon, LucideAngularModule } from 'lucide-angular';
+import { ArrowLeftRightIcon, ArrowRightIcon, CalendarIcon, CheckIcon, CircleCheckBigIcon, HeartIcon, LucideAngularModule, ShieldIcon, ShoppingCartIcon, SparklesIcon } from 'lucide-angular';
 import { FeatureCard } from 'src/app/components/feature-card/feature-card';
 
 @Component({
@@ -16,7 +16,13 @@ import { FeatureCard } from 'src/app/components/feature-card/feature-card';
 })
 export class LandingPage implements OnInit {
   readonly switchIcon = ArrowLeftRightIcon;
-  readonly checkIcon = CheckIcon;
+  readonly checkIcon = CircleCheckBigIcon;
+  readonly shoppingCartIcon = ShoppingCartIcon;
+  readonly calendarIcon = CalendarIcon;
+  readonly sparklesIcon = SparklesIcon;
+  readonly arrowRightIcon = ArrowRightIcon;
+  readonly heartIcon = HeartIcon;
+  readonly shieldIcon = ShieldIcon;
 
   constructor(private router: Router) { }
 

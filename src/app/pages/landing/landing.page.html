@@ -4,26 +4,44 @@
   <section class="container mx-auto py-20">
     <div class="grid lg:grid-cols-2">
 
-      <div class="flex flex-col items-start">
+      <div class="flex flex-col items-start space-y-6">
         <div
-          class="bg-[#143830] text-[#7de0a1] border border-[#7de0a1] rounded-full px-3 py-2 text-xs flex items-center justify-center">
-          <lucide-icon [img]="checkIcon" size="16" class="text-primary"></lucide-icon>
-
-          Kostenlos & Einfach
+          class="bg-[#143830] text-[#7de0a1] border border-[#7de0a1] rounded-full px-3 py-2 text-xs flex items-center justify-center space-x-1">
+          <lucide-icon [img]="sparklesIcon" size="16" color="#7de0a1"></lucide-icon>
+          <span class="text-[#7de0a1]">Kostenlos & Einfach</span>
         </div>
 
-        <h1 className="text-5xl lg:text-7xl font-bold">
-          Bringt Euren
-          <span className="bg-gradient-to-r from-green-400 via-green-300 to-green-500 bg-clip-text text-transparent">
+        <h1 class="text-5xl lg:text-7xl font-bold">
+          <span>Bringt Euren</span>
+          <span class="bg-gradient-to-r from-green-400 via-green-300 to-green-500 bg-clip-text text-transparent">
             Haushalt
           </span>
-          Zusammen
+          <span>Zusammen</span>
         </h1>
-        <p class="text-xl mb-4">Verwaltet eure Familie, WG oder Gemeinschaft mit geteilten To-Do-Listen, Einkaufslisten,
-          Kalendern und mehr. Direkt im Browser - komplett <span class="text-primary">kostenlos</span> und ohne Installation.</p>
-        <a routerLink="/calendar" class="btn-primary">
-          Zur App
+        <p class="text-xl lg:text-2xl text-gray-300 mb-4">Verwaltet eure Familie, WG oder Gemeinschaft mit geteilten
+          To-Do-Listen, Einkaufslisten,
+          Kalendern und mehr. Direkt im Browser - komplett <span class="text-primary">kostenlos</span> und
+          <span class="text-primary">ohne Installation</span>.
+        </p>
+        <a routerLink="/login" class="bg-primary flex space-x-3 px-5 py-3 rounded-lg">
+          <span class="font-bold">Jetzt Starten</span>
+          <lucide-icon [img]="arrowRightIcon" size="24"></lucide-icon>
         </a>
+
+        <div class="flex items-center space-x-8 text-sm">
+          <div class="flex items-center space-x-2 text-green-400">
+            <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            <span class="font-medium text-green-500">100% kostenlos</span>
+          </div>
+          <div class="flex items-center space-x-2 text-blue-400">
+            <lucide-icon [img]="shieldIcon" color="#51A2FF" size="14"></lucide-icon>
+            <span class="text-blue-400">Keine Installation nötig</span>
+          </div>
+          <div class="flex items-center space-x-2 text-purple-400">
+            <lucide-icon [img]="heartIcon" color="#C27AFF" size="14"></lucide-icon>
+            <span class="text-purple-400">Direkt im Browser</span>
+          </div>
+        </div>
       </div>
 
     </div>
@@ -42,30 +60,23 @@
     </div>
 
     <div class="grid grid-cols-3 gap-5 mt-5">
-      <app-feature-card title="Geteilte To-Do-Listen" [icon]="checkIcon" description="Erstellt und verteilt Aufgaben an Haushaltsmitglieder. Verfolgt den Fortschritt
+      <app-feature-card title="Geteilte To-Do-Listen" [icon]="checkIcon" borderColor="#4ade80" backgroundColor="#173d3a"
+        description="Erstellt und verteilt Aufgaben an Haushaltsmitglieder. Verfolgt den Fortschritt
           und vergesst nie wieder
           wichtige Erledigungen."></app-feature-card>
 
-      <app-feature-card title="Geteilte To-Do-Listen" [icon]="checkIcon" description="Erstellt und verteilt Aufgaben an Haushaltsmitglieder. Verfolgt den Fortschritt
-          und vergesst nie wieder
-          wichtige Erledigungen."></app-feature-card>
+      <app-feature-card title="Einkaufslisten" [icon]="shoppingCartIcon" borderColor="#60A5FA" backgroundColor="#1D3853"
+        description="Gemeinsame Einkaufslisten, die in Echtzeit synchronisiert werden. Fügt Artikel hinzu, hakt sie ab und vergesst nichts mehr."></app-feature-card>
 
-      <app-feature-card title="Geteilte To-Do-Listen" [icon]="checkIcon" description="Erstellt und verteilt Aufgaben an Haushaltsmitglieder. Verfolgt den Fortschritt
-          und vergesst nie wieder
-          wichtige Erledigungen."></app-feature-card>
-
-      <app-feature-card title="Geteilte To-Do-Listen" [icon]="checkIcon" description="Erstellt und verteilt Aufgaben an Haushaltsmitglieder. Verfolgt den Fortschritt
-          und vergesst nie wieder
-          wichtige Erledigungen."></app-feature-card>
+      <app-feature-card title="Gemeinsamer Kalender" [icon]="calendarIcon" borderColor="#c084fc"
+        backgroundColor="#432b4d"
+        description="Haltet alle auf dem Laufenden mit einem geteilten Kalender für Termine, Veranstaltungen und wichtige Daten."></app-feature-card>
 
     </div>
-
-
   </section>
 
-  <section class="container mx-auto">
+  <section class="container mx-auto my-30">
     <div class="w-full flex flex-col items-center justify-center text-center space-y-3">
-      <span class="bg-[#143830] text-[#7de0a1] border border-[#7de0a1] rounded-full px-3 py-2 text-xs">Funktionen</span>
       <h2 class="text-5xl">Warum Together?</h2>
       <p class="text-gray-400">Together macht Haushaltsorganisation einfach und zugänglich. Keine komplizierte Software,
         keine Kosten.</p>
@@ -86,29 +97,69 @@
     </div>
   </section>
 
+  <section class="container mx-auto my-30">
+    <div class="w-full flex flex-col items-center justify-center text-center space-y-3">
+      <h2 class="text-5xl">In wenigen Minuten startklar</h2>
+      <p class="text-gray-400">Die Einrichtung eures Haushalts ist einfach und intuitiv. Fangt noch heute an zu
+        organisieren.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-4 mt-12">
+      <div class="flex flex-col space-y-4 items-center text-center">
+        <div class="h-18 w-18 bg-[#1bb253] rounded-2xl flex items-center justify-center">
+          <span class="font-black text-3xl">1</span>
+        </div>
+        <h3 class="font-bold text-2xl">Registrieren</h3>
+        <p class="text-gray-400">Erstellt euer kostenloses Konto in wenigen Sekunden - keine Kreditkarte nötig.</p>
+      </div>
+
+      <div class="flex flex-col space-y-4 items-center text-center">
+        <div class="h-18 w-18 bg-[#1bb253] rounded-2xl flex items-center justify-center">
+          <span class="font-black text-3xl">2</span>
+        </div>
+        <h3 class="font-bold text-2xl">Haushalt einrichten</h3>
+        <p class="text-gray-400">Erstellt euren Haushalt, gebt ihm einen Namen und passt euren Bereich an.</p>
+      </div>
+
+      <div class="flex flex-col space-y-4 items-center text-center">
+        <div class="h-18 w-18 bg-[#1bb253] rounded-2xl flex items-center justify-center">
+          <span class="font-black text-3xl">3</span>
+        </div>
+        <h3 class="font-bold text-2xl">Mitglieder einladen</h3>
+        <p class="text-gray-400">Ladet Familie, Mitbewohner oder Gemeinschaftsmitglieder per E-Mail oder Link ein.</p>
+      </div>
+    </div>
+  </section>
 
   <section class="bg-gradient-to-br from-green-500/10 via-blue-500/10 to-purple-500/10 px-6 py-20">
-    <div class="container mx-auto flex flex-col items-center justify-center text-center space-y-3">
-      <h2 class="text-5xl">Bereit, euren Haushalt zu organisieren?</h2>
-      <p class="text-gray-400">Together macht Haushaltsorganisation einfach und zugänglich. Keine komplizierte Software,
-        keine Kosten.</p>
+    <div class="container mx-auto">
+      <div class="max-w-4xl mx-auto flex flex-col items-center justify-center text-center space-y-10">
+        <h2 class="text-6xl">Bereit, euren Haushalt zu organisieren?</h2>
+        <p class="text-gray-400 text-xl lg:text-2xl">Together macht Haushaltsorganisation einfach und zugänglich. Keine
+          komplizierte
+          Software,
+          keine Kosten.</p>
 
-      <a routerLink="/login" class="btn-primary">Jetzt starten</a>
-
-      <div class="flex justify-between space-x-6 text-sm text-gray-500">
-        <div>
-          100% kostenlos
+        <a routerLink="/login" class="bg-primary flex space-x-3 px-5 py-3 rounded-lg">
+          <span class="font-bold">Jetzt Starten</span>
+          <lucide-icon [img]="arrowRightIcon" size="24"></lucide-icon>
+        </a>
+        <div class="flex items-center space-x-8 text-sm">
+          <div class="flex items-center space-x-2 text-green-400">
+            <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            <span class="font-medium text-green-500">100% kostenlos</span>
+          </div>
+          <div class="flex items-center space-x-2 text-blue-400">
+            <lucide-icon [img]="shieldIcon" color="#51A2FF" size="14"></lucide-icon>
+            <span class="text-blue-400">Keine Installation nötig</span>
+          </div>
+          <div class="flex items-center space-x-2 text-purple-400">
+            <lucide-icon [img]="heartIcon" color="#C27AFF" size="14"></lucide-icon>
+            <span class="text-purple-400">Direkt im Browser</span>
+          </div>
         </div>
-
-        <div>
-          100% kostenlos
-        </div>
-
-        <div>
-          100% kostenlos
-        </div>
-
       </div>
+
     </div>
   </section>
 

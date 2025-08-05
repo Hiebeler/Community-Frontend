@@ -9,5 +9,7 @@ import { LucideAngularModule, LucideIconData } from 'lucide-angular';
 export class FeatureCard {
   @Input() title: string;
   @Input() description: string;
+  @Input() borderColor: string;
+  @Input() backgroundColor: string;
   @Input() icon: LucideIconData
 }
