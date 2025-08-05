@@ -27,26 +27,9 @@
   }
 
   @font-face {
-    font-family: "custom-regular";
-    src: url("/assets/fonts/Poppins-Regular.ttf") format("truetype");
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: "custom-medium";
-    src: url("/assets/fonts/Poppins-Medium.ttf") format("truetype");
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: "custom-semibold";
-    src: url("/assets/fonts/Poppins-SemiBold.ttf") format("truetype");
-    font-display: swap;
-  }
-
-  @font-face {
-    font-family: "custom-bold";
-    src: url("/assets/fonts/Poppins-Bold.ttf") format("truetype");
+    font-family: "geist";
+    src: url("/assets/fonts/geist_variable.ttf") format("truetype");
+    font-weight: 100 900;
     font-display: swap;
   }
 
@@ -55,7 +38,7 @@
   }
 
   * {
-    font-family: "custom-medium", sans-serif;
+    font-family: "geist", sans-serif;
     @apply text-gray-100 cursor-default;
   }
 
@@ -64,12 +47,11 @@
   }
 
   h1 {
-    font-family: "custom-bold", sans-serif;
-    @apply text-[2.2rem];
+    @apply text-[2.2rem] font-bold;
   }
 
   h2 {
-    font-family: "custom-bold", sans-serif;
+    @apply font-bold;
   }
 
   button:enabled:hover,
@@ -134,23 +116,6 @@
 /* Components: Buttons, Cards, Fields, Alerts */
 /* ------------------------------------------- */
 @layer components {
-
-  /* Fonts */
-  .regular {
-    font-family: "custom-regular";
-  }
-
-  .medium {
-    font-family: "custom-medium";
-  }
-
-  .semibold {
-    font-family: "custom-semibold";
-  }
-
-  .bold {
-    font-family: "custom-bold";
-  }
 
   /* Buttons */
 
