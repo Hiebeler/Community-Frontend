@@ -1,7 +1,7 @@
 <main>
 
   <!-- Hero Section -->
-  <section class="container mx-auto py-20">
+  <section class="container mx-auto py-20 px-6">
     <div class="grid lg:grid-cols-2">
 
       <div class="flex flex-col items-start space-y-6">
@@ -40,8 +40,7 @@
         </div>
         }
 
-
-        <div class="flex items-center space-x-8 text-sm">
+        <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8 text-sm w-full md:w-auto">
           <div class="flex items-center space-x-2 text-green-400">
             <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
             <span class="font-medium text-green-500">100% kostenlos</span>
@@ -61,7 +60,7 @@
 
   </section>
 
-  <section class="container mx-auto">
+  <section class="container mx-auto mt-20 px-6">
 
     <div class="w-full flex flex-col items-center justify-center text-center space-y-3">
       <span class="bg-[#143830] text-[#7de0a1] border border-[#7de0a1] rounded-full px-3 py-2 text-xs">Funktionen</span>
@@ -72,7 +71,7 @@
         organisieren.</p>
     </div>
 
-    <div class="grid grid-cols-3 gap-5 mt-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
       <app-feature-card title="Geteilte To-Do-Listen" [icon]="checkIcon" borderColor="#4ade80" backgroundColor="#173d3a"
         description="Erstellt und verteilt Aufgaben an Haushaltsmitglieder. Verfolgt den Fortschritt
           und vergesst nie wieder
@@ -85,39 +84,44 @@
         backgroundColor="#432b4d"
         description="Haltet alle auf dem Laufenden mit einem geteilten Kalender für Termine, Veranstaltungen und wichtige Daten."></app-feature-card>
 
+      <app-feature-card title="Schuldenmanager" [icon]="debtIcon" borderColor="#fb923c" backgroundColor="#442a2e"
+        description="Behaltet den Überblick über gemeinsame Ausgaben und offene Beträge. Erfasst Schulden, gleicht sie aus und sorgt für klare Verhältnisse im Haushalt."></app-feature-card>
+
+      <app-feature-card title="Mehrere Communities" [icon]="multipleCommunitiesIcon" borderColor="#facc15"
+        backgroundColor="#463c29"
+        description="Organisiert nicht nur euren Haushalt, sondern auch WG, Familie oder Vereine - alles in einem Konto. Wechselt mühelos zwischen verschiedenen Communities und behaltet den Überblick."></app-feature-card>
     </div>
   </section>
 
-  <section class="container mx-auto my-30">
-    <div class="w-full flex flex-col items-center justify-center text-center space-y-3">
+  <section class="container mx-auto my-50 px-6">
+    <div class="w-full flex flex-col items-center justify-center text-center space-y-5">
       <h2 class="text-5xl">Warum Together?</h2>
       <p class="text-gray-400">Together macht Haushaltsorganisation einfach und zugänglich. Keine komplizierte Software,
         keine Kosten.</p>
     </div>
 
-    <div class="grid grid-cols-3 gap-5 mt-5">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
+      <app-why-card title="Direkt im Browser" [icon]="globeIcon" borderColor="#4ade80" backgroundColor="#173d3a"
+        description="Keine Installation nötig. Öffnet einfach den Browser und legt sofort los - auf jedem Gerät."></app-why-card>
 
-      <div class="card flex flex-col text-center items-center justify-center space-y-4">
+      <app-why-card title="Komplett kostenlos" [icon]="giftIcon" borderColor="#60A5FA" backgroundColor="#1D3853"
+        description="Keine versteckten Kosten, keine Abonnements, keine Premium-Features. Alles ist für immer kostenlos."></app-why-card>
 
-        <div
-          class="bg-[#173d3a] w-16 h-16 rounded-2xl border border-primary text-primary flex items-center justify-center">
-          <lucide-icon [img]="checkIcon" size="24" class="text-primary"></lucide-icon>
-        </div>
 
-        <span class="font-bold text-xl">Direkt im Browser</span>
-        <p>Keine Installation nötig. Öffnet einfach den Browser und legt sofort los - auf jedem Gerät.</p>
-      </div>
+      <app-why-card title="Einfach zu verwenden" [icon]="zapIcon" borderColor="#c084fc" backgroundColor="#432b4d"
+        description="Intuitive Bedienung, die jeder sofort versteht. Keine komplizierte Einrichtung nötig."></app-why-card>
+
     </div>
   </section>
 
-  <section class="container mx-auto my-30">
+  <section class="container mx-auto my-30 px-6">
     <div class="w-full flex flex-col items-center justify-center text-center space-y-3">
       <h2 class="text-5xl">In wenigen Minuten startklar</h2>
       <p class="text-gray-400">Die Einrichtung eures Haushalts ist einfach und intuitiv. Fangt noch heute an zu
         organisieren.</p>
     </div>
 
-    <div class="grid lg:grid-cols-3 gap-4 mt-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-12">
       <div class="flex flex-col space-y-4 items-center text-center">
         <div class="h-18 w-18 bg-[#1bb253] rounded-2xl flex items-center justify-center">
           <span class="font-black text-3xl">1</span>
@@ -147,7 +151,7 @@
   <section class="bg-gradient-to-br from-green-500/10 via-blue-500/10 to-purple-500/10 px-6 py-20">
     <div class="container mx-auto">
       <div class="max-w-4xl mx-auto flex flex-col items-center justify-center text-center space-y-10">
-        <h2 class="text-6xl">Bereit, euren Haushalt zu organisieren?</h2>
+        <h2 class="text-4xl lg:text-6xl">Bereit, euren Haushalt zu organisieren?</h2>
         <p class="text-gray-400 text-xl lg:text-2xl">Together macht Haushaltsorganisation einfach und zugänglich. Keine
           komplizierte
           Software,
@@ -157,7 +161,7 @@
           <span class="font-bold">Jetzt Starten</span>
           <lucide-icon [img]="arrowRightIcon" size="24"></lucide-icon>
         </a>
-        <div class="flex items-center space-x-8 text-sm">
+        <div class="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-8 text-sm">
           <div class="flex items-center space-x-2 text-green-400">
             <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
             <span class="font-medium text-green-500">100% kostenlos</span>
