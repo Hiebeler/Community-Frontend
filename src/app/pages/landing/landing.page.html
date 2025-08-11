@@ -11,7 +11,7 @@
           <span class="text-[#7de0a1]">Kostenlos & Einfach</span>
         </div>
 
-        <h1 class="text-5xl lg:text-7xl font-bold">
+        <h1 class="text-5xl lg:text-7xl font-bold flex flex-col">
           <span>Bringt Euren</span>
           <span class="bg-gradient-to-r from-green-400 via-green-300 to-green-500 bg-clip-text text-transparent">
             Haushalt
@@ -23,10 +23,23 @@
           Kalendern und mehr. Direkt im Browser - komplett <span class="text-primary">kostenlos</span> und
           <span class="text-primary">ohne Installation</span>.
         </p>
-        <a routerLink="/login" class="bg-primary flex space-x-3 px-5 py-3 rounded-lg">
-          <span class="font-bold">Jetzt Starten</span>
-          <lucide-icon [img]="arrowRightIcon" size="24"></lucide-icon>
+
+        @if (isLoggedIn) {
+        <a routerLink="/calendar" class="btn-primary space-x-2">
+          <span class="font-bold">Zur App</span>
+          <lucide-icon [img]="arrowRightIcon" size="20"></lucide-icon>
         </a>
+        } @else {
+        <div class="flex space-x-3">
+          <a routerLink="/login" class="btn-neutral">
+            <span class="font-bold">Anmelden</span>
+          </a>
+          <a routerLink="/register" class="btn-primary">
+            <span class="font-bold">Registrieren</span>
+          </a>
+        </div>
+        }
+
 
         <div class="flex items-center space-x-8 text-sm">
           <div class="flex items-center space-x-2 text-green-400">
@@ -140,7 +153,7 @@
           Software,
           keine Kosten.</p>
 
-        <a routerLink="/login" class="bg-primary flex space-x-3 px-5 py-3 rounded-lg">
+        <a routerLink="/login" class="btn-primary space-x-2">
           <span class="font-bold">Jetzt Starten</span>
           <lucide-icon [img]="arrowRightIcon" size="24"></lucide-icon>
         </a>
