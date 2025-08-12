@@ -32,38 +32,38 @@
       } @else {
       @for (community of ownCommunities; track community.id) {
       @if (community.id == this.activeCommunity?.id) {
-      <div class="card px-6 py-3 flex flex-row justify-between items-center bg-primary/20">
-        <div class="flex flex-col items-start">
+      <div class="card p-0 flex flex-row justify-between items-center bg-primary/20">
+        <div class="flex w-full flex-col items-start px-6 py-3">
           <div class="flex items-center">
             <span class="font-bold text-lg">{{community?.name}}</span>
             @if (community.admin?.id === user.id) {
-            <span
-              class="ml-2 text-xs px-2 py-0.5 rounded-full border border-white/20">Admin</span>
+            <span class="ml-2 text-xs px-2 py-0.5 rounded-full border border-white/20">Admin</span>
             }
           </div>
           <span class="text-xs text-gray-400">Beitrittscode: {{community?.code}}</span>
         </div>
 
-        @if (community.admin?.id === user.id) {
-        <lucide-icon (click)="openCommuitySettings(community)" class="clickable" [img]="penIcon"></lucide-icon>
-        }
+        <div class="px-6 py-3">
+          <lucide-icon (click)="openCommuitySettings(community)" class="clickable" [img]="settingsIcon"></lucide-icon>
+        </div>
 
       </div>
       } @else {
-      <div class="card px-6 py-3 flex flex-row justify-between items-center clickable"
-        (click)="selectCommunity(community)">
-        <div class="flex flex-col items-start">
+      <div class="card p-0 flex flex-row justify-between items-center">
+        <div class="flex w-full flex-col items-start px-6 py-3 clickable" (click)="selectCommunity(community)">
           <div class="flex items-center">
             <span class="font-bold text-lg">{{community?.name}}</span>
             @if (community.admin?.id === user.id) {
-            <span
-              class="ml-2 text-xs px-2 py-0.5 rounded-full border border-white/20">Admin</span>
+            <span class="ml-2 text-xs px-2 py-0.5 rounded-full border border-white/20">Admin</span>
             }
           </div>
           <span class="text-xs text-gray-400">Beitrittscode: {{community?.code}}</span>
         </div>
 
-        <lucide-icon [img]="switchIcon"></lucide-icon>
+        <div class="px-6 py-3">
+          <lucide-icon (click)="openCommuitySettings(community)" class="clickable" [img]="settingsIcon"></lucide-icon>
+        </div>
+
       </div>
       }
       }
@@ -129,6 +129,8 @@
 </div>
 
 <app-popup [show]="communityToEdit != null" (close)="openCommuitySettings(null)" title="Gemeinschaft bearbeiten">
+
+  @if (communityToEdit?.admin?.id === user?.id) {
   <form class="flex flex-col mb-3 w-full" [formGroup]="communityNameUpdateEditorForm"
     (ngSubmit)="updateCommunityName()">
     <label for="communityName">Name</label>
@@ -138,13 +140,21 @@
   <app-primary-button [isLoading]="isLoadingCommunityNameChange"
     [disabled]="communityNameUpdateEditorForm.invalid || (communityName.value === communityToEdit?.name)"
     (clicked)="updateCommunityName()" label="Name ändern"></app-primary-button>
+  } @else {
+  <p class="text-danger">Nur der Admin kann den Name bearbeiten</p>
+  }
+  <div class="mt-12">
+    <h2 class="pb-3">Gemeinschaft verlassen</h2>
+    <button type="button" (click)="requestToDeleteCommunity(communityToEdit)" class="btn-danger">Gemeinschaft
+      verlassen</button>
 
-  <div class="mt-8">
-    <h2 class="pb-3">Gefahrenzone</h2>
-    <p class="pb-3">Die folgenden Änderungen können nicht rückgängig gemacht werden.</p>
+    @if (communityToEdit?.admin?.id === user?.id) {
+    <h2 class="pb-3 mt-6">Gemeinschaft löschen</h2>
+    <p class="pb-3">Dabei werden alle Daten der Gemeinschaft gelöscht.</p>
 
     <button type="button" (click)="requestToDeleteCommunity(communityToEdit)" class="btn-danger">Gemeinschaft
       löschen</button>
+    }
   </div>
 </app-popup>
 

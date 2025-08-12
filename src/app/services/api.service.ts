@@ -209,6 +209,10 @@ export class ApiService {
     return this.apiPost('community', data);
   }
 
+  deleteCommunity(id: number): Observable<ApiResponse<any>> {
+    return this.apiDelete('community/' + id)
+  }
+
   updateCommunityName(
     communityId: number,
     name: string

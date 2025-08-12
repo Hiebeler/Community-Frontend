@@ -99,6 +99,10 @@ export class CommunityService implements OnDestroy {
     );
   }
 
+  deleteCommunity(id: number): Observable<ApiResponse<any>> {
+    return this.apiService.deleteCommunity(id);
+  }
+
   getUsersInCurrentCommunity(): Observable<User[]> {
     return this.usersInCommunity;
   }

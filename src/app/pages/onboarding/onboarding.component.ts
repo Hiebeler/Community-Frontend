@@ -13,6 +13,7 @@ import {
   LogOutIcon,
   LucideAngularModule,
   PenIcon,
+  SettingsIcon,
 } from 'lucide-angular';
 import { Router, RouterModule } from '@angular/router';
 import { Navbar } from 'src/app/components/navbar/navbar';
@@ -51,6 +52,7 @@ export class OnboardingComponent implements OnInit {
   readonly backIcon = ArrowLeftIcon;
   readonly logoutIcon = LogOutIcon;
   readonly penIcon = PenIcon;
+  readonly settingsIcon = SettingsIcon;
 
   subscriptions: Subscription[] = [];
 
@@ -134,13 +136,16 @@ export class OnboardingComponent implements OnInit {
       })
     );
 
+    this.fetchActiveCommunity();
+    this.fetchCommunities();
+  }
+
+  fetchActiveCommunity() {
     this.subscriptions.push(
       this.communityService.getCurrentCommunity().subscribe((community) => {
         this.activeCommunity = community;
       })
     );
-
-    this.fetchCommunities();
   }
 
   fetchCommunities() {
@@ -202,7 +207,29 @@ export class OnboardingComponent implements OnInit {
   }
 
   requestToDeleteCommunity(community: Community) {
-
+    this.alertService.showAlert(
+      'Gemeinschaft ' + community.name + ' löschen?',
+      'Sicher dass du diese Gemeinschaft löschen willst?',
+      'Löschen',
+      () => {
+        this.communityService.deleteCommunity(community.id).subscribe((res) => {
+          if (res.success) {
+            this.toastr.success(
+              'Gemeinschaft ' + community.name + ' wurde gelöscht.'
+            );
+            this.openCommuitySettings(null);
+            this.fetchCommunities();
+            if (community.id == this.activeCommunity.id) {
+              this.communityService.setCurrentCommunity(null);
+              this.fetchActiveCommunity();
+            }
+          } else {
+            this.toastr.error(res.error);
+          }
+        });
+      },
+      'Abbrechen'
+    );
   }
 
   updateUser(data: any) {
