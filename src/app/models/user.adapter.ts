@@ -11,7 +11,6 @@ export class UserAdapter implements Adapter<ApiUser, User> {
 
   adapt(item: ApiUser): User {
     const creationDate = new Date(item.creationdate);
-    console.log(item)
     const profileImage: SafeResourceUrl =
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         item.profile_image ?? '/assets/images/defaultavatar.svg'

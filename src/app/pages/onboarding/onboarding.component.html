@@ -130,6 +130,8 @@
 
 <app-popup [show]="communityToEdit != null" (close)="openCommuitySettings(null)" title="Gemeinschaft bearbeiten">
 
+  <h2 class="pb-3">Name ändern</h2>
+
   @if (communityToEdit?.admin?.id === user?.id) {
   <form class="flex flex-col mb-3 w-full" [formGroup]="communityNameUpdateEditorForm"
     (ngSubmit)="updateCommunityName()">
@@ -140,6 +142,8 @@
   <app-primary-button [isLoading]="isLoadingCommunityNameChange"
     [disabled]="communityNameUpdateEditorForm.invalid || (communityName.value === communityToEdit?.name)"
     (clicked)="updateCommunityName()" label="Name ändern"></app-primary-button>
+  } @else {
+  <p class="text-danger">Nur der Admin kann den Name ändern</p>
   }
 
   @if (communityToEdit?.admin?.id === user?.id){
@@ -161,8 +165,13 @@
 
   <div class="mt-12">
     <h2 class="pb-3">Gemeinschaft verlassen</h2>
+    @if (communityToEdit?.admin?.id != user?.id) {
     <button type="button" (click)="requestToLeaveCommunity(communityToEdit)" class="btn-danger">Gemeinschaft
       verlassen</button>
+    } @else {
+    <p class="text-danger">Gib als erstes die Adminrolle an jemanden anderes weiter um die Gemeinschaft zu verlassen.
+    </p>
+    }
 
     @if (communityToEdit?.admin?.id === user?.id) {
     <h2 class="pb-3 mt-6">Gemeinschaft löschen</h2>

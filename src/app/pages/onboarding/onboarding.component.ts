@@ -152,7 +152,6 @@ export class OnboardingComponent implements OnInit {
   fetchCommunities() {
     this.subscriptions.push(
       this.communityService.getOwnCommunities().subscribe((res) => {
-        console.log(res);
         if (res.success) {
           this.ownCommunities = res.data.map((it) =>
             this.communityAdapter.adapt(it)
