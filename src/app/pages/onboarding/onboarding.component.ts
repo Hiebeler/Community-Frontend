@@ -72,7 +72,8 @@ export class OnboardingComponent implements OnInit {
   showImageUploadPopup = false;
 
   communityToEdit: Community | null = null;
-
+  adminCandidates: User[] = [];
+  isChangeAdminOpen = false;
   isLoadingPasswordChange = false;
   isLoadingNameChange = false;
   isLoadingCommunityNameChange = false;
@@ -186,6 +187,19 @@ export class OnboardingComponent implements OnInit {
   openCommuitySettings(community: Community | null) {
     this.communityNameUpdateEditorForm.controls.name.setValue(community?.name);
     this.communityToEdit = community;
+    if (community != null) {
+      this.communityService
+        .getUsersInCommunity(community.id)
+        .subscribe((res) => {
+          if (res.success) {
+            this.adminCandidates = res.data.filter(
+              (el) => el.id !== this.user.id
+            );
+          }
+        });
+    } else {
+      this.adminCandidates = [];
+    }
   }
 
   updateCommunityName() {
@@ -196,13 +210,65 @@ export class OnboardingComponent implements OnInit {
         .subscribe((res) => {
           this.isLoadingCommunityNameChange = false;
           if (res.success) {
+            this.communityNameUpdateEditorForm.controls.name.setValue(
+              res.data.name
+            );
+            this.communityToEdit.name = res.data.name;
             this.fetchCommunities();
-            this.openCommuitySettings(null);
             this.toastr.success('Name geändert');
           } else {
             this.toastr.error(res.error);
           }
         })
+    );
+  }
+
+  changeAdmin(community: Community, newAdmin: User) {
+    this.alertService.showAlert(
+      'Bist du dir sicher',
+      'Sicher dass du dir sicher dass du die Adminrolle an ' +
+        newAdmin.name +
+        ' weitergeben willst?',
+      'Weitergeben',
+      () => {
+        this.communityService
+          .changeAdmin(community.id, newAdmin.id)
+          .subscribe((res) => {
+            if (res.success) {
+              this.toastr.success(newAdmin.name + ' ist jetzt Admin.');
+              this.fetchCommunities();
+            } else {
+              this.toastr.error(res.error);
+            }
+          });
+      },
+      'Abbrechen'
+    );
+  }
+
+  requestToLeaveCommunity(community: Community) {
+    this.alertService.showAlert(
+      'Gemeinschaft ' + community.name + ' verlassen?',
+      'Sicher dass du diese Gemeinschaft verlassen willst?',
+      'Verlassen',
+      () => {
+        this.communityService.leaveCommunity(community.id).subscribe((res) => {
+          if (res.success) {
+            this.toastr.success(
+              'Gemeinschaft ' + community.name + ' wurde verlassen.'
+            );
+            this.openCommuitySettings(null);
+            this.fetchCommunities();
+            if (community.id == this.activeCommunity.id) {
+              this.communityService.setCurrentCommunity(null);
+              this.fetchActiveCommunity();
+            }
+          } else {
+            this.toastr.error(res.error);
+          }
+        });
+      },
+      'Abbrechen'
     );
   }
 

@@ -140,12 +140,28 @@
   <app-primary-button [isLoading]="isLoadingCommunityNameChange"
     [disabled]="communityNameUpdateEditorForm.invalid || (communityName.value === communityToEdit?.name)"
     (clicked)="updateCommunityName()" label="Name ändern"></app-primary-button>
-  } @else {
-  <p class="text-danger">Nur der Admin kann den Name bearbeiten</p>
   }
+
+  @if (communityToEdit?.admin?.id === user?.id){
+  <div>
+    <h2 class="pb-3 mt-12">Admin weitergeben</h2>
+    <button type="button" (click)="isChangeAdminOpen = true" class="btn-danger">Admin weitergeben</button>
+
+    @if (isChangeAdminOpen) {
+    <p>Wähle aus wer die Adminrolle übernehmen soll:</p>
+
+    <div class="flex flex-col space-y-3">
+      @for (candidate of adminCandidates; track candidate.id) {
+      <div class="clickable" (click)="changeAdmin(communityToEdit, candidate)">{{candidate.name}}</div>
+      }
+    </div>
+    }
+  </div>
+  }
+
   <div class="mt-12">
     <h2 class="pb-3">Gemeinschaft verlassen</h2>
-    <button type="button" (click)="requestToDeleteCommunity(communityToEdit)" class="btn-danger">Gemeinschaft
+    <button type="button" (click)="requestToLeaveCommunity(communityToEdit)" class="btn-danger">Gemeinschaft
       verlassen</button>
 
     @if (communityToEdit?.admin?.id === user?.id) {

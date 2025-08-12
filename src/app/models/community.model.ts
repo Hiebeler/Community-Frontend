@@ -10,7 +10,7 @@ export interface ApiCommunity {
 
 export class Community {
   readonly id: number;
-  readonly name: string;
+  name: string;
   readonly code: string;
   readonly admin: User;
   readonly memberCount: number;

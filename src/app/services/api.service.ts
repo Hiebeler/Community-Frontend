@@ -209,8 +209,21 @@ export class ApiService {
     return this.apiPost('community', data);
   }
 
+  leaveCommunity(id: number): Observable<ApiResponse<any>> {
+    return this.apiPost('community/' + id + '/leave', {});
+  }
+
   deleteCommunity(id: number): Observable<ApiResponse<any>> {
-    return this.apiDelete('community/' + id)
+    return this.apiDelete('community/' + id);
+  }
+
+  changeAdminOfCommunity(
+    communityid: number,
+    adminId: number
+  ): Observable<ApiResponse<ApiCommunity>> {
+    return this.apiPatch('community/' + communityid + '/admin', {
+      newAdminId: adminId,
+    });
   }
 
   updateCommunityName(

@@ -1,10 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subscription, tap } from 'rxjs';
 import { ApiCommunity, Community } from '../models/community.model';
 import { ApiService } from './api.service';
 import { CommunityAdapter } from '../models/community.adapter';
 import { StorageService } from './storage.service';
-import { User } from '../models/user.model';
+import { ApiUser, User } from '../models/user.model';
 import { UserAdapter } from '../models/user.adapter';
 import { AuthService } from './auth.service';
 import { ApiResponse } from '../models/api-response';
@@ -74,14 +74,11 @@ export class CommunityService implements OnDestroy {
     return this.apiService.getOwnCommunities();
   }
 
-  createCommunity(name: string): Observable<boolean> {
+  createCommunity(name: string): Observable<ApiResponse<ApiCommunity>> {
     return this.apiService.createCommunity({ name }).pipe(
-      map((res) => {
+      tap((res) => {
         if (res.success) {
           this.setCurrentCommunity(res.data.id);
-          return true;
-        } else {
-          return false;
         }
       })
     );
@@ -99,12 +96,34 @@ export class CommunityService implements OnDestroy {
     );
   }
 
+  changeAdmin(communityId: number, newAdminId: number) {
+    return this.apiService.changeAdminOfCommunity(communityId, newAdminId);
+  }
+
+  leaveCommunity(id: number): Observable<ApiResponse<any>> {
+    return this.apiService.leaveCommunity(id);
+  }
+
   deleteCommunity(id: number): Observable<ApiResponse<any>> {
     return this.apiService.deleteCommunity(id);
   }
 
   getUsersInCurrentCommunity(): Observable<User[]> {
     return this.usersInCommunity;
+  }
+
+  getUsersInCommunity(id: number): Observable<ApiResponse<User[]>> {
+    return this.apiService.getUsersInCommunity(id).pipe(
+      map(
+        (res) =>
+          new ApiResponse<User[]>({
+            ...res,
+            data: res.success
+              ? res.data?.map((el) => this.userAdapter.adapt(el)) ?? null
+              : null,
+          })
+      )
+    );
   }
 
   fetchUsersInCommunityFromApi(id: number): void {
@@ -151,7 +170,21 @@ export class CommunityService implements OnDestroy {
   updateCommunityName(
     communityId: number,
     name: string
-  ): Observable<ApiResponse<ApiCommunity>> {
-    return this.apiService.updateCommunityName(communityId, name);
+  ): Observable<ApiResponse<Community>> {
+    return this.apiService.updateCommunityName(communityId, name).pipe(
+      map((res: ApiResponse<ApiCommunity>) => {
+        // Adapt data only if success and data exists
+        const adaptedData: Community =
+          res.success && res.data
+            ? this.communityAdapter.adapt(res.data)
+            : null;
+
+        return new ApiResponse<Community>({
+          status: res.status,
+          error: res.error,
+          data: adaptedData,
+        });
+      })
+    );
   }
 }
