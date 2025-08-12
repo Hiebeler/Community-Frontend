@@ -133,6 +133,10 @@ export class ApiService {
     return this.apiPatch('user', data);
   }
 
+  deleteAccount(): Observable<ApiResponse<any>> {
+    return this.apiDelete('user');
+  }
+
   register(data: {
     email: string;
     name: string;
@@ -207,6 +211,30 @@ export class ApiService {
 
   createCommunity(data: any): Observable<ApiResponse<ApiCommunity>> {
     return this.apiPost('community', data);
+  }
+
+  leaveCommunity(id: number): Observable<ApiResponse<any>> {
+    return this.apiPost('community/' + id + '/leave', {});
+  }
+
+  deleteCommunity(id: number): Observable<ApiResponse<any>> {
+    return this.apiDelete('community/' + id);
+  }
+
+  changeAdminOfCommunity(
+    communityid: number,
+    adminId: number
+  ): Observable<ApiResponse<ApiCommunity>> {
+    return this.apiPatch('community/' + communityid + '/admin', {
+      newAdminId: adminId,
+    });
+  }
+
+  updateCommunityName(
+    communityId: number,
+    name: string
+  ): Observable<ApiResponse<ApiCommunity>> {
+    return this.apiPatch('community/' + communityId, { name });
   }
 
   getRequests(): Observable<ApiResponse<ApiRequest[]>> {

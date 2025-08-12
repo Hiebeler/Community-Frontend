@@ -20,8 +20,12 @@ export class StorageService {
     localStorage.removeItem(TOKEN_KEY);
   }
 
-  setCurrentCommunity(value: number): void {
-    localStorage.setItem(COMMUNITY_KEY, value.toString());
+  setCurrentCommunity(value: number | null): void {
+    if (value == null) {
+      this.removeCurrentCommunity();
+    } else {
+      localStorage.setItem(COMMUNITY_KEY, value.toString());
+    }
   }
 
   getCurrentCommunity(): number | null {

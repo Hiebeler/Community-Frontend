@@ -41,6 +41,16 @@ const routes: Routes = [
         component: PrivacyPage,
         title: 'Datenschutzrichtlinie | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
+      {
+        path: 'verify/:code',
+        component: VerifyPage,
+        title: 'Verify | Together - Aufgabenverwaltung für Haushalte & Communities',
+      },
+      {
+        path: 'reset/:code',
+        component: ResetPassword,
+        title: 'Password zurücksetzen | Together - Aufgabenverwaltung für Haushalte & Communities',
+      },
     ],
   },
   {
@@ -58,18 +68,8 @@ const routes: Routes = [
         title: 'Registrieren | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
-        path: 'verify/:code',
-        component: VerifyPage,
-        title: 'Verify | Together - Aufgabenverwaltung für Haushalte & Communities',
-      },
-      {
         path: 'reset',
         component: RequestPasswordReset,
-        title: 'Password zurücksetzen | Together - Aufgabenverwaltung für Haushalte & Communities',
-      },
-      {
-        path: 'reset/:code',
-        component: ResetPassword,
         title: 'Password zurücksetzen | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
     ],
