@@ -118,10 +118,14 @@
     </div>
 
     <div class="card">
-      <h2 class="pb-3">Gefahrenzone</h2>
-      <p class="pb-3">Die folgenden Änderungen können nicht rückgängig gemacht werden.</p>
-
+      <h2 class="pb-3">Account löschen</h2>
+      <p class="pb-3">Dein Account wird aus allen Gemeinschaften entfernt und alle deine Daten werden gelöscht.</p>
+      @if (!isUserAdminOfAnyCommunity) {
       <button type="button" (click)="requestToDeleteAccount()" class="btn-danger">Account löschen</button>
+      } @else {
+      <p class="text-danger">Gib als erstes alle deine Adminrollen weiter, um deinen Account zu löschen.
+      </p>
+      }
     </div>
   </div>
   }

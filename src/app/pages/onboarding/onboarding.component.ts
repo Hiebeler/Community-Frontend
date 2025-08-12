@@ -62,6 +62,8 @@ export class OnboardingComponent implements OnInit {
 
   ownCommunities: Community[] = [];
 
+  isUserAdminOfAnyCommunity = false;
+
   nameUpdateEditorForm: FormGroup;
   communityNameUpdateEditorForm: FormGroup;
   changePasswordForm: FormGroup;
@@ -133,6 +135,12 @@ export class OnboardingComponent implements OnInit {
     this.subscriptions.push(
       this.userService.getCurrentUser().subscribe((user) => {
         this.user = user;
+        if (this.ownCommunities != null) {
+          this.isUserAdminOfAnyCommunity = this.ownCommunities.some(
+            (el) => el.admin.id === this.user.id
+          );
+        }
+
         this.nameUpdateEditorForm.controls.name.setValue(this.user?.name);
       })
     );
@@ -156,6 +164,12 @@ export class OnboardingComponent implements OnInit {
           this.ownCommunities = res.data.map((it) =>
             this.communityAdapter.adapt(it)
           );
+
+          if (this.user != null) {
+            this.isUserAdminOfAnyCommunity = this.ownCommunities.some(
+              (el) => el.admin.id === this.user.id
+            );
+          }
         }
       })
     );
