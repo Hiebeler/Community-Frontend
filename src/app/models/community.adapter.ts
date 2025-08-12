@@ -20,7 +20,6 @@ export class CommunityAdapter implements Adapter<ApiCommunity, Community> {
         id: item.id,
         name: item.name,
         code: item.code,
-        adminId: item.fk_admin_id,
         admin,
         memberCount: item.userCount,
       });

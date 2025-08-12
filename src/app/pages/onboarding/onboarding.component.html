@@ -34,17 +34,32 @@
       @if (community.id == this.activeCommunity?.id) {
       <div class="card px-6 py-3 flex flex-row justify-between items-center bg-primary/20">
         <div class="flex flex-col items-start">
-          <span class="font-bold text-lg">{{community?.name}}</span>
+          <div class="flex items-center">
+            <span class="font-bold text-lg">{{community?.name}}</span>
+            @if (community.admin?.id === user.id) {
+            <span
+              class="ml-2 text-xs px-2 py-0.5 rounded-full border border-white/20">Admin</span>
+            }
+          </div>
           <span class="text-xs text-gray-400">Beitrittscode: {{community?.code}}</span>
         </div>
 
+        @if (community.admin?.id === user.id) {
         <lucide-icon (click)="openCommuitySettings(community)" class="clickable" [img]="penIcon"></lucide-icon>
+        }
+
       </div>
       } @else {
       <div class="card px-6 py-3 flex flex-row justify-between items-center clickable"
         (click)="selectCommunity(community)">
         <div class="flex flex-col items-start">
-          <span class="font-bold text-lg">{{community?.name}}</span>
+          <div class="flex items-center">
+            <span class="font-bold text-lg">{{community?.name}}</span>
+            @if (community.admin?.id === user.id) {
+            <span
+              class="ml-2 text-xs px-2 py-0.5 rounded-full border border-white/20">Admin</span>
+            }
+          </div>
           <span class="text-xs text-gray-400">Beitrittscode: {{community?.code}}</span>
         </div>
 
@@ -123,6 +138,14 @@
   <app-primary-button [isLoading]="isLoadingCommunityNameChange"
     [disabled]="communityNameUpdateEditorForm.invalid || (communityName.value === communityToEdit?.name)"
     (clicked)="updateCommunityName()" label="Name ändern"></app-primary-button>
+
+  <div class="mt-8">
+    <h2 class="pb-3">Gefahrenzone</h2>
+    <p class="pb-3">Die folgenden Änderungen können nicht rückgängig gemacht werden.</p>
+
+    <button type="button" (click)="requestToDeleteCommunity(communityToEdit)" class="btn-danger">Gemeinschaft
+      löschen</button>
+  </div>
 </app-popup>
 
 <app-popup [show]="joinCommunityPopup" (close)="joinCommunityPopup = false" title="Gemeinschaft beitreten">

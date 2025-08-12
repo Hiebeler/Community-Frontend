@@ -195,10 +195,14 @@ export class OnboardingComponent implements OnInit {
             this.openCommuitySettings(null);
             this.toastr.success('Name geändert');
           } else {
-            this.toastr.error('Ein Fehler ist aufgetreten');
+            this.toastr.error(res.error);
           }
         })
     );
+  }
+
+  requestToDeleteCommunity(community: Community) {
+
   }
 
   updateUser(data: any) {
