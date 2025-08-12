@@ -143,4 +143,11 @@ export class CommunityService implements OnDestroy {
     this.storageService.setCurrentCommunity(communityId);
     this.authService.activeCommunityId.next(communityId);
   }
+
+  updateCommunityName(
+    communityId: number,
+    name: string
+  ): Observable<ApiResponse<ApiCommunity>> {
+    return this.apiService.updateCommunityName(communityId, name);
+  }
 }

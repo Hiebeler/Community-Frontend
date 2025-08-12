@@ -32,11 +32,13 @@
       } @else {
       @for (community of ownCommunities; track community.id) {
       @if (community.id == this.activeCommunity?.id) {
-      <div class="card px-6 py-3 flex flex-row justify-between bg-primary/20">
+      <div class="card px-6 py-3 flex flex-row justify-between items-center bg-primary/20">
         <div class="flex flex-col items-start">
           <span class="font-bold text-lg">{{community?.name}}</span>
           <span class="text-xs text-gray-400">Beitrittscode: {{community?.code}}</span>
         </div>
+
+        <lucide-icon (click)="openCommuitySettings(community)" class="clickable" [img]="penIcon"></lucide-icon>
       </div>
       } @else {
       <div class="card px-6 py-3 flex flex-row justify-between items-center clickable"
@@ -110,6 +112,18 @@
   </div>
   }
 </div>
+
+<app-popup [show]="communityToEdit != null" (close)="openCommuitySettings(null)" title="Gemeinschaft bearbeiten">
+  <form class="flex flex-col mb-3 w-full" [formGroup]="communityNameUpdateEditorForm"
+    (ngSubmit)="updateCommunityName()">
+    <label for="communityName">Name</label>
+    <input type="text" id="communityName" autocomplete="off" formControlName="name" placeholder="Name" class="flex-1" />
+  </form>
+
+  <app-primary-button [isLoading]="isLoadingCommunityNameChange"
+    [disabled]="communityNameUpdateEditorForm.invalid || (communityName.value === communityToEdit?.name)"
+    (clicked)="updateCommunityName()" label="Name ändern"></app-primary-button>
+</app-popup>
 
 <app-popup [show]="joinCommunityPopup" (close)="joinCommunityPopup = false" title="Gemeinschaft beitreten">
   <app-join-community (closePopup)="changeJoinCommunityPopup(false)" />

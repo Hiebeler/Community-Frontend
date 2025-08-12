@@ -209,6 +209,13 @@ export class ApiService {
     return this.apiPost('community', data);
   }
 
+  updateCommunityName(
+    communityId: number,
+    name: string
+  ): Observable<ApiResponse<ApiCommunity>> {
+    return this.apiPatch('community/' + communityId, { name });
+  }
+
   getRequests(): Observable<ApiResponse<ApiRequest[]>> {
     return this.apiGet('community/requests');
   }

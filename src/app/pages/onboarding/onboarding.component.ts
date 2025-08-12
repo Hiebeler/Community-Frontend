@@ -61,6 +61,7 @@ export class OnboardingComponent implements OnInit {
   ownCommunities: Community[] = [];
 
   nameUpdateEditorForm: FormGroup;
+  communityNameUpdateEditorForm: FormGroup;
   changePasswordForm: FormGroup;
 
   joinCommunityPopup = false;
@@ -68,8 +69,11 @@ export class OnboardingComponent implements OnInit {
 
   showImageUploadPopup = false;
 
+  communityToEdit: Community | null = null;
+
   isLoadingPasswordChange = false;
   isLoadingNameChange = false;
+  isLoadingCommunityNameChange = false;
 
   constructor(
     private userService: UserService,
@@ -81,6 +85,13 @@ export class OnboardingComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.nameUpdateEditorForm = new FormGroup({
+      name: new FormControl<string | null>('', [
+        Validators.minLength(1),
+        Validators.required,
+      ]),
+    });
+
+    this.communityNameUpdateEditorForm = new FormGroup({
       name: new FormControl<string | null>('', [
         Validators.minLength(1),
         Validators.required,
@@ -101,6 +112,10 @@ export class OnboardingComponent implements OnInit {
 
   get name() {
     return this.nameUpdateEditorForm.get('name');
+  }
+
+  get communityName() {
+    return this.communityNameUpdateEditorForm.get('name');
   }
 
   get oldPassword() {
@@ -125,6 +140,10 @@ export class OnboardingComponent implements OnInit {
       })
     );
 
+    this.fetchCommunities();
+  }
+
+  fetchCommunities() {
     this.subscriptions.push(
       this.communityService.getOwnCommunities().subscribe((res) => {
         console.log(res);
@@ -159,6 +178,29 @@ export class OnboardingComponent implements OnInit {
     });
   }
 
+  openCommuitySettings(community: Community | null) {
+    this.communityNameUpdateEditorForm.controls.name.setValue(community?.name);
+    this.communityToEdit = community;
+  }
+
+  updateCommunityName() {
+    this.isLoadingCommunityNameChange = true;
+    this.subscriptions.push(
+      this.communityService
+        .updateCommunityName(this.communityToEdit.id, this.communityName.value)
+        .subscribe((res) => {
+          this.isLoadingCommunityNameChange = false;
+          if (res.success) {
+            this.fetchCommunities();
+            this.openCommuitySettings(null);
+            this.toastr.success('Name geändert');
+          } else {
+            this.toastr.error('Ein Fehler ist aufgetreten');
+          }
+        })
+    );
+  }
+
   updateUser(data: any) {
     this.isLoadingNameChange = true;
     this.subscriptions.push(
@@ -168,7 +210,7 @@ export class OnboardingComponent implements OnInit {
           this.userService.fetchUserFromApi();
           this.toastr.success('Name geändert');
         } else {
-          this.toastr.error("Ein Fehler ist aufgetreten")
+          this.toastr.error('Ein Fehler ist aufgetreten');
         }
       })
     );
