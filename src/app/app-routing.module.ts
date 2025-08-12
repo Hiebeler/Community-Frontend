@@ -29,17 +29,17 @@ const routes: Routes = [
       {
         path: '',
         component: LandingPage,
-        title: 'Together',
+        title: 'Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'imprint',
         component: ImprintPage,
-        title: 'Impressum - Together',
+        title: 'Impressum | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'privacy',
         component: PrivacyPage,
-        title: 'Datenschutzrichtlinie - Together',
+        title: 'Datenschutzrichtlinie | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
     ],
   },
@@ -50,27 +50,27 @@ const routes: Routes = [
       {
         path: 'login',
         component: LoginPage,
-        title: 'Anmelden - Together',
+        title: 'Anmelden | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'register',
         component: RegisterPage,
-        title: 'Registrieren - Together',
+        title: 'Registrieren | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'verify/:code',
         component: VerifyPage,
-        title: 'Verify - Together',
+        title: 'Verify | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'reset',
         component: RequestPasswordReset,
-        title: 'Password zurücksetzen - Together',
+        title: 'Password zurücksetzen | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'reset/:code',
         component: ResetPassword,
-        title: 'Password zurücksetzen - Together',
+        title: 'Password zurücksetzen | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
     ],
     canActivate: [AuthGuard],
@@ -85,37 +85,37 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfilePage,
-        title: 'Profil - Together',
+        title: 'Profil | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'calendar',
         component: CalendarPage,
-        title: 'Kalender - Together',
+        title: 'Kalender | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'todos',
         component: Todos,
-        title: 'Todos - Together',
+        title: 'Todos | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'calendar/routines',
         component: RoutinesPage,
-        title: 'Routinen - Together',
+        title: 'Routinen | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'shopping-list',
         component: ShoppingListPage,
-        title: 'Einkaufsliste - Together',
+        title: 'Einkaufsliste | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'debts',
         component: DebtsPage,
-        title: 'Schulden - Together',
+        title: 'Schulden | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'debts/history',
         component: DebtsHistoryPage,
-        title: 'Schulden Verlauf - Together',
+        title: 'Schulden Verlauf | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
     ],
     canActivate: [AuthGuard],
@@ -126,7 +126,7 @@ const routes: Routes = [
   {
     path: 'onboarding',
     component: OnboardingComponent,
-    title: 'Onboarding - Together',
+    title: 'Onboarding | Together - Aufgabenverwaltung für Haushalte & Communities',
     canActivate: [AuthGuard],
     data: {
       roles: ['onboarding', 'community'],
