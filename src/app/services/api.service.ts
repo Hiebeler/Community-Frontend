@@ -133,6 +133,10 @@ export class ApiService {
     return this.apiPatch('user', data);
   }
 
+  deleteAccount(): Observable<ApiResponse<any>> {
+    return this.apiDelete('user');
+  }
+
   register(data: {
     email: string;
     name: string;

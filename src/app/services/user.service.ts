@@ -4,6 +4,7 @@ import { UserAdapter } from '../models/user.adapter';
 import { User } from '../models/user.model';
 import { ApiService } from './api.service';
 import { AuthService } from './auth.service';
+import { ApiResponse } from '../models/api-response';
 
 @Injectable({
   providedIn: 'root',
@@ -57,5 +58,9 @@ export class UserService implements OnDestroy {
         }
       })
     );
+  }
+
+  deleteUser(): Observable<ApiResponse<any>> {
+    return this.apiService.deleteAccount()
   }
 }

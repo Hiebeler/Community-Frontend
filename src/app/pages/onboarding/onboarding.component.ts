@@ -297,6 +297,26 @@ export class OnboardingComponent implements OnInit {
     );
   }
 
+  requestToDeleteAccount() {
+    this.alertService.showAlert(
+      'Account löschen?',
+      'Willst du deinen Account wirklich löschen?',
+      'Löschen',
+      () => {
+        this.userService.deleteUser().subscribe((res) => {
+          if (res.success) {
+            this.toastr.success('Account wurde gelöscht.');
+            this.openCommuitySettings(null);
+            this.authService.logout();
+          } else {
+            this.toastr.error(res.error);
+          }
+        });
+      },
+      'Abbrechen'
+    );
+  }
+
   updateUser(data: any) {
     this.isLoadingNameChange = true;
     this.subscriptions.push(

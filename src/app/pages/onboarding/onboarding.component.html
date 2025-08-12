@@ -121,8 +121,7 @@
       <h2 class="pb-3">Gefahrenzone</h2>
       <p class="pb-3">Die folgenden Änderungen können nicht rückgängig gemacht werden.</p>
 
-      <button type="button" [disabled]="changePasswordForm.invalid" (click)="changePassword()"
-        class="btn-danger">Account löschen</button>
+      <button type="button" (click)="requestToDeleteAccount()" class="btn-danger">Account löschen</button>
     </div>
   </div>
   }
