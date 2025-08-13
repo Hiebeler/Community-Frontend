@@ -6,6 +6,8 @@ Together is a web app to organize households and communities.
 
 Website: [together.ghostbyte.dev](https://together.ghostbyte.dev)
 
+Backend: [github.com/ghostbyte-dev/together-backend](https://github.com/ghostbyte-dev/together-backend)
+
 <br>
 
 ## Features
