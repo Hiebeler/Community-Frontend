@@ -24,7 +24,7 @@ Backend: [github.com/ghostbyte-dev/together-backend](https://github.com/ghostbyt
 Clone the repository
 
 ```
-git clone https://github.com/Hiebeler/Community-Frontend.git
+git clone https://github.com/ghostbyte-dev/together-frontend.git
 ```
 
 Install the required packages
