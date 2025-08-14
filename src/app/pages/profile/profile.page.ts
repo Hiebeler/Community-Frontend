@@ -57,9 +57,9 @@ export class ProfilePage {
   feedbackPopupIsOpen = signal(false);
   isSendingFeedback = signal(false);
 
-  user = signal<User | null>(null);
-  community = signal<Community | null>(null);
-  usersInCommunity = signal<User[]>([]);
+  user = this.userService.user
+  community = this.communityService.activeCommunity
+  usersInCommunity = this.communityService.usersInActiveCommunity
 
   constructor(
     private authService: AuthService,
@@ -68,19 +68,6 @@ export class ProfilePage {
     private communityService: CommunityService,
     private toastr: ToastrService
   ) {
-    effect(() => {
-      this.user.set(this.userService.getCurrentUser()()); // convert observable to signal if using a signal-based service
-    });
-
-    effect(() => {
-      this.community.set(this.communityService.getCurrentCommunity()());
-    });
-
-    effect(() => {
-      this.usersInCommunity.set(
-        this.communityService.getUsersInCurrentCommunity()()
-      );
-    });
   }
 
   updateUser(data: any) {

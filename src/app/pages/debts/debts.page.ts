@@ -112,7 +112,7 @@ export class DebtsPage implements OnInit, OnDestroy {
 
     this.currentUser = this.userService.getCurrentUser()();
     this.usersInCommunity = this.communityService
-      .getUsersInCurrentCommunity()()
+      .usersInActiveCommunity()
       .filter((user) => user.id !== this.currentUser?.id);
   }
 

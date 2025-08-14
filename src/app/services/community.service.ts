@@ -14,8 +14,9 @@ import { ApiRequest } from '../models/request.model';
   providedIn: 'root',
 })
 export class CommunityService {
-  community = signal<Community | null>(null);
-  usersInCommunity = signal<User[]>([]);
+  activeCommunity = signal<Community | null>(null);
+  usersInActiveCommunity = signal<User[]>([]);
+  myCommunities = signal<Community[]>([]);
 
   constructor(
     private apiService: ApiService,
@@ -28,8 +29,8 @@ export class CommunityService {
     effect(() => {
       const communityId = this.authService.activeCommunityId();
       if (!communityId) {
-        this.community.set(null);
-        this.usersInCommunity.set([]);
+        this.activeCommunity.set(null);
+        this.usersInActiveCommunity.set([]);
       } else {
         this.fetchCurrentCommunityFromApi(communityId);
       }
@@ -37,30 +38,36 @@ export class CommunityService {
 
     // Automatically fetch users when community signal updates
     effect(() => {
-      const comm = this.community();
+      const comm = this.activeCommunity();
       if (comm) {
         this.fetchUsersInCommunityFromApi(comm.id);
       } else {
-        this.usersInCommunity.set([]);
+        this.usersInActiveCommunity.set([]);
       }
     });
   }
 
-  getCurrentCommunity() {
-    return this.community;
-  }
-
-  fetchCurrentCommunityFromApi(id: number) {
+  private fetchCurrentCommunityFromApi(id: number) {
     this.apiService
       .getCommunityById(id)
       .pipe(map((res) => this.communityAdapter.adapt(res.data)))
-      .subscribe((community) => this.community.set(community));
+      .subscribe((community) => this.activeCommunity.set(community));
   }
 
   getCommunity(code: string): Observable<Community> {
     return this.apiService
       .getCommunityByCode(code)
       .pipe(map((res) => this.communityAdapter.adapt(res.data)));
+  }
+
+  fetchOwnCommunities() {
+    this.apiService.getOwnCommunities().subscribe((res) => {
+      if (res.success) {
+        const comm = res.data.map((it) => this.communityAdapter.adapt(it));
+
+        this.myCommunities.set(comm);
+      }
+    });
   }
 
   getOwnCommunities(): Observable<ApiResponse<ApiCommunity[]>> {
@@ -90,19 +97,57 @@ export class CommunityService {
   }
 
   changeAdmin(communityId: number, newAdminId: number) {
-    return this.apiService.changeAdminOfCommunity(communityId, newAdminId);
+    return this.apiService.changeAdminOfCommunity(communityId, newAdminId).pipe(
+      map((res) => {
+        const apiResponse = new ApiResponse<Community>({
+          ...res,
+          data: res.success ? this.communityAdapter.adapt(res.data) : null,
+        });
+        if (res.success) {
+          this.myCommunities.update((communities) =>
+            communities.map((c) =>
+              c.id === communityId ? apiResponse.data : c
+            )
+          );
+        }
+
+        return apiResponse;
+      })
+    );
   }
 
   leaveCommunity(id: number): Observable<ApiResponse<any>> {
-    return this.apiService.leaveCommunity(id);
+    return this.apiService.leaveCommunity(id).pipe(
+      map((res) => {
+        if (res.success) {
+          this.myCommunities.update((communities) =>
+            communities.filter((c) => c.id !== id)
+          );
+
+          if (id === this.activeCommunity()?.id) {
+            this.setCurrentCommunity(null);
+          }
+        }
+        return res;
+      })
+    );
   }
 
   deleteCommunity(id: number): Observable<ApiResponse<any>> {
-    return this.apiService.deleteCommunity(id);
-  }
+    return this.apiService.deleteCommunity(id).pipe(
+      map((res) => {
+        if (res.success) {
+          this.myCommunities.update((communities) =>
+            communities.filter((c) => c.id !== id)
+          );
 
-  getUsersInCurrentCommunity() {
-    return this.usersInCommunity;
+          if (id === this.activeCommunity()?.id) {
+            this.setCurrentCommunity(null);
+          }
+        }
+        return res;
+      })
+    );
   }
 
   getUsersInCommunity(id: number): Observable<ApiResponse<User[]>> {
@@ -119,12 +164,14 @@ export class CommunityService {
     );
   }
 
-   fetchUsersInCommunityFromApi(id: number) {
+  fetchUsersInCommunityFromApi(id: number) {
     if (!id) return;
     this.apiService
       .getUsersInCommunity(id)
-      .pipe(map((data) => data.data.map((item) => this.userAdapter.adapt(item))))
-      .subscribe((users) => this.usersInCommunity.set(users));
+      .pipe(
+        map((data) => data.data.map((item) => this.userAdapter.adapt(item)))
+      )
+      .subscribe((users) => this.usersInActiveCommunity.set(users));
   }
 
   getRequests(): Observable<ApiResponse<ApiRequest[]>> {
@@ -158,18 +205,20 @@ export class CommunityService {
     name: string
   ): Observable<ApiResponse<Community>> {
     return this.apiService.updateCommunityName(communityId, name).pipe(
-      map((res: ApiResponse<ApiCommunity>) => {
-        // Adapt data only if success and data exists
-        const adaptedData: Community =
-          res.success && res.data
-            ? this.communityAdapter.adapt(res.data)
-            : null;
-
-        return new ApiResponse<Community>({
-          status: res.status,
-          error: res.error,
-          data: adaptedData,
+      map((res) => {
+        const apiResponse = new ApiResponse<Community>({
+          ...res,
+          data: res.success ? this.communityAdapter.adapt(res.data) : null,
         });
+        if (res.success) {
+          this.myCommunities.update((communities) =>
+            communities.map((c) =>
+              c.id === communityId ? apiResponse.data : c
+            )
+          );
+        }
+
+        return apiResponse;
       })
     );
   }

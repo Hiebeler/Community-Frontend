@@ -34,7 +34,7 @@ export class OpenRequestsComponent {
     private userService: UserService
   ) {
     effect(() => {
-      const community = this.communityService.getCurrentCommunity()();
+      const community = this.communityService.activeCommunity();
       if (community) {
         this.fetchRequests();
       } else {

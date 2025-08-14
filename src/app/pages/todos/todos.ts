@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -14,7 +14,6 @@ import {
   XIcon,
 } from 'lucide-angular';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription } from 'rxjs';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
@@ -67,7 +66,6 @@ export class Todos {
     ]),
   });
 
-  // Signals replacing arrays + loading flags
   openTodos = this.todosService.openTodos;
   doneTodos = this.todosService.doneTodos;
   isLoadingTodos = false;
@@ -79,14 +77,7 @@ export class Todos {
     private todosService: TodosService,
     private alertService: AlertService,
     private toastr: ToastrService
-  ) {
-    this.getItems();
-
-    // Example: React to todos changes
-    effect(() => {
-      console.log('Open todos changed:', this.openTodos());
-    });
-  }
+  ) {}
 
   get createNameField() {
     return this.itemEditorForm.get('createname');
@@ -121,10 +112,6 @@ export class Todos {
     }
   }
 
-  getItems() {
-    //this.todosService.fetchTodosFromApi();
-  }
-
   saveItem() {
     if (this.createNameField?.value) {
       this.isLoadingSave.set(true);
@@ -138,7 +125,6 @@ export class Todos {
           this.editorIsOpen = false;
           if (res.success) {
             this.toastr.success('Todo wurde erstellt');
-            this.getItems();
           } else {
             this.toastr.error(res.error);
           }
@@ -161,7 +147,6 @@ export class Todos {
       )
       .subscribe((res) => {
         if (res.success) {
-          this.getItems();
           this.toastr.success(
             done
               ? 'Todo wurde als erledigt markiert'
@@ -192,7 +177,6 @@ export class Todos {
           this.todoToUpdate.set(null);
           if (res.success) {
             this.toastr.success('Todo wurde geupdated');
-            this.getItems();
           } else {
             this.toastr.error(res.error);
           }
@@ -217,7 +201,6 @@ export class Todos {
       this.isLoadingDelete.set(false);
       if (res.success) {
         this.toastr.success('Todo wurde gelöscht');
-        this.getItems();
         this.todoToUpdate.set(null);
       } else {
         this.toastr.error(res.error);

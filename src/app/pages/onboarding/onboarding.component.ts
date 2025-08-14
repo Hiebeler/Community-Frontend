@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, effect, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { JoinCommunityComponent } from 'src/app/components/join-community/join-community.component';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
@@ -56,11 +56,11 @@ export class OnboardingComponent implements OnInit {
 
   subscriptions: Subscription[] = [];
 
-  user: User;
+  user = this.userService.user;
 
-  activeCommunity: Community | null;
+  activeCommunity = this.communityService.activeCommunity;
 
-  ownCommunities: Community[] = [];
+  ownCommunities = this.communityService.myCommunities;
 
   isUserAdminOfAnyCommunity = false;
 
@@ -132,48 +132,14 @@ export class OnboardingComponent implements OnInit {
   }
 
   ngOnInit() {
-    /* this.subscriptions.push(
-      this.userService.getCurrentUser().subscribe((user) => {
-        this.user = user;
-        if (this.ownCommunities != null) {
-          this.isUserAdminOfAnyCommunity = this.ownCommunities.some(
-            (el) => el.admin.id === this.user.id
-          );
-        }
-
-        this.nameUpdateEditorForm.controls.name.setValue(this.user?.name);
-      })
-    ); */
-
-    this.fetchActiveCommunity();
-    this.fetchCommunities();
+    this.communityService.fetchOwnCommunities();
   }
 
-  fetchActiveCommunity() {
-    /* this.subscriptions.push(
-      this.communityService.getCurrentCommunity().subscribe((community) => {
-        this.activeCommunity = community;
-      })
-    ); */
-  }
-
-  fetchCommunities() {
-    this.subscriptions.push(
-      this.communityService.getOwnCommunities().subscribe((res) => {
-        if (res.success) {
-          this.ownCommunities = res.data.map((it) =>
-            this.communityAdapter.adapt(it)
-          );
-
-          if (this.user != null) {
-            this.isUserAdminOfAnyCommunity = this.ownCommunities.some(
-              (el) => el.admin.id === this.user.id
-            );
-          }
-        }
-      })
-    );
-  }
+  isAdmin = computed(() =>
+    this.ownCommunities().some(
+      (el) => el.admin.id === this.userService.user()?.id
+    )
+  );
 
   changeJoinCommunityPopup(state: boolean) {
     this.joinCommunityPopup = state;
@@ -206,7 +172,7 @@ export class OnboardingComponent implements OnInit {
         .subscribe((res) => {
           if (res.success) {
             this.adminCandidates = res.data.filter(
-              (el) => el.id !== this.user.id
+              (el) => el.id !== this.user().id
             );
           }
         });
@@ -227,7 +193,6 @@ export class OnboardingComponent implements OnInit {
               res.data.name
             );
             this.communityToEdit.name = res.data.name;
-            this.fetchCommunities();
             this.toastr.success('Name geändert');
           } else {
             this.toastr.error(res.error);
@@ -249,7 +214,6 @@ export class OnboardingComponent implements OnInit {
           .subscribe((res) => {
             if (res.success) {
               this.toastr.success(newAdmin.name + ' ist jetzt Admin.');
-              this.fetchCommunities();
             } else {
               this.toastr.error(res.error);
             }
@@ -271,11 +235,6 @@ export class OnboardingComponent implements OnInit {
               'Gemeinschaft ' + community.name + ' wurde verlassen.'
             );
             this.openCommuitySettings(null);
-            this.fetchCommunities();
-            if (community.id == this.activeCommunity.id) {
-              this.communityService.setCurrentCommunity(null);
-              this.fetchActiveCommunity();
-            }
           } else {
             this.toastr.error(res.error);
           }
@@ -297,11 +256,6 @@ export class OnboardingComponent implements OnInit {
               'Gemeinschaft ' + community.name + ' wurde gelöscht.'
             );
             this.openCommuitySettings(null);
-            this.fetchCommunities();
-            if (community.id == this.activeCommunity.id) {
-              this.communityService.setCurrentCommunity(null);
-              this.fetchActiveCommunity();
-            }
           } else {
             this.toastr.error(res.error);
           }

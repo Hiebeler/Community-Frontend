@@ -1,6 +1,6 @@
 <app-navbar title="Profil">
 
-  @if (user) {
+  @if (user()) {
   <div right class="space-x-3 flex">
     <a routerLink="/onboarding" class="btn-neutral aspect-square px-0">
       <lucide-icon [img]="switchIcon"></lucide-icon>
@@ -13,26 +13,26 @@
   }
 </app-navbar>
 
-@if (user) {
+@if (user()) {
 <div class="grid gap-4">
 
   <div class="card flex py-8 justify-evenly items-center">
     <div class="flex flex-col items-center">
       <span class="text-lg font-bold">
-        {{user.name}}
+        {{user().name}}
       </span>
       <span class="text-sm">User</span>
     </div>
 
     <div class="flex flex-col items-center">
       <span class="text-xl font-bold">
-        {{community?.name}}
+        {{community()?.name}}
       </span>
       <span class="text-sm">Aktive Gemeinschaft</span>
     </div>
   </div>
 
-  @if (usersInCommunity.length) {
+  @if (usersInCommunity().length) {
   <div class="card">
     <h2 class="mb-4">Mitglieder:</h2>
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-9 gap-2 justify-items-center">
