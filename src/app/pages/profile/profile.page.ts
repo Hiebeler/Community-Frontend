@@ -4,7 +4,7 @@ import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { CommunityService } from 'src/app/services/community.service';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { OpenRequestsComponent } from 'src/app/components/open-requests/open-requests.component';
@@ -17,6 +17,15 @@ import {
 } from 'lucide-angular';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { AlertService } from 'src/app/services/alert.service';
+import { PopupComponent } from 'src/app/components/popup/popup.component';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -26,7 +35,10 @@ import { AlertService } from 'src/app/services/alert.service';
     RouterModule,
     OpenRequestsComponent,
     LucideAngularModule,
-    Navbar
+    ReactiveFormsModule,
+    PrimaryButton,
+    Navbar,
+    PopupComponent,
   ],
 })
 export class ProfilePage implements OnInit, OnDestroy {
@@ -37,6 +49,10 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   subscriptions: Subscription[] = [];
 
+  feedbackForm: FormGroup;
+  feedbackPopupIsOpen = false;
+  isSendingFeedback = false;
+
   user: User;
   community: Community;
   usersInCommunity: User[];
@@ -46,8 +62,14 @@ export class ProfilePage implements OnInit, OnDestroy {
     private alertService: AlertService,
     private userService: UserService,
     private communityService: CommunityService,
-    private router: Router
+    private toastr: ToastrService
   ) {
+    this.feedbackForm = new FormGroup({
+      feedback: new FormControl<string | null>('', [
+        Validators.required,
+        Validators.maxLength(500),
+      ]),
+    });
   }
 
   ngOnInit() {
@@ -96,15 +118,23 @@ export class ProfilePage implements OnInit, OnDestroy {
     );
   }
 
-  gotoCreateCommunity() {
-    this.router.navigate(['create-community']);
+  openFeedbackPopup() {
+    this.feedbackForm.controls.feedback.setValue('');
+    this.feedbackPopupIsOpen = true;
   }
 
-  gotoFindCommunity() {
-    this.router.navigate(['find-community']);
-  }
-
-  gotoOnboarding() {
-    this.router.navigate(['onboarding']);
+  sendFeedback() {
+    this.isSendingFeedback = true;
+    this.userService
+      .sendFeedback(this.feedbackForm.controls.feedback.value)
+      .subscribe((res) => {
+        this.isSendingFeedback = false;
+        if (res.success) {
+          this.toastr.success('Feedback gesendet!');
+          this.feedbackPopupIsOpen = false;
+        } else {
+          this.toastr.error(res.error);
+        }
+      });
   }
 }

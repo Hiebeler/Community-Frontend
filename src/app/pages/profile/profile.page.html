@@ -52,5 +52,26 @@
   @if (user.isAdmin) {
   <app-open-requests />
   }
+
+  <div class="card">
+    <h2 class="mb-3">Feedback</h2>
+    <p>Dein Feedback hilft uns, Together stetig zu verbessern. Teile uns hier Probleme, Ideen oder Feature-Vorschläge
+      mit - wir hören zu!</p>
+
+    <button class="btn-primary mt-3" (click)="openFeedbackPopup()">Feedback schreiben</button>
+  </div>
 </div>
 }
+
+<app-popup [show]="feedbackPopupIsOpen" (close)="feedbackPopupIsOpen = false" title="Feedback schreiben">
+  <p class="mb-5">Dein Feedback hilft uns, Together stetig zu verbessern. Teile uns hier Probleme, Ideen oder Feature-Vorschläge
+      mit - wir hören zu!</p>
+  <form [formGroup]="feedbackForm" (ngSubmit)="sendFeedback()" class="space-y-3">
+    <label for="feedback">Feedback</label>
+    <textarea type="text" id="feedback" formControlName="feedback" placeholder="Feedback" autocomplete="off"
+      class="w-full h-50"></textarea>
+
+    <app-primary-button type="submit" customClasses="btn-primary w-full" [disabled]="feedbackForm.invalid"
+      [isLoading]="isSendingFeedback" label="Senden"></app-primary-button>
+  </form>
+</app-popup>

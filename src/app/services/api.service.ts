@@ -193,6 +193,10 @@ export class ApiService {
     });
   }
 
+  sendFeedback(feedback: string): Observable<ApiResponse<any>> {
+    return this.apiPost('user/feedback', { feedback });
+  }
+
   getCommunityByCode(code: string): Observable<ApiResponse<ApiCommunity>> {
     return this.apiGet('community/code/' + code);
   }

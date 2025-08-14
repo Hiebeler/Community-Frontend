@@ -61,6 +61,10 @@ export class UserService implements OnDestroy {
   }
 
   deleteUser(): Observable<ApiResponse<any>> {
-    return this.apiService.deleteAccount()
+    return this.apiService.deleteAccount();
+  }
+
+  sendFeedback(feedback: string): Observable<ApiResponse<any>> {
+    return this.apiService.sendFeedback(feedback);
   }
 }
