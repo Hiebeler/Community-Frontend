@@ -28,7 +28,6 @@ import {
 } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ProfileImageEditorComponent } from 'src/app/components/profile-image-editor/profile-image-editor.component';
-import { CommunityAdapter } from 'src/app/models/community.adapter';
 import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
 
 @Component({
@@ -64,9 +63,30 @@ export class OnboardingComponent implements OnInit {
 
   isUserAdminOfAnyCommunity = false;
 
-  nameUpdateEditorForm: FormGroup;
-  communityNameUpdateEditorForm: FormGroup;
-  changePasswordForm: FormGroup;
+  nameUpdateEditorForm = new FormGroup({
+    name: new FormControl<string | null>('', [
+      Validators.minLength(1),
+      Validators.required,
+    ]),
+  });
+
+  communityNameUpdateEditorForm = new FormGroup({
+    name: new FormControl<string | null>('', [
+      Validators.minLength(1),
+      Validators.required,
+    ]),
+  });
+
+  changePasswordForm = new FormGroup({
+    oldPassword: new FormControl<string | null>('', [
+      Validators.minLength(1),
+      Validators.required,
+    ]),
+    newPassword: new FormControl<string | null>('', [
+      Validators.required,
+      Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[\S]{6,}$/),
+    ]),
+  });
 
   joinCommunityPopup = false;
   createCommunityPopup = false;
@@ -85,33 +105,11 @@ export class OnboardingComponent implements OnInit {
     private communityService: CommunityService,
     private authService: AuthService,
     private alertService: AlertService,
-    private communityAdapter: CommunityAdapter,
     private router: Router,
     private toastr: ToastrService
   ) {
-    this.nameUpdateEditorForm = new FormGroup({
-      name: new FormControl<string | null>('', [
-        Validators.minLength(1),
-        Validators.required,
-      ]),
-    });
-
-    this.communityNameUpdateEditorForm = new FormGroup({
-      name: new FormControl<string | null>('', [
-        Validators.minLength(1),
-        Validators.required,
-      ]),
-    });
-
-    this.changePasswordForm = new FormGroup({
-      oldPassword: new FormControl<string | null>('', [
-        Validators.minLength(1),
-        Validators.required,
-      ]),
-      newPassword: new FormControl<string | null>('', [
-        Validators.required,
-        Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[\S]{6,}$/),
-      ]),
+    effect(() => {
+      this.nameUpdateEditorForm.controls.name.setValue(this.user()?.name);
     });
   }
 
@@ -288,10 +286,9 @@ export class OnboardingComponent implements OnInit {
   updateUser(data: any) {
     this.isLoadingNameChange = true;
     this.subscriptions.push(
-      this.userService.updateUser(data).subscribe((wasSuccessful) => {
+      this.userService.updateUser(data).subscribe((res) => {
         this.isLoadingNameChange = false;
-        if (wasSuccessful) {
-          this.userService.fetchUserFromApi();
+        if (res.success) {
           this.toastr.success('Name geändert');
         } else {
           this.toastr.error('Ein Fehler ist aufgetreten');

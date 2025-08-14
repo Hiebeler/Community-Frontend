@@ -57,9 +57,9 @@ export class ProfilePage {
   feedbackPopupIsOpen = signal(false);
   isSendingFeedback = signal(false);
 
-  user = this.userService.user
-  community = this.communityService.activeCommunity
-  usersInCommunity = this.communityService.usersInActiveCommunity
+  user = this.userService.user;
+  community = this.communityService.activeCommunity;
+  usersInCommunity = this.communityService.usersInActiveCommunity;
 
   constructor(
     private authService: AuthService,
@@ -67,16 +67,7 @@ export class ProfilePage {
     private userService: UserService,
     private communityService: CommunityService,
     private toastr: ToastrService
-  ) {
-  }
-
-  updateUser(data: any) {
-    this.userService.updateUser(data).subscribe((wasSuccessful) => {
-      if (wasSuccessful) {
-        this.userService.fetchUserFromApi();
-      }
-    });
-  }
+  ) {}
 
   logout() {
     this.alertService.showAlert(

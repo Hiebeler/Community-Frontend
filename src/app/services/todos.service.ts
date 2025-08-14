@@ -72,55 +72,54 @@ export class TodosService {
   }
 
   updateTodo(todo: Todo): Observable<ApiResponse<Todo>> {
-  return this.apiService
-    .updateTodo({
-      id: todo.id,
-      name: todo.name,
-      description: todo.description,
-      done: todo.done,
-    })
-    .pipe(
-      map((res) => {
-        const apiResponse = new ApiResponse<Todo>({
-          ...res,
-          data: res.success ? this.todoAdapter.adapt(res.data) : null,
-        });
-
-        if (apiResponse.success && apiResponse.data) {
-          const updated = apiResponse.data;
-
-          if (updated.done) {
-            // Remove from openTodos if present
-            this.openTodos.update((todos) =>
-              todos.filter((t) => t.id !== updated.id)
-            );
-            // Add to doneTodos if not already present
-            this.doneTodos.update((todos) => {
-              const exists = todos.some((t) => t.id === updated.id);
-              return exists
-                ? todos.map((t) => (t.id === updated.id ? updated : t))
-                : [updated, ...todos];
-            });
-          } else {
-            // Remove from doneTodos if present
-            this.doneTodos.update((todos) =>
-              todos.filter((t) => t.id !== updated.id)
-            );
-            // Add to openTodos if not already present
-            this.openTodos.update((todos) => {
-              const exists = todos.some((t) => t.id === updated.id);
-              return exists
-                ? todos.map((t) => (t.id === updated.id ? updated : t))
-                : [updated, ...todos];
-            });
-          }
-        }
-
-        return apiResponse;
+    return this.apiService
+      .updateTodo({
+        id: todo.id,
+        name: todo.name,
+        description: todo.description,
+        done: todo.done,
       })
-    );
-}
+      .pipe(
+        map((res) => {
+          const apiResponse = new ApiResponse<Todo>({
+            ...res,
+            data: res.success ? this.todoAdapter.adapt(res.data) : null,
+          });
 
+          if (apiResponse.success && apiResponse.data) {
+            const updated = apiResponse.data;
+
+            if (updated.done) {
+              // Remove from openTodos if present
+              this.openTodos.update((todos) =>
+                todos.filter((t) => t.id !== updated.id)
+              );
+              // Add to doneTodos if not already present
+              this.doneTodos.update((todos) => {
+                const exists = todos.some((t) => t.id === updated.id);
+                return exists
+                  ? todos.map((t) => (t.id === updated.id ? updated : t))
+                  : [updated, ...todos];
+              });
+            } else {
+              // Remove from doneTodos if present
+              this.doneTodos.update((todos) =>
+                todos.filter((t) => t.id !== updated.id)
+              );
+              // Add to openTodos if not already present
+              this.openTodos.update((todos) => {
+                const exists = todos.some((t) => t.id === updated.id);
+                return exists
+                  ? todos.map((t) => (t.id === updated.id ? updated : t))
+                  : [updated, ...todos];
+              });
+            }
+          }
+
+          return apiResponse;
+        })
+      );
+  }
 
   deleteTodo(id: number): Observable<ApiResponse<any>> {
     return this.apiService.deleteTodo(id).pipe(

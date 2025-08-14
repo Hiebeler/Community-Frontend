@@ -1,10 +1,10 @@
-import { effect, Injectable, OnDestroy, signal } from '@angular/core';
-import { BehaviorSubject, map, Observable, Subscription, tap } from 'rxjs';
+import { effect, Injectable, signal } from '@angular/core';
+import { map, Observable, tap } from 'rxjs';
 import { ApiCommunity, Community } from '../models/community.model';
 import { ApiService } from './api.service';
 import { CommunityAdapter } from '../models/community.adapter';
 import { StorageService } from './storage.service';
-import { ApiUser, User } from '../models/user.model';
+import { User } from '../models/user.model';
 import { UserAdapter } from '../models/user.adapter';
 import { AuthService } from './auth.service';
 import { ApiResponse } from '../models/api-response';

@@ -1,7 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, effect } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CheckCheckIcon, CheckIcon, LucideAngularModule, PlusIcon, XIcon } from 'lucide-angular';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import {
+  CheckCheckIcon,
+  CheckIcon,
+  LucideAngularModule,
+  PlusIcon,
+  XIcon,
+} from 'lucide-angular';
 import { ToastrService } from 'ngx-toastr';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
@@ -22,7 +33,7 @@ import { ShoppingService } from 'src/app/services/shopping.service';
     PrimaryButton,
   ],
 })
-export class ShoppingListPage implements OnInit {
+export class ShoppingListPage {
   readonly plusIcon = PlusIcon;
   readonly closeIcon = XIcon;
   readonly alldoneIcon = CheckCheckIcon;
@@ -31,43 +42,32 @@ export class ShoppingListPage implements OnInit {
   editorIsOpen = false;
   itemToUpdate: ShoppingItem = null;
 
-  completedFirstLoad = false;
-
   isLoadingSave = false;
   isLoadingUpdate = false;
   isLoadingDelete = false;
 
-  itemEditorForm: FormGroup;
-  itemUpdateEditorForm: FormGroup;
+  itemEditorForm = new FormGroup({
+    createname: new FormControl<string | null>('', [
+      Validators.minLength(1),
+      Validators.required,
+    ]),
+  });
 
-  openItems: ShoppingItem[] = [];
-  doneItems: ShoppingItem[] = [];
+  itemUpdateEditorForm = new FormGroup({
+    updatename: new FormControl<string | null>('', [
+      Validators.minLength(1),
+      Validators.required,
+    ]),
+  });
+
+  openItems = this.shoppingService.openShoppingItems;
+  doneItems = this.shoppingService.doneShoppingItems;
 
   constructor(
     private shoppingService: ShoppingService,
     private alertService: AlertService,
     private toastr: ToastrService
-  ) {
-    this.itemEditorForm = new FormGroup({
-      createname: new FormControl<string | null>('', [
-        Validators.minLength(1),
-        Validators.required,
-      ]),
-    });
-
-    this.itemUpdateEditorForm = new FormGroup({
-      updatename: new FormControl<string | null>('', [
-        Validators.minLength(1),
-        Validators.required,
-      ]),
-    });
-
-    effect(() => {
-      this.openItems = this.shoppingService.openShoppingItems();
-      this.doneItems = this.shoppingService.doneShoppingItems();
-      this.completedFirstLoad = true;
-    });
-  }
+  ) {}
 
   get createNameField() {
     return this.itemEditorForm.get('createname');
@@ -75,14 +75,6 @@ export class ShoppingListPage implements OnInit {
 
   get updateNameField() {
     return this.itemUpdateEditorForm.get('updatename');
-  }
-
-  ngOnInit() {
-    // Automatically react to signal changes
-
-
-    // Fetch initial items
-    //this.shoppingService.fetchShoppingItemsFromApi();
   }
 
   openEditor(state: boolean) {
@@ -111,7 +103,7 @@ export class ShoppingListPage implements OnInit {
           done: undefined,
         })
       )
-      .subscribe(res => {
+      .subscribe((res) => {
         this.isLoadingSave = false;
         this.editorIsOpen = false;
         if (res.success) {
@@ -119,15 +111,17 @@ export class ShoppingListPage implements OnInit {
         } else {
           this.toastr.error(res.error);
         }
-      });
 
-    this.itemEditorForm.controls.createname.setValue('');
+        this.itemEditorForm.reset();
+      });
   }
 
   updateDone(id: number, checked: boolean) {
     this.shoppingService
-      .updateShoppingItem(new ShoppingItem({ id, name: undefined, done: checked }))
-      .subscribe(res => {
+      .updateShoppingItem(
+        new ShoppingItem({ id, name: undefined, done: checked })
+      )
+      .subscribe((res) => {
         if (res.success) {
           const message = checked
             ? 'Element wurde als erledigt markiert'
@@ -145,9 +139,13 @@ export class ShoppingListPage implements OnInit {
     this.isLoadingUpdate = true;
     this.shoppingService
       .updateShoppingItem(
-        new ShoppingItem({ id, name: this.updateNameField.value, done: undefined })
+        new ShoppingItem({
+          id,
+          name: this.updateNameField.value,
+          done: undefined,
+        })
       )
-      .subscribe(res => {
+      .subscribe((res) => {
         this.isLoadingUpdate = false;
         this.itemToUpdate = null;
         if (res.success) {
@@ -155,9 +153,9 @@ export class ShoppingListPage implements OnInit {
         } else {
           this.toastr.error(res.error);
         }
-      });
 
-    this.itemUpdateEditorForm.controls.updatename.setValue('');
+        this.itemUpdateEditorForm.reset();
+      });
   }
 
   askToDeleteTask(id: number) {
@@ -172,9 +170,14 @@ export class ShoppingListPage implements OnInit {
 
   deleteItem(id: number) {
     this.isLoadingDelete = true;
-    this.shoppingService.deleteShoppingItem(id).subscribe(() => {
+    this.shoppingService.deleteShoppingItem(id).subscribe((res) => {
       this.isLoadingDelete = false;
-      this.itemToUpdate = null;
+      if (res.success) {
+        this.toastr.success('Todo wurde gelöscht');
+        this.itemToUpdate = null;
+      } else {
+        this.toastr.error(res.error);
+      }
     });
   }
 }

@@ -39,8 +39,21 @@ export class UserService {
       .subscribe((user) => this.user.set(user));
   }
 
-  updateUser(data: any): Observable<boolean> {
-    return this.apiService.updateUser(data).pipe(map((res) => res.success));
+  updateUser(data: any): Observable<ApiResponse<User>> {
+    return this.apiService.updateUser(data).pipe(
+      map((res) => {
+        const apiResponse = new ApiResponse<User>({
+          ...res,
+          data: res.success ? this.userAdapter.adapt(res.data) : null,
+        });
+
+        if (res.success) {
+          this.user.set(apiResponse.data);
+        }
+
+        return apiResponse;
+      })
+    );
   }
 
   deleteUser(): Observable<ApiResponse<any>> {

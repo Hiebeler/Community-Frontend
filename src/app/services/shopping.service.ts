@@ -4,13 +4,12 @@ import { ShoppingItem } from '../models/shopping-item.model';
 import { ApiService } from './api.service';
 import { AuthService } from './auth.service';
 import { ApiResponse } from '../models/api-response';
-import { map, Observable, switchMap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ShoppingService {
-  // Signals instead of BehaviorSubjects
   openShoppingItems = signal<ShoppingItem[]>([]);
   doneShoppingItems = signal<ShoppingItem[]>([]);
 
@@ -19,17 +18,20 @@ export class ShoppingService {
     private shoppingItemAdapter: ShoppingItemAdapter,
     private authService: AuthService
   ) {
-    // Automatically refetch whenever the active community changes
     effect(() => {
-      const communityId = this.authService.activeCommunityId; // reactive
-      this.fetchShoppingItemsFromApi();
+      const communityId = this.authService.activeCommunityId();
+      if (communityId) {
+        this.fetchShoppingItemsFromApi();
+      } else {
+        this.openShoppingItems.set([]);
+        this.doneShoppingItems.set([]);
+      }
     });
   }
 
   private fetchShoppingItemsFromApi(): void {
-    // Fetch open items
     this.apiService.getOpenShoppingItems().subscribe((res) => {
-      if (res.status === 'OK') {
+      if (res.success) {
         this.openShoppingItems.set(
           res.data.map(this.shoppingItemAdapter.adapt)
         );
@@ -38,9 +40,8 @@ export class ShoppingService {
       }
     });
 
-    // Fetch done items
     this.apiService.getDoneShoppingItems().subscribe((res) => {
-      if (res.status === 'OK') {
+      if (res.success) {
         this.doneShoppingItems.set(
           res.data.map(this.shoppingItemAdapter.adapt)
         );
@@ -55,13 +56,19 @@ export class ShoppingService {
   ): Observable<ApiResponse<ShoppingItem>> {
     return this.apiService.addShoppingItem(shoppingItem.name).pipe(
       map((res) => {
-        const adapted = res.success
-          ? this.shoppingItemAdapter.adapt(res.data)
-          : null;
-        if (adapted) {
-          this.openShoppingItems.update((items) => [...items, adapted]);
+        const apiResponse = new ApiResponse<ShoppingItem>({
+          ...res,
+          data: res.success ? this.shoppingItemAdapter.adapt(res.data) : null,
+        });
+
+        if (apiResponse.success && apiResponse.data) {
+          this.openShoppingItems.update((shoppingItems) => [
+            apiResponse.data,
+            ...shoppingItems,
+          ]);
         }
-        return new ApiResponse<ShoppingItem>({ ...res, data: adapted });
+
+        return apiResponse;
       })
     );
   }
@@ -82,24 +89,30 @@ export class ShoppingService {
             : null;
 
           if (adapted) {
-            if (shoppingItem.done) {
-              // Update done items
-              this.doneShoppingItems.update((items) =>
-                items.map((i) => (i.id === adapted.id ? adapted : i))
-              );
-              // Remove from open items
+            if (shoppingItem.done === true) {
+              // remove from open
               this.openShoppingItems.update((items) =>
                 items.filter((i) => i.id !== adapted.id)
               );
+              // add/update in done
+              this.doneShoppingItems.update((items) => {
+                const exists = items.some((i) => i.id === adapted.id);
+                return exists
+                  ? items.map((i) => (i.id === adapted.id ? adapted : i))
+                  : [adapted, ...items];
+              });
             } else {
-              // Update open items
-              this.openShoppingItems.update((items) =>
-                items.map((i) => (i.id === adapted.id ? adapted : i))
-              );
-              // Remove from done items
+              // remove from done
               this.doneShoppingItems.update((items) =>
                 items.filter((i) => i.id !== adapted.id)
               );
+              // add/update in open
+              this.openShoppingItems.update((items) => {
+                const exists = items.some((i) => i.id === adapted.id);
+                return exists
+                  ? items.map((i) => (i.id === adapted.id ? adapted : i))
+                  : [adapted, ...items];
+              });
             }
           }
 
@@ -108,26 +121,21 @@ export class ShoppingService {
       );
   }
 
-  deleteShoppingItem(id: number): Observable<ApiResponse<ShoppingItem>> {
+  deleteShoppingItem(id: number): Observable<ApiResponse<any>> {
     return this.apiService.deleteShoppingItem(id).pipe(
       map((res) => {
-        const adapted = res.success
-          ? this.shoppingItemAdapter.adapt(res.data)
-          : null;
-
-        if (adapted) {
-          // Remove the item from open items
+        if (res.success) {
           this.openShoppingItems.update((items) =>
-            items.filter((i) => i.id !== adapted.id)
+            items.filter((i) => i.id !== id)
           );
 
           // Remove the item from done items
           this.doneShoppingItems.update((items) =>
-            items.filter((i) => i.id !== adapted.id)
+            items.filter((i) => i.id !== id)
           );
         }
 
-        return new ApiResponse<ShoppingItem>({ ...res, data: adapted });
+        return res;
       })
     );
   }
