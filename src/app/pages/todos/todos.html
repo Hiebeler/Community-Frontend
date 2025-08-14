@@ -6,12 +6,12 @@
 
 <div class="card">
   <!-- Open Items -->
-  @if (openTodos.length) {
-  <h2>{{openTodos.length}} Todos offen:</h2>
+  @if (openTodos().length) {
+  <h2>{{openTodos().length}} Todos offen:</h2>
   }
 
   <!-- Empty State -->
-  @if (!openTodos.length && !isLoadingTodos) {
+  @if (!openTodos().length && !isLoadingTodos) {
   <div class="flex flex-col items-center text-center space-y-3 py-10">
     <lucide-icon [img]="alldoneIcon" size="42"></lucide-icon>
     <h2 class="text-xl font-semibold mt-0">Alles Erledigt</h2>
@@ -24,7 +24,7 @@
   }
 
   <!-- Open Items List -->
-  @for (item of openTodos; track item.id) {
+  @for (item of openTodos(); track item.id) {
   <div>
     <div class="flex items-center space-x-4 py-2">
       <div class="w-5 h-5 bg-gray-700 border border-gray-400 rounded-sm clickable" (click)="updateDone(item.id, true)">
@@ -46,13 +46,13 @@
 </div>
 
 
-@if (doneTodos.length) {
+@if (doneTodos().length) {
 <div class="card mt-6">
   <!-- Done Items -->
 
-  <h2>{{doneTodos.length}} Todos erledigt:</h2>
+  <h2>{{doneTodos().length}} Todos erledigt:</h2>
 
-  @for (item of doneTodos; track item.id) {
+  @for (item of doneTodos(); track item.id) {
   <div class="flex items-center space-x-4 py-2">
     <div class="w-5 h-5 bg-primary border border-gray-400 rounded-sm flex items-center justify-center clickable"
       (click)="updateDone(item.id, false)">
@@ -78,15 +78,15 @@
       <textarea type="text" id="description" formControlName="createdescription" placeholder="Beschreibung"
         autocomplete="off" class="w-full h-50"></textarea>
 
-      <app-primary-button type="submit" [isLoading]="isLoadingSave" [disabled]="itemEditorForm.invalid"
+      <app-primary-button type="submit" [isLoading]="isLoadingSave()" [disabled]="itemEditorForm.invalid"
         label="Speichern"></app-primary-button>
     </form>
   </div>
 </app-popup>
 
-<app-popup [show]="todoToUpdate !== null" (close)="openUpdateEditor()" title="Eintrag bearbeiten">
+<app-popup [show]="todoToUpdate() !== null" (close)="openUpdateEditor()" title="Eintrag bearbeiten">
   <div class="space-y-4">
-    <form [formGroup]="itemUpdateEditorForm" (ngSubmit)="updateName(todoToUpdate.id)" class="space-y-3">
+    <form [formGroup]="itemUpdateEditorForm" (ngSubmit)="updateName(todoToUpdate().id)" class="space-y-3">
       <label for="name">Name</label>
       <input type="text" id="name" formControlName="updatename" placeholder="Name" autocomplete="off" class="w-full" />
 
@@ -96,13 +96,13 @@
     </form>
     <div class="flex gap-3">
       <div class="w-1/2">
-        <app-primary-button type="button" (clicked)="askToDeleteTask(todoToUpdate.id)" customClasses="btn-danger w-full"
-          [isLoading]="isLoadingDelete" label="Löschen"></app-primary-button>
+        <app-primary-button type="button" (clicked)="askToDeleteTask(todoToUpdate().id)" customClasses="btn-danger w-full"
+          [isLoading]="isLoadingDelete()" label="Löschen"></app-primary-button>
 
       </div>
       <div class="w-1/2">
-        <app-primary-button type="button" (clicked)="updateName(todoToUpdate.id)" [isLoading]="isLoadingUpdate"
-          [disabled]="itemUpdateEditorForm.invalid || (updateNameField.value === todoToUpdate?.name && updateDescriptionField.value === todoToUpdate?.description)"
+        <app-primary-button type="button" (clicked)="updateName(todoToUpdate().id)" [isLoading]="isLoadingUpdate()"
+          [disabled]="itemUpdateEditorForm.invalid || (updateNameField.value === todoToUpdate()?.name && updateDescriptionField.value === todoToUpdate()?.description)"
           label="Updaten"></app-primary-button>
       </div>
     </div>

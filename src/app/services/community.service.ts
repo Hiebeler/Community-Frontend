@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { effect, Injectable, OnDestroy, signal } from '@angular/core';
 import { BehaviorSubject, map, Observable, Subscription, tap } from 'rxjs';
 import { ApiCommunity, Community } from '../models/community.model';
 import { ApiService } from './api.service';
@@ -13,11 +13,9 @@ import { ApiRequest } from '../models/request.model';
 @Injectable({
   providedIn: 'root',
 })
-export class CommunityService implements OnDestroy {
-  subscriptions: Subscription[] = [];
-
-  private community = new BehaviorSubject<Community>(null);
-  private usersInCommunity = new BehaviorSubject<User[]>([]);
+export class CommunityService {
+  community = signal<Community | null>(null);
+  usersInCommunity = signal<User[]>([]);
 
   constructor(
     private apiService: ApiService,
@@ -26,42 +24,37 @@ export class CommunityService implements OnDestroy {
     private storageService: StorageService,
     private userAdapter: UserAdapter
   ) {
-    this.subscriptions.push(
-      this.authService.activeCommunityId.subscribe((id) => {
-        if (!id) {
-          this.community.next(null);
-        } else {
-          this.fetchCurrentCommunityFromApi(id);
-        }
-      })
-    );
+    // Automatically fetch community whenever activeCommunityId changes
+    effect(() => {
+      const communityId = this.authService.activeCommunityId();
+      if (!communityId) {
+        this.community.set(null);
+        this.usersInCommunity.set([]);
+      } else {
+        this.fetchCurrentCommunityFromApi(communityId);
+      }
+    });
 
-    this.subscriptions.push(
-      this.getCurrentCommunity().subscribe((community) => {
-        if (community) {
-          this.fetchUsersInCommunityFromApi(community.id);
-        }
-      })
-    );
+    // Automatically fetch users when community signal updates
+    effect(() => {
+      const comm = this.community();
+      if (comm) {
+        this.fetchUsersInCommunityFromApi(comm.id);
+      } else {
+        this.usersInCommunity.set([]);
+      }
+    });
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
-
-  getCurrentCommunity(): Observable<Community | null> {
+  getCurrentCommunity() {
     return this.community;
   }
 
-  fetchCurrentCommunityFromApi(id: number): void {
-    this.subscriptions.push(
-      this.apiService
-        .getCommunityById(id)
-        .pipe(map((res) => this.communityAdapter.adapt(res.data)))
-        .subscribe((community) => {
-          this.community.next(community);
-        })
-    );
+  fetchCurrentCommunityFromApi(id: number) {
+    this.apiService
+      .getCommunityById(id)
+      .pipe(map((res) => this.communityAdapter.adapt(res.data)))
+      .subscribe((community) => this.community.set(community));
   }
 
   getCommunity(code: string): Observable<Community> {
@@ -108,7 +101,7 @@ export class CommunityService implements OnDestroy {
     return this.apiService.deleteCommunity(id);
   }
 
-  getUsersInCurrentCommunity(): Observable<User[]> {
+  getUsersInCurrentCommunity() {
     return this.usersInCommunity;
   }
 
@@ -126,19 +119,12 @@ export class CommunityService implements OnDestroy {
     );
   }
 
-  fetchUsersInCommunityFromApi(id: number): void {
-    if (id) {
-      this.subscriptions.push(
-        this.apiService
-          .getUsersInCommunity(id)
-          .pipe(
-            map((data) => data.data.map((item) => this.userAdapter.adapt(item)))
-          )
-          .subscribe((users) => {
-            this.usersInCommunity.next(users);
-          })
-      );
-    }
+   fetchUsersInCommunityFromApi(id: number) {
+    if (!id) return;
+    this.apiService
+      .getUsersInCommunity(id)
+      .pipe(map((data) => data.data.map((item) => this.userAdapter.adapt(item))))
+      .subscribe((users) => this.usersInCommunity.set(users));
   }
 
   getRequests(): Observable<ApiResponse<ApiRequest[]>> {
@@ -164,7 +150,7 @@ export class CommunityService implements OnDestroy {
 
   setCurrentCommunity(communityId: number): void {
     this.storageService.setCurrentCommunity(communityId);
-    this.authService.activeCommunityId.next(communityId);
+    this.authService.activeCommunityId.set(communityId);
   }
 
   updateCommunityName(

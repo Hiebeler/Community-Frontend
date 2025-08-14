@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
   ArrowLeftRightIcon,
@@ -26,7 +26,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './landing.page.html',
   imports: [CommonModule, RouterModule, LucideAngularModule, FeatureCard, WhyCard],
 })
-export class LandingPage implements OnInit {
+export class LandingPage {
   readonly switchIcon = ArrowLeftRightIcon;
   readonly checkIcon = CircleCheckBigIcon;
   readonly shoppingCartIcon = ShoppingCartIcon;
@@ -41,13 +41,7 @@ export class LandingPage implements OnInit {
   readonly debtIcon = PiggyBankIcon;
   readonly multipleCommunitiesIcon = SquareStackIcon;
 
-  isLoggedIn = false;
+  private authService = inject(AuthService);
 
-  constructor(private authService: AuthService) {}
-
-  ngOnInit() {
-    this.authService.activeUserId.subscribe((id) => {
-      this.isLoggedIn = id != null;
-    });
-  }
+  isLoggedIn = computed(() => this.authService.activeUserId() != null);
 }

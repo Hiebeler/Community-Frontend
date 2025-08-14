@@ -132,7 +132,7 @@ export class OnboardingComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.subscriptions.push(
+    /* this.subscriptions.push(
       this.userService.getCurrentUser().subscribe((user) => {
         this.user = user;
         if (this.ownCommunities != null) {
@@ -143,18 +143,18 @@ export class OnboardingComponent implements OnInit {
 
         this.nameUpdateEditorForm.controls.name.setValue(this.user?.name);
       })
-    );
+    ); */
 
     this.fetchActiveCommunity();
     this.fetchCommunities();
   }
 
   fetchActiveCommunity() {
-    this.subscriptions.push(
+    /* this.subscriptions.push(
       this.communityService.getCurrentCommunity().subscribe((community) => {
         this.activeCommunity = community;
       })
-    );
+    ); */
   }
 
   fetchCommunities() {

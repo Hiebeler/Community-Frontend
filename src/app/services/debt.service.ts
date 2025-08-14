@@ -22,9 +22,9 @@ export class DebtService implements OnDestroy {
     private balanceAdapter: BalanceAdapter,
     private communityService: CommunityService
   ) {
-    this.subscriptions.push(this.communityService.getCurrentCommunity().subscribe(community => {
+    /* this.subscriptions.push(this.communityService.getCurrentCommunity().subscribe(community => {
       this.fetchDebtsAndBalanceFromApi();
-    }));
+    })); */
 
   }
 

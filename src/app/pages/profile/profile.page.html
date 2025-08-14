@@ -36,7 +36,7 @@
   <div class="card">
     <h2 class="mb-4">Mitglieder:</h2>
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-9 gap-2 justify-items-center">
-      @for (user of usersInCommunity; track user) {
+      @for (user of usersInCommunity(); track user) {
       <div class="card w-full text-center">
         <img [src]="user.avatar" alt="" class="rounded-full w-full aspect-square object-cover mb-2" />
         <p class="text-sm lg:text-lg">{{user?.name}}</p>
@@ -49,7 +49,7 @@
   </div>
   }
 
-  @if (user.isAdmin) {
+  @if (user().isAdmin) {
   <app-open-requests />
   }
 
@@ -63,15 +63,16 @@
 </div>
 }
 
-<app-popup [show]="feedbackPopupIsOpen" (close)="feedbackPopupIsOpen = false" title="Feedback schreiben">
-  <p class="mb-5">Dein Feedback hilft uns, Together stetig zu verbessern. Teile uns hier Probleme, Ideen oder Feature-Vorschläge
-      mit - wir hören zu!</p>
+<app-popup [show]="feedbackPopupIsOpen()" (close)="feedbackPopupIsOpen.set(false)" title="Feedback schreiben">
+  <p class="mb-5">Dein Feedback hilft uns, Together stetig zu verbessern. Teile uns hier Probleme, Ideen oder
+    Feature-Vorschläge
+    mit - wir hören zu!</p>
   <form [formGroup]="feedbackForm" (ngSubmit)="sendFeedback()" class="space-y-3">
     <label for="feedback">Feedback</label>
     <textarea type="text" id="feedback" formControlName="feedback" placeholder="Feedback" autocomplete="off"
       class="w-full h-50"></textarea>
 
     <app-primary-button type="submit" customClasses="btn-primary w-full" [disabled]="feedbackForm.invalid"
-      [isLoading]="isSendingFeedback" label="Senden"></app-primary-button>
+      [isLoading]="isSendingFeedback()" label="Senden"></app-primary-button>
   </form>
 </app-popup>

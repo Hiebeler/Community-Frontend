@@ -1,106 +1,134 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import {
-  BehaviorSubject,
-  concatMap,
-  map,
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
+import { Injectable, effect, signal } from '@angular/core';
 import { ShoppingItemAdapter } from '../models/shopping-item.adapter';
 import { ShoppingItem } from '../models/shopping-item.model';
 import { ApiService } from './api.service';
 import { AuthService } from './auth.service';
 import { ApiResponse } from '../models/api-response';
+import { map, Observable, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class ShoppingService implements OnDestroy {
-  subscriptions: Subscription[] = [];
-
-  private openShoppingItems = new BehaviorSubject<ShoppingItem[]>([]);
-  private doneShoppingItems = new BehaviorSubject<ShoppingItem[]>([]);
+export class ShoppingService {
+  // Signals instead of BehaviorSubjects
+  openShoppingItems = signal<ShoppingItem[]>([]);
+  doneShoppingItems = signal<ShoppingItem[]>([]);
 
   constructor(
     private apiService: ApiService,
     private shoppingItemAdapter: ShoppingItemAdapter,
     private authService: AuthService
   ) {
-    this.subscriptions.push(
-      this.authService.activeCommunityId.subscribe(() => {
-        this.fetchShoppingItemsFromApi();
+    // Automatically refetch whenever the active community changes
+    effect(() => {
+      const communityId = this.authService.activeCommunityId; // reactive
+      this.fetchShoppingItemsFromApi();
+    });
+  }
+
+  private fetchShoppingItemsFromApi(): void {
+    // Fetch open items
+    this.apiService.getOpenShoppingItems().subscribe((res) => {
+      if (res.status === 'OK') {
+        this.openShoppingItems.set(
+          res.data.map(this.shoppingItemAdapter.adapt)
+        );
+      } else {
+        this.openShoppingItems.set([]);
+      }
+    });
+
+    // Fetch done items
+    this.apiService.getDoneShoppingItems().subscribe((res) => {
+      if (res.status === 'OK') {
+        this.doneShoppingItems.set(
+          res.data.map(this.shoppingItemAdapter.adapt)
+        );
+      } else {
+        this.doneShoppingItems.set([]);
+      }
+    });
+  }
+
+  addShoppingItem(
+    shoppingItem: ShoppingItem
+  ): Observable<ApiResponse<ShoppingItem>> {
+    return this.apiService.addShoppingItem(shoppingItem.name).pipe(
+      map((res) => {
+        const adapted = res.success
+          ? this.shoppingItemAdapter.adapt(res.data)
+          : null;
+        if (adapted) {
+          this.openShoppingItems.update((items) => [...items, adapted]);
+        }
+        return new ApiResponse<ShoppingItem>({ ...res, data: adapted });
       })
     );
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
+  updateShoppingItem(
+    shoppingItem: ShoppingItem
+  ): Observable<ApiResponse<ShoppingItem>> {
+    return this.apiService
+      .updateShoppingItem({
+        id: shoppingItem.id,
+        done: shoppingItem.done,
+        name: shoppingItem.name,
+      })
+      .pipe(
+        map((res) => {
+          const adapted = res.success
+            ? this.shoppingItemAdapter.adapt(res.data)
+            : null;
 
-  getOpenShoppingItems(): Observable<ShoppingItem[]> {
-    return this.openShoppingItems;
-  }
-
-  getDoneShoppingItems(): Observable<ShoppingItem[]> {
-    return this.doneShoppingItems;
-  }
-
-  fetchShoppingItemsFromApi(): void {
-    this.subscriptions.push(
-      this.apiService
-        .getOpenShoppingItems()
-        .pipe(
-          concatMap((res) => {
-            if (res.status !== 'OK') {
-              return [];
+          if (adapted) {
+            if (shoppingItem.done) {
+              // Update done items
+              this.doneShoppingItems.update((items) =>
+                items.map((i) => (i.id === adapted.id ? adapted : i))
+              );
+              // Remove from open items
+              this.openShoppingItems.update((items) =>
+                items.filter((i) => i.id !== adapted.id)
+              );
             } else {
-              return of(res);
+              // Update open items
+              this.openShoppingItems.update((items) =>
+                items.map((i) => (i.id === adapted.id ? adapted : i))
+              );
+              // Remove from done items
+              this.doneShoppingItems.update((items) =>
+                items.filter((i) => i.id !== adapted.id)
+              );
             }
-          }),
-          map((res: any) =>
-            res.data.map((item) => this.shoppingItemAdapter.adapt(item))
-          )
-        )
-        .subscribe((openItems) => {
-          this.openShoppingItems.next(openItems);
+          }
+
+          return new ApiResponse<ShoppingItem>({ ...res, data: adapted });
         })
-    );
-
-    this.subscriptions.push(
-      this.apiService
-        .getDoneShoppingItems()
-        .pipe(
-          concatMap((res) => {
-            if (res.status !== 'OK') {
-              return [];
-            } else {
-              return of(res);
-            }
-          }),
-          map((res: any) =>
-            res.data.map((item) => this.shoppingItemAdapter.adapt(item))
-          )
-        )
-        .subscribe((doneItems) => {
-          this.doneShoppingItems.next(doneItems);
-        })
-    );
-  }
-
-  addShoppingItem(shoppingItem: ShoppingItem): Observable<ApiResponse<ShoppingItem>> {
-    return this.apiService.addShoppingItem(shoppingItem.name);
-  }
-
-  updateShoppingItem(shoppingItem: ShoppingItem): Observable<ApiResponse<ShoppingItem>> {
-    return this.apiService.updateShoppingItem({
-      id: shoppingItem.id,
-      done: shoppingItem.done,
-      name: shoppingItem.name,
-    });
+      );
   }
 
   deleteShoppingItem(id: number): Observable<ApiResponse<ShoppingItem>> {
-    return this.apiService.deleteShoppingItem(id);
+    return this.apiService.deleteShoppingItem(id).pipe(
+      map((res) => {
+        const adapted = res.success
+          ? this.shoppingItemAdapter.adapt(res.data)
+          : null;
+
+        if (adapted) {
+          // Remove the item from open items
+          this.openShoppingItems.update((items) =>
+            items.filter((i) => i.id !== adapted.id)
+          );
+
+          // Remove the item from done items
+          this.doneShoppingItems.update((items) =>
+            items.filter((i) => i.id !== adapted.id)
+          );
+        }
+
+        return new ApiResponse<ShoppingItem>({ ...res, data: adapted });
+      })
+    );
   }
 }

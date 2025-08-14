@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { effect, Injectable, OnDestroy, signal } from '@angular/core';
 import {
   BehaviorSubject,
   concatMap,
@@ -16,89 +16,75 @@ import { ApiResponse } from '../models/api-response';
 @Injectable({
   providedIn: 'root',
 })
-export class TodosService implements OnDestroy {
-  subscriptions: Subscription[] = [];
-
-  private openTodos = new BehaviorSubject<Todo[]>([]);
-  private doneTodos = new BehaviorSubject<Todo[]>([]);
+export class TodosService {
+  openTodos = signal<Todo[]>([]);
+  doneTodos = signal<Todo[]>([]);
 
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
     private todoAdapter: TodoAdapter
   ) {
-    this.subscriptions.push(
-      this.authService.activeCommunityId.subscribe(() => {
+    effect(() => {
+      const communityId = this.authService.activeCommunityId();
+      if (communityId) {
         this.fetchTodosFromApi();
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
-
-  getOpenTodos(): Observable<Todo[]> {
-    return this.openTodos;
-  }
-
-  getDoneTodos(): Observable<Todo[]> {
-    return this.doneTodos;
-  }
-
-  fetchTodosFromApi(): void {
-    this.subscriptions.push(
-      this.apiService
-        .getOpenTodos()
-        .pipe(
-          concatMap((res) => {
-            if (res.status !== 'OK') {
-              return [];
-            } else {
-              return of(res);
-            }
-          }),
-          map((res: any) =>
-            res.data.map((item) => this.todoAdapter.adapt(item))
-          )
-        )
-        .subscribe((openTodos) => {
-          this.openTodos.next(openTodos);
-        })
-    );
-
-    this.subscriptions.push(
-      this.apiService
-        .getDoneTodos()
-        .pipe(
-          concatMap((res) => {
-            if (res.status !== 'OK') {
-              return [];
-            } else {
-              return of(res);
-            }
-          }),
-          map((res: any) =>
-            res.data.map((item) => this.todoAdapter.adapt(item))
-          )
-        )
-        .subscribe((doneTodos) => {
-          this.doneTodos.next(doneTodos);
-        })
-    );
-  }
-
-  createTodo(name: string, description: string): Observable<ApiResponse<ApiTodo>> {
-    return this.apiService.createTodo({ name, description });
-  }
-
-  updateTodo(todo: Todo): Observable<any> {
-    return this.apiService.updateTodo({
-      id: todo.id,
-      name: todo.name,
-      description: todo.description,
-      done: todo.done
+      } else {
+        this.openTodos.set([]);
+        this.doneTodos.set([]);
+      }
     });
+  }
+
+  private fetchTodosFromApi() {
+    // Open todos
+    this.apiService
+      .getOpenTodos()
+      .pipe(
+        concatMap((res) => (res.status === 'OK' ? of(res) : of({ data: [] }))),
+        map((res: any) => res.data.map((item) => this.todoAdapter.adapt(item)))
+      )
+      .subscribe((todos) => this.openTodos.set(todos));
+
+    // Done todos
+    this.apiService
+      .getDoneTodos()
+      .pipe(
+        concatMap((res) => (res.status === 'OK' ? of(res) : of({ data: [] }))),
+        map((res: any) => res.data.map((item) => this.todoAdapter.adapt(item)))
+      )
+      .subscribe((todos) => this.doneTodos.set(todos));
+  }
+
+  createTodo(name: string, description: string): Observable<ApiResponse<Todo>> {
+    return this.apiService.createTodo({ name, description }).pipe(
+      map(
+        (res) =>
+          new ApiResponse<Todo>({
+            ...res,
+            data: res.success ? this.todoAdapter.adapt(res.data) : null,
+          })
+      )
+    );
+  }
+
+  updateTodo(todo: Todo): Observable<ApiResponse<Todo>> {
+    return this.apiService
+      .updateTodo({
+        id: todo.id,
+        name: todo.name,
+        description: todo.description,
+        done: todo.done,
+      })
+      .pipe(
+        map(
+          (res) =>
+            new ApiResponse<Todo>({
+              ...res,
+              data: res.success ? this.todoAdapter.adapt(res.data) : null,
+            })
+        )
+      );
   }
 
   deleteTodo(id: number): Observable<ApiResponse<any>> {

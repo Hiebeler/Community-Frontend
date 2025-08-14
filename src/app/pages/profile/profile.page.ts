@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, effect, OnDestroy, OnInit, signal } from '@angular/core';
 import { Community } from 'src/app/models/community.model';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth.service';
@@ -41,21 +41,25 @@ import { ToastrService } from 'ngx-toastr';
     PopupComponent,
   ],
 })
-export class ProfilePage implements OnInit, OnDestroy {
+export class ProfilePage {
   readonly paletteIcon = PaletteIcon;
   readonly userPen = UserPenIcon;
   readonly switchIcon = ArrowLeftRightIcon;
   readonly logoutIcon = LogOutIcon;
 
-  subscriptions: Subscription[] = [];
+  feedbackForm = new FormGroup({
+    feedback: new FormControl<string | null>('', [
+      Validators.required,
+      Validators.maxLength(500),
+    ]),
+  });
 
-  feedbackForm: FormGroup;
-  feedbackPopupIsOpen = false;
-  isSendingFeedback = false;
+  feedbackPopupIsOpen = signal(false);
+  isSendingFeedback = signal(false);
 
-  user: User;
-  community: Community;
-  usersInCommunity: User[];
+  user = signal<User | null>(null);
+  community = signal<Community | null>(null);
+  usersInCommunity = signal<User[]>([]);
 
   constructor(
     private authService: AuthService,
@@ -64,46 +68,27 @@ export class ProfilePage implements OnInit, OnDestroy {
     private communityService: CommunityService,
     private toastr: ToastrService
   ) {
-    this.feedbackForm = new FormGroup({
-      feedback: new FormControl<string | null>('', [
-        Validators.required,
-        Validators.maxLength(500),
-      ]),
+    effect(() => {
+      this.user.set(this.userService.getCurrentUser()()); // convert observable to signal if using a signal-based service
+    });
+
+    effect(() => {
+      this.community.set(this.communityService.getCurrentCommunity()());
+    });
+
+    effect(() => {
+      this.usersInCommunity.set(
+        this.communityService.getUsersInCurrentCommunity()()
+      );
     });
   }
 
-  ngOnInit() {
-    this.subscriptions.push(
-      this.userService.getCurrentUser().subscribe((user) => {
-        this.user = user;
-      })
-    );
-
-    this.subscriptions.push(
-      this.communityService.getCurrentCommunity().subscribe((community) => {
-        this.community = community;
-      })
-    );
-
-    this.subscriptions.push(
-      this.communityService.getUsersInCurrentCommunity().subscribe((users) => {
-        this.usersInCommunity = users;
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
-
   updateUser(data: any) {
-    this.subscriptions.push(
-      this.userService.updateUser(data).subscribe((wasSuccessful) => {
-        if (wasSuccessful) {
-          this.userService.fetchUserFromApi();
-        }
-      })
-    );
+    this.userService.updateUser(data).subscribe((wasSuccessful) => {
+      if (wasSuccessful) {
+        this.userService.fetchUserFromApi();
+      }
+    });
   }
 
   logout() {
@@ -120,18 +105,18 @@ export class ProfilePage implements OnInit, OnDestroy {
 
   openFeedbackPopup() {
     this.feedbackForm.controls.feedback.setValue('');
-    this.feedbackPopupIsOpen = true;
+    this.feedbackPopupIsOpen.set(true);
   }
 
   sendFeedback() {
-    this.isSendingFeedback = true;
+    this.isSendingFeedback.set(true);
     this.userService
       .sendFeedback(this.feedbackForm.controls.feedback.value)
       .subscribe((res) => {
-        this.isSendingFeedback = false;
+        this.isSendingFeedback.set(false);
         if (res.success) {
           this.toastr.success('Feedback gesendet!');
-          this.feedbackPopupIsOpen = false;
+          this.feedbackPopupIsOpen.set(false);
         } else {
           this.toastr.error(res.error);
         }

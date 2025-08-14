@@ -2,8 +2,6 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
-  OnDestroy,
-  OnInit,
   Output,
   SecurityContext,
 } from '@angular/core';
@@ -14,8 +12,6 @@ import {
   LoadedImage,
 } from 'ngx-image-cropper';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription } from 'rxjs';
-import { User } from 'src/app/models/user.model';
 import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -24,12 +20,8 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './profile-image-editor.component.html',
   imports: [CommonModule, ImageCropperComponent],
 })
-export class ProfileImageEditorComponent implements OnInit, OnDestroy {
+export class ProfileImageEditorComponent {
   @Output() closeEditor: EventEmitter<any> = new EventEmitter();
-
-  subscriptions: Subscription[] = [];
-
-  user: User;
 
   imageChangedEvent: Event | null = null;
   croppedImage: SafeUrl = '';
@@ -42,18 +34,6 @@ export class ProfileImageEditorComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private toastr: ToastrService
   ) {}
-
-  ngOnInit() {
-    this.subscriptions.push(
-      this.userService.getCurrentUser().subscribe((user) => {
-        this.user = user;
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
 
   async saveImage() {
     const url = this.domSanitizer.sanitize(
@@ -73,7 +53,6 @@ export class ProfileImageEditorComponent implements OnInit, OnDestroy {
         lastModified: Date.now(),
       });
 
-      this.subscriptions.push(
         this.apiService.uploadImage(croppedImg).subscribe((res) => {
           if (res.success) {
             this.userService.fetchUserFromApi();
@@ -83,7 +62,6 @@ export class ProfileImageEditorComponent implements OnInit, OnDestroy {
             this.toastr.error(res.error);
           }
         })
-      );
     } catch (error) {
       this.toastr.error('Bild konnte nicht verarbeitet werden.');
     }

@@ -109,20 +109,11 @@ export class DebtsPage implements OnInit, OnDestroy {
       })
     );
 
-    this.subscriptions.push(
-      this.userService.getCurrentUser().subscribe((user) => {
-        this.currentUser = user;
 
-        this.filterCurrentUser();
-      })
-    );
-
-    this.subscriptions.push(
-      this.communityService.getUsersInCurrentCommunity().subscribe((users) => {
-        this.usersInCommunity = users;
-        this.filterCurrentUser();
-      })
-    );
+    this.currentUser = this.userService.getCurrentUser()();
+    this.usersInCommunity = this.communityService
+      .getUsersInCurrentCommunity()()
+      .filter((user) => user.id !== this.currentUser?.id);
   }
 
   ngOnDestroy(): void {
