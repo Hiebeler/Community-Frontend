@@ -109,8 +109,8 @@ export class OnboardingComponent implements OnInit {
         Validators.required,
       ]),
       newPassword: new FormControl<string | null>('', [
-        Validators.minLength(1),
         Validators.required,
+        Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[\S]{6,}$/),
       ]),
     });
   }

@@ -45,8 +45,12 @@ export class AuthService implements OnDestroy {
     }
   }
 
-  register(data: {email: string, name: string, password: string}): Observable<ApiResponse<any>> {
-      return this.apiService.register(data)
+  register(data: {
+    email: string;
+    name: string;
+    password: string;
+  }): Observable<ApiResponse<any>> {
+    return this.apiService.register(data);
   }
 
   login(email, password): Observable<ApiResponse<any>> {
@@ -99,25 +103,8 @@ export class AuthService implements OnDestroy {
     this.toastr.success('Du bist jetzt ausgeloggt');
   }
 
-  verify(code: string) {
-    return this.subscriptions.push(
-      this.apiService.verify(code).subscribe(async (res) => {
-        if (res.success) {
-          this.alertService.showAlert(
-            'Verified',
-            'Your Account is now verified, you can now login to your account',
-            'Okay',
-            async () => {
-              if (res.success) {
-                this.router.navigate(['login']);
-              }
-            }
-          );
-        } else {
-          this.alertService.showAlert('Ooops', res.error);
-        }
-      })
-    );
+  verify(code: string): Observable<ApiResponse<any>> {
+    return this.apiService.verify(code);
   }
 
   resendVerificationEmail(email: string): Observable<ApiResponse<any>> {

@@ -34,22 +34,32 @@ const routes: Routes = [
       {
         path: 'imprint',
         component: ImprintPage,
-        title: 'Impressum | Together - Aufgabenverwaltung für Haushalte & Communities',
+        title:
+          'Impressum | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'privacy',
         component: PrivacyPage,
-        title: 'Datenschutzrichtlinie | Together - Aufgabenverwaltung für Haushalte & Communities',
+        title:
+          'Datenschutzrichtlinie | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
+    ],
+  },
+  {
+    path: '',
+    component: AuthLayoutComponent,
+    children: [
       {
         path: 'verify/:code',
         component: VerifyPage,
-        title: 'Verify | Together - Aufgabenverwaltung für Haushalte & Communities',
+        title:
+          'Verify | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'reset/:code',
         component: ResetPassword,
-        title: 'Password zurücksetzen | Together - Aufgabenverwaltung für Haushalte & Communities',
+        title:
+          'Password zurücksetzen | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
     ],
   },
@@ -60,17 +70,20 @@ const routes: Routes = [
       {
         path: 'login',
         component: LoginPage,
-        title: 'Anmelden | Together - Aufgabenverwaltung für Haushalte & Communities',
+        title:
+          'Anmelden | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'register',
         component: RegisterPage,
-        title: 'Registrieren | Together - Aufgabenverwaltung für Haushalte & Communities',
+        title:
+          'Registrieren | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'reset',
         component: RequestPasswordReset,
-        title: 'Password zurücksetzen | Together - Aufgabenverwaltung für Haushalte & Communities',
+        title:
+          'Password zurücksetzen | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
     ],
     canActivate: [AuthGuard],
@@ -85,37 +98,44 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfilePage,
-        title: 'Profil | Together - Aufgabenverwaltung für Haushalte & Communities',
+        title:
+          'Profil | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'calendar',
         component: CalendarPage,
-        title: 'Kalender | Together - Aufgabenverwaltung für Haushalte & Communities',
+        title:
+          'Kalender | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'todos',
         component: Todos,
-        title: 'Todos | Together - Aufgabenverwaltung für Haushalte & Communities',
+        title:
+          'Todos | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'calendar/routines',
         component: RoutinesPage,
-        title: 'Routinen | Together - Aufgabenverwaltung für Haushalte & Communities',
+        title:
+          'Routinen | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'shopping-list',
         component: ShoppingListPage,
-        title: 'Einkaufsliste | Together - Aufgabenverwaltung für Haushalte & Communities',
+        title:
+          'Einkaufsliste | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'debts',
         component: DebtsPage,
-        title: 'Schulden | Together - Aufgabenverwaltung für Haushalte & Communities',
+        title:
+          'Schulden | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
       {
         path: 'debts/history',
         component: DebtsHistoryPage,
-        title: 'Schulden Verlauf | Together - Aufgabenverwaltung für Haushalte & Communities',
+        title:
+          'Schulden Verlauf | Together - Aufgabenverwaltung für Haushalte & Communities',
       },
     ],
     canActivate: [AuthGuard],
@@ -126,7 +146,8 @@ const routes: Routes = [
   {
     path: 'onboarding',
     component: OnboardingComponent,
-    title: 'Onboarding | Together - Aufgabenverwaltung für Haushalte & Communities',
+    title:
+      'Onboarding | Together - Aufgabenverwaltung für Haushalte & Communities',
     canActivate: [AuthGuard],
     data: {
       roles: ['onboarding', 'community'],
