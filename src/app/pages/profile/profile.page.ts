@@ -1,11 +1,8 @@
-import { Component, effect, OnDestroy, OnInit, signal } from '@angular/core';
-import { Community } from 'src/app/models/community.model';
-import { User } from 'src/app/models/user.model';
+import { Component, signal } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { CommunityService } from 'src/app/services/community.service';
 import { RouterModule } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { OpenRequestsComponent } from 'src/app/components/open-requests/open-requests.component';
 import {
@@ -50,7 +47,8 @@ export class ProfilePage {
   feedbackForm = new FormGroup({
     feedback: new FormControl<string | null>('', [
       Validators.required,
-      Validators.maxLength(500),
+      Validators.minLength(3),
+      Validators.maxLength(1000),
     ]),
   });
 
