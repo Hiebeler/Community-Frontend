@@ -1,15 +1,8 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import {
-  BehaviorSubject,
-  concatMap,
-  map,
-  Observable,
-  of,
-  Subscription,
-} from 'rxjs';
+import { computed, Injectable, OnDestroy, signal } from '@angular/core';
+import { concatMap, map, Observable, of, Subscription } from 'rxjs';
 import { RoutineAdapter } from '../models/routine.adapter';
 import { CalendarEntryAdapter } from '../models/calendar-entry.adapter';
-import { ApiRoutine, Routine } from '../models/routine.model';
+import { ApiRoutine, CreateRoutine, Routine } from '../models/routine.model';
 import { ApiService } from './api.service';
 import { ApiCalendarEntry, CalendarEntry } from '../models/calendarEntry.model';
 import { ApiResponse } from '../models/api-response';
@@ -20,7 +13,7 @@ import { ApiResponse } from '../models/api-response';
 export class CalendarService implements OnDestroy {
   subscriptions: Subscription[] = [];
 
-  private routines = new BehaviorSubject<Routine[]>([]);
+  routines = signal<Routine[]>([]);
 
   constructor(
     private apiService: ApiService,
@@ -39,9 +32,10 @@ export class CalendarService implements OnDestroy {
     return this.apiService.getCalendarEntries({ startDate, endDate }).pipe(
       concatMap((res) => {
         if (res.success) {
+          console.log(res.data);
           return of(res);
         } else {
-          return []
+          return [];
         }
       }),
       map((res: any) =>
@@ -62,10 +56,6 @@ export class CalendarService implements OnDestroy {
     return this.apiService.deleteCalendarEntry(id);
   }
 
-  getRoutines(): Observable<Routine[]> {
-    return this.routines;
-  }
-
   fetchRoutinesFromApi(): void {
     this.subscriptions.push(
       this.apiService
@@ -76,8 +66,28 @@ export class CalendarService implements OnDestroy {
           )
         )
         .subscribe((routines) => {
-          this.routines.next(routines);
+          this.routines.set(routines); // nach active und inactive sortieren
         })
+    );
+  }
+
+  createRoutine(routine: CreateRoutine): Observable<ApiResponse<Routine>> {
+    return this.apiService.createRoutine(routine).pipe(
+      map((res) => {
+        const apiResponse = new ApiResponse<Routine>({
+          ...res,
+          data: res.success ? this.routineAdapter.adapt(res.data) : null,
+        });
+
+        if (apiResponse.success && apiResponse.data) {
+          this.routines.update((routines) => [
+            apiResponse.data,
+            ...routines,
+          ]);
+        }
+
+        return apiResponse;
+      })
     );
   }
 
@@ -94,4 +104,7 @@ export class CalendarService implements OnDestroy {
     };
     return this.apiService.modifyRoutine(data);
   }
+
+  activeRoutines = computed(() => this.routines().filter((r) => r.active));
+  inactiveRoutines = computed(() => this.routines().filter((r) => !r.active));
 }

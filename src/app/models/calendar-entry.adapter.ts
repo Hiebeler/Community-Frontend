@@ -14,7 +14,7 @@ export class CalendarEntryAdapter
   adapt(item: ApiCalendarEntry): CalendarEntry {
     const date = new Date(item.date);
     const users = [];
-    item.assigned_users?.forEach((element) => {
+    item.assignedUsers?.forEach((element) => {
       users.push(this.userAdapter.adapt(element));
     });
 

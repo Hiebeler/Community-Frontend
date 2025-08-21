@@ -77,6 +77,8 @@ export class CalendarPage implements OnInit, OnDestroy {
         .subscribe((tasks) => {
           this.days = [];
 
+          console.log(tasks)
+
           for (let i = 0; i < this.numberOfColumns; i++) {
             const currentDate = this.addDate(this.startDate, i);
             const currentDateString = this.formatDate(currentDate);

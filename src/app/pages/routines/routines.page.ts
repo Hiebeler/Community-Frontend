@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ArrowLeftIcon, LucideAngularModule, PlusIcon } from 'lucide-angular';
-import { Subscription } from 'rxjs';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { PopupComponent } from 'src/app/components/popup/popup.component';
 import { RoutineCardComponent } from 'src/app/components/routine-card/routine-card.component';
@@ -20,17 +19,12 @@ import { CalendarService } from 'src/app/services/calendar.service';
     RoutineCardComponent,
     LucideAngularModule,
     PopupComponent,
-    Navbar
+    Navbar,
   ],
 })
-export class RoutinesPage implements OnInit, OnDestroy {
+export class RoutinesPage implements OnInit {
   readonly plusIcon = PlusIcon;
-  readonly backIcon = ArrowLeftIcon
-
-  subscriptions: Subscription[] = [];
-
-  enabledRoutines: Routine[] = [];
-  disabledRoutines: Routine[] = [];
+  readonly backIcon = ArrowLeftIcon;
 
   completedFirstLoad = false;
 
@@ -38,31 +32,13 @@ export class RoutinesPage implements OnInit, OnDestroy {
 
   openRoutineEditor: Routine = null;
 
+  activeRoutines = this.calendarService.activeRoutines;
+  inactiveRoutines = this.calendarService.inactiveRoutines;
+
   constructor(private calendarService: CalendarService) {}
 
   ngOnInit() {
-    this.subscriptions.push(
-      this.calendarService.getRoutines().subscribe((routines) => {
-        this.enabledRoutines = [];
-        this.disabledRoutines = [];
-
-        this.completedFirstLoad = true;
-
-        routines.map((routine) => {
-          if (routine.active) {
-            this.enabledRoutines.push(routine);
-          } else {
-            this.disabledRoutines.push(routine);
-          }
-        });
-      })
-    );
-
-    this.getRoutines();
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    this.calendarService.fetchRoutinesFromApi();
   }
 
   getRoutines() {

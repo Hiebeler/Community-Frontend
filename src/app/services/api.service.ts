@@ -12,7 +12,7 @@ import { ApiResponse } from '../models/api-response';
 import { ApiUser } from '../models/user.model';
 import { ApiResponseAdapter } from '../models/api-response.adapter';
 import { ApiCalendarEntry } from '../models/calendarEntry.model';
-import { ApiRoutine } from '../models/routine.model';
+import { ApiRoutine, CreateRoutine } from '../models/routine.model';
 import { ApiCommunity } from '../models/community.model';
 import { ApiRequest } from '../models/request.model';
 import { ApiShoppingItem } from '../models/shopping-item.model';
@@ -276,6 +276,10 @@ export class ApiService {
 
   getRoutines(): Observable<ApiResponse<ApiRoutine[]>> {
     return this.apiGet('calendar/routine/all');
+  }
+
+  createRoutine(data: CreateRoutine): Observable<ApiResponse<ApiRoutine>> {
+    return this.apiPost('calendar/routine', data);
   }
 
   modifyRoutine(data: any): Observable<ApiResponse<ApiRoutine>> {

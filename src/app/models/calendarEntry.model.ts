@@ -8,7 +8,7 @@ export interface ApiCalendarEntry {
   done?: boolean;
   fk_routine_id: number;
   community_id: number;
-  assigned_users: ApiUser[];
+  assignedUsers: ApiUser[];
 }
 
 export class CalendarEntry {

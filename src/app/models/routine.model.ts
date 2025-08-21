@@ -10,6 +10,14 @@ export interface ApiRoutine {
   routine_users: ApiUser[];
 }
 
+export interface CreateRoutine {
+  name: string,
+  notes?: string,
+  startDate: string,
+  interval: number,
+  assignedUsers: number[]
+}
+
 export class Routine {
   readonly id: number;
   readonly name: string;
