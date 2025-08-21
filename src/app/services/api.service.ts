@@ -182,15 +182,11 @@ export class ApiService {
     return this.apiPut('user/password-change', { oldPassword, newPassword });
   }
 
-  uploadImage(file: File): Observable<any> {
+  uploadImage(file: File): Observable<ApiResponse<any>> {
     const dataFile = new FormData();
     dataFile.append('file', file);
 
-    const headers = this.getHeader();
-
-    return this.httpClient.put(environment.api + 'user/avatar', dataFile, {
-      headers,
-    });
+    return this.apiPut('user/avatar', dataFile);
   }
 
   sendFeedback(feedback: string): Observable<ApiResponse<any>> {
@@ -318,7 +314,10 @@ export class ApiService {
     return this.apiGet('todos/done');
   }
 
-  createTodo(data: {name: string, description: string }): Observable<ApiResponse<ApiTodo>> {
+  createTodo(data: {
+    name: string;
+    description: string;
+  }): Observable<ApiResponse<ApiTodo>> {
     return this.apiPost('todos/', data);
   }
 

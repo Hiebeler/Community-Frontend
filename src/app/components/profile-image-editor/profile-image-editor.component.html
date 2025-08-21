@@ -22,8 +22,8 @@
 
   </div>
 
-  <button type="button" (click)="saveImage()" [disabled]="!croppedImage" class="btn-primary w-full max-w-xs">
-    Speichern
-  </button>
+  <app-primary-button [isLoading]="isSavingImage"
+    [disabled]="!croppedImage"
+    (clicked)="saveImage()" label="Speichern"></app-primary-button>
 
 </div>

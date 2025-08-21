@@ -14,11 +14,12 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
+import { PrimaryButton } from '../primary-button/primary-button';
 
 @Component({
   selector: 'app-profile-image-editor',
   templateUrl: './profile-image-editor.component.html',
-  imports: [CommonModule, ImageCropperComponent],
+  imports: [CommonModule, ImageCropperComponent, PrimaryButton],
 })
 export class ProfileImageEditorComponent {
   @Output() closeEditor: EventEmitter<any> = new EventEmitter();
@@ -27,6 +28,8 @@ export class ProfileImageEditorComponent {
   croppedImage: SafeUrl = '';
 
   cropImgPreview: any = '';
+
+  isSavingImage = false;
 
   constructor(
     private apiService: ApiService,
@@ -45,6 +48,8 @@ export class ProfileImageEditorComponent {
       return;
     }
 
+    this.isSavingImage = true;
+
     try {
       const blob = await fetch(url).then((res) => res.blob());
 
@@ -53,16 +58,18 @@ export class ProfileImageEditorComponent {
         lastModified: Date.now(),
       });
 
-        this.apiService.uploadImage(croppedImg).subscribe((res) => {
-          if (res.success) {
-            this.userService.fetchUserFromApi();
-            this.parentCloseEditor();
-            this.toastr.success('Avatar geändert');
-          } else {
-            this.toastr.error(res.error);
-          }
-        })
+      this.apiService.uploadImage(croppedImg).subscribe((res) => {
+        this.isSavingImage = false;
+        if (res.success) {
+          this.userService.fetchUserFromApi();
+          this.parentCloseEditor();
+          this.toastr.success('Avatar geändert');
+        } else {
+          this.toastr.error(res.error);
+        }
+      });
     } catch (error) {
+      this.isSavingImage = false;
       this.toastr.error('Bild konnte nicht verarbeitet werden.');
     }
   }
