@@ -84,16 +84,8 @@ export class CommunityService {
     );
   }
 
-  joinCommunity(code: string): Observable<boolean> {
-    return this.apiService.joinCommunity({ code }).pipe(
-      map((res) => {
-        if (res.success) {
-          return true;
-        } else {
-          return false;
-        }
-      })
-    );
+  joinCommunity(code: string): Observable<ApiResponse<any>> {
+    return this.apiService.joinCommunity({ code });
   }
 
   changeAdmin(communityId: number, newAdminId: number) {
@@ -181,18 +173,8 @@ export class CommunityService {
   acceptRequest(
     requestId: number,
     acceptionStatus: boolean
-  ): Observable<boolean> {
-    return this.apiService
-      .acceptRequest({ id: requestId }, acceptionStatus)
-      .pipe(
-        map((res) => {
-          if (res.success) {
-            return true;
-          } else {
-            return false;
-          }
-        })
-      );
+  ): Observable<ApiResponse<any>> {
+    return this.apiService.acceptRequest({ id: requestId }, acceptionStatus);
   }
 
   setCurrentCommunity(communityId: number): void {

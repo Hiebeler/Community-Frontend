@@ -13,6 +13,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { CheckIcon, LucideAngularModule, XIcon } from 'lucide-angular';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-open-requests',
@@ -31,7 +32,8 @@ export class OpenRequestsComponent {
   constructor(
     private communityService: CommunityService,
     private requestAdapter: RequestAdapter,
-    private userService: UserService
+    private userService: UserService,
+    private toastr: ToastrService
   ) {
     effect(() => {
       const community = this.communityService.activeCommunity();
@@ -56,16 +58,22 @@ export class OpenRequestsComponent {
   accept(id: number, status: boolean) {
     this.communityService
       .acceptRequest(id, status)
-      .subscribe((wasSuccessful) => {
-        if (wasSuccessful) {
+      .subscribe((res) => {
+        if (res.success) {
           this.fetchRequests();
+          if (status) {
+            this.toastr.success("Anfrage wurde angenommen")
+          } else {
+            this.toastr.success("Anfrage wurde abgelehnt")
+          }
           if (status) {
             this.userService.fetchUserFromApi();
           }
+        } else {
+          this.toastr.error(res.error)
         }
       });
   }
 
-  // Computed property for convenience (optional)
   hasRequests = computed(() => this.requests().length > 0);
 }
