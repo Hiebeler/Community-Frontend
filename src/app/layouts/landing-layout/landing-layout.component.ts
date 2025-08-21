@@ -1,24 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ArrowRightIcon, LucideAngularModule } from 'lucide-angular';
 import { AuthService } from 'src/app/services/auth.service';
-import { Footer } from "src/app/components/footer/footer";
+import { Footer } from 'src/app/components/footer/footer';
 
 @Component({
   selector: 'app-landing-layout',
   imports: [RouterModule, LucideAngularModule, Footer],
   templateUrl: './landing-layout.component.html',
 })
-export class LandingLayoutComponent implements OnInit {
-readonly arrowRightIcon = ArrowRightIcon;
+export class LandingLayoutComponent {
+  readonly arrowRightIcon = ArrowRightIcon;
 
-  isLoggedIn = false;
+  private authService = inject(AuthService);
 
-    constructor(private authService: AuthService) {}
-
-    ngOnInit() {
-      this.authService.activeUserId.subscribe((id) => {
-        this.isLoggedIn = id != null;
-      });
-    }
+  isLoggedIn = computed(() => this.authService.activeUserId() != null);
 }

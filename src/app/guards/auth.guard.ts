@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
-import { combineLatest, Observable } from 'rxjs';
 import { AuthService } from '../services/auth.service';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -10,39 +8,20 @@ import { map } from 'rxjs/operators';
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(next: ActivatedRouteSnapshot): Observable<boolean> {
+  canActivate(next: ActivatedRouteSnapshot): boolean {
+    const user = this.authService.activeUserId();
+    const community = this.authService.activeCommunityId();
+
+    const role = user ? (community ? 'community' : 'onboarding') : 'none';
+
     const allowedRoles: string[] = next.data.roles ?? [];
 
-    return combineLatest([
-      this.authService.activeUserId,
-      this.authService.activeCommunityId,
-    ]).pipe(
-      map(([user, community]) => {
-        let role;
+    if (allowedRoles.includes(role)) return true;
 
-        if (user) {
-          if (community) {
-            role = 'community';
-          } else {
-            role = 'onboarding';
-          }
-        } else {
-          role = 'none';
-        }
+    if (role === 'community') this.router.navigate(['calendar']);
+    else if (role === 'onboarding') this.router.navigate(['onboarding']);
+    else this.router.navigate(['login']);
 
-        if (allowedRoles.indexOf(role) !== -1) {
-          return true;
-        } else {
-          if (role === 'community') {
-            this.router.navigate(['calendar']);
-          } else if (role === 'onboarding') {
-            this.router.navigate(['onboarding']);
-          } else {
-            this.router.navigate(['login']);
-          }
-          return false;
-        }
-      })
-    );
+    return false;
   }
 }

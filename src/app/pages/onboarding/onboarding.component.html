@@ -2,7 +2,7 @@
 
   <app-navbar title="Gemeinschaften verwalten">
 
-    @if (activeCommunity) {
+    @if (activeCommunity()) {
     <a left type="button" class="btn-neutral aspect-square px-0" routerLink="/profile">
       <lucide-icon [img]="backIcon"></lucide-icon>
     </a>
@@ -13,30 +13,30 @@
     </button>
   </app-navbar>
 
-  @if (user) {
+  @if (user()) {
   <div class="space-y-4">
 
     <div class="card flex space-x-3 items-center">
       <span>Angemeldet als:</span>
-      <img class="h-10 w-10 ml-4 rounded-full" [src]="user.avatar" alt="" width="40px" height="40px" />
+      <img class="h-10 w-10 ml-4 rounded-full" [src]="user().avatar" alt="" width="40px" height="40px" />
       <span class="text-lg font-bold">
-        {{user.name}}
+        {{user().name}}
       </span>
     </div>
 
     <div class="card space-y-3">
       <h2>Deine Gemeinschaften:</h2>
 
-      @if (ownCommunities.length === 0) {
+      @if (ownCommunities().length === 0) {
       <p>Noch keiner Gemeinschaft beigetreten</p>
       } @else {
-      @for (community of ownCommunities; track community.id) {
-      @if (community.id == this.activeCommunity?.id) {
+      @for (community of ownCommunities(); track community.id) {
+      @if (community.id == this.activeCommunity()?.id) {
       <div class="card p-0 flex flex-row justify-between items-center bg-primary/20">
         <div class="flex w-full flex-col items-start px-6 py-3">
           <div class="flex items-center">
             <span class="font-bold text-lg">{{community?.name}}</span>
-            @if (community.admin?.id === user.id) {
+            @if (community.admin?.id === user().id) {
             <span class="ml-2 text-xs px-2 py-0.5 rounded-full border border-white/20">Admin</span>
             }
           </div>
@@ -53,7 +53,7 @@
         <div class="flex w-full flex-col items-start px-6 py-3 clickable" (click)="selectCommunity(community)">
           <div class="flex items-center">
             <span class="font-bold text-lg">{{community?.name}}</span>
-            @if (community.admin?.id === user.id) {
+            @if (community.admin?.id === user().id) {
             <span class="ml-2 text-xs px-2 py-0.5 rounded-full border border-white/20">Admin</span>
             }
           </div>
@@ -85,12 +85,12 @@
       </form>
 
       <app-primary-button [isLoading]="isLoadingNameChange"
-        [disabled]="nameUpdateEditorForm.invalid || (name.value === user?.name)" (clicked)="updateName()"
+        [disabled]="nameUpdateEditorForm.invalid || (name.value === user()?.name)" (clicked)="updateName()"
         label="Name ändern"></app-primary-button>
 
       <p class="text-sm mt-6 mb-4">Avatar</p>
       <div class="relative w-20 h-20 group clickable" (click)="showImageUploadPopup = true">
-        <img [src]="user?.avatar" class="w-20 h-20 rounded-full border border-gray-700 object-cover"
+        <img [src]="user()?.avatar" class="w-20 h-20 rounded-full border border-gray-700 object-cover"
           alt="Profile Image" />
 
         <div
@@ -120,7 +120,7 @@
     <div class="card">
       <h2 class="pb-3">Account löschen</h2>
       <p class="pb-3">Dein Account wird aus allen Gemeinschaften entfernt und alle deine Daten werden gelöscht.</p>
-      @if (!isUserAdminOfAnyCommunity) {
+      @if (!isAdmin()) {
       <button type="button" (click)="requestToDeleteAccount()" class="btn-danger">Account löschen</button>
       } @else {
       <p class="text-danger">Gib als erstes alle deine Adminrollen weiter, um deinen Account zu löschen.
@@ -135,7 +135,7 @@
 
   <h2 class="pb-3">Name ändern</h2>
 
-  @if (communityToEdit?.admin?.id === user?.id) {
+  @if (communityToEdit?.admin?.id === user()?.id) {
   <form class="flex flex-col mb-3 w-full" [formGroup]="communityNameUpdateEditorForm"
     (ngSubmit)="updateCommunityName()">
     <label for="communityName">Name</label>
@@ -149,7 +149,7 @@
   <p class="text-danger">Nur der Admin kann den Name ändern</p>
   }
 
-  @if (communityToEdit?.admin?.id === user?.id){
+  @if (communityToEdit?.admin?.id === user()?.id){
   <div>
     <h2 class="pb-3 mt-12">Admin weitergeben</h2>
     <button type="button" (click)="isChangeAdminOpen = true" class="btn-danger">Admin weitergeben</button>
@@ -168,7 +168,7 @@
 
   <div class="mt-12">
     <h2 class="pb-3">Gemeinschaft verlassen</h2>
-    @if (communityToEdit?.admin?.id != user?.id) {
+    @if (communityToEdit?.admin?.id != user()?.id) {
     <button type="button" (click)="requestToLeaveCommunity(communityToEdit)" class="btn-danger">Gemeinschaft
       verlassen</button>
     } @else {
@@ -176,7 +176,7 @@
     </p>
     }
 
-    @if (communityToEdit?.admin?.id === user?.id) {
+    @if (communityToEdit?.admin?.id === user()?.id) {
     <h2 class="pb-3 mt-6">Gemeinschaft löschen</h2>
     <p class="pb-3">Dabei werden alle Daten der Gemeinschaft gelöscht.</p>
 

@@ -1,11 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Community } from 'src/app/models/community.model';
-import { User } from 'src/app/models/user.model';
+import { Component, signal } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { CommunityService } from 'src/app/services/community.service';
-import { Router, RouterModule } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { OpenRequestsComponent } from 'src/app/components/open-requests/open-requests.component';
 import {
@@ -17,6 +14,15 @@ import {
 } from 'lucide-angular';
 import { Navbar } from 'src/app/components/navbar/navbar';
 import { AlertService } from 'src/app/services/alert.service';
+import { PopupComponent } from 'src/app/components/popup/popup.component';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -26,63 +32,40 @@ import { AlertService } from 'src/app/services/alert.service';
     RouterModule,
     OpenRequestsComponent,
     LucideAngularModule,
-    Navbar
+    ReactiveFormsModule,
+    PrimaryButton,
+    Navbar,
+    PopupComponent,
   ],
 })
-export class ProfilePage implements OnInit, OnDestroy {
+export class ProfilePage {
   readonly paletteIcon = PaletteIcon;
   readonly userPen = UserPenIcon;
   readonly switchIcon = ArrowLeftRightIcon;
   readonly logoutIcon = LogOutIcon;
 
-  subscriptions: Subscription[] = [];
+  feedbackForm = new FormGroup({
+    feedback: new FormControl<string | null>('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(1000),
+    ]),
+  });
 
-  user: User;
-  community: Community;
-  usersInCommunity: User[];
+  feedbackPopupIsOpen = signal(false);
+  isSendingFeedback = signal(false);
+
+  user = this.userService.user;
+  community = this.communityService.activeCommunity;
+  usersInCommunity = this.communityService.usersInActiveCommunity;
 
   constructor(
     private authService: AuthService,
     private alertService: AlertService,
     private userService: UserService,
     private communityService: CommunityService,
-    private router: Router
-  ) {
-  }
-
-  ngOnInit() {
-    this.subscriptions.push(
-      this.userService.getCurrentUser().subscribe((user) => {
-        this.user = user;
-      })
-    );
-
-    this.subscriptions.push(
-      this.communityService.getCurrentCommunity().subscribe((community) => {
-        this.community = community;
-      })
-    );
-
-    this.subscriptions.push(
-      this.communityService.getUsersInCurrentCommunity().subscribe((users) => {
-        this.usersInCommunity = users;
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
-
-  updateUser(data: any) {
-    this.subscriptions.push(
-      this.userService.updateUser(data).subscribe((wasSuccessful) => {
-        if (wasSuccessful) {
-          this.userService.fetchUserFromApi();
-        }
-      })
-    );
-  }
+    private toastr: ToastrService
+  ) {}
 
   logout() {
     this.alertService.showAlert(
@@ -96,15 +79,23 @@ export class ProfilePage implements OnInit, OnDestroy {
     );
   }
 
-  gotoCreateCommunity() {
-    this.router.navigate(['create-community']);
+  openFeedbackPopup() {
+    this.feedbackForm.controls.feedback.setValue('');
+    this.feedbackPopupIsOpen.set(true);
   }
 
-  gotoFindCommunity() {
-    this.router.navigate(['find-community']);
-  }
-
-  gotoOnboarding() {
-    this.router.navigate(['onboarding']);
+  sendFeedback() {
+    this.isSendingFeedback.set(true);
+    this.userService
+      .sendFeedback(this.feedbackForm.controls.feedback.value)
+      .subscribe((res) => {
+        this.isSendingFeedback.set(false);
+        if (res.success) {
+          this.toastr.success('Feedback gesendet!');
+          this.feedbackPopupIsOpen.set(false);
+        } else {
+          this.toastr.error(res.error);
+        }
+      });
   }
 }

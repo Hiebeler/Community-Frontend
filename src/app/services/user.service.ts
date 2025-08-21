@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { effect, Injectable, OnDestroy, signal } from '@angular/core';
 import { BehaviorSubject, map, Observable, Subscription } from 'rxjs';
 import { UserAdapter } from '../models/user.adapter';
 import { User } from '../models/user.model';
@@ -9,58 +9,58 @@ import { ApiResponse } from '../models/api-response';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService implements OnDestroy {
-  subscriptions: Subscription[] = [];
-  private user = new BehaviorSubject<User>(null);
+export class UserService {
+  user = signal<User | null>(null);
 
   constructor(
     private apiService: ApiService,
     private userAdapter: UserAdapter,
     private authService: AuthService
   ) {
-    this.subscriptions.push(
-      this.authService.activeUserId.subscribe((id) => {
-        if (!id) {
-          this.user.next(null);
-        } else {
-          this.fetchUserFromApi(id);
-        }
-      })
-    );
+    effect(() => {
+      const userId = this.authService.activeUserId();
+      if (!userId) {
+        this.user.set(null);
+      } else {
+        this.fetchUserFromApi(userId);
+      }
+    });
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
-  }
-
-  getCurrentUser(): Observable<User> {
+  getCurrentUser() {
     return this.user;
   }
 
-  fetchUserFromApi(id?: number): void {
-    this.subscriptions.push(
-      this.apiService
-        .getUserById(id ?? this.user?.value?.id ?? -1)
-        .pipe(map((data) => this.userAdapter.adapt(data.data)))
-        .subscribe((user) => {
-          this.user.next(user);
-        })
-    );
+  fetchUserFromApi(id?: number) {
+    const userId = id ?? this.user()?.id ?? -1;
+    this.apiService
+      .getUserById(userId)
+      .pipe(map((data) => this.userAdapter.adapt(data.data)))
+      .subscribe((user) => this.user.set(user));
   }
 
-  updateUser(data: any): Observable<boolean> {
+  updateUser(data: any): Observable<ApiResponse<User>> {
     return this.apiService.updateUser(data).pipe(
       map((res) => {
+        const apiResponse = new ApiResponse<User>({
+          ...res,
+          data: res.success ? this.userAdapter.adapt(res.data) : null,
+        });
+
         if (res.success) {
-          return true;
-        } else {
-          return false;
+          this.user.set(apiResponse.data);
         }
+
+        return apiResponse;
       })
     );
   }
 
   deleteUser(): Observable<ApiResponse<any>> {
-    return this.apiService.deleteAccount()
+    return this.apiService.deleteAccount();
+  }
+
+  sendFeedback(feedback: string): Observable<ApiResponse<any>> {
+    return this.apiService.sendFeedback(feedback);
   }
 }

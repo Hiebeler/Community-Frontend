@@ -6,12 +6,12 @@
 
 <div class="card">
   <!-- Open Items -->
-  @if (openItems.length) {
-  <h2>{{openItems.length}} Elemente offen:</h2>
+  @if (openItems().length) {
+  <h2>{{openItems().length}} Elemente offen:</h2>
   }
 
   <!-- Empty State -->
-  @if (!openItems.length && completedFirstLoad) {
+  @if (!openItems().length) {
   <div class="flex flex-col items-center text-center space-y-3 py-10">
     <lucide-icon [img]="alldoneIcon" size="42"></lucide-icon>
     <h2 class="text-xl font-semibold mt-0">Alles Erledigt</h2>
@@ -24,7 +24,7 @@
   }
 
   <!-- Open Items List -->
-  @for (item of openItems; track item.id) {
+  @for (item of openItems(); track item.id) {
   <div>
     <div class="flex items-center space-x-4 py-2">
       <div class="w-5 h-5 bg-gray-700 border border-gray-400 rounded-sm clickable" (click)="updateDone(item.id, true)">
@@ -38,13 +38,13 @@
 </div>
 
 
-@if (doneItems.length) {
+@if (doneItems().length) {
 <div class="card mt-6">
   <!-- Done Items -->
 
   <h2 class="text-lg font-semibold">Heute erledigt:</h2>
 
-  @for (item of doneItems; track item.id) {
+  @for (item of doneItems(); track item.id) {
   <div class="flex items-center space-x-4 py-2">
     <div class="w-5 h-5 bg-primary border border-gray-400 rounded-sm flex items-center justify-center clickable"
       (click)="updateDone(item.id, false)">

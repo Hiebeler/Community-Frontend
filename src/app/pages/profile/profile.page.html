@@ -1,6 +1,6 @@
 <app-navbar title="Profil">
 
-  @if (user) {
+  @if (user()) {
   <div right class="space-x-3 flex">
     <a routerLink="/onboarding" class="btn-neutral aspect-square px-0">
       <lucide-icon [img]="switchIcon"></lucide-icon>
@@ -13,30 +13,30 @@
   }
 </app-navbar>
 
-@if (user) {
+@if (user()) {
 <div class="grid gap-4">
 
   <div class="card flex py-8 justify-evenly items-center">
     <div class="flex flex-col items-center">
       <span class="text-lg font-bold">
-        {{user.name}}
+        {{user().name}}
       </span>
       <span class="text-sm">User</span>
     </div>
 
     <div class="flex flex-col items-center">
       <span class="text-xl font-bold">
-        {{community?.name}}
+        {{community()?.name}}
       </span>
       <span class="text-sm">Aktive Gemeinschaft</span>
     </div>
   </div>
 
-  @if (usersInCommunity.length) {
+  @if (usersInCommunity().length) {
   <div class="card">
     <h2 class="mb-4">Mitglieder:</h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-9 gap-2 justify-items-center">
-      @for (user of usersInCommunity; track user) {
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-9 gap-2 justify-items-center">
+      @for (user of usersInCommunity(); track user) {
       <div class="card w-full text-center">
         <img [src]="user.avatar" alt="" class="rounded-full w-full aspect-square object-cover mb-2" />
         <p class="text-sm lg:text-lg">{{user?.name}}</p>
@@ -49,8 +49,30 @@
   </div>
   }
 
-  @if (user.isAdmin) {
+  @if (user().isAdmin) {
   <app-open-requests />
   }
+
+  <div class="card">
+    <h2 class="mb-3">Feedback</h2>
+    <p>Dein Feedback hilft uns, Together stetig zu verbessern. Teile uns hier Probleme, Ideen oder Feature-Vorschläge
+      mit - wir hören zu!</p>
+
+    <button class="btn-primary mt-3" (click)="openFeedbackPopup()">Feedback schreiben</button>
+  </div>
 </div>
 }
+
+<app-popup [show]="feedbackPopupIsOpen()" (close)="feedbackPopupIsOpen.set(false)" title="Feedback schreiben">
+  <p class="mb-5">Dein Feedback hilft uns, Together stetig zu verbessern. Teile uns hier Probleme, Ideen oder
+    Feature-Vorschläge
+    mit - wir hören zu!</p>
+  <form [formGroup]="feedbackForm" (ngSubmit)="sendFeedback()" class="space-y-3">
+    <label for="feedback">Feedback</label>
+    <textarea type="text" id="feedback" formControlName="feedback" placeholder="Feedback" autocomplete="off"
+      class="w-full h-50"></textarea>
+
+    <app-primary-button type="submit" customClasses="btn-primary w-full" [disabled]="feedbackForm.invalid"
+      [isLoading]="isSendingFeedback()" label="Senden"></app-primary-button>
+  </form>
+</app-popup>

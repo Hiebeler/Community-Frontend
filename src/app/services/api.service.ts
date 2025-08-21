@@ -193,6 +193,10 @@ export class ApiService {
     });
   }
 
+  sendFeedback(feedback: string): Observable<ApiResponse<any>> {
+    return this.apiPost('feedback', { feedback });
+  }
+
   getCommunityByCode(code: string): Observable<ApiResponse<ApiCommunity>> {
     return this.apiGet('community/code/' + code);
   }
@@ -314,7 +318,7 @@ export class ApiService {
     return this.apiGet('todos/done');
   }
 
-  createTodo(data: any): Observable<ApiResponse<ApiTodo>> {
+  createTodo(data: {name: string, description: string }): Observable<ApiResponse<ApiTodo>> {
     return this.apiPost('todos/', data);
   }
 

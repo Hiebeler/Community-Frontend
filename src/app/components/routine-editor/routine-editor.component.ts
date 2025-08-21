@@ -98,7 +98,7 @@ export class RoutineEditorComponent implements OnInit, OnDestroy {
       this.doneControl.setValue(this.routine.active);
     }
 
-    this.subscriptions.push(
+    /* this.subscriptions.push(
       this.communityService
         .getUsersInCurrentCommunity()
         .subscribe((allUsersOfCommunity: User[]) => {
@@ -113,7 +113,7 @@ export class RoutineEditorComponent implements OnInit, OnDestroy {
             );
           });
         })
-    );
+    ); */
   }
 
   ngOnDestroy(): void {

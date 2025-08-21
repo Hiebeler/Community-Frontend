@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, effect, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
   CalendarIcon,
@@ -19,7 +19,7 @@ import { TodosService } from 'src/app/services/todos.service';
   imports: [RouterModule, LucideAngularModule],
   templateUrl: './main-layout.component.html',
 })
-export class MainLayoutComponent implements OnInit, OnDestroy {
+export class MainLayoutComponent {
   readonly calendarIcon = CalendarIcon;
   readonly todosIcon = CheckCheckIcon;
   readonly cartIcon = ShoppingCartIcon;
@@ -37,41 +37,13 @@ export class MainLayoutComponent implements OnInit, OnDestroy {
     private shoppingService: ShoppingService,
     private todosService: TodosService,
     private calendarService: CalendarService
-  ) {}
+  ) {
+    effect(() => {
+      this.numberOfOpenShoppingItems = this.shoppingService.openShoppingItems().length;
+    });
 
-  ngOnInit() {
-    this.subscriptions.push(
-      this.authService.activeUserId.subscribe((userId) => {
-        if (userId) {
-          this.subscriptions.push(
-            this.calendarService
-              .getCalendarEntries(new Date(), new Date())
-              .subscribe((res) => {
-                this.tasksForTodayExists = res.some(
-                  (element) =>
-                    element.assignedUsers.some((usr) => usr.id === userId) &&
-                    !element.done
-                );
-              })
-          );
-        }
-      })
-    );
-
-    this.subscriptions.push(
-      this.todosService.getOpenTodos().subscribe((openItems) => {
-        this.numberOfOpenTodos = openItems.length;
-      })
-    );
-
-    this.subscriptions.push(
-      this.shoppingService.getOpenShoppingItems().subscribe((openItems) => {
-        this.numberOfOpenShoppingItems = openItems.length;
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+    effect(() => {
+      this.numberOfOpenTodos = this.todosService.openTodos().length;
+    });
   }
 }
