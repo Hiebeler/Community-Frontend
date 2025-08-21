@@ -10,16 +10,19 @@ import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { CommunityService } from 'src/app/services/community.service';
 import { UserService } from 'src/app/services/user.service';
+import { PrimaryButton } from '../primary-button/primary-button';
 
 @Component({
   selector: 'app-create-community',
   templateUrl: './create-community.component.html',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, PrimaryButton],
 })
 export class CreateCommunityComponent implements OnInit {
   subscriptions: Subscription[] = [];
 
   communityForm: FormGroup;
+
+  isLoadingCreateCommunity = false;
 
   constructor(
     private userService: UserService,
@@ -47,10 +50,12 @@ export class CreateCommunityComponent implements OnInit {
 
   createCommunity() {
     if (this.communityForm.valid) {
+      this.isLoadingCreateCommunity = true;
       this.subscriptions.push(
         this.communityService
           .createCommunity(this.name.value)
           .subscribe((res) => {
+            this.isLoadingCreateCommunity = false;
             if (res.success) {
               this.toastr.success(
                 'Gemeinschaft ' + res.data.name + ' wurde erstellt'

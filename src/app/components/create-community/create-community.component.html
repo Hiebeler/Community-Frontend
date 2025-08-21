@@ -1,23 +1,11 @@
 <form [formGroup]="communityForm" (ngSubmit)="createCommunity()" class="space-y-4">
 
-    <div class="flex flex-col space-y-2">
-      <label for="communityname">Name der Gemeinschaft</label>
-      <input
-        type="text"
-        id="communityname"
-        autocomplete="off"
-        formControlName="name"
-        placeholder="Name der Gemeinschaft"
-        class="w-full"
-      >
-    </div>
+  <div class="flex flex-col space-y-2">
+    <label for="communityname">Name der Gemeinschaft</label>
+    <input type="text" id="communityname" autocomplete="off" formControlName="name" placeholder="Name der Gemeinschaft"
+      class="w-full">
+  </div>
 
-    <button
-      type="submit"
-      [disabled]="communityForm.invalid"
-      class="btn-primary w-full"
-    >
-      Erstellen
-    </button>
-
-  </form>
+  <app-primary-button [isLoading]="isLoadingCreateCommunity" [disabled]="communityForm.invalid" type="submit"
+    label="Erstellen"></app-primary-button>
+</form>
