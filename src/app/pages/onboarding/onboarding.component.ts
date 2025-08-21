@@ -10,6 +10,7 @@ import { CommunityService } from 'src/app/services/community.service';
 import {
   ArrowLeftIcon,
   ArrowLeftRightIcon,
+  HousePlusIcon,
   LogOutIcon,
   LucideAngularModule,
   PenIcon,
@@ -52,6 +53,7 @@ export class OnboardingComponent implements OnInit {
   readonly logoutIcon = LogOutIcon;
   readonly penIcon = PenIcon;
   readonly settingsIcon = SettingsIcon;
+  readonly noCommunityIcon = HousePlusIcon;
 
   subscriptions: Subscription[] = [];
 

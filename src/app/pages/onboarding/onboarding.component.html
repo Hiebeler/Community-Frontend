@@ -28,7 +28,10 @@
       <h2>Deine Gemeinschaften:</h2>
 
       @if (ownCommunities().length === 0) {
-      <p>Noch keiner Gemeinschaft beigetreten</p>
+      <div class="w-full flex flex-col items-center space-y-3 my-10">
+        <lucide-icon [img]="noCommunityIcon" [size]="36"></lucide-icon>
+        <p>Noch keiner Gemeinschaft beigetreten</p>
+      </div>
       } @else {
       @for (community of ownCommunities(); track community.id) {
       @if (community.id == this.activeCommunity()?.id) {
