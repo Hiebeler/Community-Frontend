@@ -5,7 +5,6 @@
     "activeCommunity": "Aktive Gemeinschaft",
     "members": "Mitglieder",
     "admin": "Admin",
-
     "feedback": {
       "title": "Feedback",
       "intro": "Dein Feedback hilft uns, Together stetig zu verbessern. Teile uns hier Probleme, Ideen oder Feature-Vorschläge mit – wir hören zu!",
@@ -15,6 +14,33 @@
       "label": "Feedback",
       "placeholder": "Feedback",
       "submit": "Senden"
+    }
+  },
+  "debts": {
+    "title": "Schulden",
+    "add": "Neuen Eintrag hinzufügen",
+    "allCleared": "Alle Schulden beglichen",
+    "popup": {
+      "title": "Schulden anlegen",
+      "clearOff": "Begleichen",
+      "amountPlaceholder": "Menge",
+      "reasonPlaceholder": "Grund",
+      "save": "Speichern"
+    },
+    "labels": {
+      "amount": "Euro",
+      "reason": "Grund",
+      "debitor": "Schuldner",
+      "iOwe": "Ich schulde",
+      "iGet": "Ich bekomme"
+    },
+    "balances": {
+      "debitorOwesMe": "{{name}} schuldet mir",
+      "iOweDebitor": "Ich schulde {{name}}"
+    },
+    "history": {
+      "title": "Verlauf",
+      "dateFormat": "de-AT"
     }
   }
 }

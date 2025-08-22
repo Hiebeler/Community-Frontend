@@ -5,7 +5,6 @@
     "activeCommunity": "Active Community",
     "members": "Members",
     "admin": "Admin",
-
     "feedback": {
       "title": "Feedback",
       "intro": "Your feedback helps us to continuously improve Together. Share problems, ideas, or feature requests with us – we are listening!",
@@ -15,6 +14,33 @@
       "label": "Feedback",
       "placeholder": "Feedback",
       "submit": "Send"
+    }
+  },
+  "debts": {
+    "title": "Debts",
+    "add": "Add new entry",
+    "allCleared": "All debts cleared",
+    "popup": {
+      "title": "Add Debt",
+      "clearOff": "Settle",
+      "amountPlaceholder": "Amount",
+      "reasonPlaceholder": "Reason",
+      "save": "Save"
+    },
+    "labels": {
+      "amount": "Euro",
+      "reason": "Reason",
+      "debitor": "Debtor",
+      "iOwe": "I Owe",
+      "iGet": "I Receive"
+    },
+    "balances": {
+      "debitorOwesMe": "{{name}} owes me",
+      "iOweDebitor": "I owe {{name}}"
+    },
+    "history": {
+      "title": "History",
+      "dateFormat": "en-US"
     }
   }
 }

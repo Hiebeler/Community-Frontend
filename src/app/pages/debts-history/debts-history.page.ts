@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { TranslocoModule } from '@jsverse/transloco';
 import {
   ArrowDownIcon,
   ArrowLeftIcon,
@@ -17,7 +18,7 @@ import { DebtService } from 'src/app/services/debt.service';
 @Component({
   selector: 'app-debts-history',
   templateUrl: './debts-history.page.html',
-  imports: [CommonModule, RouterModule, LucideAngularModule, Navbar],
+  imports: [CommonModule, RouterModule, LucideAngularModule, Navbar, TranslocoModule],
 })
 export class DebtsHistoryPage implements OnInit {
   readonly backIcon = ArrowLeftIcon;
