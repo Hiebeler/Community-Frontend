@@ -42,5 +42,25 @@
       "title": "Verlauf",
       "dateFormat": "de-AT"
     }
+  },
+  "shoppingList": {
+    "title": "Einkaufsliste",
+    "openItems": {
+      "count": "{{count}} Elemente offen:",
+      "empty": "Alles erledigt",
+      "addNew": "Neuen Eintrag hinzufügen"
+    },
+    "doneItems": {
+      "title": "Heute erledigt:"
+    },
+    "editor": {
+      "newTitle": "Neuer Eintrag",
+      "editTitle": "Eintrag bearbeiten",
+      "nameLabel": "Name",
+      "namePlaceholder": "Name",
+      "save": "Speichern",
+      "delete": "Löschen",
+      "update": "Updaten"
+    }
   }
 }

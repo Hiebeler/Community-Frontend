@@ -42,5 +42,25 @@
       "title": "History",
       "dateFormat": "en-US"
     }
+  },
+  "shoppingList": {
+    "title": "Shopping List",
+    "openItems": {
+      "count": "{{count}} items open:",
+      "empty": "All done",
+      "addNew": "Add new entry"
+    },
+    "doneItems": {
+      "title": "Completed today:"
+    },
+    "editor": {
+      "newTitle": "New Entry",
+      "editTitle": "Edit Entry",
+      "nameLabel": "Name",
+      "namePlaceholder": "Name",
+      "save": "Save",
+      "delete": "Delete",
+      "update": "Update"
+    }
   }
 }
