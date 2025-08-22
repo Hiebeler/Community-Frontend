@@ -1,0 +1,20 @@
+{
+  "profile": {
+    "title": "Profil",
+    "user": "Benutzer",
+    "activeCommunity": "Aktive Gemeinschaft",
+    "members": "Mitglieder",
+    "admin": "Admin",
+
+    "feedback": {
+      "title": "Feedback",
+      "intro": "Dein Feedback hilft uns, Together stetig zu verbessern. Teile uns hier Probleme, Ideen oder Feature-Vorschläge mit – wir hören zu!",
+      "button": "Feedback schreiben",
+      "popupTitle": "Feedback schreiben",
+      "popupIntro": "Dein Feedback hilft uns, Together stetig zu verbessern. Teile uns hier Probleme, Ideen oder Feature-Vorschläge mit – wir hören zu!",
+      "label": "Feedback",
+      "placeholder": "Feedback",
+      "submit": "Senden"
+    }
+  }
+}

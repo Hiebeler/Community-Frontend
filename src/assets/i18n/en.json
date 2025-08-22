@@ -1,0 +1,20 @@
+{
+  "profile": {
+    "title": "Profile",
+    "user": "User",
+    "activeCommunity": "Active Community",
+    "members": "Members",
+    "admin": "Admin",
+
+    "feedback": {
+      "title": "Feedback",
+      "intro": "Your feedback helps us to continuously improve Together. Share problems, ideas, or feature requests with us – we are listening!",
+      "button": "Write Feedback",
+      "popupTitle": "Write Feedback",
+      "popupIntro": "Your feedback helps us to continuously improve Together. Share problems, ideas, or feature requests with us – we are listening!",
+      "label": "Feedback",
+      "placeholder": "Feedback",
+      "submit": "Send"
+    }
+  }
+}

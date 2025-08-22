@@ -23,6 +23,7 @@ import {
 } from '@angular/forms';
 import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
 import { ToastrService } from 'ngx-toastr';
+import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-profile',
@@ -36,6 +37,7 @@ import { ToastrService } from 'ngx-toastr';
     PrimaryButton,
     Navbar,
     PopupComponent,
+    TranslocoModule
   ],
 })
 export class ProfilePage {
@@ -64,7 +66,8 @@ export class ProfilePage {
     private alertService: AlertService,
     private userService: UserService,
     private communityService: CommunityService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private translocoService: TranslocoService
   ) {}
 
   logout() {
@@ -97,5 +100,9 @@ export class ProfilePage {
           this.toastr.error(res.error);
         }
       });
+  }
+
+  changeLanguage(lang: string) {
+    this.translocoService.setActiveLang(lang);
   }
 }
