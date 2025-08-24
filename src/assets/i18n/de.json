@@ -103,5 +103,23 @@
     "repeatPasswordLabel": "Passwort wiederholen",
     "submit": "Registrieren",
     "alreadyHaveAccount": "Ich habe schon einen Account"
+  },
+  "requestPasswordReset": {
+    "title": "Passwort zurücksetzen",
+    "emailLabel": "E-Mail",
+    "emailPlaceholder": "deine.email@example.com",
+    "submit": "Zurücksetzen",
+    "sentMessage": "E-Mail wurde gesendet."
+  },
+  "resetPassword": {
+    "title": "Passwort zurücksetzen",
+    "passwordLabel": "Passwort",
+    "passwordPlaceholder": "••••••••",
+    "submit": "Anmelden"
+  },
+  "confirmEmail": {
+    "title": "E-Mail bestätigen",
+    "successMessage": "Deine E-Mail wurde bestätigt",
+    "toLogin": "Zum Login"
   }
 }

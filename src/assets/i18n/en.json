@@ -103,5 +103,23 @@
     "repeatPasswordLabel": "Repeat Password",
     "submit": "Register",
     "alreadyHaveAccount": "I already have an account"
+  },
+  "requestPasswordReset": {
+    "title": "Reset Password",
+    "emailLabel": "Email",
+    "emailPlaceholder": "john.doe@example.com",
+    "submit": "Reset",
+    "sentMessage": "Email has been sent."
+  },
+  "resetPassword": {
+    "title": "Reset Password",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "submit": "Log In"
+  },
+  "confirmEmail": {
+    "title": "Confirm Email",
+    "successMessage": "Your email has been confirmed",
+    "toLogin": "Go to Login"
   }
 }
