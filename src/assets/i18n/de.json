@@ -121,5 +121,51 @@
     "title": "E-Mail bestätigen",
     "successMessage": "Deine E-Mail wurde bestätigt",
     "toLogin": "Zum Login"
+  },
+  "onboarding": {
+    "title": "Gemeinschaften verwalten",
+    "loggedInAs": "Angemeldet als",
+    "communities": {
+      "yourCommunities": "Deine Gemeinschaften",
+      "noCommunityJoined": "Noch keiner Gemeinschaft beigetreten",
+      "admin": "Admin",
+      "joinCode": "Beitrittscode: {{code}}",
+      "joinOrCreateNewCommunity": "Neue Gemeinschaft erstellen / beitreten",
+      "join": "Beitreten",
+      "create": "Erstellen"
+    },
+    "editUser": {
+      "title": "User bearbeiten",
+      "nameLabel": "Name",
+      "namePlaceholder": "Max Mustermann",
+      "changeName": "Name ändern"
+    },
+    "editPassword": {
+      "title": "Passwort ändern",
+      "oldPassword": "Altes Passwort",
+      "newPassword": "Neues Passwort",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Passwort ändern"
+    },
+    "deleteAccount": {
+      "title": "Account löschen",
+      "description": "Dein Account wird aus allen Gemeinschaften entfernt und alle deine Daten werden gelöscht.",
+      "delete": "Account Löschen",
+      "passAdminBeforeDeletion": "Gib als erstes alle deine Adminrollen weiter, um deinen Account zu löschen."
+    },
+    "editCommunity": {
+      "title": "Gemeinschaft bearbeiten",
+      "changeName": "Name ändern",
+      "nameLabel": "Name",
+      "namePlaceholder":"Gemeinschaftsname",
+      "submit": "Name ändern",
+      "onlyAdminCanChangeName": "Nur der Admin kann den Name ändern",
+      "transferAdmin": "Admin Weitergeben",
+      "chooseAdmin": "Wähle aus wer die Adminrolle übernehmen soll",
+      "leaveCommunity": "Gemeinschaft verlassen",
+      "tranferAdminRoleBeforeLeaving": "Gib als erstes die Adminrolle an jemanden anderes weiter um die Gemeinschaft zu verlassen.",
+      "deleteCommunity": "Gemeinschaft löschen",
+      "deleteCommunityDescription": "Dabei werden alle Daten der Gemeinschaft gelöscht",    
+    }
   }
 }

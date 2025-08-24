@@ -30,6 +30,7 @@ import {
 import { ToastrService } from 'ngx-toastr';
 import { ProfileImageEditorComponent } from 'src/app/components/profile-image-editor/profile-image-editor.component';
 import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-onboarding',
@@ -45,6 +46,7 @@ import { PrimaryButton } from 'src/app/components/primary-button/primary-button'
     RouterModule,
     Navbar,
     PrimaryButton,
+    TranslocoModule
   ],
 })
 export class OnboardingComponent implements OnInit {
