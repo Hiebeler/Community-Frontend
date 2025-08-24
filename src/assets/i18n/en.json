@@ -121,5 +121,66 @@
     "title": "Confirm Email",
     "successMessage": "Your email has been confirmed",
     "toLogin": "Go to Login"
+  },
+  "onboarding": {
+    "title": "Manage Communities",
+    "loggedInAs": "Logged in as",
+    "communities": {
+      "yourCommunities": "Your Communities",
+      "noCommunityJoined": "You haven't joined any communities yet",
+      "admin": "Admin",
+      "joinCode": "Join Code: {{code}}",
+      "joinOrCreateNewCommunity": "Create / Join a new Community",
+      "join": "Join",
+      "create": "Create"
+    },
+    "editUser": {
+      "title": "Edit User",
+      "nameLabel": "Name",
+      "namePlaceholder": "John Doe",
+      "changeName": "Change Name",
+      "uploadAvatar": "Upload Avatar",
+      "chooseImage": "Choose Image",
+      "save": "Save"
+    },
+    "editPassword": {
+      "title": "Change Password",
+      "oldPassword": "Old Password",
+      "newPassword": "New Password",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Change Password"
+    },
+    "deleteAccount": {
+      "title": "Delete Account",
+      "description": "Your account will be removed from all communities and all your data will be deleted.",
+      "delete": "Delete Account",
+      "passAdminBeforeDeletion": "You must first transfer all your admin roles before deleting your account."
+    },
+    "editCommunity": {
+      "title": "Edit Community",
+      "changeName": "Change Name",
+      "nameLabel": "Name",
+      "namePlaceholder": "Community Name",
+      "submit": "Change Name",
+      "onlyAdminCanChangeName": "Only the admin can change the name",
+      "transferAdmin": "Transfer Admin Role",
+      "chooseAdmin": "Choose who should take over the admin role",
+      "leaveCommunity": "Leave Community",
+      "transferAdminRoleBeforeLeaving": "You must first transfer the admin role to someone else before leaving the community.",
+      "deleteCommunity": "Delete Community",
+      "deleteCommunityDescription": "This will permanently delete all data of the community."
+    },
+    "joinOrCreateCommunity": {
+      "joinCommunity": "Join Community",
+      "createCommunity": "Create Community",
+      "joinCode": "Join Code",
+      "joinCodePlaceholder": "123456",
+      "search": "Search",
+      "create": "Create",
+      "noCommunityFound": "No community exists with this code",
+      "sendJoinRequest": "Send Join Request",
+      "nameOfCommunity": "Community Name",
+      "namePlaceholder": "Community Name"
+    }
   }
 }

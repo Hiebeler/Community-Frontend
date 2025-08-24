@@ -138,7 +138,10 @@
       "title": "User bearbeiten",
       "nameLabel": "Name",
       "namePlaceholder": "Max Mustermann",
-      "changeName": "Name ändern"
+      "changeName": "Name ändern",
+      "uploadAvatar": "Avatar hochladen",
+      "chooseImage": "Bild auswählen",
+      "save": "Speichern"
     },
     "editPassword": {
       "title": "Passwort ändern",
@@ -163,9 +166,21 @@
       "transferAdmin": "Admin Weitergeben",
       "chooseAdmin": "Wähle aus wer die Adminrolle übernehmen soll",
       "leaveCommunity": "Gemeinschaft verlassen",
-      "tranferAdminRoleBeforeLeaving": "Gib als erstes die Adminrolle an jemanden anderes weiter um die Gemeinschaft zu verlassen.",
+      "transferAdminRoleBeforeLeaving": "Gib als erstes die Adminrolle an jemanden anderes weiter um die Gemeinschaft zu verlassen.",
       "deleteCommunity": "Gemeinschaft löschen",
-      "deleteCommunityDescription": "Dabei werden alle Daten der Gemeinschaft gelöscht",    
+      "deleteCommunityDescription": "Dabei werden alle Daten der Gemeinschaft gelöscht"
+    },
+    "joinOrCreateCommunity": {
+      "joinCommunity": "Gemeinschaft beitreten",
+      "createCommunity": "Gemeinschaft erstellen",
+      "joinCode":"Beitrittscode",
+      "joinCodePlaceholder": "123456",
+      "search": "Suchen",
+      "create": "Erstellen",
+      "noCommunityFound": "Es existiert keine Gemeinschaft mit diesem Code",
+      "sendJoinRequest": "Beitrittsanfrage senden",
+      "nameOfCommunity": "Name der Gemeinschaft",
+      "namePlaceholder":"Gemeinschaftsname"
     }
   }
 }

@@ -1,11 +1,13 @@
-<form [formGroup]="communityForm" (ngSubmit)="createCommunity()" class="space-y-4">
+<ng-container *transloco="let t; prefix: 'onboarding.joinOrCreateCommunity'">
+  <form [formGroup]="communityForm" (ngSubmit)="createCommunity()" class="space-y-4">
 
-  <div class="flex flex-col space-y-2">
-    <label for="communityname">Name der Gemeinschaft</label>
-    <input type="text" id="communityname" autocomplete="off" formControlName="name" placeholder="Name der Gemeinschaft"
-      class="w-full">
-  </div>
+    <div class="flex flex-col space-y-2">
+      <label for="communityname">{{t('nameOfCommunity')}}</label>
+      <input type="text" id="communityname" autocomplete="off" formControlName="name"
+        [placeholder]="t('namePlaceholder')" class="w-full">
+    </div>
 
-  <app-primary-button [isLoading]="isLoadingCreateCommunity" [disabled]="communityForm.invalid" type="submit"
-    label="Erstellen"></app-primary-button>
-</form>
+    <app-primary-button [isLoading]="isLoadingCreateCommunity" [disabled]="communityForm.invalid" type="submit"
+      [label]="t('create')"></app-primary-button>
+  </form>
+</ng-container>

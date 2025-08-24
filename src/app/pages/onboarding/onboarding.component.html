@@ -169,7 +169,7 @@
     @if (communityToEdit?.admin?.id === user()?.id){
     <div>
       <h2 class="pb-3 mt-12">{{t('transferAdmin')}}</h2>
-      <button type="button" (click)="isChangeAdminOpen = true" class="btn-danger">{{t('tranferAdmin')}}</button>
+      <button type="button" (click)="isChangeAdminOpen = true" class="btn-danger">{{t('transferAdmin')}}</button>
 
       @if (isChangeAdminOpen) {
       <p>{{t('chooseAdmin')}}</p>
@@ -203,14 +203,19 @@
     </div>
   </app-popup>
 </ng-container>
-<app-popup [show]="joinCommunityPopup" (close)="joinCommunityPopup = false" title="Gemeinschaft beitreten">
-  <app-join-community (closePopup)="changeJoinCommunityPopup(false)" />
-</app-popup>
+<ng-container *transloco="let t; prefix: 'onboarding.joinOrCreateCommunity'">
 
-<app-popup [show]="createCommunityPopup" (close)="createCommunityPopup = false" title="Gemeinschaft erstellen">
-  <app-create-community />
-</app-popup>
+  <app-popup [show]="joinCommunityPopup" (close)="joinCommunityPopup = false" [title]="t('joinCommunity')">
+    <app-join-community (closePopup)="changeJoinCommunityPopup(false)" />
+  </app-popup>
 
-<app-popup [show]="showImageUploadPopup" (close)="showImageUploadPopup = false" title="Avatar hochladen">
-  <app-profile-image-editor (closeEditor)="showImageUploadPopup = false" />
-</app-popup>
+  <app-popup [show]="createCommunityPopup" (close)="createCommunityPopup = false" [title]="t('createCommunity')">
+    <app-create-community />
+  </app-popup>
+</ng-container>
+<ng-container *transloco="let t; prefix: 'onboarding.editUser'">
+
+  <app-popup [show]="showImageUploadPopup" (close)="showImageUploadPopup = false" [title]="t('uploadAvatar')">
+    <app-profile-image-editor (closeEditor)="showImageUploadPopup = false" />
+  </app-popup>
+</ng-container>
