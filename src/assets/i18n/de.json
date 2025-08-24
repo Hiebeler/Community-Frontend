@@ -62,5 +62,24 @@
       "delete": "Löschen",
       "update": "Updaten"
     }
+  },
+  "todos": {
+    "title": "Todos",
+    "openItems": "{{count}} Todos offen",
+    "empty": "Alles erledigt",
+    "newItem": "Neues Todo erstellen",
+    "doneItems": "{{count}} Todos erledigt",
+    "done": "Erledigt {{timeAgo}}",
+    "editor": {
+      "newTodoTitle": "Neues Todo",
+      "nameLabel": "Name",
+      "namePlaceholder": "Name",
+      "descriptionLabel": "Beschreibung",
+      "descriptionPlaceholder": "Beschreibung",
+      "save": "Speichern",
+      "delete": "Löschen",
+      "update": "Updaten",
+      "editTodoTitle": "Eintrag bearbeiten"
+    }
   }
 }
