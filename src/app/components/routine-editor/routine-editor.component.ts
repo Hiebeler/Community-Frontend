@@ -13,6 +13,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { TranslocoModule } from '@jsverse/transloco';
 import { LucideAngularModule, XIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
 import { Routine } from 'src/app/models/routine.model';
@@ -23,7 +24,7 @@ import { CommunityService } from 'src/app/services/community.service';
 @Component({
   selector: 'app-routine-editor',
   templateUrl: './routine-editor.component.html',
-  imports: [CommonModule, ReactiveFormsModule, LucideAngularModule],
+  imports: [CommonModule, ReactiveFormsModule, LucideAngularModule, TranslocoModule],
   standalone: true,
 })
 export class RoutineEditorComponent implements OnInit, OnDestroy {

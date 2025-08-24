@@ -182,5 +182,31 @@
       "nameOfCommunity": "Name der Gemeinschaft",
       "namePlaceholder":"Gemeinschaftsname"
     }
+  },
+  "routines": {
+    "title": "Routinen",
+    "empty": "Noch keine Routinen",
+    "clickToCreateNewRoutine": "Klicke + um eine neue Routine anzulegen",
+    "activeRoutines": "Aktive Routinen",
+    "deactivatedRoutines": "Deaktivierte Routinen",
+    "newRoutine": "Neue Routine erstellen",
+    "editRoutine": "Routine bearbeiten",
+    "startDate": "Startdatum",
+    "dateFormat": "de-AT",
+    "interval": "Intervall",
+    "editor": {
+      "nameLabel": "Name",
+      "namePlaceholder":"Max Mustermann",
+      "notesLabel": "Notizen",
+      "notesPlaceholder": "Notizen",
+      "startDateLabel": "Startdatum",
+      "intervalLabel": "Intervall",
+      "intervalPlaceholder": "3",
+      "assigned": "Zuständig",
+      "changeAssigned": "Zuständige ändern",
+      "notAssigned": "Nicht zuständig",
+      "active": "Aktiviert",
+      "save": "Speichern"
+    }
   }
 }

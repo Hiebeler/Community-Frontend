@@ -1,37 +1,39 @@
+<ng-container *transloco="let t; prefix: 'routines.editor'">
+
 <form [formGroup]="routineForm" (ngSubmit)="saveRoutine()">
   <div class="space-y-4">
 
     <!-- Name -->
     <div>
-      <label>Name:</label>
-      <input type="text" formControlName="name" placeholder="Name"
+      <label>{{t('nameLabel')}}:</label>
+      <input type="text" formControlName="name" [placeholder]="t('namePlaceholder')"
         class="w-full rounded-md bg-[var(--ion-color-dark)] text-white p-2 focus:outline-none" />
     </div>
 
     <!-- Notes -->
     <div>
-      <label>Notizen:</label>
-      <input type="text" formControlName="notes" placeholder="Notizen"
+      <label>{{t('notesLabel')}}:</label>
+      <input type="text" formControlName="notes" [placeholder]="notesPlaceholder"
         class="w-full rounded-md bg-[var(--ion-color-dark)] text-white p-2 focus:outline-none" />
     </div>
 
     <!-- Start Date -->
     <div>
-      <label>Startdatum:</label>
+      <label>{{t('startDateLabel')}}:</label>
       <input type="date" formControlName="startdate"
         class="w-full rounded-md bg-[var(--ion-color-dark)] text-white p-2 focus:outline-none" />
     </div>
 
     <!-- Interval -->
     <div>
-      <label>Intervall:</label>
-      <input type="number" formControlName="interval" min="1" step="1" placeholder="Intervall in Tagen"
+      <label>{{t('intervalLabel')}}:</label>
+      <input type="number" formControlName="interval" min="1" step="1" [placeholder]="t('intervalPlaceholder')"
         class="w-full rounded-md bg-[var(--ion-color-dark)] text-white p-2 focus:outline-none" />
     </div>
 
     <!-- Responsible Users -->
     <div *ngIf="!updatingResponsibleUsers">
-      <p class="mb-1">Zuständig:</p>
+      <p class="mb-1">{{t('assigned')}}:</p>
       <div class="flex flex-wrap gap-2">
         @for (user of assignedUsers; track user) {
         <div class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-2 rounded-md">
@@ -42,7 +44,7 @@
       </div>
 
       <button type="button" class="btn-primary mt-3" (click)="setUpdatingResponsibleUsers(true)">
-        Zuständige ändern
+        {{t('changeAssigned')}}
       </button>
     </div>
 
@@ -58,7 +60,7 @@
 
       <!-- Current Users -->
       <div>
-        <p class="mb-1">Zuständig:</p>
+        <p class="mb-1">{{t('assigned')}}:</p>
         <div class="flex flex-wrap gap-2">
           @for (user of assignedUsers; track user) {
           <div (click)="removeUser(user)"
@@ -72,7 +74,7 @@ X          </div>
 
       <!-- Available Users -->
       <div>
-        <p class="mb-1">Nicht zuständig:</p>
+        <p class="mb-1">{{t('notAssigned')}}:</p>
         <div class="flex flex-wrap gap-2">
           @for (user of assignableUsers; track user) {
           <div (click)="addUser(user)"
@@ -87,7 +89,7 @@ X          </div>
 
     <!-- Active Checkbox -->
     <div *ngIf="routine" class="flex items-center pt-4">
-      <label class="mr-3">Aktiviert:</label>
+      <label class="mr-3">{{t('active')}}</label>
 
       <input type="checkbox" formControlName="done"
         class="w-8 h-8 bg-background border-white text-primary-500 rounded focus:ring-0 focus:outline-none checked:bg-primary-500 checked:border-primary-500" />
@@ -95,7 +97,7 @@ X          </div>
 
     <button [disabled]="routineForm.invalid" (click)="saveRoutine()" type="submit"
         class="btn-primary w-full">
-        Speichern
+        {{t('save')}}
       </button>
   </div>
 </form>

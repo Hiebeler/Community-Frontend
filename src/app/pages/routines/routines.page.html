@@ -1,4 +1,6 @@
-<app-navbar title="Routinen">
+
+<ng-container *transloco="let t; prefix: 'routines'">
+  <app-navbar [title]="t('title')">
   <a left class="btn-neutral aspect-square px-0" routerLink="/calendar"
     aria-label="Zurück zu Kalender">
     <lucide-icon [img]="backIcon"></lucide-icon>
@@ -13,14 +15,14 @@
 <!-- No Routines Message -->
 @if (!enabledRoutines.length && !disabledRoutines.length && completedFirstLoad) {
 <div class="flex flex-col items-center text-center p-6">
-  <h2 class="text-2xl font-semibold mb-2">Noch keine Routinen</h2>
-  <p>Klicke + um eine neue Routine anzulegen</p>
+  <h2 class="text-2xl font-semibold mb-2">{{t('empty')}}</h2>
+  <p>{{t('clickToCreateNewRoutine')}}</p>
 </div>
 }
 
 <!-- Active Routines Header -->
 @if (enabledRoutines.length) {
-<h2 class="text-xl font-semibold mb-4">Aktive Routinen</h2>
+<h2 class="text-xl font-semibold mb-4">{{t('activeRoutines')}}</h2>
 }
 
 <!-- Active Routines List -->
@@ -34,7 +36,7 @@
 
 <!-- Disabled Routines Header -->
 @if (disabledRoutines.length) {
-<h2 class="text-xl font-semibold mb-4">Deaktivierte Routinen</h2>
+<h2 class="text-xl font-semibold mb-4">{{t('deactivatedRoutines')}}</h2>
 }
 
 <!-- Disabled Routines List -->
@@ -46,10 +48,11 @@
 </div>
 }
 
-<app-popup [show]="newRoutineEditorIsOpen" (close)="newRoutineEditorIsOpen = false" title="Neue Routine erstellen">
+<app-popup [show]="newRoutineEditorIsOpen" (close)="newRoutineEditorIsOpen = false" [title]="t('newRoutine')">
   <app-routine-editor (closeEditor)="openNewRoutineEditor(false)"></app-routine-editor>
 </app-popup>
 
-<app-popup [show]="openRoutineEditor != null" (close)="openRoutineEditor = null" title="Routine bearbeiten">
+<app-popup [show]="openRoutineEditor != null" (close)="openRoutineEditor = null" [title]="t('editRoutine')">
   <app-routine-editor [routine]="openRoutineEditor" (closeEditor)="openUpdateEditor(null)"></app-routine-editor>
 </app-popup>
+</ng-container>

@@ -182,5 +182,31 @@
       "nameOfCommunity": "Community Name",
       "namePlaceholder": "Community Name"
     }
+  },
+  "routines": {
+    "title": "Routines",
+    "empty": "No routines yet",
+    "clickToCreateNewRoutine": "Click + to create a new routine",
+    "activeRoutines": "Active Routines",
+    "deactivatedRoutines": "Deactivated Routines",
+    "newRoutine": "Create New Routine",
+    "editRoutine": "Edit Routine",
+    "startDate": "Start Date",
+    "dateFormat": "en-US",
+    "interval": "Interval",
+    "editor": {
+      "nameLabel": "Name",
+      "namePlaceholder": "John Doe",
+      "notesLabel": "Notes",
+      "notesPlaceholder": "Notes",
+      "startDateLabel": "Start Date",
+      "intervalLabel": "Interval",
+      "intervalPlaceholder": "3",
+      "assigned": "Assigned To",
+      "changeAssigned": "Change Assignment",
+      "notAssigned": "Not Assigned",
+      "active": "Active",
+      "save": "Save"
+    }
   }
 }
