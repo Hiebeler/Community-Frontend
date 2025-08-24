@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { TranslocoModule } from '@jsverse/transloco';
 import { ToastrService } from 'ngx-toastr';
 import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
 import { AlertService } from 'src/app/services/alert.service';
@@ -15,7 +16,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, PrimaryButton],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, PrimaryButton, TranslocoModule],
 })
 export class LoginPage {
 

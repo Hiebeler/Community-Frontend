@@ -81,5 +81,27 @@
       "update": "Update",
       "editTodoTitle": "Update Todo"
     }
+  },
+  "login": {
+    "title": "Login",
+    "emailPlaceholder": "john.doe@example.com",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "submit": "Login",
+    "createNewAccount": "Create a new Account",
+    "resetPassword": "Reset Password"
+  },
+  "register": {
+    "title": "Register",
+    "emailPlaceholder": "john.doe@example.com",
+    "emailLabel": "Email",
+    "nameLabel": "Name",
+    "namePlaceholder": "John Doe",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "repeatPasswordLabel": "Repeat Password",
+    "submit": "Register",
+    "alreadyHaveAccount": "I already have an account"
   }
 }

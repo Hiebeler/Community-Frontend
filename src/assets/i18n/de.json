@@ -81,5 +81,27 @@
       "update": "Updaten",
       "editTodoTitle": "Eintrag bearbeiten"
     }
+  },
+  "login": {
+    "title": "Anmelden",
+    "emailPlaceholder": "max.mustermann@example.com",
+    "emailLabel": "Email",
+    "passwordLabel": "Passwort",
+    "passwordPlaceholder": "Passwort",
+    "submit": "Anmelden",
+    "createNewAccount": "Neuen Account erstellen",
+    "resetPassword": "Passwort zurücksetzen"
+  },
+  "register": {
+    "title": "Registrieren",
+    "emailPlaceholder": "max.mustermann@example.com",
+    "emailLabel": "Email",
+    "nameLabel": "Name",
+    "namePlaceholder": "Max Mustermann",
+    "passwordLabel": "Passwort",
+    "passwordPlaceholder": "••••••••",
+    "repeatPasswordLabel": "Passwort wiederholen",
+    "submit": "Registrieren",
+    "alreadyHaveAccount": "Ich habe schon einen Account"
   }
 }
