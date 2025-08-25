@@ -45,6 +45,10 @@ export class CommunityService {
         this.usersInActiveCommunity.set([]);
       }
     });
+
+    effect(() => {
+      console.log('users in community changed:', this.usersInActiveCommunity());
+    });
   }
 
   private fetchCurrentCommunityFromApi(id: number) {
@@ -163,7 +167,10 @@ export class CommunityService {
       .pipe(
         map((data) => data.data.map((item) => this.userAdapter.adapt(item)))
       )
-      .subscribe((users) => this.usersInActiveCommunity.set(users));
+      .subscribe((users) => {
+        console.log(users);
+        this.usersInActiveCommunity.set(users);
+      });
   }
 
   getRequests(): Observable<ApiResponse<ApiRequest[]>> {

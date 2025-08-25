@@ -52,13 +52,13 @@ export class DebtsPage implements OnInit, OnDestroy {
   itemEditorForm: FormGroup;
   clearOffBalanceEditorForm: FormGroup;
 
-  usersInCommunity: User[] = [];
+  usersInCommunity = this.communityService.usersInActiveCommunity;
 
   allBalances: Balance[] = [];
 
   iOwe = false;
 
-  currentUser: User;
+  currentUser = this.userService.user;
 
   constructor(
     private debtService: DebtService,
@@ -110,10 +110,9 @@ export class DebtsPage implements OnInit, OnDestroy {
     );
 
 
-    this.currentUser = this.userService.getCurrentUser()();
-    this.usersInCommunity = this.communityService
-      .usersInActiveCommunity()
-      .filter((user) => user.id !== this.currentUser?.id);
+    const usersInCommunityAll = this.communityService.usersInActiveCommunity();
+    console.log(usersInCommunityAll);
+    //this.usersInCommunity = usersInCommunityAll.filter((user) => user.id !== this.currentUser?.id);
   }
 
   ngOnDestroy(): void {
@@ -121,11 +120,11 @@ export class DebtsPage implements OnInit, OnDestroy {
   }
 
   filterCurrentUser() {
-    if (this.currentUser && this.usersInCommunity.length) {
+    /*if (this.currentUser && this.usersInCommunity.length) {
       this.usersInCommunity = this.usersInCommunity.filter(
         (user) => user.id !== this.currentUser.id
       );
-    }
+    }*/
   }
 
   openEditor(state: boolean) {
@@ -154,14 +153,14 @@ export class DebtsPage implements OnInit, OnDestroy {
         name: 'debt ausgeglichen',
         amount: this.clearOffBalanceEditorForm.controls.amount.value,
         debitor: balance.debitor,
-        creditor: this.currentUser,
+        creditor: this.currentUser(),
       });
     } else {
       debt = new Debt({
         id: undefined,
         name: 'debt ausgeglichen',
         amount: this.clearOffBalanceEditorForm.controls.amount.value,
-        debitor: this.currentUser,
+        debitor: this.currentUser(),
         creditor: balance.debitor,
       });
     }
@@ -182,14 +181,14 @@ export class DebtsPage implements OnInit, OnDestroy {
         name: this.nameControl.value,
         amount: this.amountControl.value,
         debitor: this.debitorControl.value,
-        creditor: this.currentUser,
+        creditor: this.currentUser(),
       });
     } else {
       debt = new Debt({
         id: undefined,
         name: this.nameControl.value,
         amount: this.amountControl.value,
-        debitor: this.currentUser,
+        debitor: this.currentUser(),
         creditor: this.debitorControl.value,
       });
     }

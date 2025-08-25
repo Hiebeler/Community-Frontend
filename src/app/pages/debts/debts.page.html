@@ -89,8 +89,10 @@
     <div>
       <p class="text-sm text-gray-300 mb-1">Schuldner:</p>
       <select formControlName="debitor" class="w-full ">
-        @for (user of usersInCommunity; track user) {
-        <option [ngValue]="user">{{user.name}}</option>
+        @for (user of usersInCommunity(); track user) {
+          @if (user.id !== currentUser().id) {
+            <option [ngValue]="user">{{user.name}}</option>
+          }
         }
       </select>
     </div>
