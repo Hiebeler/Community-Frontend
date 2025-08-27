@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { TranslocoModule } from '@jsverse/transloco';
 import {
   ArrowLeftRightIcon,
   ArrowRightIcon,
@@ -24,7 +25,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.page.html',
-  imports: [CommonModule, RouterModule, LucideAngularModule, FeatureCard, WhyCard],
+  imports: [CommonModule, RouterModule, LucideAngularModule, FeatureCard, WhyCard, TranslocoModule],
 })
 export class LandingPage {
   readonly switchIcon = ArrowLeftRightIcon;

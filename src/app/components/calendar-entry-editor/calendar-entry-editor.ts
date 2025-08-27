@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { TranslocoModule } from '@jsverse/transloco';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { CalendarEntry } from 'src/app/models/calendarEntry.model';
@@ -15,7 +16,7 @@ import { CalendarService } from 'src/app/services/calendar.service';
 
 @Component({
   selector: 'app-calendar-entry-editor',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, TranslocoModule],
   templateUrl: './calendar-entry-editor.html',
 })
 export class CalendarEntryEditor implements OnInit {

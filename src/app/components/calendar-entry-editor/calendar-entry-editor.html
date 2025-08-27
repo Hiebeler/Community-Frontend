@@ -1,41 +1,54 @@
-@if (date != undefined){
-<p class="text-gray-400">{{date.toLocaleDateString('de-AT', { year: 'numeric', month: 'long', day: 'numeric' })}}</p>
-}
+<ng-container *transloco="let t; prefix: 'calendar'">
 
-@if (calendarEntry?.date != undefined){
-<p class="text-gray-400">{{calendarEntry.date.toLocaleDateString('de-AT', { year: 'numeric', month: 'long', day:
-  'numeric' })}}</p>
-}
+  <!-- Date Display -->
+  @if (date != undefined) {
+    <p class="text-gray-400">
+      {{ date.toLocaleDateString('de-AT', { year: 'numeric', month: 'long', day: 'numeric' }) }}
+    </p>
+  }
 
-<form [formGroup]="calendarEntryForm" class="flex flex-col gap-4 mt-6">
-  <div>
-    <label for="calendarName">Name</label>
-    <input type="text" id="calendarName" formControlName="name" placeholder="Name" class="w-full" />
-  </div>
+  @if (calendarEntry?.date != undefined) {
+    <p class="text-gray-400">
+      {{ calendarEntry.date.toLocaleDateString(t('dateFormat'), { year: 'numeric', month: 'long', day: 'numeric' }) }}
+    </p>
+  }
 
-  <div>
-    <label>Notizen:</label>
-    <input type="text" formControlName="notes" placeholder="Notizen" class="w-full" />
-  </div>
-</form>
+  <!-- Calendar Entry Form -->
+  <form [formGroup]="calendarEntryForm" class="flex flex-col gap-4 mt-6">
+    <div>
+      <label for="calendarName">{{ t('form.name') }}</label>
+      <input type="text" id="calendarName" formControlName="name" [placeholder]="t('form.name')" class="w-full" />
+    </div>
 
-@if(date !== undefined) {
-<div class="mt-4">
-  <button type="button" class="btn-primary w-full" [disabled]="calendarEntryForm.invalid"
-    (click)="createCalendarEntry()">Eintrag erstellen</button>
-</div>
-}
+    <div>
+      <label>{{ t('form.notes') }}</label>
+      <input type="text" formControlName="notes" [placeholder]="t('form.notes')" class="w-full" />
+    </div>
+  </form>
 
-@if (calendarEntry !== undefined) {
-<div class="flex gap-3 mt-4">
-  <button type="button" (click)="askToDeleteCalendarEntry()" class="btn-danger w-1/2">
-    Löschen
-  </button>
+  <!-- Create Button -->
+  @if(date !== undefined) {
+    <div class="mt-4">
+      <button type="button" class="btn-primary w-full" [disabled]="calendarEntryForm.invalid"
+        (click)="createCalendarEntry()">
+        {{ t('form.createEntry') }}
+      </button>
+    </div>
+  }
 
-  <button
-    [disabled]="calendarEntryForm.invalid || (name.value === calendarEntry?.name && notes.value === calendarEntry?.notes)"
-    type="button" (click)="updateCalendarEntry()" class="btn-primary w-1/2">
-    Updaten
-  </button>
-</div>
-}
+  <!-- Update/Delete Buttons -->
+  @if (calendarEntry !== undefined) {
+    <div class="flex gap-3 mt-4">
+      <button type="button" (click)="askToDeleteCalendarEntry()" class="btn-danger w-1/2">
+        {{ t('form.delete') }}
+      </button>
+
+      <button
+        [disabled]="calendarEntryForm.invalid || (name.value === calendarEntry?.name && notes.value === calendarEntry?.notes)"
+        type="button" (click)="updateCalendarEntry()" class="btn-primary w-1/2">
+        {{ t('form.update') }}
+      </button>
+    </div>
+  }
+
+</ng-container>

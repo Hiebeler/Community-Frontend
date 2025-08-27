@@ -1,63 +1,65 @@
-<app-navbar title="Kalender">
-  <a left routerLink="/calendar/routines" class="btn-primary aspect-square px-0">
-    <lucide-icon [img]="InfinityIcon"></lucide-icon>
-  </a>
+<ng-container *transloco="let t; prefix: 'calendar'">
 
-  <div right class="flex items-center space-x-2">
-    <button type="button" class="btn-neutral aspect-square px-0" (click)="changeSelectedDays('previous')">
-      <lucide-icon [img]="ChevronLeftIcon"></lucide-icon>
-    </button>
-    <button type="button" class="btn-neutral aspect-square px-0" (click)="changeSelectedDays('next')">
-      <lucide-icon [img]="ChevronRightIcon"></lucide-icon>
-    </button>
-  </div>
-</app-navbar>
+  <app-navbar [title]="t('title')">
+    <a left routerLink="/calendar/routines" class="btn-primary aspect-square px-0">
+      <lucide-icon [img]="InfinityIcon"></lucide-icon>
+    </a>
 
-<!-- Days Grid -->
-<div class="grid grid-cols-3 lg:gap-2">
-  @for (day of days; track day.date.toISOString()) {
-  <div [ngClass]="day.date.toDateString() === dayToday.toDateString() ? 'card p-1' : 'p-1'">
-    @if (isTodayDate(day.date, -1)) {
-    <p class="text-center text-sm font-medium">Gestern</p>
-    }
-    @else if (isTodayDate(day.date, 0)) {
-    <p class="text-center text-sm font-medium">Heute</p>
-    }
-    @else if (isTodayDate(day.date, 1)) {
-    <p class="text-center text-sm font-medium">Morgen</p>
-    } @else {
-    <p class="text-center text-sm font-medium">
-      {{day.date.toLocaleDateString('de-AT', { weekday: 'long' })}}
-    </p>
-    }
-
-    <!-- Date -->
-    <p class="text-center text-xs text-gray-400">
-      {{day.date.toLocaleDateString('de-AT', { year: 'numeric', month: 'short', day: 'numeric' })}}
-    </p>
-
-    <!-- Open Tasks -->
-    <div class="mt-2 space-y-2">
-      @for (task of day.calendarEntries; track (task.date.toISOString() + task.communityId + task.fkRoutineId +
-      task.id).toString()) {
-      <div>
-        <app-task-card [task]="task" (openModal)="entryToEdit = task"></app-task-card>
-      </div>
-      }
-
-      <!-- Add Task Button -->
-      <div class="card mt-6 py-4 flex items-center justify-center clickable" (click)="dateForNewEntry = day.date">
-        <lucide-icon [img]="plusIcon" size="16"></lucide-icon>
-      </div>
+    <div right class="flex items-center space-x-2">
+      <button type="button" class="btn-neutral aspect-square px-0" (click)="changeSelectedDays('previous')" [attr.aria-label]="t('previous')">
+        <lucide-icon [img]="ChevronLeftIcon"></lucide-icon>
+      </button>
+      <button type="button" class="btn-neutral aspect-square px-0" (click)="changeSelectedDays('next')" [attr.aria-label]="t('next')">
+        <lucide-icon [img]="ChevronRightIcon"></lucide-icon>
+      </button>
     </div>
-  </div>
-  }
-</div>
+  </app-navbar>
 
-<app-popup [show]="entryToEdit != null" (close)="entryToEdit = null" title="Eintrag bearbeiten">
+  <!-- Days Grid -->
+  <div class="grid grid-cols-3 lg:gap-2">
+    @for (day of days; track day.date.toISOString()) {
+      <div [ngClass]="day.date.toDateString() === dayToday.toDateString() ? 'card p-1' : 'p-1'">
+
+        <!-- Day Label -->
+        <p class="text-center text-sm font-medium">
+          @if (isTodayDate(day.date, -1)) { {{ t('days.yesterday') }} }
+          @else if (isTodayDate(day.date, 0)) { {{ t('days.today') }} }
+          @else if (isTodayDate(day.date, 1)) { {{ t('days.tomorrow') }} }
+          @else { {{ day.date.toLocaleDateString(t('dayOfWeekFormat'), { weekday: 'long' }) }} }
+        </p>
+
+        <!-- Date -->
+        <p class="text-center text-xs text-gray-400">
+          {{ day.date.toLocaleDateString(t('dateFormat'), { year: 'numeric', month: 'short', day: 'numeric' }) }}
+        </p>
+
+        <!-- Open Tasks -->
+        <div class="mt-2 space-y-2">
+          @if (!day.calendarEntries.length) {
+            <p class="text-center text-gray-400 text-sm">{{ t('noTasks') }}</p>
+          }
+
+          @for (task of day.calendarEntries; track (task.date.toISOString() + task.communityId + task.fkRoutineId + task.id).toString()) {
+            <div>
+              <app-task-card [task]="task" (openModal)="entryToEdit = task"></app-task-card>
+            </div>
+          }
+
+          <!-- Add Task Button -->
+          <div class="card mt-6 py-4 flex items-center justify-center clickable" (click)="dateForNewEntry = day.date" [attr.aria-label]="t('addTask')">
+            <lucide-icon [img]="plusIcon" size="16"></lucide-icon>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+
+<app-popup [show]="entryToEdit != null" (close)="entryToEdit = null" [title]="t('editEntry')">
   <app-calendar-entry-editor [calendarEntry]="entryToEdit" />
 </app-popup>
 
-<app-popup [show]="dateForNewEntry != null" (close)="dateForNewEntry = null" title="Neuen Eintrag erstellen">
+<app-popup [show]="dateForNewEntry != null" (close)="dateForNewEntry = null" [title]="t('newEntry')">
   <app-calendar-entry-editor [date]="dateForNewEntry" (closeEditor)="reloadTasksAndCloseEditor()" />
 </app-popup>
+</ng-container>

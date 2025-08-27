@@ -16,6 +16,7 @@ import { Navbar } from 'src/app/components/navbar/navbar';
 import { CalendarEntry } from 'src/app/models/calendarEntry.model';
 import { CalendarEntryEditor } from 'src/app/components/calendar-entry-editor/calendar-entry-editor';
 import { CalendarService } from 'src/app/services/calendar.service';
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-tasks',
@@ -28,6 +29,7 @@ import { CalendarService } from 'src/app/services/calendar.service';
     PopupComponent,
     CalendarEntryEditor,
     Navbar,
+    TranslocoModule
   ],
 })
 export class CalendarPage implements OnInit, OnDestroy {
