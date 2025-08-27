@@ -6,6 +6,7 @@
         <span class="text-2xl font-bold">Together</span>
       </a>
 
+      <div class="flex flex-row items-center gap-5">
       @if (isLoggedIn()) {
         <a routerLink="/calendar" class="btn-primary space-x-2">
           <span class="font-bold">{{t('ctaApp')}}</span>
@@ -21,7 +22,8 @@
           </a>
         </div>
         }
-
+        <app-language-switcher/>
+      </div>
     </div>
   </header>
 </ng-container>

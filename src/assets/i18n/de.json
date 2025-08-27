@@ -325,5 +325,12 @@
     "ctaApp": "Zur App",
     "login": "Anmelden",
     "register": "Registrieren"
+  },
+  "bottomNav": {
+    "calendar": "Kalender",
+    "todos": "Todo's",
+    "shoppingList": "Einkaufsliste",
+    "debts": "Schulden",
+    "profile": "Profil"
   }
 }
