@@ -306,5 +306,20 @@
       "legalImprint": "Impressum",
       "credit": "A Ghostbyte Production"
     }
-  }
+  },
+  "footer": {
+  "description": "Bringt Haushalte und Gemeinschaften durch bessere Organisation und Kommunikation zusammen. Kostenlos und open source.",
+  "navigationTitle": "Navigation",
+  "legalTitle": "Rechtliches",
+  "links": {
+    "login": "Anmelden",
+    "register": "Registrieren",
+    "github": "Github",
+    "privacy": "Datenschutzerklärung",
+    "imprint": "Impressum"
+  },
+  "credits": "A Ghostbyte Production",
+  "ghostbyte": "Ghostbyte"
+}
+
 }
