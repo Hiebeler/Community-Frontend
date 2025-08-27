@@ -1,0 +1,16 @@
+<label class="flex items-center cursor-pointer mb-0">
+  <span class="me-3 text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">EN</span>
+
+  <input type="checkbox" class="sr-only peer" [checked]="activeLang === 'de'" (change)="toggleLang()" />
+
+  <div
+    class="cursor-pointer relative w-12 h-7 rounded-full peer-focus:outline-none peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800
+           bg-[url('/assets/flags/gb.svg')] bg-cover bg-center
+           peer-checked:bg-[url('/assets/flags/de.svg')] peer-checked:bg-cover peer-checked:bg-center
+           shadow-inner
+           after:content-[''] after:absolute after:top-[1px] after:start-[1px] after:h-[26px] after:w-[26px] after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all
+           peer-checked:after:translate-x-[calc(100%-6px)] rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white">
+  </div>
+
+  <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300 cursor-pointer">DE</span>
+</label>

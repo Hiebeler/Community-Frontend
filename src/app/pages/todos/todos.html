@@ -1,111 +1,118 @@
-<app-navbar title="Todos">
-  <button right type="button" class="btn-primary aspect-square px-0" (click)="openEditor(true)">
-    <lucide-icon [img]="plusIcon"></lucide-icon>
-  </button>
-</app-navbar>
+<ng-container *transloco="let t; prefix: 'todos'">
 
-<div class="card">
-  <!-- Open Items -->
-  @if (openTodos().length) {
-  <h2>{{openTodos().length}} Todos offen:</h2>
-  }
-
-  <!-- Empty State -->
-  @if (!openTodos().length && !isLoadingTodos) {
-  <div class="flex flex-col items-center text-center space-y-3 py-10">
-    <lucide-icon [img]="alldoneIcon" size="42"></lucide-icon>
-    <h2 class="text-xl font-semibold mt-0">Alles Erledigt</h2>
-    <button type="button" class="btn-primary flex items-center justify-center space-x-2" (click)="openEditor(true)"
-      aria-label="Neuen Eintrag hinzufügen">
+  <app-navbar [title]="t('title')">
+    <button right type="button" class="btn-primary aspect-square px-0" (click)="openEditor(true)">
       <lucide-icon [img]="plusIcon"></lucide-icon>
-      <span>Neues Todo erstellen</span>
     </button>
-  </div>
-  }
+  </app-navbar>
 
-  <!-- Open Items List -->
-  @for (item of openTodos(); track item.id) {
-  <div>
-    <div class="flex items-center space-x-4 py-2">
-      <div class="w-5 h-5 bg-gray-700 border border-gray-400 rounded-sm clickable" (click)="updateDone(item.id, true)">
-      </div>
+  <div class="card">
+    <!-- Open Items -->
+    @if (openTodos().length) {
+    <h2>{{t('openItems', {count: openTodos().length})}}</h2>
+    }
 
-      <div class="clickable text-white w-full" (click)="openUpdateEditor(item)">
-        <p>
-          {{item.name}}
-        </p>
-
-        <p class="text-xs text-gray-300" style="white-space: pre-line;">
-          {{shortenDescription(item.description)}}
-        </p>
-      </div>
-
+    <!-- Empty State -->
+    @if (!openTodos().length && !isLoadingTodos) {
+    <div class="flex flex-col items-center text-center space-y-3 py-10">
+      <lucide-icon [img]="alldoneIcon" size="42"></lucide-icon>
+      <h2 class="text-xl font-semibold mt-0">{{t('empty')}}</h2>
+      <button type="button" class="btn-primary flex items-center justify-center space-x-2" (click)="openEditor(true)"
+        aria-label="Neuen Eintrag hinzufügen">
+        <lucide-icon [img]="plusIcon"></lucide-icon>
+        <span>{{t('newItem')}}</span>
+      </button>
     </div>
-  </div>
-  }
-</div>
+    }
 
-
-@if (doneTodos().length) {
-<div class="card mt-6">
-  <!-- Done Items -->
-
-  <h2>{{doneTodos().length}} Todos erledigt:</h2>
-
-  @for (item of doneTodos(); track item.id) {
-  <div class="flex items-center space-x-4 py-2">
-    <div class="w-5 h-5 bg-primary border border-gray-400 rounded-sm flex items-center justify-center clickable"
-      (click)="updateDone(item.id, false)">
-      <lucide-icon [img]="checkIcon" size="16"></lucide-icon>
-    </div>
+    <!-- Open Items List -->
+    @for (item of openTodos(); track item.id) {
     <div>
-      <p class="text-gray-300 line-through">{{item.name}}</p>
-      <p class="text-xs text-gray-300">Erledigt {{item.doneDate | timeAgo}}</p>
+      <div class="flex items-center space-x-4 py-2">
+        <div class="w-5 h-5 bg-gray-700 border border-gray-400 rounded-sm clickable"
+          (click)="updateDone(item.id, true)">
+        </div>
+
+        <div class="clickable text-white w-full" (click)="openUpdateEditor(item)">
+          <p>
+            {{item.name}}
+          </p>
+
+          <p class="text-xs text-gray-300" style="white-space: pre-line;">
+            {{shortenDescription(item.description)}}
+          </p>
+        </div>
+
+      </div>
     </div>
+    }
+  </div>
+
+
+  @if (doneTodos().length) {
+  <div class="card mt-6">
+    <!-- Done Items -->
+
+    <h2>{{t('doneItems', {count: doneTodos().length})}}:</h2>
+
+    @for (item of doneTodos(); track item.id) {
+    <div class="flex items-center space-x-4 py-2">
+      <div class="w-5 h-5 bg-primary border border-gray-400 rounded-sm flex items-center justify-center clickable"
+        (click)="updateDone(item.id, false)">
+        <lucide-icon [img]="checkIcon" size="16"></lucide-icon>
+      </div>
+      <div>
+        <p class="text-gray-300 line-through">{{item.name}}</p>
+        <p class="text-xs text-gray-300">{{t('done', {timeAgo: item.doneDate | timeAgo})}}</p>
+      </div>
+    </div>
+    }
   </div>
   }
-</div>
-}
+</ng-container>
 
-<app-popup [show]="editorIsOpen" (close)="editorIsOpen = false" title="Neues Todo">
+<ng-container *transloco="let t; prefix: 'todos.editor'">
+
+<app-popup [show]="editorIsOpen" (close)="editorIsOpen = false" [title]="t('newTodoTitle')">
   <div class="space-y-4">
 
     <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()" class="space-y-3">
-      <label for="name">Name</label>
-      <input type="text" id="name" formControlName="createname" placeholder="Name" autocomplete="off" class="w-full" />
+      <label for="name">{{t('nameLabel')}}</label>
+      <input type="text" id="name" formControlName="createname" [placeholder]="t('namePlaceholder')" autocomplete="off" class="w-full" />
 
-      <label for="description">Name</label>
-      <textarea type="text" id="description" formControlName="createdescription" placeholder="Beschreibung"
+      <label for="description">{{t('descriptionLabel')}}</label>
+      <textarea type="text" id="description" formControlName="createdescription" [placeholder]="t('descriptionPlaceholder')"
         autocomplete="off" class="w-full h-50"></textarea>
 
       <app-primary-button type="submit" [isLoading]="isLoadingSave()" [disabled]="itemEditorForm.invalid"
-        label="Speichern"></app-primary-button>
+        [label]="t('save')"></app-primary-button>
     </form>
   </div>
 </app-popup>
 
-<app-popup [show]="todoToUpdate() !== null" (close)="openUpdateEditor()" title="Eintrag bearbeiten">
+<app-popup [show]="todoToUpdate() !== null" (close)="openUpdateEditor()" [title]="t('editTodoTitle')">
   <div class="space-y-4">
     <form [formGroup]="itemUpdateEditorForm" (ngSubmit)="updateName(todoToUpdate().id)" class="space-y-3">
-      <label for="name">Name</label>
-      <input type="text" id="name" formControlName="updatename" placeholder="Name" autocomplete="off" class="w-full" />
+      <label for="name">{{t('nameLabel')}}</label>
+      <input type="text" id="name" formControlName="updatename" [placeholder]="t('namePlaceholder')" autocomplete="off" class="w-full" />
 
-      <label for="description">Beschreibung</label>
-      <textarea type="text" id="description" formControlName="updatedescription" placeholder="Beschreibung"
+      <label for="description">{{t('descriptionLabel')}}</label>
+      <textarea type="text" id="description" formControlName="updatedescription" [placeholder]="t('descriptionPlaceholder')"
         autocomplete="off" class="w-full h-50"></textarea>
     </form>
     <div class="flex gap-3">
       <div class="w-1/2">
-        <app-primary-button type="button" (clicked)="askToDeleteTask(todoToUpdate().id)" customClasses="btn-danger w-full"
-          [isLoading]="isLoadingDelete()" label="Löschen"></app-primary-button>
+        <app-primary-button type="button" (clicked)="askToDeleteTask(todoToUpdate().id)"
+          customClasses="btn-danger w-full" [isLoading]="isLoadingDelete()" [label]="t('delete')"></app-primary-button>
 
       </div>
       <div class="w-1/2">
         <app-primary-button type="button" (clicked)="updateName(todoToUpdate().id)" [isLoading]="isLoadingUpdate()"
           [disabled]="itemUpdateEditorForm.invalid || (updateNameField.value === todoToUpdate()?.name && updateDescriptionField.value === todoToUpdate()?.description)"
-          label="Updaten"></app-primary-button>
+          [label]="t('update')"></app-primary-button>
       </div>
     </div>
 
   </div>
 </app-popup>
+</ng-container>

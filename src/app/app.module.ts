@@ -1,6 +1,6 @@
 import {
   provideHttpClient,
-  withInterceptorsFromDi,
+  withInterceptorsFromDi, HttpClientModule,
 } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,6 +15,7 @@ import {
 import { Alert } from './components/alert/alert';
 import { environment } from 'src/environments/environment';
 import { provideToastr } from 'ngx-toastr';
+import { TranslocoRootModule } from './transloco-root.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +28,8 @@ import { provideToastr } from 'ngx-toastr';
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
+    HttpClientModule,
+    TranslocoRootModule,
   ],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),

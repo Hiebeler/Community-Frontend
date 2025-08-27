@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { TranslocoModule } from '@jsverse/transloco';
 import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,7 +15,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
-  imports: [CommonModule, ReactiveFormsModule, RouterModule, PrimaryButton],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, PrimaryButton, TranslocoModule],
 })
 export class RegisterPage {
   registerForm: FormGroup;

@@ -1,202 +1,227 @@
 <div class="container mx-auto px-4 pt-6 pb-24">
+  <ng-container *transloco="let t; prefix: 'onboarding'">
 
-  <app-navbar title="Gemeinschaften verwalten">
+    <app-navbar [title]="t('title')">
 
-    @if (activeCommunity()) {
-    <a left type="button" class="btn-neutral aspect-square px-0" routerLink="/profile">
-      <lucide-icon [img]="backIcon"></lucide-icon>
-    </a>
-    }
+      @if (activeCommunity()) {
+      <a left type="button" class="btn-neutral aspect-square px-0" routerLink="/profile">
+        <lucide-icon [img]="backIcon"></lucide-icon>
+      </a>
+      }
 
-    <button right type="button" class="btn-danger aspect-square px-0" (click)="openLogoutPopup()">
-      <lucide-icon [img]="logoutIcon"></lucide-icon>
-    </button>
-  </app-navbar>
-
+      <button right type="button" class="btn-danger aspect-square px-0" (click)="openLogoutPopup()">
+        <lucide-icon [img]="logoutIcon"></lucide-icon>
+      </button>
+    </app-navbar>
+  </ng-container>
   @if (user()) {
   <div class="space-y-4">
-
-    <div class="card flex space-x-3 items-center">
-      <span>Angemeldet als:</span>
-      <img class="h-10 w-10 ml-4 rounded-full" [src]="user().avatar" alt="" width="40px" height="40px" />
-      <span class="text-lg font-bold">
-        {{user().name}}
-      </span>
-    </div>
-
-    <div class="card space-y-3">
-      <h2>Deine Gemeinschaften:</h2>
-
-      @if (ownCommunities().length === 0) {
-      <div class="w-full flex flex-col items-center space-y-3 my-10">
-        <lucide-icon [img]="noCommunityIcon" [size]="36"></lucide-icon>
-        <p>Noch keiner Gemeinschaft beigetreten</p>
+    <ng-container *transloco="let t; prefix: 'onboarding.language'">
+      <div class="card flex space-x-3 items-center">
+        <span>{{t('changeLanguage')}}:</span>
+       <app-language-switcher />
       </div>
-      } @else {
-      @for (community of ownCommunities(); track community.id) {
-      @if (community.id == this.activeCommunity()?.id) {
-      <div class="card p-0 flex flex-row justify-between items-center bg-primary/20">
-        <div class="flex w-full flex-col items-start px-6 py-3">
-          <div class="flex items-center">
-            <span class="font-bold text-lg">{{community?.name}}</span>
-            @if (community.admin?.id === user().id) {
-            <span class="ml-2 text-xs px-2 py-0.5 rounded-full border border-white/20">Admin</span>
-            }
+    </ng-container>
+    <ng-container *transloco="let t; prefix: 'onboarding'">
+
+      <div class="card flex space-x-3 items-center">
+        <span>{{t('loggedInAs')}}:</span>
+        <img class="h-10 w-10 ml-4 rounded-full" [src]="user().avatar" alt="" width="40px" height="40px" />
+        <span class="text-lg font-bold">
+          {{user().name}}
+        </span>
+      </div>
+    </ng-container>
+    <ng-container *transloco="let t; prefix: 'onboarding.communities'">
+
+      <div class="card space-y-3">
+        <h2>{{t('yourCommunities')}}:</h2>
+
+        @if (ownCommunities().length === 0) {
+        <div class="w-full flex flex-col items-center space-y-3 my-10">
+          <lucide-icon [img]="noCommunityIcon" [size]="36"></lucide-icon>
+          <p>{{t('noCommunityJoined')}}</p>
+        </div>
+        } @else {
+        @for (community of ownCommunities(); track community.id) {
+        @if (community.id == this.activeCommunity()?.id) {
+        <div class="card p-0 flex flex-row justify-between items-center bg-primary/20">
+          <div class="flex w-full flex-col items-start px-6 py-3">
+            <div class="flex items-center">
+              <span class="font-bold text-lg">{{community?.name}}</span>
+              @if (community.admin?.id === user().id) {
+              <span class="ml-2 text-xs px-2 py-0.5 rounded-full border border-white/20">{{t('admin')}}</span>
+              }
+            </div>
+            <span class="text-xs text-gray-400">{{t('joinCode', {code: community?.code})}}</span>
+
           </div>
-          <span class="text-xs text-gray-400">Beitrittscode: {{community?.code}}</span>
-        </div>
 
-        <div class="px-6 py-3">
-          <lucide-icon (click)="openCommuitySettings(community)" class="clickable" [img]="settingsIcon"></lucide-icon>
-        </div>
-
-      </div>
-      } @else {
-      <div class="card p-0 flex flex-row justify-between items-center">
-        <div class="flex w-full flex-col items-start px-6 py-3 clickable" (click)="selectCommunity(community)">
-          <div class="flex items-center">
-            <span class="font-bold text-lg">{{community?.name}}</span>
-            @if (community.admin?.id === user().id) {
-            <span class="ml-2 text-xs px-2 py-0.5 rounded-full border border-white/20">Admin</span>
-            }
+          <div class="px-6 py-3">
+            <lucide-icon (click)="openCommuitySettings(community)" class="clickable" [img]="settingsIcon"></lucide-icon>
           </div>
-          <span class="text-xs text-gray-400">Beitrittscode: {{community?.code}}</span>
+
         </div>
+        } @else {
+        <div class="card p-0 flex flex-row justify-between items-center">
+          <div class="flex w-full flex-col items-start px-6 py-3 clickable" (click)="selectCommunity(community)">
+            <div class="flex items-center">
+              <span class="font-bold text-lg">{{community?.name}}</span>
+              @if (community.admin?.id === user().id) {
+              <span class="ml-2 text-xs px-2 py-0.5 rounded-full border border-white/20">{{t('admin')}}</span>
+              }
+            </div>
+            <span class="text-xs text-gray-400">{{t('joinCode', {code: community?.code})}}</span>
+          </div>
 
-        <div class="px-6 py-3">
-          <lucide-icon (click)="openCommuitySettings(community)" class="clickable" [img]="settingsIcon"></lucide-icon>
+          <div class="px-6 py-3">
+            <lucide-icon (click)="openCommuitySettings(community)" class="clickable" [img]="settingsIcon"></lucide-icon>
+          </div>
+
         </div>
-
-      </div>
-      }
-      }
-      }
-
-      <p class="mt-10">Neue Gemeinschaft erstellen / beitreten</p>
-      <div class="grid grid-cols-2 gap-4 mt-4">
-        <button class="btn-primary w-full" (click)="changeJoinCommunityPopup(true)">Beitreten</button>
-        <button class="btn-neutral w-full" (click)="changeCreateCommunityPopup(true)">Erstellen</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2 class="pb-3">Benutzer bearbeiten</h2>
-
-      <form class="flex flex-col mb-3 w-full" [formGroup]="nameUpdateEditorForm" (ngSubmit)="updateName()">
-        <label for="name">Name</label>
-        <input type="text" id="name" autocomplete="off" formControlName="name" placeholder="Name" class="flex-1" />
-      </form>
-
-      <app-primary-button [isLoading]="isLoadingNameChange"
-        [disabled]="nameUpdateEditorForm.invalid || (name.value === user()?.name)" (clicked)="updateName()"
-        label="Name ändern"></app-primary-button>
-
-      <p class="text-sm mt-6 mb-4">Avatar</p>
-      <div class="relative w-20 h-20 group clickable" (click)="showImageUploadPopup = true">
-        <img [src]="user()?.avatar" class="w-20 h-20 rounded-full border border-gray-700 object-cover"
-          alt="Profile Image" />
-
-        <div
-          class="absolute inset-0 rounded-full bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
-          <lucide-icon [img]="penIcon"></lucide-icon>
+        }
+        }
+        }
+        <p class="mt-10">{{t('joinOrCreateNewCommunity')}}</p>
+        <div class="grid grid-cols-2 gap-4 mt-4">
+          <button class="btn-primary w-full" (click)="changeJoinCommunityPopup(true)">{{t('join')}}</button>
+          <button class="btn-neutral w-full" (click)="changeCreateCommunityPopup(true)">{{t('create')}}</button>
         </div>
       </div>
-    </div>
+    </ng-container>
+    <ng-container *transloco="let t; prefix: 'onboarding.editUser'">
 
-    <div class="card">
-      <h2 class="pb-3">Passwort ändern</h2>
-      <form class="flex flex-col mb-3 w-full" [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
-        <label>Altes Passwort:</label>
-        <input type="password" id="oldPassword" autocomplete="off" formControlName="oldPassword"
-          placeholder="Altes Passwort" class="flex-1 mb-3" />
+      <div class="card">
+        <h2 class="pb-3">{{t('title')}}</h2>
 
-        <label>Neues Passwort:</label>
-        <input type="password" id="newPassword" autocomplete="off" formControlName="newPassword"
-          placeholder="Neues Passwort" class="flex-1" />
+        <form class="flex flex-col mb-3 w-full" [formGroup]="nameUpdateEditorForm" (ngSubmit)="updateName()">
+          <label for="name">{{t('nameLabel')}}</label>
+          <input type="text" id="name" autocomplete="off" formControlName="name" [placeholder]="t('namePlaceholder')"
+            class="flex-1" />
+        </form>
 
-      </form>
+        <app-primary-button [isLoading]="isLoadingNameChange"
+          [disabled]="nameUpdateEditorForm.invalid || (name.value === user()?.name)" (clicked)="updateName()"
+          [label]="t('changeName')"></app-primary-button>
 
-      <app-primary-button [isLoading]="isLoadingPasswordChange" [disabled]="changePasswordForm.invalid"
-        (clicked)="changePassword()" label="Passwort ändern"></app-primary-button>
-    </div>
+        <p class="text-sm mt-6 mb-4">Avatar</p>
+        <div class="relative w-20 h-20 group clickable" (click)="showImageUploadPopup = true">
+          <img [src]="user()?.avatar" class="w-20 h-20 rounded-full border border-gray-700 object-cover"
+            alt="Profile Image" />
 
-    <div class="card">
-      <h2 class="pb-3">Account löschen</h2>
-      <p class="pb-3">Dein Account wird aus allen Gemeinschaften entfernt und alle deine Daten werden gelöscht.</p>
-      @if (!isAdmin()) {
-      <button type="button" (click)="requestToDeleteAccount()" class="btn-danger">Account löschen</button>
-      } @else {
-      <p class="text-danger">Gib als erstes alle deine Adminrollen weiter, um deinen Account zu löschen.
-      </p>
-      }
-    </div>
+          <div
+            class="absolute inset-0 rounded-full bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+            <lucide-icon [img]="penIcon"></lucide-icon>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container *transloco="let t; prefix: 'onboarding.editPassword'">
+
+      <div class="card">
+        <h2 class="pb-3">{{t('title')}}</h2>
+        <form class="flex flex-col mb-3 w-full" [formGroup]="changePasswordForm" (ngSubmit)="changePassword()">
+          <label>{{t('oldPassword')}}:</label>
+          <input type="password" id="oldPassword" autocomplete="off" formControlName="oldPassword"
+            [placeholder]="t('passwordPlaceholder')" class="flex-1 mb-3" />
+
+          <label>{{t('newPassword')}}:</label>
+          <input type="password" id="newPassword" autocomplete="off" formControlName="newPassword"
+            [placeholder]="t('passwordPlaceholder')" class="flex-1" />
+
+        </form>
+
+        <app-primary-button [isLoading]="isLoadingPasswordChange" [disabled]="changePasswordForm.invalid"
+          (clicked)="changePassword()" [label]="t('submit')"></app-primary-button>
+      </div>
+    </ng-container>
+    <ng-container *transloco="let t; prefix: 'onboarding.deleteAccount'">
+
+      <div class="card">
+        <h2 class="pb-3">{{t('title')}}</h2>
+        <p class="pb-3">{{t('description')}}</p>
+        @if (!isAdmin()) {
+        <button type="button" (click)="requestToDeleteAccount()" class="btn-danger">{{t('delete')}}</button>
+        } @else {
+        <p class="text-danger">{{t('passAdminBeforeDeletion')}}
+        </p>
+        }
+      </div>
+    </ng-container>
   </div>
   }
 </div>
+<ng-container *transloco="let t; prefix: 'onboarding.editCommunity'">
 
-<app-popup [show]="communityToEdit != null" (close)="openCommuitySettings(null)" title="Gemeinschaft bearbeiten">
+  <app-popup [show]="communityToEdit != null" (close)="openCommuitySettings(null)" [title]="t('title')">
 
-  <h2 class="pb-3">Name ändern</h2>
+    <h2 class="pb-3">{{t('changeName')}}</h2>
 
-  @if (communityToEdit?.admin?.id === user()?.id) {
-  <form class="flex flex-col mb-3 w-full" [formGroup]="communityNameUpdateEditorForm"
-    (ngSubmit)="updateCommunityName()">
-    <label for="communityName">Name</label>
-    <input type="text" id="communityName" autocomplete="off" formControlName="name" placeholder="Name" class="flex-1" />
-  </form>
+    @if (communityToEdit?.admin?.id === user()?.id) {
+    <form class="flex flex-col mb-3 w-full" [formGroup]="communityNameUpdateEditorForm"
+      (ngSubmit)="updateCommunityName()">
+      <label for="communityName">{{t('nameLabel')}}</label>
+      <input type="text" id="communityName" autocomplete="off" formControlName="name"
+        [placeholder]="t('namePlaceholder')" class="flex-1" />
+    </form>
 
-  <app-primary-button [isLoading]="isLoadingCommunityNameChange"
-    [disabled]="communityNameUpdateEditorForm.invalid || (communityName.value === communityToEdit?.name)"
-    (clicked)="updateCommunityName()" label="Name ändern"></app-primary-button>
-  } @else {
-  <p class="text-danger">Nur der Admin kann den Name ändern</p>
-  }
+    <app-primary-button [isLoading]="isLoadingCommunityNameChange"
+      [disabled]="communityNameUpdateEditorForm.invalid || (communityName.value === communityToEdit?.name)"
+      (clicked)="updateCommunityName()" [label]="t('submit')"></app-primary-button>
+    } @else {
+    <p class="text-danger">{{t('onlyAdminCanChangeName')}}</p>
+    }
 
-  @if (communityToEdit?.admin?.id === user()?.id){
-  <div>
-    <h2 class="pb-3 mt-12">Admin weitergeben</h2>
-    <button type="button" (click)="isChangeAdminOpen = true" class="btn-danger">Admin weitergeben</button>
+    @if (communityToEdit?.admin?.id === user()?.id){
+    <div>
+      <h2 class="pb-3 mt-12">{{t('transferAdmin')}}</h2>
+      <button type="button" (click)="isChangeAdminOpen = true" class="btn-danger">{{t('transferAdmin')}}</button>
 
-    @if (isChangeAdminOpen) {
-    <p>Wähle aus wer die Adminrolle übernehmen soll:</p>
+      @if (isChangeAdminOpen) {
+      <p>{{t('chooseAdmin')}}</p>
 
-    <div class="flex flex-col space-y-3">
-      @for (candidate of adminCandidates; track candidate.id) {
-      <div class="clickable" (click)="changeAdmin(communityToEdit, candidate)">{{candidate.name}}</div>
+      <div class="flex flex-col space-y-3">
+        @for (candidate of adminCandidates; track candidate.id) {
+        <div class="clickable" (click)="changeAdmin(communityToEdit, candidate)">{{candidate.name}}</div>
+        }
+      </div>
       }
     </div>
     }
-  </div>
-  }
 
-  <div class="mt-12">
-    <h2 class="pb-3">Gemeinschaft verlassen</h2>
-    @if (communityToEdit?.admin?.id != user()?.id) {
-    <button type="button" (click)="requestToLeaveCommunity(communityToEdit)" class="btn-danger">Gemeinschaft
-      verlassen</button>
-    } @else {
-    <p class="text-danger">Gib als erstes die Adminrolle an jemanden anderes weiter um die Gemeinschaft zu verlassen.
-    </p>
-    }
+    <div class="mt-12">
+      <h2 class="pb-3">{{t('leaveCommunity')}}</h2>
+      @if (communityToEdit?.admin?.id != user()?.id) {
+      <button type="button" (click)="requestToLeaveCommunity(communityToEdit)"
+        class="btn-danger">{{t('leaveCommunity')}}</button>
+      } @else {
+      <p class="text-danger">{{t('transferAdminRoleBeforeLeaving')}}
+      </p>
+      }
 
-    @if (communityToEdit?.admin?.id === user()?.id) {
-    <h2 class="pb-3 mt-6">Gemeinschaft löschen</h2>
-    <p class="pb-3">Dabei werden alle Daten der Gemeinschaft gelöscht.</p>
+      @if (communityToEdit?.admin?.id === user()?.id) {
+      <h2 class="pb-3 mt-6">{{t('deleteCommunity')}}</h2>
+      <p class="pb-3">{{t('deleteCommunityDescription')}}</p>
 
-    <button type="button" (click)="requestToDeleteCommunity(communityToEdit)" class="btn-danger">Gemeinschaft
-      löschen</button>
-    }
-  </div>
-</app-popup>
+      <button type="button" (click)="requestToDeleteCommunity(communityToEdit)"
+        class="btn-danger">{{t('deleteCommunity')}}</button>
+      }
+    </div>
+  </app-popup>
+</ng-container>
+<ng-container *transloco="let t; prefix: 'onboarding.joinOrCreateCommunity'">
 
-<app-popup [show]="joinCommunityPopup" (close)="joinCommunityPopup = false" title="Gemeinschaft beitreten">
-  <app-join-community (closePopup)="changeJoinCommunityPopup(false)" />
-</app-popup>
+  <app-popup [show]="joinCommunityPopup" (close)="joinCommunityPopup = false" [title]="t('joinCommunity')">
+    <app-join-community (closePopup)="changeJoinCommunityPopup(false)" />
+  </app-popup>
 
-<app-popup [show]="createCommunityPopup" (close)="createCommunityPopup = false" title="Gemeinschaft erstellen">
-  <app-create-community />
-</app-popup>
+  <app-popup [show]="createCommunityPopup" (close)="createCommunityPopup = false" [title]="t('createCommunity')">
+    <app-create-community />
+  </app-popup>
+</ng-container>
+<ng-container *transloco="let t; prefix: 'onboarding.editUser'">
 
-<app-popup [show]="showImageUploadPopup" (close)="showImageUploadPopup = false" title="Avatar hochladen">
-  <app-profile-image-editor (closeEditor)="showImageUploadPopup = false" />
-</app-popup>
+  <app-popup [show]="showImageUploadPopup" (close)="showImageUploadPopup = false" [title]="t('uploadAvatar')">
+    <app-profile-image-editor (closeEditor)="showImageUploadPopup = false" />
+  </app-popup>
+</ng-container>

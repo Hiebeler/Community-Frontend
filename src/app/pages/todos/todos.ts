@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { TranslocoModule } from '@jsverse/transloco';
 import {
   CheckCheckIcon,
   CheckIcon,
@@ -33,6 +34,7 @@ import { TodosService } from 'src/app/services/todos.service';
     PopupComponent,
     Navbar,
     TimeAgoPipe,
+    TranslocoModule
   ],
 })
 export class Todos {

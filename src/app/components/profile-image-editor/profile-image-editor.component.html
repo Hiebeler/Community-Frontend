@@ -1,3 +1,5 @@
+<ng-container *transloco="let t; prefix: 'onboarding.editUser'">
+
 <div class="">
 
   <!-- File Input & Cropper -->
@@ -7,7 +9,7 @@
     <div class=" ">
       <label for="fileInput"
         class="btn-primary clickable">
-        Bild auswählen
+        {{t('chooseImage')}}
       </label>
       <input id="fileInput" type="file" class="hidden" (change)="fileChangeEvent($event)" />
     </div>
@@ -19,11 +21,11 @@
         (cropperReady)="cropperReady()" [resizeToWidth]="512" [resizeToHeight]="512"
         (loadImageFailed)="loadImageFailed()"></image-cropper>
     </div>
-
   </div>
 
   <app-primary-button [isLoading]="isSavingImage"
     [disabled]="!croppedImage"
-    (clicked)="saveImage()" label="Speichern"></app-primary-button>
+    (clicked)="saveImage()" [label]="t('save')"></app-primary-button>
 
 </div>
+</ng-container>

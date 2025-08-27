@@ -15,11 +15,12 @@ import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/api.service';
 import { UserService } from 'src/app/services/user.service';
 import { PrimaryButton } from '../primary-button/primary-button';
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-profile-image-editor',
   templateUrl: './profile-image-editor.component.html',
-  imports: [CommonModule, ImageCropperComponent, PrimaryButton],
+  imports: [CommonModule, ImageCropperComponent, PrimaryButton, TranslocoModule],
 })
 export class ProfileImageEditorComponent {
   @Output() closeEditor: EventEmitter<any> = new EventEmitter();

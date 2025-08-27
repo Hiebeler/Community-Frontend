@@ -13,6 +13,8 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/core": "^20.2.0",
+    "@angular-devkit/schematics": "^20.2.0",
     "@angular/animations": "^20.1.2",
     "@angular/common": "^20.1.2",
     "@angular/core": "^20.1.2",
@@ -22,6 +24,9 @@
     "@angular/router": "^20.1.2",
     "@angular/service-worker": "^20.1.2",
     "@auth0/angular-jwt": "^5.2.0",
+    "@jsverse/transloco": "^7.6.1",
+    "@jsverse/transloco-persist-lang": "^7.0.2",
+    "@schematics/angular": "^20.2.0",
     "@tailwindcss/postcss": "^4.1.11",
     "hammerjs": "^2.0.8",
     "lucide-angular": "^0.525.0",

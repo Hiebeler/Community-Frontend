@@ -1,0 +1,330 @@
+{
+  "profile": {
+    "title": "Profile",
+    "user": "User",
+    "activeCommunity": "Active Community",
+    "members": "Members",
+    "admin": "Admin",
+    "feedback": {
+      "title": "Feedback",
+      "intro": "Your feedback helps us to continuously improve Together. Share problems, ideas, or feature requests with us – we are listening!",
+      "button": "Write Feedback",
+      "popupTitle": "Write Feedback",
+      "popupIntro": "Your feedback helps us to continuously improve Together. Share problems, ideas, or feature requests with us – we are listening!",
+      "label": "Feedback",
+      "placeholder": "Feedback",
+      "submit": "Send"
+    }
+  },
+  "debts": {
+    "title": "Debts",
+    "add": "Add new entry",
+    "allCleared": "All debts cleared",
+    "popup": {
+      "title": "Add Debt",
+      "clearOff": "Settle",
+      "amountPlaceholder": "Amount",
+      "reasonPlaceholder": "Reason",
+      "save": "Save"
+    },
+    "labels": {
+      "amount": "Euro",
+      "reason": "Reason",
+      "debitor": "Debtor",
+      "iOwe": "I Owe",
+      "iGet": "I Receive"
+    },
+    "balances": {
+      "debitorOwesMe": "{{name}} owes me",
+      "iOweDebitor": "I owe {{name}}"
+    },
+    "history": {
+      "title": "History",
+      "dateFormat": "en-US"
+    }
+  },
+  "shoppingList": {
+    "title": "Shopping List",
+    "openItems": {
+      "count": "{{count}} items open:",
+      "empty": "All done",
+      "addNew": "Add new entry"
+    },
+    "doneItems": {
+      "title": "Completed today:"
+    },
+    "editor": {
+      "newTitle": "New Entry",
+      "editTitle": "Edit Entry",
+      "nameLabel": "Name",
+      "namePlaceholder": "Name",
+      "save": "Save",
+      "delete": "Delete",
+      "update": "Update"
+    }
+  },
+  "todos": {
+    "title": "Todos",
+    "openItems": "{{count}} Todos open",
+    "empty": "All Todos completed",
+    "newItem": "New Todo",
+    "doneItems": "{{count}} Todos done",
+    "done": "Completed {{timeAgo}}",
+    "editor": {
+      "newTodoTitle": "New Todo",
+      "nameLabel": "Name",
+      "namePlaceholder": "Name",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "Description",
+      "save": "Save",
+      "delete": "Delete",
+      "update": "Update",
+      "editTodoTitle": "Update Todo"
+    }
+  },
+  "login": {
+    "title": "Login",
+    "emailPlaceholder": "john.doe@example.com",
+    "emailLabel": "Email",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "submit": "Login",
+    "createNewAccount": "Create a new Account",
+    "resetPassword": "Reset Password"
+  },
+  "register": {
+    "title": "Register",
+    "emailPlaceholder": "john.doe@example.com",
+    "emailLabel": "Email",
+    "nameLabel": "Name",
+    "namePlaceholder": "John Doe",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "repeatPasswordLabel": "Repeat Password",
+    "submit": "Register",
+    "alreadyHaveAccount": "I already have an account"
+  },
+  "requestPasswordReset": {
+    "title": "Reset Password",
+    "emailLabel": "Email",
+    "emailPlaceholder": "john.doe@example.com",
+    "submit": "Reset",
+    "sentMessage": "Email has been sent."
+  },
+  "resetPassword": {
+    "title": "Reset Password",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "••••••••",
+    "submit": "Log In"
+  },
+  "confirmEmail": {
+    "title": "Confirm Email",
+    "successMessage": "Your email has been confirmed",
+    "toLogin": "Go to Login"
+  },
+  "onboarding": {
+    "title": "Manage Communities",
+    "loggedInAs": "Logged in as",
+    "language": {
+      "changeLanguage": "Change language"
+    },
+    "communities": {
+      "yourCommunities": "Your Communities",
+      "noCommunityJoined": "You haven't joined any communities yet",
+      "admin": "Admin",
+      "joinCode": "Join Code: {{code}}",
+      "joinOrCreateNewCommunity": "Create / Join a new Community",
+      "join": "Join",
+      "create": "Create"
+    },
+    "editUser": {
+      "title": "Edit User",
+      "nameLabel": "Name",
+      "namePlaceholder": "John Doe",
+      "changeName": "Change Name",
+      "uploadAvatar": "Upload Avatar",
+      "chooseImage": "Choose Image",
+      "save": "Save"
+    },
+    "editPassword": {
+      "title": "Change Password",
+      "oldPassword": "Old Password",
+      "newPassword": "New Password",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Change Password"
+    },
+    "deleteAccount": {
+      "title": "Delete Account",
+      "description": "Your account will be removed from all communities and all your data will be deleted.",
+      "delete": "Delete Account",
+      "passAdminBeforeDeletion": "You must first transfer all your admin roles before deleting your account."
+    },
+    "editCommunity": {
+      "title": "Edit Community",
+      "changeName": "Change Name",
+      "nameLabel": "Name",
+      "namePlaceholder": "Community Name",
+      "submit": "Change Name",
+      "onlyAdminCanChangeName": "Only the admin can change the name",
+      "transferAdmin": "Transfer Admin Role",
+      "chooseAdmin": "Choose who should take over the admin role",
+      "leaveCommunity": "Leave Community",
+      "transferAdminRoleBeforeLeaving": "You must first transfer the admin role to someone else before leaving the community.",
+      "deleteCommunity": "Delete Community",
+      "deleteCommunityDescription": "This will permanently delete all data of the community."
+    },
+    "joinOrCreateCommunity": {
+      "joinCommunity": "Join Community",
+      "createCommunity": "Create Community",
+      "joinCode": "Join Code",
+      "joinCodePlaceholder": "123456",
+      "search": "Search",
+      "create": "Create",
+      "noCommunityFound": "No community exists with this code",
+      "sendJoinRequest": "Send Join Request",
+      "nameOfCommunity": "Community Name",
+      "namePlaceholder": "Community Name"
+    }
+  },
+  "routines": {
+    "title": "Routines",
+    "empty": "No routines yet",
+    "clickToCreateNewRoutine": "Click + to create a new routine",
+    "activeRoutines": "Active Routines",
+    "deactivatedRoutines": "Deactivated Routines",
+    "newRoutine": "Create New Routine",
+    "editRoutine": "Edit Routine",
+    "startDate": "Start Date",
+    "dateFormat": "en-US",
+    "interval": "Interval",
+    "editor": {
+      "nameLabel": "Name",
+      "namePlaceholder": "John Doe",
+      "notesLabel": "Notes",
+      "notesPlaceholder": "Notes",
+      "startDateLabel": "Start Date",
+      "intervalLabel": "Interval",
+      "intervalPlaceholder": "3",
+      "assigned": "Assigned To",
+      "changeAssigned": "Change Assignment",
+      "notAssigned": "Not Assigned",
+      "active": "Active",
+      "save": "Save"
+    }
+  },
+  "calendar": {
+    "title": "Calendar",
+    "days": {
+      "yesterday": "Yesterday",
+      "today": "Today",
+      "tomorrow": "Tomorrow"
+    },
+    "openTasks": "Open Tasks",
+    "addTask": "Add Task",
+    "noTasks": "No tasks on this day",
+    "dayOfWeekFormat": "en-US",
+    "dateFormat": "en-US",
+    "previous": "Previous",
+    "next": "Next",
+    "editEntry": "Edit Entry",
+    "newEntry": "Create New Entry",
+    "form": {
+      "name": "Name",
+      "notes": "Notes",
+      "createEntry": "Create Entry",
+      "update": "Update",
+      "delete": "Delete"
+    }
+  },
+  "landing": {
+    "hero": {
+      "badge": "Free & Easy",
+      "headline1": "Brings Your",
+      "headline2": "Household",
+      "headline3": "Together",
+      "descriptionBefore": "Manage your family, flatshare, or community with shared to-do lists, shopping lists, calendars, and more. Directly in the browser — completely ",
+      "descriptionFree": "free",
+      "descriptionMiddle": " and ",
+      "descriptionNoInstall": "without installation",
+      "descriptionAfter": ".",
+      "ctaApp": "Go to App",
+      "ctaLogin": "Login",
+      "ctaRegister": "Register",
+      "feature1": "100% free",
+      "feature2": "No installation required",
+      "feature3": "Directly in the browser"
+    },
+    "featuresSection": {
+      "titleBadge": "Features",
+      "headline": "Everything your household needs",
+      "description": "From daily tasks to long-term planning — Together has all the tools to organize your household smoothly.",
+      "card1Title": "Shared To-Do Lists",
+      "card1Description": "Create and assign tasks to household members. Track progress and never forget important chores.",
+      "card2Title": "Shopping Lists",
+      "card2Description": "Shared shopping lists synchronized in real-time. Add items, check them off, and never forget anything.",
+      "card3Title": "Shared Calendar",
+      "card3Description": "Keep everyone updated with a shared calendar for appointments, events, and important dates.",
+      "card4Title": "Debt Manager",
+      "card4Description": "Keep track of shared expenses and outstanding amounts. Record debts, settle them, and maintain transparency.",
+      "card5Title": "Multiple Communities",
+      "card5Description": "Organize not only your household but also flatshares, families, or clubs — all in one account. Switch effortlessly between communities."
+    },
+    "whySection": {
+      "title": "Why Together?",
+      "description": "Together makes household organization simple and accessible. No complicated software, no costs.",
+      "card1Title": "Directly in the Browser",
+      "card1Description": "No installation needed. Just open your browser and start immediately on any device.",
+      "card2Title": "Completely Free",
+      "card2Description": "No hidden costs, subscriptions, or premium features. Everything is free forever.",
+      "card3Title": "Easy to Use",
+      "card3Description": "Intuitive interface that everyone understands instantly. No complicated setup required."
+    },
+    "gettingStartedSection": {
+      "title": "Ready in Minutes",
+      "description": "Setting up your household is simple and intuitive. Start organizing today.",
+      "step1Number": "1",
+      "step1Title": "Register",
+      "step1Description": "Create your free account in seconds — no credit card required.",
+      "step2Number": "2",
+      "step2Title": "Set Up Household",
+      "step2Description": "Create your household, give it a name, and customize your space.",
+      "step3Number": "3",
+      "step3Title": "Invite Members",
+      "step3Description": "Invite family, flatmates, or community members via email or link."
+    },
+    "ctaSection": {
+      "headline": "Ready to organize your household?",
+      "description": "Together makes household organization simple and accessible. No complicated software, no costs.",
+      "button": "Get Started Now",
+      "feature1": "100% free",
+      "feature2": "No installation required",
+      "feature3": "Directly in the browser"
+    }
+  },
+  "footer": {
+    "description": "Brings households and communities together through better organization and communication. Free and open source.",
+    "navigationTitle": "Navigation",
+    "legalTitle": "Legal",
+    "links": {
+      "login": "Login",
+      "register": "Register",
+      "github": "Github",
+      "privacy": "Privacy Policy",
+      "imprint": "Imprint"
+    },
+    "credits": "A Ghostbyte Production",
+    "ghostbyte": "Ghostbyte"
+  },
+  "header": {
+    "ctaApp": "To the App",
+    "login": "Login",
+    "register": "Register"
+  },
+  "bottomNav": {
+    "calendar": "Calendar",
+    "todos": "Todos",
+    "shoppingList": "Shopping List",
+    "debts": "Debts",
+    "profile": "Profile"
+  }
+}

@@ -11,11 +11,12 @@ import { AlertService } from 'src/app/services/alert.service';
 import { CommunityService } from 'src/app/services/community.service';
 import { PrimaryButton } from '../primary-button/primary-button';
 import { ToastrService } from 'ngx-toastr';
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-join-community',
   templateUrl: './join-community.component.html',
-  imports: [ReactiveFormsModule, PrimaryButton],
+  imports: [ReactiveFormsModule, PrimaryButton, TranslocoModule],
 })
 export class JoinCommunityComponent implements OnInit {
   @Output() closePopup: EventEmitter<any> = new EventEmitter();

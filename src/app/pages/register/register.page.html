@@ -1,41 +1,40 @@
-  <h1 class="text-2xl mb-8 text-center font-semibold text-gray-900 dark:text-gray-100">Registrieren</h1>
+<ng-container *transloco="let t; prefix: 'register'">
+
+  <h1 class="text-2xl mb-8 text-center font-semibold text-gray-900 dark:text-gray-100">{{t('title')}}</h1>
 
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="mb-6">
-      <label for="email">Email</label>
-      <input type="email" id="email" formControlName="email" placeholder="Email"
-        [ngClass]="email.value ? email.valid ? 'valid-input' : 'invalid-input' : 'empty-input'"
-        class="w-full">
+      <label for="email">{{t('emailLabel')}}</label>
+      <input type="email" id="email" formControlName="email" [placeholder]="t('emailPlaceholder')"
+        [ngClass]="email.value ? email.valid ? 'valid-input' : 'invalid-input' : 'empty-input'" class="w-full">
     </div>
 
     <div class="mb-6">
-      <label for="name">Name</label>
-      <input type="text" id="name" formControlName="name" placeholder="Name"
-        [ngClass]="name.value ? name.valid ? 'valid-input' : 'invalid-input' : 'empty-input'"
-        class="w-full">
+      <label for="name">{{t('nameLabel')}}</label>
+      <input type="text" id="name" formControlName="name" [placeholder]="t('namePlaceholder')"
+        [ngClass]="name.value ? name.valid ? 'valid-input' : 'invalid-input' : 'empty-input'" class="w-full">
     </div>
 
     <div class="mb-6">
-      <label for="password">Passwort</label>
-      <input type="password" id="password" formControlName="password" placeholder="Passwort"
-        [ngClass]="password.value ? password.valid ? 'valid-input' : 'invalid-input' : 'empty-input'"
-        class="w-full">
+      <label for="password">{{t('passwordLabel')}}</label>
+      <input type="password" id="password" formControlName="password" [placeholder]="t('passwordPlaceholder')"
+        [ngClass]="password.value ? password.valid ? 'valid-input' : 'invalid-input' : 'empty-input'" class="w-full">
     </div>
 
     <div class="mb-6">
-      <label for="password2">Passwort
-        wiederholen</label>
-      <input type="password" id="password2" formControlName="password2" placeholder="Passwort wiederholen"
+      <label for="password2">{{t('repeatPasswordLabel')}}</label>
+      <input type="password" id="password2" formControlName="password2" [placeholder]="t('passwordPlaceholder')"
         [ngClass]="password.value ? (password.value === password2.value ? 'valid-input' : 'invalid-input') : 'empty-input'"
         class="w-full">
     </div>
 
     <app-primary-button [isLoading]="isLoading" [disabled]="registerForm.invalid" type="submit"
-    label="Registrieren"></app-primary-button>
+      [label]="t('submit')"></app-primary-button>
   </form>
 
   <div class="flex justify-center mt-6">
     <a routerLink="/login" class="text-primary text-sm hover:underline">
-      Ich habe schon einen Account
+      {{t('alreadyHaveAccount')}}
     </a>
   </div>
+</ng-container>

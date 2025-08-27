@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { TranslocoModule } from '@jsverse/transloco';
 import {
   CheckCheckIcon,
   HistoryIcon,
@@ -34,6 +35,7 @@ import { UserService } from 'src/app/services/user.service';
     LucideAngularModule,
     PopupComponent,
     Navbar,
+    TranslocoModule
   ],
 })
 export class DebtsPage implements OnInit, OnDestroy {

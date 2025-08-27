@@ -1,5 +1,6 @@
 import { Component, effect, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { TranslocoModule } from '@jsverse/transloco';
 import {
   CalendarIcon,
   CheckCheckIcon,
@@ -16,7 +17,7 @@ import { TodosService } from 'src/app/services/todos.service';
 
 @Component({
   selector: 'app-main-layout',
-  imports: [RouterModule, LucideAngularModule],
+  imports: [RouterModule, LucideAngularModule, TranslocoModule],
   templateUrl: './main-layout.component.html',
 })
 export class MainLayoutComponent {

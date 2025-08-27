@@ -1,78 +1,82 @@
-<app-navbar title="Profil">
+<ng-container *transloco="let t; prefix: 'profile'">
+  <app-navbar [title]="t('title')">
+    @if (user()) {
+    <div right class="space-x-3 flex">
+      <a routerLink="/onboarding" class="btn-neutral aspect-square px-0">
+        <lucide-icon [img]="switchIcon"></lucide-icon>
+      </a>
 
-  @if (user()) {
-  <div right class="space-x-3 flex">
-    <a routerLink="/onboarding" class="btn-neutral aspect-square px-0">
-      <lucide-icon [img]="switchIcon"></lucide-icon>
-    </a>
-
-    <button type="button" class="btn-danger aspect-square px-0" (click)="logout()">
-      <lucide-icon [img]="logoutIcon"></lucide-icon>
-    </button>
-  </div>
-  }
-</app-navbar>
+      <button type="button" class="btn-danger aspect-square px-0" (click)="logout()">
+        <lucide-icon [img]="logoutIcon"></lucide-icon>
+      </button>
+    </div>
+    }
+  </app-navbar>
+</ng-container>
 
 @if (user()) {
 <div class="grid gap-4">
+  <ng-container *transloco="let t; prefix: 'profile'">
 
-  <div class="card flex py-8 justify-evenly items-center">
-    <div class="flex flex-col items-center">
-      <span class="text-lg font-bold">
-        {{user().name}}
-      </span>
-      <span class="text-sm">User</span>
+    <div class="card flex py-8 justify-evenly items-center">
+      <div class="flex flex-col items-center">
+        <span class="text-lg font-bold">
+          {{user().name}}
+        </span>
+        <span class="text-sm">{{t('user')}}</span>
+      </div>
+
+      <div class="flex flex-col items-center">
+        <span class="text-xl font-bold">
+          {{community()?.name}}
+        </span>
+        <span class="text-sm">{{t('activeCommunity')}}</span>
+      </div>
     </div>
-
-    <div class="flex flex-col items-center">
-      <span class="text-xl font-bold">
-        {{community()?.name}}
-      </span>
-      <span class="text-sm">Aktive Gemeinschaft</span>
-    </div>
-  </div>
-
-  @if (usersInCommunity().length) {
-  <div class="card">
-    <h2 class="mb-4">Mitglieder:</h2>
-    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-9 gap-2 justify-items-center">
-      @for (user of usersInCommunity(); track user) {
-      <div class="card w-full text-center">
-        <img [src]="user.avatar" alt="" class="rounded-full w-full aspect-square object-cover mb-2" />
-        <p class="text-sm lg:text-lg">{{user?.name}}</p>
-        @if(user.isAdmin) {
-        <span class="text-xs text-primary">Admin</span>
+    @if (usersInCommunity().length) {
+    <div class="card">
+      <h2 class="mb-4">{{t('members')}}:</h2>
+      <div
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-9 gap-2 justify-items-center">
+        @for (user of usersInCommunity(); track user) {
+        <div class="card w-full text-center">
+          <img [src]="user.avatar" alt="" class="rounded-full w-full aspect-square object-cover mb-2" />
+          <p class="text-sm lg:text-lg">{{user?.name}}</p>
+          @if(user.isAdmin) {
+          <span class="text-xs text-primary">{{t('admin')}}</span>
+          }
+        </div>
         }
       </div>
-      }
     </div>
-  </div>
-  }
+    }
+  </ng-container>
 
   @if (user().isAdmin) {
   <app-open-requests />
   }
+  <ng-container *transloco="let t; prefix: 'profile.feedback'">
 
-  <div class="card">
-    <h2 class="mb-3">Feedback</h2>
-    <p>Dein Feedback hilft uns, Together stetig zu verbessern. Teile uns hier Probleme, Ideen oder Feature-Vorschläge
-      mit - wir hören zu!</p>
+    <div class="card">
+      <h2 class="mb-3">{{t('title')}}</h2>
+      <p>{{t('intro')}}</p>
 
-    <button class="btn-primary mt-3" (click)="openFeedbackPopup()">Feedback schreiben</button>
-  </div>
+      <button class="btn-primary mt-3" (click)="openFeedbackPopup()">{{t('button')}}</button>
+    </div>
+  </ng-container>
 </div>
 }
+<ng-container *transloco="let t; prefix: 'profile.feedback'">
 
-<app-popup [show]="feedbackPopupIsOpen()" (close)="feedbackPopupIsOpen.set(false)" title="Feedback schreiben">
-  <p class="mb-5">Dein Feedback hilft uns, Together stetig zu verbessern. Teile uns hier Probleme, Ideen oder
-    Feature-Vorschläge
-    mit - wir hören zu!</p>
-  <form [formGroup]="feedbackForm" (ngSubmit)="sendFeedback()" class="space-y-3">
-    <label for="feedback">Feedback</label>
-    <textarea type="text" id="feedback" formControlName="feedback" placeholder="Feedback" autocomplete="off"
-      class="w-full h-50"></textarea>
+  <app-popup [show]="feedbackPopupIsOpen()" (close)="feedbackPopupIsOpen.set(false)" [title]="t('title')">
+    <p class="mb-5">{{t('popupIntro')}}</p>
+    <form [formGroup]="feedbackForm" (ngSubmit)="sendFeedback()" class="space-y-3">
+      <label for="feedback">{{t('label')}}</label>
+      <textarea type="text" id="feedback" formControlName="feedback" [placeholder]="t('placeholder')" autocomplete="off"
+        class="w-full h-50"></textarea>
 
-    <app-primary-button type="submit" customClasses="btn-primary w-full" [disabled]="feedbackForm.invalid"
-      [isLoading]="isSendingFeedback()" label="Senden"></app-primary-button>
-  </form>
-</app-popup>
+      <app-primary-button type="submit" customClasses="btn-primary w-full" [disabled]="feedbackForm.invalid"
+        [isLoading]="isSendingFeedback()" [label]="t('submit')"></app-primary-button>
+    </form>
+  </app-popup>
+</ng-container>

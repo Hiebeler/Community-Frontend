@@ -1,21 +1,25 @@
-<div class="card clickable">
-  <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
-    <div>
-      <p class="font-medium">{{ routine.name }}</p>
-      <div class="flex flex-wrap gap-1 mt-2">
-        @for (user of routine.assignedUsers; track user) {
-        <div class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-1.5 rounded-md">
-          <img [src]="user.avatar" alt="" class="w-4 h-4 rounded-full mr-1" />
-          <span>{{ user.name }}</span>
+<ng-container *transloco="let t; prefix: 'routines'">
+
+  <div class="card clickable">
+    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
+      <div>
+        <p class="font-medium">{{ routine.name }}</p>
+        <div class="flex flex-wrap gap-1 mt-2">
+          @for (user of routine.assignedUsers; track user) {
+          <div class="flex items-center bg-[var(--ion-color-dark)] h-6 text-[0.7rem] px-1.5 rounded-md">
+            <img [src]="user.avatar" alt="" class="w-4 h-4 rounded-full mr-1" />
+            <span>{{ user.name }}</span>
+          </div>
+          }
         </div>
-        }
+      </div>
+
+      <div>
+        <p class="text-sm">{{t('startDate')}}: {{ routine.startDate.toLocaleDateString(t('dateFormat'), { year:
+          'numeric', month: 'short',
+          day: 'numeric' }) }}</p>
+        <p class="text-sm m-0">{{t('interval')}}: {{ routine.interval + (routine.interval === 1 ? ' Tag' : ' Tage') }}</p>
       </div>
     </div>
-
-    <div>
-      <p class="text-sm">Startdatum: {{ routine.startDate.toLocaleDateString('de-AT', { year: 'numeric', month: 'short',
-        day: 'numeric' }) }}</p>
-      <p class="text-sm m-0">Intervall: {{ routine.interval + (routine.interval === 1 ? ' Tag' : ' Tage') }}</p>
-    </div>
   </div>
-</div>
+</ng-container>

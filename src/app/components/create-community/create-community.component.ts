@@ -11,11 +11,12 @@ import { Subscription } from 'rxjs';
 import { CommunityService } from 'src/app/services/community.service';
 import { UserService } from 'src/app/services/user.service';
 import { PrimaryButton } from '../primary-button/primary-button';
+import { TranslocoModule } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-create-community',
   templateUrl: './create-community.component.html',
-  imports: [ReactiveFormsModule, PrimaryButton],
+  imports: [ReactiveFormsModule, PrimaryButton, TranslocoModule],
 })
 export class CreateCommunityComponent implements OnInit {
   subscriptions: Subscription[] = [];

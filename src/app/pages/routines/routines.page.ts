@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { TranslocoModule } from '@jsverse/transloco';
 import { ArrowLeftIcon, LucideAngularModule, PlusIcon } from 'lucide-angular';
 import { Subscription } from 'rxjs';
 import { Navbar } from 'src/app/components/navbar/navbar';
@@ -20,7 +21,8 @@ import { CalendarService } from 'src/app/services/calendar.service';
     RoutineCardComponent,
     LucideAngularModule,
     PopupComponent,
-    Navbar
+    Navbar,
+    TranslocoModule
   ],
 })
 export class RoutinesPage implements OnInit, OnDestroy {

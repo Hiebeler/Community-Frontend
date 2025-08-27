@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-
+//TODO: translate this
 @Pipe({
   name: 'timeAgo',
 })

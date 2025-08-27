@@ -5,11 +5,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { TranslocoModule } from '@jsverse/transloco';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-request-password-reset',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, TranslocoModule],
   templateUrl: './request-password-reset.html',
 })
 export class RequestPasswordReset {

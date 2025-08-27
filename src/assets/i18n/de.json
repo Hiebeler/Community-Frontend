@@ -1,0 +1,339 @@
+{
+  "profile": {
+    "title": "Profil",
+    "user": "Benutzer",
+    "activeCommunity": "Aktive Gemeinschaft",
+    "members": "Mitglieder",
+    "admin": "Admin",
+    "feedback": {
+      "title": "Feedback",
+      "intro": "Dein Feedback hilft uns, Together stetig zu verbessern. Teile uns hier Probleme, Ideen oder Feature-Vorschläge mit – wir hören zu!",
+      "button": "Feedback schreiben",
+      "popupTitle": "Feedback schreiben",
+      "popupIntro": "Dein Feedback hilft uns, Together stetig zu verbessern. Teile uns hier Probleme, Ideen oder Feature-Vorschläge mit – wir hören zu!",
+      "label": "Feedback",
+      "placeholder": "Feedback",
+      "submit": "Senden"
+    }
+  },
+  "debts": {
+    "title": "Schulden",
+    "add": "Neuen Eintrag hinzufügen",
+    "allCleared": "Alle Schulden beglichen",
+    "popup": {
+      "title": "Schulden anlegen",
+      "clearOff": "Begleichen",
+      "amountPlaceholder": "Menge",
+      "reasonPlaceholder": "Grund",
+      "save": "Speichern"
+    },
+    "labels": {
+      "amount": "Euro",
+      "reason": "Grund",
+      "debitor": "Schuldner",
+      "iOwe": "Ich schulde",
+      "iGet": "Ich bekomme"
+    },
+    "balances": {
+      "debitorOwesMe": "{{name}} schuldet mir",
+      "iOweDebitor": "Ich schulde {{name}}"
+    },
+    "history": {
+      "title": "Verlauf",
+      "dateFormat": "de-AT"
+    }
+  },
+  "shoppingList": {
+    "title": "Einkaufsliste",
+    "openItems": {
+      "count": "{{count}} Elemente offen:",
+      "empty": "Alles erledigt",
+      "addNew": "Neuen Eintrag hinzufügen"
+    },
+    "doneItems": {
+      "title": "Heute erledigt:"
+    },
+    "editor": {
+      "newTitle": "Neuer Eintrag",
+      "editTitle": "Eintrag bearbeiten",
+      "nameLabel": "Name",
+      "namePlaceholder": "Name",
+      "save": "Speichern",
+      "delete": "Löschen",
+      "update": "Updaten"
+    }
+  },
+  "todos": {
+    "title": "Todos",
+    "openItems": "{{count}} Todos offen",
+    "empty": "Alles erledigt",
+    "newItem": "Neues Todo erstellen",
+    "doneItems": "{{count}} Todos erledigt",
+    "done": "Erledigt {{timeAgo}}",
+    "editor": {
+      "newTodoTitle": "Neues Todo",
+      "nameLabel": "Name",
+      "namePlaceholder": "Name",
+      "descriptionLabel": "Beschreibung",
+      "descriptionPlaceholder": "Beschreibung",
+      "save": "Speichern",
+      "delete": "Löschen",
+      "update": "Updaten",
+      "editTodoTitle": "Eintrag bearbeiten"
+    }
+  },
+  "login": {
+    "title": "Anmelden",
+    "emailPlaceholder": "max.mustermann@example.com",
+    "emailLabel": "Email",
+    "passwordLabel": "Passwort",
+    "passwordPlaceholder": "Passwort",
+    "submit": "Anmelden",
+    "createNewAccount": "Neuen Account erstellen",
+    "resetPassword": "Passwort zurücksetzen"
+  },
+  "register": {
+    "title": "Registrieren",
+    "emailPlaceholder": "max.mustermann@example.com",
+    "emailLabel": "Email",
+    "nameLabel": "Name",
+    "namePlaceholder": "Max Mustermann",
+    "passwordLabel": "Passwort",
+    "passwordPlaceholder": "••••••••",
+    "repeatPasswordLabel": "Passwort wiederholen",
+    "submit": "Registrieren",
+    "alreadyHaveAccount": "Ich habe schon einen Account"
+  },
+  "requestPasswordReset": {
+    "title": "Passwort zurücksetzen",
+    "emailLabel": "E-Mail",
+    "emailPlaceholder": "deine.email@example.com",
+    "submit": "Zurücksetzen",
+    "sentMessage": "E-Mail wurde gesendet."
+  },
+  "resetPassword": {
+    "title": "Passwort zurücksetzen",
+    "passwordLabel": "Passwort",
+    "passwordPlaceholder": "••••••••",
+    "submit": "Anmelden"
+  },
+  "confirmEmail": {
+    "title": "E-Mail bestätigen",
+    "successMessage": "Deine E-Mail wurde bestätigt",
+    "toLogin": "Zum Login"
+  },
+  "onboarding": {
+    "title": "Gemeinschaften verwalten",
+    "loggedInAs": "Angemeldet als",
+    "language": {
+      "changeLanguage": "Sprache ändern"
+    },
+    "communities": {
+      "yourCommunities": "Deine Gemeinschaften",
+      "noCommunityJoined": "Noch keiner Gemeinschaft beigetreten",
+      "admin": "Admin",
+      "joinCode": "Beitrittscode: {{code}}",
+      "joinOrCreateNewCommunity": "Neue Gemeinschaft erstellen / beitreten",
+      "join": "Beitreten",
+      "create": "Erstellen"
+    },
+    "editUser": {
+      "title": "User bearbeiten",
+      "nameLabel": "Name",
+      "namePlaceholder": "Max Mustermann",
+      "changeName": "Name ändern",
+      "uploadAvatar": "Avatar hochladen",
+      "chooseImage": "Bild auswählen",
+      "save": "Speichern"
+    },
+    "editPassword": {
+      "title": "Passwort ändern",
+      "oldPassword": "Altes Passwort",
+      "newPassword": "Neues Passwort",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Passwort ändern"
+    },
+    "deleteAccount": {
+      "title": "Account löschen",
+      "description": "Dein Account wird aus allen Gemeinschaften entfernt und alle deine Daten werden gelöscht.",
+      "delete": "Account Löschen",
+      "passAdminBeforeDeletion": "Gib als erstes alle deine Adminrollen weiter, um deinen Account zu löschen."
+    },
+    "editCommunity": {
+      "title": "Gemeinschaft bearbeiten",
+      "changeName": "Name ändern",
+      "nameLabel": "Name",
+      "namePlaceholder": "Gemeinschaftsname",
+      "submit": "Name ändern",
+      "onlyAdminCanChangeName": "Nur der Admin kann den Name ändern",
+      "transferAdmin": "Admin Weitergeben",
+      "chooseAdmin": "Wähle aus wer die Adminrolle übernehmen soll",
+      "leaveCommunity": "Gemeinschaft verlassen",
+      "transferAdminRoleBeforeLeaving": "Gib als erstes die Adminrolle an jemanden anderes weiter um die Gemeinschaft zu verlassen.",
+      "deleteCommunity": "Gemeinschaft löschen",
+      "deleteCommunityDescription": "Dabei werden alle Daten der Gemeinschaft gelöscht"
+    },
+    "joinOrCreateCommunity": {
+      "joinCommunity": "Gemeinschaft beitreten",
+      "createCommunity": "Gemeinschaft erstellen",
+      "joinCode": "Beitrittscode",
+      "joinCodePlaceholder": "123456",
+      "search": "Suchen",
+      "create": "Erstellen",
+      "noCommunityFound": "Es existiert keine Gemeinschaft mit diesem Code",
+      "sendJoinRequest": "Beitrittsanfrage senden",
+      "nameOfCommunity": "Name der Gemeinschaft",
+      "namePlaceholder": "Gemeinschaftsname"
+    }
+  },
+  "routines": {
+    "title": "Routinen",
+    "empty": "Noch keine Routinen",
+    "clickToCreateNewRoutine": "Klicke + um eine neue Routine anzulegen",
+    "activeRoutines": "Aktive Routinen",
+    "deactivatedRoutines": "Deaktivierte Routinen",
+    "newRoutine": "Neue Routine erstellen",
+    "editRoutine": "Routine bearbeiten",
+    "startDate": "Startdatum",
+    "dateFormat": "de-AT",
+    "interval": "Intervall",
+    "editor": {
+      "nameLabel": "Name",
+      "namePlaceholder": "Max Mustermann",
+      "notesLabel": "Notizen",
+      "notesPlaceholder": "Notizen",
+      "startDateLabel": "Startdatum",
+      "intervalLabel": "Intervall",
+      "intervalPlaceholder": "3",
+      "assigned": "Zuständig",
+      "changeAssigned": "Zuständige ändern",
+      "notAssigned": "Nicht zuständig",
+      "active": "Aktiviert",
+      "save": "Speichern"
+    }
+  },
+  "calendar": {
+    "title": "Kalender",
+    "days": {
+      "yesterday": "Gestern",
+      "today": "Heute",
+      "tomorrow": "Morgen"
+    },
+    "openTasks": "Offene Aufgaben",
+    "addTask": "Aufgabe hinzufügen",
+    "noTasks": "Keine Aufgaben an diesem Tag",
+    "dayOfWeekFormat": "de-AT",
+    "dateFormat": "de-AT",
+    "previous": "Zurück",
+    "next": "Weiter",
+    "editEntry": "Eintrag bearbeiten",
+    "newEntry": "Neuen Eintrag erstellen",
+    "form": {
+      "name": "Name",
+      "notes": "Notizen",
+      "createEntry": "Eintrag erstellen",
+      "update": "Updaten",
+      "delete": "Löschen"
+    }
+  },
+  "landing": {
+    "hero": {
+      "badge": "Kostenlos & Einfach",
+      "headline1": "Bringt Euren",
+      "headline2": "Haushalt",
+      "headline3": "Zusammen",
+      "descriptionBefore": "Verwaltet eure Familie, WG oder Gemeinschaft mit geteilten To-Do-Listen, Einkaufslisten, Kalendern und mehr. Direkt im Browser - komplett ",
+      "descriptionFree": "kostenlos",
+      "descriptionMiddle": " und ",
+      "descriptionNoInstall": "ohne Installation",
+      "descriptionAfter": ".",
+      "ctaApp": "Zur App",
+      "ctaLogin": "Anmelden",
+      "ctaRegister": "Registrieren",
+      "feature1": "100% kostenlos",
+      "feature2": "Keine Installation nötig",
+      "feature3": "Direkt im Browser"
+    },
+    "featuresSection": {
+      "titleBadge": "Funktionen",
+      "headline": "Alles was euer Haushalt braucht",
+      "description": "Von täglichen Aufgaben bis zur langfristigen Planung - Together hat alle Tools, um euren Haushalt reibungslos zu organisieren.",
+      "card1Title": "Geteilte To-Do-Listen",
+      "card1Description": "Erstellt und verteilt Aufgaben an Haushaltsmitglieder. Verfolgt den Fortschritt und vergesst nie wieder wichtige Erledigungen.",
+      "card2Title": "Einkaufslisten",
+      "card2Description": "Gemeinsame Einkaufslisten, die in Echtzeit synchronisiert werden. Fügt Artikel hinzu, hakt sie ab und vergesst nichts mehr.",
+      "card3Title": "Gemeinsamer Kalender",
+      "card3Description": "Haltet alle auf dem Laufenden mit einem geteilten Kalender für Termine, Veranstaltungen und wichtige Daten.",
+      "card4Title": "Schuldenmanager",
+      "card4Description": "Behaltet den Überblick über gemeinsame Ausgaben und offene Beträge. Erfasst Schulden, gleicht sie aus und sorgt für klare Verhältnisse im Haushalt.",
+      "card5Title": "Mehrere Communities",
+      "card5Description": "Organisiert nicht nur euren Haushalt, sondern auch WG, Familie oder Vereine - alles in einem Konto. Wechselt mühelos zwischen verschiedenen Communities und behaltet den Überblick."
+    },
+    "whySection": {
+      "title": "Warum Together?",
+      "description": "Together macht Haushaltsorganisation einfach und zugänglich. Keine komplizierte Software, keine Kosten.",
+      "card1Title": "Direkt im Browser",
+      "card1Description": "Keine Installation nötig. Öffnet einfach den Browser und legt sofort los - auf jedem Gerät.",
+      "card2Title": "Komplett kostenlos",
+      "card2Description": "Keine versteckten Kosten, keine Abonnements, keine Premium-Features. Alles ist für immer kostenlos.",
+      "card3Title": "Einfach zu verwenden",
+      "card3Description": "Intuitive Bedienung, die jeder sofort versteht. Keine komplizierte Einrichtung nötig."
+    },
+    "gettingStartedSection": {
+      "title": "In wenigen Minuten startklar",
+      "description": "Die Einrichtung eures Haushalts ist einfach und intuitiv. Fangt noch heute an zu organisieren.",
+      "step1Number": "1",
+      "step1Title": "Registrieren",
+      "step1Description": "Erstellt euer kostenloses Konto in wenigen Sekunden - keine Kreditkarte nötig.",
+      "step2Number": "2",
+      "step2Title": "Haushalt einrichten",
+      "step2Description": "Erstellt euren Haushalt, gebt ihm einen Namen und passt euren Bereich an.",
+      "step3Number": "3",
+      "step3Title": "Mitglieder einladen",
+      "step3Description": "Ladet Familie, Mitbewohner oder Gemeinschaftsmitglieder per E-Mail oder Link ein."
+    },
+    "ctaSection": {
+      "headline": "Bereit, euren Haushalt zu organisieren?",
+      "description": "Together macht Haushaltsorganisation einfach und zugänglich. Keine komplizierte Software, keine Kosten.",
+      "button": "Jetzt Starten",
+      "feature1": "100% kostenlos",
+      "feature2": "Keine Installation nötig",
+      "feature3": "Direkt im Browser"
+    },
+    "footer": {
+      "description": "Bringt Haushalte und Gemeinschaften durch bessere Organisation und Kommunikation zusammen. Kostenlos und open source.",
+      "navigationLogin": "Anmelden",
+      "navigationRegister": "Registrieren",
+      "navigationGithub": "Github",
+      "legalPrivacy": "Datenschutzerklärung",
+      "legalImprint": "Impressum",
+      "credit": "A Ghostbyte Production"
+    }
+  },
+  "footer": {
+    "description": "Bringt Haushalte und Gemeinschaften durch bessere Organisation und Kommunikation zusammen. Kostenlos und open source.",
+    "navigationTitle": "Navigation",
+    "legalTitle": "Rechtliches",
+    "links": {
+      "login": "Anmelden",
+      "register": "Registrieren",
+      "github": "Github",
+      "privacy": "Datenschutzerklärung",
+      "imprint": "Impressum"
+    },
+    "credits": "A Ghostbyte Production",
+    "ghostbyte": "Ghostbyte"
+  },
+  "header": {
+    "ctaApp": "Zur App",
+    "login": "Anmelden",
+    "register": "Registrieren"
+  },
+  "bottomNav": {
+    "calendar": "Kalender",
+    "todos": "Todo's",
+    "shoppingList": "Einkaufsliste",
+    "debts": "Schulden",
+    "profile": "Profil"
+  }
+}

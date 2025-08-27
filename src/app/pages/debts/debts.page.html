@@ -1,93 +1,94 @@
-<app-navbar title="Schulden">
-  <a left routerLink="/debts/history" class="btn-primary aspect-square px-0">
-    <lucide-icon [img]="receiptIcon"></lucide-icon>
-  </a>
+<ng-container *transloco="let t; prefix: 'debts'">
+  <app-navbar [title]="t('title')">
+    <a left routerLink="/debts/history" class="btn-primary aspect-square px-0">
+      <lucide-icon [img]="receiptIcon"></lucide-icon>
+    </a>
 
-  <button right type="button" class="btn-primary aspect-square px-0" (click)="openEditor(true)">
-    <lucide-icon [img]="plusIcon"></lucide-icon>
-  </button>
-</app-navbar>
-
+    <button right type="button" class="btn-primary aspect-square px-0" (click)="openEditor(true)">
+      <lucide-icon [img]="plusIcon"></lucide-icon>
+    </button>
+  </app-navbar>
+</ng-container>
 
 <!-- No Items -->
-@if (!allBalances.length) {
-<div class="flex flex-col items-center text-center space-y-3 py-14 card">
-  <lucide-icon [img]="alldoneIcon" size="42"></lucide-icon>
-  <h2 class="text-xl font-semibold mt-0">Alle Schulden beglichen</h2>
-  <button type="button" class="btn-primary flex items-center justify-center space-x-2"
-    (click)="openEditor(true)" aria-label="Neuen Eintrag hinzufügen">
-    <lucide-icon [img]="plusIcon"></lucide-icon>
-    <span>Neuen Eintrag hinzufügen</span>
-  </button>
-</div>
-}
+<ng-container *transloco="let t; prefix: 'debts'">
 
-<!-- Debt List -->
-@if (allBalances.length) {
-<div class="space-y-4">
-  @for (balance of allBalances; track balance) {
-  <div class="card">
-
-    <div class="flex items-center justify-between mb-4">
-      <div class="flex items-center space-x-3">
-        <img [src]="balance.debitor.avatar" alt="" class="w-10 h-10 rounded-full object-cover">
-        <p class="font-medium">{{balance.debitor.name}}</p>
-      </div>
-
-      <button type="button" class="btn-primary" (click)="openClearOffEditor(balance)">
-        <lucide-icon [img]="scaleIcon"></lucide-icon>
-      </button>
-    </div>
-
-    <div class="flex flex-col items-center">
-      <p class="text-sm text-gray-400">
-        @if (balance.amount < 0) { {{balance.debitor.name}} schuldet mir } @if (balance.amount> 0) { Ich
-          schulde {{balance.debitor.name}} }
-      </p>
-
-      <h2 [ngClass]="balance.amount < 0 ? 'text-green-400' : 'text-red-400'" class="text-3xl font-bold mt-2">
-        {{balance.amount < 0 ? (balance.amount * -1) : balance.amount}} € </h2>
-    </div>
-
+  @if (!allBalances.length) {
+  <div class="flex flex-col items-center text-center space-y-3 py-14 card">
+    <lucide-icon [img]="alldoneIcon" size="42"></lucide-icon>
+    <h2 class="text-xl font-semibold mt-0">{{t('allCleared')}}</h2>
+    <button type="button" class="btn-primary flex items-center justify-center space-x-2" (click)="openEditor(true)"
+      aria-label="Neuen Eintrag hinzufügen">
+      <lucide-icon [img]="plusIcon"></lucide-icon>
+      <span>{{t('add')}}</span>
+    </button>
   </div>
   }
-</div>
-}
+  <!-- Debt List -->
+  @if (allBalances.length) {
+  <div class="space-y-4">
+    @for (balance of allBalances; track balance) {
+    <div class="card">
+
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center space-x-3">
+          <img [src]="balance.debitor.avatar" alt="" class="w-10 h-10 rounded-full object-cover">
+          <p class="font-medium">{{balance.debitor.name}}</p>
+        </div>
+
+        <button type="button" class="btn-primary" (click)="openClearOffEditor(balance)">
+          <lucide-icon [img]="scaleIcon"></lucide-icon>
+        </button>
+      </div>
+
+      <div class="flex flex-col items-center">
+        <p class="text-sm text-gray-400">
+          @if (balance.amount < 0) { {{ t('balances.debitorOwesMe', { name: balance.debitor.name }) }} } @if
+            (balance.amount> 0) {
+            {{ t('balances.iOweDebitor', { name: balance.debitor.name }) }}
+            }
+        </p>
+
+        <h2 [ngClass]="balance.amount < 0 ? 'text-green-400' : 'text-red-400'" class="text-3xl font-bold mt-2">
+          {{balance.amount < 0 ? (balance.amount * -1) : balance.amount}} € </h2>
+      </div>
+
+    </div>
+    }
+  </div>
+  }
+
+  <app-popup [show]="clearOffEditorBalance !== null" (close)="clearOffEditorBalance = null"
+    [title]="clearOffEditorBalance?.debitor?.name">
+    <form [formGroup]="clearOffBalanceEditorForm" (ngSubmit)="clearOffBalance(clearOffEditorBalance)" class="space-y-4">
+      <input type="number" formControlName="amount" placeholder="Amount"
+        class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-white">
+
+      <button type="button" class="btn-primary w-full" [disabled]="clearOffBalanceEditorForm.invalid"
+        (click)="clearOffBalance(clearOffEditorBalance)">
+        {{t('popup.clearOff')}}
+      </button>
+    </form>
+
+  </app-popup>
 
 
-<app-popup [show]="clearOffEditorBalance !== null" (close)="clearOffEditorBalance = null"
-  [title]="clearOffEditorBalance?.debitor?.name">
-  <form [formGroup]="clearOffBalanceEditorForm" (ngSubmit)="clearOffBalance(clearOffEditorBalance)" class="space-y-4">
-    <input type="number" formControlName="amount" placeholder="Amount"
-      class="w-full bg-gray-800 border border-gray-600 rounded p-2 text-white">
-
-    <button type="button" class="btn-primary w-full" [disabled]="clearOffBalanceEditorForm.invalid"
-      (click)="clearOffBalance(clearOffEditorBalance)">
-      Begleichen
-    </button>
-  </form>
-
-</app-popup>
-
-
-<app-popup [show]="editorIsOpen" (close)="editorIsOpen = false" title="Schulden anlegen">
+<app-popup [show]="editorIsOpen" (close)="editorIsOpen = false" [title]="t('popup.title')">
   <form [formGroup]="itemEditorForm" (ngSubmit)="saveDebt()" class="space-y-4">
 
     <!-- Schuld Type Toggle -->
     <div class="flex space-x-2">
-      <button type="button" class="w-1/2" [ngClass]="iOwe ? 'btn-primary' : 'btn-neutral'"
-        (click)="changeIOwe(true)">
-        Ich Schulde
+      <button type="button" class="w-1/2" [ngClass]="iOwe ? 'btn-primary' : 'btn-neutral'" (click)="changeIOwe(true)">
+        {{t('labels.iOwe')}}
       </button>
-      <button type="button" class="w-1/2" [ngClass]="!iOwe ? 'btn-primary' : 'btn-neutral'"
-        (click)="changeIOwe(false)">
-        Ich Bekomme
+      <button type="button" class="w-1/2" [ngClass]="!iOwe ? 'btn-primary' : 'btn-neutral'" (click)="changeIOwe(false)">
+        {{t('labels.iGet')}}
       </button>
     </div>
 
     <!-- Schuldner -->
     <div>
-      <p class="text-sm text-gray-300 mb-1">Schuldner:</p>
+      <p class="text-sm text-gray-300 mb-1">{{t('labels.debitor')}}:</p>
       <select formControlName="debitor" class="w-full ">
         @for (user of usersInCommunity(); track user) {
           @if (user.id !== currentUser().id) {
@@ -99,19 +100,20 @@
 
     <!-- Amount -->
     <div>
-      <p class="text-sm text-gray-300 mb-1">Euro:</p>
-      <input type="number" formControlName="amount" placeholder="Menge" class="w-full">
+      <p class="text-sm text-gray-300 mb-1">{{t('labels.amount')}}:</p>
+      <input type="number" formControlName="amount" [placeholder]="t('popup.amountPlaceholder')" class="w-full">
     </div>
 
     <!-- Reason -->
     <div>
-      <p class="text-sm text-gray-300 mb-1">Grund:</p>
-      <input type="text" formControlName="name" placeholder="Grund" class="w-full">
+      <p class="text-sm text-gray-300 mb-1">{{t('labels.reason')}}</p>
+      <input type="text" formControlName="name" [placeholder]="t('popup.reasonPlaceholder')" class="w-full">
     </div>
 
     <button type="button" class="btn-primary w-full" [disabled]="itemEditorForm.invalid" (click)="saveDebt()">
-      Speichern
+      {{t('popup.save')}}
     </button>
 
   </form>
 </app-popup>
+</ng-container>

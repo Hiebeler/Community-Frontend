@@ -3,10 +3,12 @@ import { RouterModule } from '@angular/router';
 import { ArrowRightIcon, LucideAngularModule } from 'lucide-angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { Footer } from 'src/app/components/footer/footer';
+import { TranslocoModule } from '@jsverse/transloco';
+import { LanguageSwitcher } from "src/app/components/language-switcher/language-switcher";
 
 @Component({
   selector: 'app-landing-layout',
-  imports: [RouterModule, LucideAngularModule, Footer],
+  imports: [RouterModule, LucideAngularModule, Footer, TranslocoModule, LanguageSwitcher],
   templateUrl: './landing-layout.component.html',
 })
 export class LandingLayoutComponent {

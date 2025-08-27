@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { TranslocoModule } from '@jsverse/transloco';
 import {
   CheckCheckIcon,
   CheckIcon,
@@ -31,6 +32,7 @@ import { ShoppingService } from 'src/app/services/shopping.service';
     PopupComponent,
     Navbar,
     PrimaryButton,
+    TranslocoModule
   ],
 })
 export class ShoppingListPage {
