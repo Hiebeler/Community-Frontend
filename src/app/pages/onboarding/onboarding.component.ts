@@ -175,6 +175,7 @@ export class OnboardingComponent implements OnInit {
         .getUsersInCommunity(community.id)
         .subscribe((res) => {
           if (res.success) {
+            console.log(res.data);
             this.adminCandidates = res.data.filter(
               (el) => el.id !== this.user().id
             );

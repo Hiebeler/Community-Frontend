@@ -2,7 +2,7 @@
 <div @fadeBackdrop class="fixed inset-0 z-40 bg-[#0006] will-change-opacity"></div>
 
 <div class="fixed inset-0 z-50 flex items-center justify-center p-3">
-  <div class="card p-6 w-full max-w-4xl shadow-xl relative will-change-transform will-change-opacity" @fadeScale>
+  <div class="card p-6 w-full max-w-4xl shadow-xl relative will-change-transform will-change-opacity h-full overflow-auto" @fadeScale>
     <div class="w-full flex justify-between items-center pb-5">
       <span>{{ title }}</span>
       <button (click)="onBackdropClick()"

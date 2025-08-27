@@ -175,14 +175,19 @@
     @if (communityToEdit?.admin?.id === user()?.id){
     <div>
       <h2 class="pb-3 mt-12">{{t('transferAdmin')}}</h2>
-      <button type="button" (click)="isChangeAdminOpen = true" class="btn-danger">{{t('transferAdmin')}}</button>
+      <button type="button" (click)="isChangeAdminOpen = true" class="btn-danger mb-2">{{t('transferAdmin')}}</button>
 
       @if (isChangeAdminOpen) {
       <p>{{t('chooseAdmin')}}</p>
 
-      <div class="flex flex-col space-y-3">
+      <div class="flex flex-col space-y-2 mt-2">
         @for (candidate of adminCandidates; track candidate.id) {
-        <div class="clickable" (click)="changeAdmin(communityToEdit, candidate)">{{candidate.name}}</div>
+        <div class="clickable card w-fit p-2 flex flex-row gap-2" (click)="changeAdmin(communityToEdit, candidate)">
+          <img [src]="candidate.avatar" alt="avatar" class="rounded-full w-6 h-6">
+          <p>
+            {{candidate.name}}
+          </p>
+        </div>
         }
       </div>
       }
