@@ -299,18 +299,22 @@
     }
   },
   "footer": {
-  "description": "Brings households and communities together through better organization and communication. Free and open source.",
-  "navigationTitle": "Navigation",
-  "legalTitle": "Legal",
-  "links": {
-    "login": "Login",
-    "register": "Register",
-    "github": "Github",
-    "privacy": "Privacy Policy",
-    "imprint": "Imprint"
+    "description": "Brings households and communities together through better organization and communication. Free and open source.",
+    "navigationTitle": "Navigation",
+    "legalTitle": "Legal",
+    "links": {
+      "login": "Login",
+      "register": "Register",
+      "github": "Github",
+      "privacy": "Privacy Policy",
+      "imprint": "Imprint"
+    },
+    "credits": "A Ghostbyte Production",
+    "ghostbyte": "Ghostbyte"
   },
-  "credits": "A Ghostbyte Production",
-  "ghostbyte": "Ghostbyte"
-}
-
+  "header": {
+    "ctaApp": "To the App",
+    "login": "Login",
+    "register": "Register"
+  }
 }

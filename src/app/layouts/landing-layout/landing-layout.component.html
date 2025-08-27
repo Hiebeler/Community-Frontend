@@ -1,28 +1,30 @@
-<header class="flex justify-center items-center px-5 py-5 bg-transparent">
-  <div class="container flex justify-between items-center">
-    <a routerLink="/" class=" flex items-center space-x-2">
-      <img src="../../../assets/logos/logo.svg" alt="Logo" class="h-10 w-10" />
-      <span class="text-2xl font-bold">Together</span>
-    </a>
+<ng-container *transloco="let t; prefix: 'header'">
+  <header class="flex justify-center items-center px-5 py-5 bg-transparent">
+    <div class="container flex justify-between items-center">
+      <a routerLink="/" class="flex items-center space-x-2">
+        <img src="../../../assets/logos/logo.svg" alt="Logo" class="h-10 w-10" />
+        <span class="text-2xl font-bold">Together</span>
+      </a>
 
-    @if (isLoggedIn()) {
-    <a routerLink="/calendar" class="btn-primary space-x-2">
-      <span class="font-bold">Zur App</span>
-      <lucide-icon [img]="arrowRightIcon" size="20"></lucide-icon>
-    </a>
-    } @else {
-    <div class="flex space-x-3">
-      <a routerLink="/login" class="btn-neutral">
-        <span class="font-bold">Anmelden</span>
-      </a>
-      <a routerLink="/register" class="btn-primary">
-        <span class="font-bold">Registrieren</span>
-      </a>
+      @if (isLoggedIn()) {
+        <a routerLink="/calendar" class="btn-primary space-x-2">
+          <span class="font-bold">{{t('ctaApp')}}</span>
+          <lucide-icon [img]="arrowRightIcon" size="20"></lucide-icon>
+        </a>
+        } @else {
+        <div class="flex space-x-3">
+          <a routerLink="/login" class="btn-neutral">
+            <span class="font-bold">{{t('login')}}</span>
+          </a>
+          <a routerLink="/register" class="btn-primary">
+            <span class="font-bold">{{t('register')}}</span>
+          </a>
+        </div>
+        }
+
     </div>
-    }
-  </div>
-
-</header>
+  </header>
+</ng-container>
 
 <router-outlet></router-outlet>
 

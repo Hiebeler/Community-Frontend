@@ -101,8 +101,4 @@ export class ProfilePage {
         }
       });
   }
-
-  changeLanguage(lang: string) {
-    this.translocoService.setActiveLang(lang);
-  }
 }

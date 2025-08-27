@@ -308,18 +308,22 @@
     }
   },
   "footer": {
-  "description": "Bringt Haushalte und Gemeinschaften durch bessere Organisation und Kommunikation zusammen. Kostenlos und open source.",
-  "navigationTitle": "Navigation",
-  "legalTitle": "Rechtliches",
-  "links": {
-    "login": "Anmelden",
-    "register": "Registrieren",
-    "github": "Github",
-    "privacy": "Datenschutzerklärung",
-    "imprint": "Impressum"
+    "description": "Bringt Haushalte und Gemeinschaften durch bessere Organisation und Kommunikation zusammen. Kostenlos und open source.",
+    "navigationTitle": "Navigation",
+    "legalTitle": "Rechtliches",
+    "links": {
+      "login": "Anmelden",
+      "register": "Registrieren",
+      "github": "Github",
+      "privacy": "Datenschutzerklärung",
+      "imprint": "Impressum"
+    },
+    "credits": "A Ghostbyte Production",
+    "ghostbyte": "Ghostbyte"
   },
-  "credits": "A Ghostbyte Production",
-  "ghostbyte": "Ghostbyte"
-}
-
+  "header": {
+    "ctaApp": "Zur App",
+    "login": "Anmelden",
+    "register": "Registrieren"
+  }
 }
