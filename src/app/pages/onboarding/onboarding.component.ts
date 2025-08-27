@@ -31,6 +31,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ProfileImageEditorComponent } from 'src/app/components/profile-image-editor/profile-image-editor.component';
 import { PrimaryButton } from 'src/app/components/primary-button/primary-button';
 import { TranslocoModule } from '@jsverse/transloco';
+import { LanguageSwitcher } from "src/app/components/language-switcher/language-switcher";
 
 @Component({
   selector: 'app-onboarding',
@@ -46,8 +47,9 @@ import { TranslocoModule } from '@jsverse/transloco';
     RouterModule,
     Navbar,
     PrimaryButton,
-    TranslocoModule
-  ],
+    TranslocoModule,
+    LanguageSwitcher
+],
 })
 export class OnboardingComponent implements OnInit {
   readonly switchIcon = ArrowLeftRightIcon;

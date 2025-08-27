@@ -11,6 +11,11 @@ export class LanguageSwitcher {
 
   constructor(private translocoService: TranslocoService) {
     this.activeLang = translocoService.getActiveLang();
+
+    translocoService.langChanges$.subscribe(lang => {
+      console.log(`Language changed to: ${lang}`);
+      this.activeLang = lang;
+    });
   }
 
   toggleLang() {

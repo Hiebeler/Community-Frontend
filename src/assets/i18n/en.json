@@ -125,6 +125,9 @@
   "onboarding": {
     "title": "Manage Communities",
     "loggedInAs": "Logged in as",
+    "language": {
+      "changeLanguage": "Change language"
+    },
     "communities": {
       "yourCommunities": "Your Communities",
       "noCommunityJoined": "You haven't joined any communities yet",

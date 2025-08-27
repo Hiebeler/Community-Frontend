@@ -16,6 +16,12 @@
   </ng-container>
   @if (user()) {
   <div class="space-y-4">
+    <ng-container *transloco="let t; prefix: 'onboarding.language'">
+      <div class="card flex space-x-3 items-center">
+        <span>{{t('changeLanguage')}}:</span>
+       <app-language-switcher />
+      </div>
+    </ng-container>
     <ng-container *transloco="let t; prefix: 'onboarding'">
 
       <div class="card flex space-x-3 items-center">

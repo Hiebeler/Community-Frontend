@@ -125,6 +125,9 @@
   "onboarding": {
     "title": "Gemeinschaften verwalten",
     "loggedInAs": "Angemeldet als",
+    "language": {
+      "changeLanguage": "Sprache ändern"
+    },
     "communities": {
       "yourCommunities": "Deine Gemeinschaften",
       "noCommunityJoined": "Noch keiner Gemeinschaft beigetreten",
