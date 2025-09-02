@@ -67,7 +67,7 @@
       <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()" class="space-y-3">
         <div>
           <label for="name" id="name">{{t('nameLabel')}}</label>
-          <input type="text" formControlName="createname" [placeholder]="t('namePlaceholder')" autocomplete="off" class="w-full" />
+          <input type="text" formControlName="createname" [placeholder]="t('namePlaceholder')" autocomplete="off" class="w-full" #editorNameInput/>
         </div>
 
         <app-primary-button type="submit" [isLoading]="isLoadingSave" [disabled]="itemEditorForm.invalid"

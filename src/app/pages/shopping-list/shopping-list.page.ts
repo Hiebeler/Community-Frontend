@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, effect } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, effect } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -40,6 +40,8 @@ export class ShoppingListPage {
   readonly closeIcon = XIcon;
   readonly alldoneIcon = CheckCheckIcon;
   readonly checkIcon = CheckIcon;
+
+  @ViewChild('editorNameInput') editorNameInput?: ElementRef<HTMLInputElement>;
 
   editorIsOpen = false;
   itemToUpdate: ShoppingItem = null;
@@ -82,6 +84,10 @@ export class ShoppingListPage {
   openEditor(state: boolean) {
     this.itemEditorForm.controls.createname.setValue('');
     this.editorIsOpen = state;
+      setTimeout(() => {
+        this.editorNameInput?.nativeElement.focus();
+      });
+
   }
 
   openUpdateEditor(item?: ShoppingItem) {
