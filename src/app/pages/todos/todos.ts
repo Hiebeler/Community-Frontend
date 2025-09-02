@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, ElementRef, signal, ViewChild } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -34,7 +34,7 @@ import { TodosService } from 'src/app/services/todos.service';
     PopupComponent,
     Navbar,
     TimeAgoPipe,
-    TranslocoModule
+    TranslocoModule,
   ],
 })
 export class Todos {
@@ -42,6 +42,8 @@ export class Todos {
   readonly closeIcon = XIcon;
   readonly alldoneIcon = CheckCheckIcon;
   readonly checkIcon = CheckIcon;
+
+  @ViewChild('editNameInput') editNameInput?: ElementRef<HTMLInputElement>;
 
   editorIsOpen = false;
   todoToUpdate = signal<Todo | null>(null);
@@ -100,6 +102,9 @@ export class Todos {
   openEditor(state: boolean) {
     this.itemEditorForm.reset();
     this.editorIsOpen = state;
+    setTimeout(() => {
+      this.editNameInput?.nativeElement.focus();
+    });
   }
 
   openUpdateEditor(item?: Todo) {

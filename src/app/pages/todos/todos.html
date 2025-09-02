@@ -78,7 +78,7 @@
 
     <form [formGroup]="itemEditorForm" (ngSubmit)="saveItem()" class="space-y-3">
       <label for="name">{{t('nameLabel')}}</label>
-      <input type="text" id="name" formControlName="createname" [placeholder]="t('namePlaceholder')" autocomplete="off" class="w-full" />
+      <input type="text" id="name" formControlName="createname" [placeholder]="t('namePlaceholder')" autocomplete="off" class="w-full" #editNameInput/>
 
       <label for="description">{{t('descriptionLabel')}}</label>
       <textarea type="text" id="description" formControlName="createdescription" [placeholder]="t('descriptionPlaceholder')"
